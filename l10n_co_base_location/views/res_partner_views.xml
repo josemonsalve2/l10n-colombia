@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+		<record id="view_partner_form" model="ir.ui.view">
+			<field name="model">res.partner</field>
+			<field name="inherit_id" ref="base_location.view_partner_form"/>
+			<field name="arch" type="xml">
+				<field name="zip_id" position="before">
+                    <field name="country_code" invisible="1"/>
+				</field>
+				<field name="zip_id" position="attributes">
+                    <attribute name="attrs">{'readonly': [('type', '=', 'contact'), ('parent_id', '!=', False)], 'required': [('country_code', '=', 'CO')]}</attribute>
+				</field>
+				<xpath expr="//field[@name='child_ids']/form//field[@name='zip_id']" position="before">
+					<field name="country_code" invisible="1"/>
+				</xpath>
+				<xpath expr="//field[@name='child_ids']/form//field[@name='zip_id']" position="attributes">
+					<attribute name="attrs">{'required': [('country_code', '=', 'CO')]}</attribute>
+				</xpath>
+			</field>
+		</record>
+	</data>
+</odoo>

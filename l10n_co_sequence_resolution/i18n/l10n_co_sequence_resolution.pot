@@ -1,0 +1,156 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* l10n_co_sequence_resolution
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 10.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-09-29 02:27+0000\n"
+"PO-Revision-Date: 2019-09-29 02:27+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: l10n_co_sequence_resolution
+#: model:ir.model.fields,field_description:l10n_co_sequence_resolution.field_ir_sequence_date_range_active_resolution
+msgid "Active Resolution?"
+msgstr ""
+
+#. module: l10n_co_sequence_resolution
+#: selection:ir.sequence,dian_type:0
+msgid "Computer Generated Invoice"
+msgstr ""
+
+#. module: l10n_co_sequence_resolution
+#: model:ir.model.fields,field_description:l10n_co_sequence_resolution.field_ir_sequence_dian_type
+msgid "DIAN Type"
+msgstr ""
+
+#. module: l10n_co_sequence_resolution
+#: code:addons/l10n_co_sequence_resolution/models/ir_sequence.py:106
+#, python-format
+msgid "Final Date must be greater or equal than Initial Date."
+msgstr ""
+
+#. module: l10n_co_sequence_resolution
+#: model:ir.model.fields,field_description:l10n_co_sequence_resolution.field_ir_sequence_date_range_number_to
+msgid "Final Number"
+msgstr ""
+
+#. module: l10n_co_sequence_resolution
+#: model:ir.model.fields,field_description:l10n_co_sequence_resolution.field_ir_sequence_date_range_number_from
+msgid "Initial Number"
+msgstr ""
+
+#. module: l10n_co_sequence_resolution
+#: model:ir.model,name:l10n_co_sequence_resolution.model_account_invoice
+msgid "Invoice"
+msgstr ""
+
+#. module: l10n_co_sequence_resolution
+#: code:addons/l10n_co_sequence_resolution/models/ir_sequence.py:109
+#, python-format
+msgid "Number To must be greater or equal than Number From."
+msgstr ""
+
+#. module: l10n_co_sequence_resolution
+#: selection:ir.sequence,dian_type:0
+msgid "POS Invoice"
+msgstr ""
+
+#. module: l10n_co_sequence_resolution
+#: model:ir.model.fields,field_description:l10n_co_sequence_resolution.field_ir_sequence_date_range_prefix
+msgid "Prefix"
+msgstr ""
+
+#. module: l10n_co_sequence_resolution
+#: model:ir.model.fields,field_description:l10n_co_sequence_resolution.field_ir_sequence_remaining_days
+msgid "Remaining Days"
+msgstr ""
+
+#. module: l10n_co_sequence_resolution
+#: model:ir.model.fields,field_description:l10n_co_sequence_resolution.field_ir_sequence_remaining_numbers
+msgid "Remaining Numbers"
+msgstr ""
+
+#. module: l10n_co_sequence_resolution
+#: model:ir.model.fields,field_description:l10n_co_sequence_resolution.field_ir_sequence_date_range_resolution_number
+msgid "Resolution Number"
+msgstr ""
+
+#. module: l10n_co_sequence_resolution
+#: code:addons/l10n_co_sequence_resolution/models/ir_sequence.py:107
+#, python-format
+msgid "The Date Range must be unique or date must not be included in another Date Range."
+msgstr ""
+
+#. module: l10n_co_sequence_resolution
+#: code:addons/l10n_co_sequence_resolution/models/ir_sequence.py:110
+#, python-format
+msgid "The Number Next must be greater in one to Number To, to represent a finished sequence or Number Next must be included in Number Range."
+msgstr ""
+
+#. module: l10n_co_sequence_resolution
+#: model:ir.ui.view,arch_db:l10n_co_sequence_resolution.invoice_form
+msgid "The authorized invoicing resolution for this journal is nearby to expire or the authorized numbering is running out.<br/>\n"
+"                        <span style=\"font-weight:bold;\">Please, you must to inform the administration.</span>"
+msgstr ""
+
+#. module: l10n_co_sequence_resolution
+#: code:addons/l10n_co_sequence_resolution/models/ir_sequence.py:113
+#, python-format
+msgid "The system needs at least one active DIAN resolution."
+msgstr ""
+
+#. module: l10n_co_sequence_resolution
+#: code:addons/l10n_co_sequence_resolution/models/ir_sequence.py:112
+#, python-format
+msgid "The system needs only one active DIAN resolution."
+msgstr ""
+
+#. module: l10n_co_sequence_resolution
+#: code:addons/l10n_co_sequence_resolution/models/ir_sequence.py:157
+#, python-format
+msgid "There is no active authorized invoicing resolution."
+msgstr ""
+
+#. module: l10n_co_sequence_resolution
+#: model:ir.ui.view,arch_db:l10n_co_sequence_resolution.invoice_form
+msgid "There is no active authorized invoicing resolution.<br/>\n"
+"                        <span style=\"font-weight:bold;\">Please, you must to inform the administration.</span>"
+msgstr ""
+
+#. module: l10n_co_sequence_resolution
+#: model:ir.model.fields,field_description:l10n_co_sequence_resolution.field_ir_sequence_date_range_use_dian_control
+#: model:ir.model.fields,field_description:l10n_co_sequence_resolution.field_ir_sequence_use_dian_control
+msgid "Use DIAN Resolutions Control?"
+msgstr ""
+
+#. module: l10n_co_sequence_resolution
+#: model:ir.ui.view,arch_db:l10n_co_sequence_resolution.sequence_view
+msgid "Warn From"
+msgstr ""
+
+#. module: l10n_co_sequence_resolution
+#: model:ir.model.fields,field_description:l10n_co_sequence_resolution.field_account_invoice_warn_inactive_resolution
+msgid "Warn About Inactive Resolution?"
+msgstr ""
+
+#. module: l10n_co_sequence_resolution
+#: model:ir.model.fields,field_description:l10n_co_sequence_resolution.field_account_invoice_warn_remaining
+msgid "Warn About Remainings?"
+msgstr ""
+
+#. module: l10n_co_sequence_resolution
+#: model:ir.model,name:l10n_co_sequence_resolution.model_ir_sequence
+msgid "ir.sequence"
+msgstr ""
+
+#. module: l10n_co_sequence_resolution
+#: model:ir.model,name:l10n_co_sequence_resolution.model_ir_sequence_date_range
+msgid "ir.sequence.date_range"
+msgstr ""

@@ -1,0 +1,105 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* l10n_co_partner_vat
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 10.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-08-12 19:10+0000\n"
+"PO-Revision-Date: 2019-08-12 19:10+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: l10n_co_partner_vat
+#: model:ir.model.fields,field_description:l10n_co_partner_vat.field_res_partner_check_digit
+#: model:ir.model.fields,field_description:l10n_co_partner_vat.field_res_users_check_digit
+msgid "Verification Digit"
+msgstr "Dígito de Verificación"
+
+#. module: l10n_co_partner_vat
+#: model:ir.model.fields,field_description:l10n_co_partner_vat.field_res_partner_document_type_code
+#: model:ir.model.fields,field_description:l10n_co_partner_vat.field_res_partner_document_type_code_23560
+#: model:ir.model.fields,field_description:l10n_co_partner_vat.field_res_users_document_type_code
+msgid "Code"
+msgstr "Código"
+
+#. module: l10n_co_partner_vat
+#: model:ir.model.fields,field_description:l10n_co_partner_vat.field_res_partner_document_type_create_uid
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: l10n_co_partner_vat
+#: model:ir.model.fields,field_description:l10n_co_partner_vat.field_res_partner_document_type_create_date
+msgid "Created on"
+msgstr "Creado el"
+
+#. module: l10n_co_partner_vat
+#: model:ir.model.fields,field_description:l10n_co_partner_vat.field_res_partner_document_type_display_name
+msgid "Display Name"
+msgstr "Nombre a mostrar"
+
+#. module: l10n_co_partner_vat
+#: model:ir.model.fields,field_description:l10n_co_partner_vat.field_res_partner_document_type_id_13977
+#: model:ir.model.fields,field_description:l10n_co_partner_vat.field_res_partner_document_type_name
+#: model:ir.model.fields,field_description:l10n_co_partner_vat.field_res_users_document_type_id
+msgid "Document Type"
+msgstr "Tipo de Documento"
+
+#. module: l10n_co_partner_vat
+#: model:ir.model.fields,field_description:l10n_co_partner_vat.field_res_partner_document_type_id
+msgid "ID"
+msgstr "ID"
+
+#. module: l10n_co_partner_vat
+#: model:ir.model.fields,field_description:l10n_co_partner_vat.field_res_partner_identification_document
+#: model:ir.model.fields,field_description:l10n_co_partner_vat.field_res_users_identification_document
+#: model:ir.ui.view,arch_db:l10n_co_partner_vat.view_res_partner_filter
+msgid "Identification Document"
+msgstr "Documento de Identificación"
+
+#. module: l10n_co_partner_vat
+#: model:ir.model.fields,field_description:l10n_co_partner_vat.field_res_partner_document_type___last_update
+msgid "Last Modified on"
+msgstr "Última modificación en"
+
+#. module: l10n_co_partner_vat
+#: model:ir.model.fields,field_description:l10n_co_partner_vat.field_res_partner_document_type_write_uid
+msgid "Last Updated by"
+msgstr "Última actualización por"
+
+#. module: l10n_co_partner_vat
+#: model:ir.model.fields,field_description:l10n_co_partner_vat.field_res_partner_document_type_write_date
+msgid "Last Updated on"
+msgstr "Última actualización el"
+
+#. module: l10n_co_partner_vat
+#: model:ir.model,name:l10n_co_partner_vat.model_res_partner
+msgid "Partner"
+msgstr "Tercero"
+
+#. module: l10n_co_partner_vat
+#: model:ir.model,name:l10n_co_partner_vat.model_res_partner_document_type
+msgid "Partner Document Type"
+msgstr "Tipo de Documento del Tercero"
+
+#. module: l10n_co_partner_vat
+#: code:addons/l10n_co_partner_vat/models/res_partner.py:32
+#, python-format
+msgid "The Country has No ISO Code."
+msgstr "El País no tiene Código ISO."
+
+#. module: l10n_co_partner_vat
+#: code:addons/l10n_co_partner_vat/models/res_partner.py:48
+#, python-format
+msgid "The Identification Document does not seems to be correct."
+msgstr "El Documento de Identificación no parece ser correcto."
+
+#. module: l10n_co_partner_vat
+#: model:ir.model.fields,field_description:l10n_co_partner_vat.field_res_partner_document_type_checking_required
+msgid "VAT Check Required"
+msgstr "Verificación de NIF Requerida"
