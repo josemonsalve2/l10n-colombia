@@ -22,6 +22,16 @@ class AccountInvoice(models.Model):
 		default=False)
 	'''
 
+	@api.multi
+	def write(self, vals):
+		res = super(AccountInvoice, self).write(vals)
+
+		if vals.get('date_invoice'):
+			for invoice in self:
+				invoice._onchange_invoice_dates()
+		
+		return res
+
 	@api.onchange('date_invoice', 'date_due')
 	def _onchange_invoice_dates(self):
 		payment_mean_obj = self.env['ir.model.data']

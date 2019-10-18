@@ -19,10 +19,10 @@ Known issues / Roadmap
 
 Future possible improvement:
 Habilitar campo 'payment_mean_code_id' correspondiente al medio de pago, queda
-pendiente porque hay que analizar si con este campo en tipo 'Many2one', es
-suficiente para suplir el requerimiento o puede ser necesiario establecer un
-campo One2many ya que la factura podria tener 2 o mas pagos y cada uno podria
-ser con un medio de pago diferente, o pensar en una solucion mas avanzada que
+pendiente porque hay que analizar si con este campo en tipo 'Many2one' es
+suficiente para suplir el requerimiento o puede ser necesario establecer un
+campo One2many ya que la factura podría tener 2 o mas pagos y cada uno podría
+ser con un medio de pago diferente, o pensar en una solución mas avanzada que
 este relacionada con el pago de las facturas en Odoo.
 
 Credits
