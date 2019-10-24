@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="account_invoice_discrepancy_response_code_out_refund_001" model="account.invoice.discrepancy.response.code">
+            <field name="name">Devolución de parte de los bienes; no aceptación de partes del servicio</field>
+            <field name="code">1</field>
+            <field name="type">out_refund</field>
+        </record>
+        <record id="account_invoice_discrepancy_response_code_out_refund_002" model="account.invoice.discrepancy.response.code">
+            <field name="name">Anulación de factura electrónica</field>
+            <field name="code">2</field>
+            <field name="type">out_refund</field>
+        </record>
+        <record id="account_invoice_discrepancy_response_code_out_refund_003" model="account.invoice.discrepancy.response.code">
+            <field name="name">Rebaja total aplicada</field>
+            <field name="code">3</field>
+            <field name="type">out_refund</field>
+        </record>
+        <record id="account_invoice_discrepancy_response_code_out_refund_004" model="account.invoice.discrepancy.response.code">
+            <field name="name">Descuento total aplicado</field>
+            <field name="code">4</field>
+            <field name="type">out_refund</field>
+        </record>
+        <record id="account_invoice_discrepancy_response_code_out_refund_005" model="account.invoice.discrepancy.response.code">
+            <field name="name">Rescisión: nulidad por falta de requisitos</field>
+            <field name="code">5</field>
+            <field name="type">out_refund</field>
+        </record>
+        <record id="account_invoice_discrepancy_response_code_out_refund_006" model="account.invoice.discrepancy.response.code">
+            <field name="name">Otros</field>
+            <field name="code">6</field>
+            <field name="type">out_refund</field>
+        </record>
+        <record id="account_invoice_discrepancy_response_code_in_refund_001" model="account.invoice.discrepancy.response.code">
+            <field name="name">Intereses</field>
+            <field name="code">1</field>
+            <field name="type">in_refund</field>
+        </record>
+        <record id="account_invoice_discrepancy_response_code_in_refund_002" model="account.invoice.discrepancy.response.code">
+            <field name="name">Gastos por cobrar</field>
+            <field name="code">2</field>
+            <field name="type">in_refund</field>
+        </record>
+        <record id="account_invoice_discrepancy_response_code_in_refund_003" model="account.invoice.discrepancy.response.code">
+            <field name="name">Cambio del valor</field>
+            <field name="code">3</field>
+            <field name="type">in_refund</field>
+        </record>
+        <record id="account_invoice_discrepancy_response_code_in_refund_004" model="account.invoice.discrepancy.response.code">
+            <field name="name">Otros</field>
+            <field name="code">4</field>
+            <field name="type">in_refund</field>
+        </record>
+    </data>
+</odoo>

@@ -15,4 +15,4 @@ Credits
 Contributors
 ------------
 
-* Joan Marín <https://github.com/joanmarin>
+* Joan Marín <https://github.com/JoanMarin>

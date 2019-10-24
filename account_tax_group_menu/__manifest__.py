@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright 2018 Joan Marín <Github@joanmarin> 
+# Copyright 2018 Joan Marín <Github@JoanMarin>
 # Copyright 2018 Guillermo Montoya <Github@guillermm>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
@@ -8,7 +8,7 @@
     "category": "Financial",
     "version": "10.0.1.0.0",
     "author": "EXA Auto Parts Github@exaap, "
-              "Joan Marín Github@joanmarin, "
+              "Joan Marín Github@JoanMarin, "
               "Guillermo Montoya Github@guillermm",
     "website": "http://www.exaap.com",
     "license": "AGPL-3",

@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright 2019 Joan Marín <Github@joanmarin> 
+# Copyright 2019 Joan Marín <Github@JoanMarin>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 {
@@ -7,7 +7,7 @@
     "category": "Sales",
     "version": "10.0.1.0.0",
     "author": "EXA Auto Parts Github@exaap, "
-              "Joan Marín Github@joanmarin",
+              "Joan Marín Github@JoanMarin",
     "website": "http://www.exaap.com",
     "license": "AGPL-3",
     "summary": "This module allows to evaluate a tax at sale order level, using parameters such as total base and others.", 

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="account_fiscal_position_list_name_48" model="account.fiscal.position.list.name">
+            <field name="name">Impuesto sobre las ventas – IVA</field>
+            <field name="code">48</field>
+        </record>
+
+        <record id="account_fiscal_position_list_name_49" model="account.fiscal.position.list.name">
+            <field name="name">No responsable de IVA</field>
+            <field name="code">49</field>
+        </record>
+    </data>
+</odoo>
