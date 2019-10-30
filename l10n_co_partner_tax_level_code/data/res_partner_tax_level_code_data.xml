@@ -1,455 +1,464 @@
 <odoo>
     <data>
-        <record id="res_partner_tax_level_code_0" model="res.partner.tax.level.code">
+        <record id="res_partner_tax_level_code_1" model="res.partner.tax.level.code">
             <field name="name">Ingresos y patrimonio</field>
             <field name="code">O-06</field>
         </record>
-        <record id="res_partner_tax_level_code_1" model="res.partner.tax.level.code">
+        <record id="res_partner_tax_level_code_2" model="res.partner.tax.level.code">
             <field name="name">Retención en la fuente a título de renta</field>
             <field name="code">O-07</field>
         </record>
-        <record id="res_partner_tax_level_code_2" model="res.partner.tax.level.code">
+        <record id="res_partner_tax_level_code_3" model="res.partner.tax.level.code">
             <field name="name">Retención timbre nacional</field>
             <field name="code">O-08</field>
         </record>
-        <record id="res_partner_tax_level_code_3" model="res.partner.tax.level.code">
+        <record id="res_partner_tax_level_code_4" model="res.partner.tax.level.code">
             <field name="name">Retención en la fuente en el impuesto sobre las ventas</field>
             <field name="code">O-09</field>
         </record>
-        <record id="res_partner_tax_level_code_4" model="res.partner.tax.level.code">
-            <field name="name">Ventas régimen común</field>
-            <field name="code">O-11</field>
-        </record>
         <record id="res_partner_tax_level_code_5" model="res.partner.tax.level.code">
-            <field name="name">Ventas régimen simplificado</field>
-            <field name="code">O-12</field>
-        </record>
-        <record id="res_partner_tax_level_code_6" model="res.partner.tax.level.code">
             <field name="name">Gran contribuyente</field>
             <field name="code">O-13</field>
         </record>
-        <record id="res_partner_tax_level_code_7" model="res.partner.tax.level.code">
+        <record id="res_partner_tax_level_code_6" model="res.partner.tax.level.code">
             <field name="name">Informante de exógena</field>
             <field name="code">O-14</field>
         </record>
-        <record id="res_partner_tax_level_code_8" model="res.partner.tax.level.code">
+        <record id="res_partner_tax_level_code_7" model="res.partner.tax.level.code">
             <field name="name">Autorretenedor</field>
             <field name="code">O-15</field>
         </record>
-        <record id="res_partner_tax_level_code_9" model="res.partner.tax.level.code">
+        <record id="res_partner_tax_level_code_8" model="res.partner.tax.level.code">
             <field name="name">Obligación de facturar por ingresos de bienes y/o servicios excluidos</field>
             <field name="code">O-16</field>
         </record>
-        <record id="res_partner_tax_level_code_10" model="res.partner.tax.level.code">
+        <record id="res_partner_tax_level_code_9" model="res.partner.tax.level.code">
             <field name="name">Profesionales de compra y venta de divisas</field>
             <field name="code">O-17</field>
         </record>
-        <record id="res_partner_tax_level_code_11" model="res.partner.tax.level.code">
+        <record id="res_partner_tax_level_code_10" model="res.partner.tax.level.code">
             <field name="name">Productor y/o exportador de bienes exentos</field>
             <field name="code">O-19</field>
         </record>
-        <record id="res_partner_tax_level_code_12" model="res.partner.tax.level.code">
+        <record id="res_partner_tax_level_code_11" model="res.partner.tax.level.code">
             <field name="name">Obligado a cumplir deberes formales a nombre de terceros</field>
             <field name="code">O-22</field>
         </record>
-        <record id="res_partner_tax_level_code_13" model="res.partner.tax.level.code">
+        <record id="res_partner_tax_level_code_12" model="res.partner.tax.level.code">
             <field name="name">Agente de retención en el impuesto sobre las ventas</field>
             <field name="code">O-23</field>
         </record>
-        <record id="res_partner_tax_level_code_14" model="res.partner.tax.level.code">
+        <record id="res_partner_tax_level_code_13" model="res.partner.tax.level.code">
             <field name="name">Impuesto Nacional a la Gasolina y al ACPM</field>
             <field name="code">O-32</field>
         </record>
-        <record id="res_partner_tax_level_code_15" model="res.partner.tax.level.code">
+        <record id="res_partner_tax_level_code_14" model="res.partner.tax.level.code">
             <field name="name">Impuesto Nacional al consumo</field>
             <field name="code">O-33</field>
         </record>
-        <record id="res_partner_tax_level_code_16" model="res.partner.tax.level.code">
+        <record id="res_partner_tax_level_code_15" model="res.partner.tax.level.code">
             <field name="name">Régimen simplificado impuesto nacional consumo rest y bares</field>
             <field name="code">O-34</field>
         </record>
-        <record id="res_partner_tax_level_code_17" model="res.partner.tax.level.code">
+        <record id="res_partner_tax_level_code_16" model="res.partner.tax.level.code">
             <field name="name">Establecimiento Permanente</field>
             <field name="code">O-36</field>
         </record>
-        <record id="res_partner_tax_level_code_18" model="res.partner.tax.level.code">
+        <record id="res_partner_tax_level_code_17" model="res.partner.tax.level.code">
             <field name="name">Obligado a Facturar Electrónicamente Modelo 2242</field>
             <field name="code">O-37</field>
         </record>
-        <record id="res_partner_tax_level_code_19" model="res.partner.tax.level.code">
+        <record id="res_partner_tax_level_code_18" model="res.partner.tax.level.code">
             <field name="name">Facturación Electrónica Voluntaria Modelo 2242</field>
             <field name="code">O-38</field>
         </record>
-        <record id="res_partner_tax_level_code_20" model="res.partner.tax.level.code">
+        <record id="res_partner_tax_level_code_19" model="res.partner.tax.level.code">
             <field name="name">Proveedor de Servicios Tecnológicos PST Modelo 2242</field>
             <field name="code">O-39</field>
         </record>
+        <record id="res_partner_tax_level_code_20" model="res.partner.tax.level.code">
+            <field name="name">Régimen Simple de Tributación – SIMPLE</field>
+            <field name="code">O-47</field>
+        </record>
         <record id="res_partner_tax_level_code_21" model="res.partner.tax.level.code">
+            <field name="name">Impuesto sobre las ventas – IVA</field>
+            <field name="code">O-48</field>
+        </record>
+        <record id="res_partner_tax_level_code_22" model="res.partner.tax.level.code">
+            <field name="name">No responsable de IVA</field>
+            <field name="code">O-49</field>
+        </record>
+        <record id="res_partner_tax_level_code_23" model="res.partner.tax.level.code">
+            <field name="name">Facturador electrónico</field>
+            <field name="code">O-52</field>
+        </record>
+        <record id="res_partner_tax_level_code_24" model="res.partner.tax.level.code">
             <field name="name">Otro tipo de obligado</field>
             <field name="code">O-99</field>
         </record>
-        <record id="res_partner_tax_level_code_22" model="res.partner.tax.level.code">
-            <field name="name">PN Factor PN</field>
-            <field name="code">R-12-PN</field>
-        </record>
-        <record id="res_partner_tax_level_code_23" model="res.partner.tax.level.code">
-            <field name="name">PN Mandatario PN</field>
-            <field name="code">R-16-PN</field>
-        </record>
-        <record id="res_partner_tax_level_code_24" model="res.partner.tax.level.code">
-            <field name="name">PN Agente Interventor PN</field>
-            <field name="code">R-25-PN</field>
-        </record>
         <record id="res_partner_tax_level_code_25" model="res.partner.tax.level.code">
-            <field name="name">PJ Apoderado especial PJ</field>
-            <field name="code">R-06-PJ</field>
+            <field name="name">Clientes del Exterior</field>
+            <field name="code">R-00-PN</field>
         </record>
         <record id="res_partner_tax_level_code_26" model="res.partner.tax.level.code">
-            <field name="name">PJ Apoderado general PJ</field>
-            <field name="code">R-07-PJ</field>
+            <field name="name">Factor PN</field>
+            <field name="code">R-12-PN</field>
         </record>
         <record id="res_partner_tax_level_code_27" model="res.partner.tax.level.code">
-            <field name="name">PJ Factor PJ</field>
-            <field name="code">R-12-PJ</field>
+            <field name="name">Mandatario PN</field>
+            <field name="code">R-16-PN</field>
         </record>
         <record id="res_partner_tax_level_code_28" model="res.partner.tax.level.code">
-            <field name="name">PJ Mandatario PJ</field>
-            <field name="code">R-16-PJ</field>
+            <field name="name">Agente Interventor PN</field>
+            <field name="code">R-25-PN</field>
         </record>
         <record id="res_partner_tax_level_code_29" model="res.partner.tax.level.code">
-            <field name="name">PJ Otro tipo de responsable PJ</field>
-            <field name="code">R-99-PJ</field>
+            <field name="name">No responsable PN</field>
+            <field name="code">R-99-PN</field>
         </record>
         <record id="res_partner_tax_level_code_30" model="res.partner.tax.level.code">
+            <field name="name">Apoderado especial PJ</field>
+            <field name="code">R-06-PJ</field>
+        </record>
+        <record id="res_partner_tax_level_code_31" model="res.partner.tax.level.code">
+            <field name="name">Apoderado general PJ</field>
+            <field name="code">R-07-PJ</field>
+        </record>
+        <record id="res_partner_tax_level_code_32" model="res.partner.tax.level.code">
+            <field name="name">Factor PJ</field>
+            <field name="code">R-12-PJ</field>
+        </record>
+        <record id="res_partner_tax_level_code_33" model="res.partner.tax.level.code">
+            <field name="name">Mandatario PJ</field>
+            <field name="code">R-16-PJ</field>
+        </record>
+        <record id="res_partner_tax_level_code_34" model="res.partner.tax.level.code">
+            <field name="name">Otro tipo de responsable PJ</field>
+            <field name="code">R-99-PJ</field>
+        </record>
+        <record id="res_partner_tax_level_code_35" model="res.partner.tax.level.code">
             <field name="name">Agente de carga internacional</field>
             <field name="code">A-01</field>
         </record>
-        <record id="res_partner_tax_level_code_31" model="res.partner.tax.level.code">
+        <record id="res_partner_tax_level_code_36" model="res.partner.tax.level.code">
             <field name="name">Agente marítimo</field>
             <field name="code">A-02</field>
         </record>
-        <record id="res_partner_tax_level_code_32" model="res.partner.tax.level.code">
+        <record id="res_partner_tax_level_code_37" model="res.partner.tax.level.code">
             <field name="name">Almacén general de depósito</field>
             <field name="code">A-03</field>
         </record>
-        <record id="res_partner_tax_level_code_33" model="res.partner.tax.level.code">
+        <record id="res_partner_tax_level_code_38" model="res.partner.tax.level.code">
             <field name="name">Comercializadora internacional (C.I.)</field>
             <field name="code">A-04</field>
         </record>
-        <record id="res_partner_tax_level_code_34" model="res.partner.tax.level.code">
-            <field name="name">Comerciante de la zona aduanera especial de Inírida, Puerto Carreño,
-                Cumaribo y Primavera
-            </field>
+        <record id="res_partner_tax_level_code_39" model="res.partner.tax.level.code">
+            <field name="name">Comerciante de la zona aduanera especial de Inírida, Puerto Carreño, Cumaribo y Primavera</field>
             <field name="code">A-05</field>
         </record>
-        <record id="res_partner_tax_level_code_35" model="res.partner.tax.level.code">
+        <record id="res_partner_tax_level_code_40" model="res.partner.tax.level.code">
             <field name="name">Comerciantes de la zona de régimen aduanero especial de Leticia</field>
             <field name="code">A-06</field>
         </record>
-        <record id="res_partner_tax_level_code_36" model="res.partner.tax.level.code">
-            <field name="name">Comerciantes de la zona de régimen aduanero especial de Maicao, Uribia y Manaure
-            </field>
+        <record id="res_partner_tax_level_code_41" model="res.partner.tax.level.code">
+            <field name="name">Comerciantes de la zona de régimen aduanero especial de Maicao, Uribia y Manaure</field>
             <field name="code">A-07</field>
         </record>
-        <record id="res_partner_tax_level_code_37" model="res.partner.tax.level.code">
-            <field name="name">Comerciantes de la zona de régimen aduanero especial de Urabá, Tumaco y Guapí
-            </field>
+        <record id="res_partner_tax_level_code_42" model="res.partner.tax.level.code">
+            <field name="name">Comerciantes de la zona de régimen aduanero especial de Urabá, Tumaco y Guapí</field>
             <field name="code">A-08</field>
         </record>
-        <record id="res_partner_tax_level_code_38" model="res.partner.tax.level.code">
+        <record id="res_partner_tax_level_code_43" model="res.partner.tax.level.code">
             <field name="name">Comerciantes del puerto libre de San Andrés, Providencia y Santa Catalina</field>
             <field name="code">A-09</field>
         </record>
-        <record id="res_partner_tax_level_code_39" model="res.partner.tax.level.code">
+        <record id="res_partner_tax_level_code_44" model="res.partner.tax.level.code">
             <field name="name">Depósito público de apoyo logístico internacional</field>
             <field name="code">A-10</field>
         </record>
-        <record id="res_partner_tax_level_code_40" model="res.partner.tax.level.code">
+        <record id="res_partner_tax_level_code_45" model="res.partner.tax.level.code">
             <field name="name">Depósito privado para procesamiento industrial</field>
             <field name="code">A-11</field>
         </record>
-        <record id="res_partner_tax_level_code_41" model="res.partner.tax.level.code">
+        <record id="res_partner_tax_level_code_46" model="res.partner.tax.level.code">
             <field name="name">Depósito privado de transformación o ensamble</field>
             <field name="code">A-12</field>
         </record>
-        <record id="res_partner_tax_level_code_42" model="res.partner.tax.level.code">
+        <record id="res_partner_tax_level_code_47" model="res.partner.tax.level.code">
             <field name="name">Depósito franco</field>
             <field name="code">A-13</field>
         </record>
-        <record id="res_partner_tax_level_code_43" model="res.partner.tax.level.code">
+        <record id="res_partner_tax_level_code_48" model="res.partner.tax.level.code">
             <field name="name">Depósito privado aeronáutico</field>
             <field name="code">A-14</field>
         </record>
-        <record id="res_partner_tax_level_code_44" model="res.partner.tax.level.code">
+        <record id="res_partner_tax_level_code_49" model="res.partner.tax.level.code">
             <field name="name">Depósito privado para distribución internacional</field>
             <field name="code">A-15</field>
         </record>
-        <record id="res_partner_tax_level_code_45" model="res.partner.tax.level.code">
+        <record id="res_partner_tax_level_code_50" model="res.partner.tax.level.code">
             <field name="name">Depósito privado de provisiones de a bordo para consumo y para llevar</field>
             <field name="code">A-16</field>
         </record>
-        <record id="res_partner_tax_level_code_46" model="res.partner.tax.level.code">
+        <record id="res_partner_tax_level_code_51" model="res.partner.tax.level.code">
             <field name="name">Depósito privado para envíos urgentes</field>
             <field name="code">A-17</field>
         </record>
-        <record id="res_partner_tax_level_code_47" model="res.partner.tax.level.code">
+        <record id="res_partner_tax_level_code_52" model="res.partner.tax.level.code">
             <field name="name">Depósito privado</field>
             <field name="code">A-18</field>
         </record>
-        <record id="res_partner_tax_level_code_48" model="res.partner.tax.level.code">
+        <record id="res_partner_tax_level_code_53" model="res.partner.tax.level.code">
             <field name="name">Depósito público</field>
             <field name="code">A-19</field>
         </record>
-        <record id="res_partner_tax_level_code_49" model="res.partner.tax.level.code">
+        <record id="res_partner_tax_level_code_54" model="res.partner.tax.level.code">
             <field name="name">Depósito público para distribución internacional</field>
             <field name="code">A-20</field>
         </record>
-        <record id="res_partner_tax_level_code_50" model="res.partner.tax.level.code">
+        <record id="res_partner_tax_level_code_55" model="res.partner.tax.level.code">
             <field name="name">Exportador de café</field>
             <field name="code">A-21</field>
         </record>
-        <record id="res_partner_tax_level_code_51" model="res.partner.tax.level.code">
+        <record id="res_partner_tax_level_code_56" model="res.partner.tax.level.code">
             <field name="name">Exportador</field>
             <field name="code">A-22</field>
         </record>
-        <record id="res_partner_tax_level_code_52" model="res.partner.tax.level.code">
+        <record id="res_partner_tax_level_code_57" model="res.partner.tax.level.code">
             <field name="name">Importador</field>
             <field name="code">A-23</field>
         </record>
-        <record id="res_partner_tax_level_code_53" model="res.partner.tax.level.code">
+        <record id="res_partner_tax_level_code_58" model="res.partner.tax.level.code">
             <field name="name">Intermediario de tráfico postal y envíos urgentes</field>
             <field name="code">A-24</field>
         </record>
-        <record id="res_partner_tax_level_code_54" model="res.partner.tax.level.code">
+        <record id="res_partner_tax_level_code_59" model="res.partner.tax.level.code">
             <field name="name">Operador de transporte multimodal</field>
             <field name="code">A-25</field>
         </record>
-        <record id="res_partner_tax_level_code_55" model="res.partner.tax.level.code">
+        <record id="res_partner_tax_level_code_60" model="res.partner.tax.level.code">
             <field name="name">Sociedad de intermediación aduanera</field>
             <field name="code">A-26</field>
         </record>
-        <record id="res_partner_tax_level_code_56" model="res.partner.tax.level.code">
+        <record id="res_partner_tax_level_code_61" model="res.partner.tax.level.code">
             <field name="name">Titular de puertos y muelles de servicio público o privado</field>
             <field name="code">A-27</field>
         </record>
-        <record id="res_partner_tax_level_code_57" model="res.partner.tax.level.code">
-            <field name="name">Transportador 231nfor régimen de importación y/o exportación
-            </field>
+        <record id="res_partner_tax_level_code_62" model="res.partner.tax.level.code">
+            <field name="name">Transportador 232nfor régimen de importación y/o exportación</field>
             <field name="code">A-28</field>
         </record>
-        <record id="res_partner_tax_level_code_58" model="res.partner.tax.level.code">
-            <field name="name">Transportista nacional para operaciones del régimen de tránsito aduanero
-            </field>
+        <record id="res_partner_tax_level_code_63" model="res.partner.tax.level.code">
+            <field name="name">Transportista nacional para operaciones del régimen de tránsito aduanero</field>
             <field name="code">A-29</field>
         </record>
-        <record id="res_partner_tax_level_code_59" model="res.partner.tax.level.code">
+        <record id="res_partner_tax_level_code_64" model="res.partner.tax.level.code">
             <field name="name">Usuario comercial zona franca</field>
             <field name="code">A-30</field>
         </record>
-        <record id="res_partner_tax_level_code_60" model="res.partner.tax.level.code">
+        <record id="res_partner_tax_level_code_65" model="res.partner.tax.level.code">
             <field name="name">Usuario industrial de bienes zona franca</field>
             <field name="code">A-32</field>
         </record>
-        <record id="res_partner_tax_level_code_61" model="res.partner.tax.level.code">
+        <record id="res_partner_tax_level_code_66" model="res.partner.tax.level.code">
             <field name="name">Usuario industrial de servicios zona franca</field>
             <field name="code">A-34</field>
         </record>
-        <record id="res_partner_tax_level_code_62" model="res.partner.tax.level.code">
+        <record id="res_partner_tax_level_code_67" model="res.partner.tax.level.code">
             <field name="name">Usuario operador de zona franca</field>
             <field name="code">A-36</field>
         </record>
-        <record id="res_partner_tax_level_code_63" model="res.partner.tax.level.code">
+        <record id="res_partner_tax_level_code_68" model="res.partner.tax.level.code">
             <field name="name">Usuario aduanero permanente</field>
             <field name="code">A-37</field>
         </record>
-        <record id="res_partner_tax_level_code_64" model="res.partner.tax.level.code">
+        <record id="res_partner_tax_level_code_69" model="res.partner.tax.level.code">
             <field name="name">Usuario altamente exportador</field>
             <field name="code">A-38</field>
         </record>
-        <record id="res_partner_tax_level_code_65" model="res.partner.tax.level.code">
+        <record id="res_partner_tax_level_code_70" model="res.partner.tax.level.code">
             <field name="name">Usuario de zonas económicas especiales de exportación</field>
             <field name="code">A-39</field>
         </record>
-        <record id="res_partner_tax_level_code_66" model="res.partner.tax.level.code">
+        <record id="res_partner_tax_level_code_71" model="res.partner.tax.level.code">
             <field name="name">Deposito privado de instalaciones industriales</field>
             <field name="code">A-40</field>
         </record>
-        <record id="res_partner_tax_level_code_67" model="res.partner.tax.level.code">
+        <record id="res_partner_tax_level_code_72" model="res.partner.tax.level.code">
             <field name="name">Beneficiarios de programas especiales de exportación PEX</field>
             <field name="code">A-41</field>
         </record>
-        <record id="res_partner_tax_level_code_68" model="res.partner.tax.level.code">
-            <field name="name">Depósitos privados para mercancías en tránsito San Andrés
-            </field>
+        <record id="res_partner_tax_level_code_73" model="res.partner.tax.level.code">
+            <field name="name">Depósitos privados para mercancías en tránsito San Andrés</field>
             <field name="code">A-42</field>
         </record>
-        <record id="res_partner_tax_level_code_69" model="res.partner.tax.level.code">
+        <record id="res_partner_tax_level_code_74" model="res.partner.tax.level.code">
             <field name="name">Observadores de las operaciones de importación</field>
             <field name="code">A-43</field>
         </record>
-        <record id="res_partner_tax_level_code_70" model="res.partner.tax.level.code">
+        <record id="res_partner_tax_level_code_75" model="res.partner.tax.level.code">
             <field name="name">Usuarios sistemas especiales Importación exportación</field>
             <field name="code">A-44</field>
         </record>
-        <record id="res_partner_tax_level_code_71" model="res.partner.tax.level.code">
-            <field name="name">Transportador 231nformac régimen de importación y/o exportación
-            </field>
+        <record id="res_partner_tax_level_code_76" model="res.partner.tax.level.code">
+            <field name="name">Transportador 232nformac régimen de importación y/o exportación</field>
             <field name="code">A-46</field>
         </record>
-        <record id="res_partner_tax_level_code_72" model="res.partner.tax.level.code">
-            <field name="name">Transportador terrestre régimen de importación y/o exportación
-            </field>
+        <record id="res_partner_tax_level_code_77" model="res.partner.tax.level.code">
+            <field name="name">Transportador terrestre régimen de importación y/o exportación</field>
             <field name="code">A-47</field>
         </record>
-        <record id="res_partner_tax_level_code_73" model="res.partner.tax.level.code">
+        <record id="res_partner_tax_level_code_78" model="res.partner.tax.level.code">
             <field name="name">Aeropuerto de servicio publico o privado</field>
             <field name="code">A-48</field>
         </record>
-        <record id="res_partner_tax_level_code_74" model="res.partner.tax.level.code">
+        <record id="res_partner_tax_level_code_79" model="res.partner.tax.level.code">
             <field name="name">Transportador fluvial régimen de importación</field>
             <field name="code">A-49</field>
         </record>
-        <record id="res_partner_tax_level_code_75" model="res.partner.tax.level.code">
+        <record id="res_partner_tax_level_code_80" model="res.partner.tax.level.code">
             <field name="name">Usuario industrial zona franca especial</field>
             <field name="code">A-50</field>
         </record>
-        <record id="res_partner_tax_level_code_76" model="res.partner.tax.level.code">
+        <record id="res_partner_tax_level_code_81" model="res.partner.tax.level.code">
             <field name="name">Agencias de aduanas 1</field>
             <field name="code">A-53</field>
         </record>
-        <record id="res_partner_tax_level_code_77" model="res.partner.tax.level.code">
+        <record id="res_partner_tax_level_code_82" model="res.partner.tax.level.code">
             <field name="name">Usuario Operador Zona Franca Especial</field>
             <field name="code">A-54</field>
         </record>
-        <record id="res_partner_tax_level_code_78" model="res.partner.tax.level.code">
+        <record id="res_partner_tax_level_code_83" model="res.partner.tax.level.code">
             <field name="name">Agencias de aduanas 2</field>
             <field name="code">A-55</field>
         </record>
-        <record id="res_partner_tax_level_code_79" model="res.partner.tax.level.code">
+        <record id="res_partner_tax_level_code_84" model="res.partner.tax.level.code">
             <field name="name">Agencias de aduanas 3</field>
             <field name="code">A-56</field>
         </record>
-        <record id="res_partner_tax_level_code_80" model="res.partner.tax.level.code">
+        <record id="res_partner_tax_level_code_85" model="res.partner.tax.level.code">
             <field name="name">Agencias de aduanas 4</field>
             <field name="code">A-57</field>
         </record>
-        <record id="res_partner_tax_level_code_81" model="res.partner.tax.level.code">
+        <record id="res_partner_tax_level_code_86" model="res.partner.tax.level.code">
             <field name="name">Transportador aéreo nacional</field>
             <field name="code">A-58</field>
         </record>
-        <record id="res_partner_tax_level_code_82" model="res.partner.tax.level.code">
+        <record id="res_partner_tax_level_code_87" model="res.partner.tax.level.code">
             <field name="name">Transportador aéreo, marítimo o fluvial modalidad Cabotaje</field>
             <field name="code">A-60</field>
         </record>
-        <record id="res_partner_tax_level_code_83" model="res.partner.tax.level.code">
+        <record id="res_partner_tax_level_code_88" model="res.partner.tax.level.code">
             <field name="name">Importador de alimentos de consumo humano y animal</field>
             <field name="code">A-61</field>
         </record>
-        <record id="res_partner_tax_level_code_84" model="res.partner.tax.level.code">
+        <record id="res_partner_tax_level_code_89" model="res.partner.tax.level.code">
             <field name="name">Importador Ocasional</field>
             <field name="code">A-62</field>
         </record>
-        <record id="res_partner_tax_level_code_85" model="res.partner.tax.level.code">
+        <record id="res_partner_tax_level_code_90" model="res.partner.tax.level.code">
             <field name="name">Importador de maquinaría y sus partes Decreto 2261 de 2012</field>
             <field name="code">A-63</field>
         </record>
-        <record id="res_partner_tax_level_code_86" model="res.partner.tax.level.code">
+        <record id="res_partner_tax_level_code_91" model="res.partner.tax.level.code">
             <field name="name">Beneficiario Programa de Fomento Industria Automotriz-PROFIA</field>
             <field name="code">A-64</field>
         </record>
-        <record id="res_partner_tax_level_code_87" model="res.partner.tax.level.code">
+        <record id="res_partner_tax_level_code_92" model="res.partner.tax.level.code">
             <field name="name">Otro tipo de agente aduanero</field>
             <field name="code">A-99</field>
         </record>
-        <record id="res_partner_tax_level_code_88" model="res.partner.tax.level.code">
+
+
+        <record id="res_partner_tax_level_code_93" model="res.partner.tax.level.code">
             <field name="name">Agencia</field>
             <field name="code">E-01</field>
         </record>
-        <record id="res_partner_tax_level_code_89" model="res.partner.tax.level.code">
+        <record id="res_partner_tax_level_code_94" model="res.partner.tax.level.code">
             <field name="name">Establecimiento de comercio</field>
             <field name="code">E-02</field>
         </record>
-        <record id="res_partner_tax_level_code_90" model="res.partner.tax.level.code">
+        <record id="res_partner_tax_level_code_95" model="res.partner.tax.level.code">
             <field name="name">Centro de explotación agrícola</field>
             <field name="code">E-03</field>
         </record>
-        <record id="res_partner_tax_level_code_91" model="res.partner.tax.level.code">
+        <record id="res_partner_tax_level_code_96" model="res.partner.tax.level.code">
             <field name="name">Centro de explotación animal</field>
             <field name="code">E-04</field>
         </record>
-        <record id="res_partner_tax_level_code_92" model="res.partner.tax.level.code">
+        <record id="res_partner_tax_level_code_97" model="res.partner.tax.level.code">
             <field name="name">Centro de explotación minera</field>
             <field name="code">E-05</field>
         </record>
-        <record id="res_partner_tax_level_code_93" model="res.partner.tax.level.code">
+        <record id="res_partner_tax_level_code_98" model="res.partner.tax.level.code">
             <field name="name">Centro de explotación de transformación</field>
             <field name="code">E-06</field>
         </record>
-        <record id="res_partner_tax_level_code_94" model="res.partner.tax.level.code">
+        <record id="res_partner_tax_level_code_99" model="res.partner.tax.level.code">
             <field name="name">Centro de explotación de servicios</field>
             <field name="code">E-07</field>
         </record>
-        <record id="res_partner_tax_level_code_95" model="res.partner.tax.level.code">
+        <record id="res_partner_tax_level_code_100" model="res.partner.tax.level.code">
             <field name="name">Oficina</field>
             <field name="code">E-08</field>
         </record>
-        <record id="res_partner_tax_level_code_96" model="res.partner.tax.level.code">
+        <record id="res_partner_tax_level_code_101" model="res.partner.tax.level.code">
             <field name="name">Sede</field>
             <field name="code">E-09</field>
         </record>
-        <record id="res_partner_tax_level_code_97" model="res.partner.tax.level.code">
+        <record id="res_partner_tax_level_code_102" model="res.partner.tax.level.code">
             <field name="name">Sucursal</field>
             <field name="code">E-10</field>
         </record>
-        <record id="res_partner_tax_level_code_98" model="res.partner.tax.level.code">
+        <record id="res_partner_tax_level_code_103" model="res.partner.tax.level.code">
             <field name="name">Consultorio</field>
             <field name="code">E-11</field>
         </record>
-        <record id="res_partner_tax_level_code_99" model="res.partner.tax.level.code">
+        <record id="res_partner_tax_level_code_104" model="res.partner.tax.level.code">
             <field name="name">Administraciones</field>
             <field name="code">E-12</field>
         </record>
-        <record id="res_partner_tax_level_code_100" model="res.partner.tax.level.code">
+        <record id="res_partner_tax_level_code_105" model="res.partner.tax.level.code">
             <field name="name">Seccionales</field>
             <field name="code">E-13</field>
         </record>
-        <record id="res_partner_tax_level_code_101" model="res.partner.tax.level.code">
+        <record id="res_partner_tax_level_code_106" model="res.partner.tax.level.code">
             <field name="name">Regionales</field>
             <field name="code">E-14</field>
         </record>
-        <record id="res_partner_tax_level_code_102" model="res.partner.tax.level.code">
+        <record id="res_partner_tax_level_code_107" model="res.partner.tax.level.code">
             <field name="name">Intendencias</field>
             <field name="code">E-15</field>
         </record>
-        <record id="res_partner_tax_level_code_103" model="res.partner.tax.level.code">
+        <record id="res_partner_tax_level_code_108" model="res.partner.tax.level.code">
             <field name="name">Local o negocio</field>
             <field name="code">E-16</field>
         </record>
-        <record id="res_partner_tax_level_code_104" model="res.partner.tax.level.code">
+        <record id="res_partner_tax_level_code_109" model="res.partner.tax.level.code">
             <field name="name">Punto de venta</field>
             <field name="code">E-17</field>
         </record>
-        <record id="res_partner_tax_level_code_105" model="res.partner.tax.level.code">
+        <record id="res_partner_tax_level_code_110" model="res.partner.tax.level.code">
             <field name="name">Fábrica</field>
             <field name="code">E-18</field>
         </record>
-        <record id="res_partner_tax_level_code_106" model="res.partner.tax.level.code">
+        <record id="res_partner_tax_level_code_111" model="res.partner.tax.level.code">
             <field name="name">Taller</field>
             <field name="code">E-19</field>
         </record>
-        <record id="res_partner_tax_level_code_107" model="res.partner.tax.level.code">
+        <record id="res_partner_tax_level_code_112" model="res.partner.tax.level.code">
             <field name="name">Cantera</field>
             <field name="code">E-20</field>
         </record>
-        <record id="res_partner_tax_level_code_108" model="res.partner.tax.level.code">
+        <record id="res_partner_tax_level_code_113" model="res.partner.tax.level.code">
             <field name="name">Pozo de Petróleo y Gas</field>
             <field name="code">E-21</field>
         </record>
-        <record id="res_partner_tax_level_code_109" model="res.partner.tax.level.code">
+        <record id="res_partner_tax_level_code_114" model="res.partner.tax.level.code">
             <field name="name">Otro lug de tipo de extrac explotación de recursos naturales</field>
             <field name="code">E-22</field>
         </record>
-        <record id="res_partner_tax_level_code_110" model="res.partner.tax.level.code">
+        <record id="res_partner_tax_level_code_115" model="res.partner.tax.level.code">
             <field name="name">Otro tipo de establecimiento</field>
             <field name="code">E-99</field>
         </record>
