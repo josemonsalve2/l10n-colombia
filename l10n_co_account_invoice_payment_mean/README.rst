@@ -8,7 +8,7 @@ Formas y medios de pago para la localizacion Colombiana
 
 Este módulo tiene las formas y medios de pago identificados por la DIAN para la
 localizacion Colombiana, informacion obtenida del anexo tecnico para
-facturacion electronica, punto 6.3.4.
+facturacion electronica version 1.8, punto 14.3.4.
 
 - Crea un campo en la factura para definir la forma de pago que tuvo, se creo
     una funcion 'onchange' que establece 'Contado' si la fecha de la factura es

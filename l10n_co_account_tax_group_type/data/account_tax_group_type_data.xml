@@ -4,13 +4,13 @@
         <record model="account.tax.group.type" id="account_tax_group_type_co_01">
             <field name="code">01</field>
             <field name="name">IVA</field>
-            <field name="description">Impuesto de Valor Agregado</field>
+            <field name="description">Impuesto sobre la Ventas</field>
         </record>
 
         <record model="account.tax.group.type" id="account_tax_group_type_co_02">
             <field name="code">02</field>
             <field name="name">IC</field>
-            <field name="description">Impuesto al Consumo</field>
+            <field name="description">Impuesto al Consumo Departamental</field>
         </record>
 
         <record model="account.tax.group.type" id="account_tax_group_type_co_03">
@@ -33,7 +33,7 @@
 
         <record model="account.tax.group.type" id="account_tax_group_type_co_06">
             <field name="code">06</field>
-            <field name="name">ReteFuente</field>
+            <field name="name">ReteRenta</field>
             <field name="description">Retención sobre Renta</field>
         </record>
 
@@ -57,14 +57,14 @@
 
         <record model="account.tax.group.type" id="account_tax_group_type_co_22">
             <field name="code">22</field>
-            <field name="name">Bolsas</field>
-            <field name="description">Impuesto al Consumo de Bolsa Plástica</field>
+            <field name="name">INC Bolsas</field>
+            <field name="description">Impuesto Nacional al Consumo de Bolsa Plástica</field>
         </record>
 
         <record model="account.tax.group.type" id="account_tax_group_type_co_23">
             <field name="code">23</field>
             <field name="name">INCarbono</field>
-            <field name="description">Impuesto Nacional al Carbono</field>
+            <field name="description">Impuesto Nacional del Carbono</field>
         </record>
 
         <record model="account.tax.group.type" id="account_tax_group_type_co_24">
@@ -83,12 +83,6 @@
             <field name="code">26</field>
             <field name="name">Sordicom</field>
             <field name="description">Contribución minoristas (Combustibles)</field>
-        </record>
-
-        <record model="account.tax.group.type" id="account_tax_group_type_co_ZY">
-            <field name="code">ZY</field>
-            <field name="name">No causa</field>
-            <field name="description">No responsable de tributo</field>
         </record>
 
         <record model="account.tax.group.type" id="account_tax_group_type_co_ZZ">

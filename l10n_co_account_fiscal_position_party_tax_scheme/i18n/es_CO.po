@@ -1,0 +1,117 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* l10n_co_account_fiscal_position_party_tax_scheme
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 10.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-11-06 20:27+0000\n"
+"PO-Revision-Date: 2019-11-06 20:27+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: l10n_co_account_fiscal_position_party_tax_scheme
+#: model:ir.model.fields,field_description:l10n_co_account_fiscal_position_party_tax_scheme.field_account_fiscal_position_tax_level_code_code
+#: model:ir.model.fields,field_description:l10n_co_account_fiscal_position_party_tax_scheme.field_account_fiscal_position_tax_scheme_code
+msgid "Code"
+msgstr "Código"
+
+#. module: l10n_co_account_fiscal_position_party_tax_scheme
+#: model:ir.model.fields,field_description:l10n_co_account_fiscal_position_party_tax_scheme.field_account_fiscal_position_tax_level_code_create_uid
+#: model:ir.model.fields,field_description:l10n_co_account_fiscal_position_party_tax_scheme.field_account_fiscal_position_tax_scheme_create_uid
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: l10n_co_account_fiscal_position_party_tax_scheme
+#: model:ir.model.fields,field_description:l10n_co_account_fiscal_position_party_tax_scheme.field_account_fiscal_position_tax_level_code_create_date
+#: model:ir.model.fields,field_description:l10n_co_account_fiscal_position_party_tax_scheme.field_account_fiscal_position_tax_scheme_create_date
+msgid "Created on"
+msgstr "Creado el"
+
+#. module: l10n_co_account_fiscal_position_party_tax_scheme
+#: model:ir.model.fields,field_description:l10n_co_account_fiscal_position_party_tax_scheme.field_account_fiscal_position_tax_level_code_display_name
+#: model:ir.model.fields,field_description:l10n_co_account_fiscal_position_party_tax_scheme.field_account_fiscal_position_tax_scheme_display_name
+msgid "Display Name"
+msgstr "Nombre a Mostrar"
+
+#. module: l10n_co_account_fiscal_position_party_tax_scheme
+#: model:ir.model,name:l10n_co_account_fiscal_position_party_tax_scheme.model_account_fiscal_position
+msgid "Fiscal Position"
+msgstr "Posición Fiscal"
+
+#. module: l10n_co_account_fiscal_position_party_tax_scheme
+#: model:ir.actions.act_window,name:l10n_co_account_fiscal_position_party_tax_scheme.account_fiscal_position_tax_level_code_action
+#: model:ir.ui.menu,name:l10n_co_account_fiscal_position_party_tax_scheme.account_fiscal_position_tax_level_code_action_menu
+#: model:ir.ui.view,arch_db:l10n_co_account_fiscal_position_party_tax_scheme.account_fiscal_position_tax_level_code_view_form
+#: model:ir.ui.view,arch_db:l10n_co_account_fiscal_position_party_tax_scheme.account_fiscal_position_tax_level_code_view_tree
+msgid "Fiscal Responsibilities (TaxLevelCode)"
+msgstr "Responsabilidades Fiscales (TaxLevelCode)"
+
+#. module: l10n_co_account_fiscal_position_party_tax_scheme
+#: model:ir.actions.act_window,name:l10n_co_account_fiscal_position_party_tax_scheme.account_fiscal_position_tax_scheme_action
+#: model:ir.ui.menu,name:l10n_co_account_fiscal_position_party_tax_scheme.account_fiscal_position_tax_scheme_action_menu
+#: model:ir.ui.view,arch_db:l10n_co_account_fiscal_position_party_tax_scheme.account_fiscal_position_tax_scheme_view_form
+#: model:ir.ui.view,arch_db:l10n_co_account_fiscal_position_party_tax_scheme.account_fiscal_position_tax_scheme_view_tree
+msgid "Fiscal Responsibilities (TaxScheme)"
+msgstr "Responsabilidades Fiscales (TaxScheme)"
+
+#. module: l10n_co_account_fiscal_position_party_tax_scheme
+#: model:ir.model.fields,field_description:l10n_co_account_fiscal_position_party_tax_scheme.field_account_fiscal_position_tax_level_code_id_24747
+msgid "Fiscal Responsibility (TaxLevelCode)"
+msgstr ""
+
+#. module: l10n_co_account_fiscal_position_party_tax_scheme
+#: model:ir.model.fields,field_description:l10n_co_account_fiscal_position_party_tax_scheme.field_account_fiscal_position_tax_scheme_id_24748
+msgid "Fiscal Responsibility (TaxScheme)"
+msgstr "Responsabilidad Fiscal (TaxLevelCode)"
+
+#. module: l10n_co_account_fiscal_position_party_tax_scheme
+#: model:ir.model.fields,field_description:l10n_co_account_fiscal_position_party_tax_scheme.field_account_fiscal_position_tax_level_code_id
+#: model:ir.model.fields,field_description:l10n_co_account_fiscal_position_party_tax_scheme.field_account_fiscal_position_tax_scheme_id
+msgid "ID"
+msgstr "ID"
+
+#. module: l10n_co_account_fiscal_position_party_tax_scheme
+#: model:ir.model.fields,field_description:l10n_co_account_fiscal_position_party_tax_scheme.field_account_fiscal_position_tax_level_code___last_update
+#: model:ir.model.fields,field_description:l10n_co_account_fiscal_position_party_tax_scheme.field_account_fiscal_position_tax_scheme___last_update
+msgid "Last Modified on"
+msgstr "Última Modificación el"
+
+#. module: l10n_co_account_fiscal_position_party_tax_scheme
+#: model:ir.model.fields,field_description:l10n_co_account_fiscal_position_party_tax_scheme.field_account_fiscal_position_tax_level_code_write_uid
+#: model:ir.model.fields,field_description:l10n_co_account_fiscal_position_party_tax_scheme.field_account_fiscal_position_tax_scheme_write_uid
+msgid "Last Updated by"
+msgstr "Última Actualización por"
+
+#. module: l10n_co_account_fiscal_position_party_tax_scheme
+#: model:ir.model.fields,field_description:l10n_co_account_fiscal_position_party_tax_scheme.field_account_fiscal_position_tax_level_code_write_date
+#: model:ir.model.fields,field_description:l10n_co_account_fiscal_position_party_tax_scheme.field_account_fiscal_position_tax_scheme_write_date
+msgid "Last Updated on"
+msgstr "Última Actualización el"
+
+#. module: l10n_co_account_fiscal_position_party_tax_scheme
+#: model:ir.model.fields,field_description:l10n_co_account_fiscal_position_party_tax_scheme.field_account_fiscal_position_tax_level_code_name
+#: model:ir.model.fields,field_description:l10n_co_account_fiscal_position_party_tax_scheme.field_account_fiscal_position_tax_scheme_name
+msgid "Name"
+msgstr "Nombre"
+
+#. module: l10n_co_account_fiscal_position_party_tax_scheme
+#: model:ir.ui.view,arch_db:l10n_co_account_fiscal_position_party_tax_scheme.account_fiscal_position_tax_level_code_view_search
+#: model:ir.ui.view,arch_db:l10n_co_account_fiscal_position_party_tax_scheme.account_fiscal_position_tax_scheme_view_search
+msgid "Search"
+msgstr "Buscar"
+
+#. module: l10n_co_account_fiscal_position_party_tax_scheme
+#: model:ir.model,name:l10n_co_account_fiscal_position_party_tax_scheme.model_account_fiscal_position_tax_level_code
+msgid "account.fiscal.position.tax.level.code"
+msgstr "account.fiscal.position.tax.level.code"
+
+#. module: l10n_co_account_fiscal_position_party_tax_scheme
+#: model:ir.model,name:l10n_co_account_fiscal_position_party_tax_scheme.model_account_fiscal_position_tax_scheme
+msgid "account.fiscal.position.tax.scheme"
+msgstr "account.fiscal.position.tax.scheme"

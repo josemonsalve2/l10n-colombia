@@ -94,6 +94,7 @@ class ResPartner(models.Model):
                 if result['lastname2']:
                     parts = result['lastname2'].split(" ", 1)
                 while len(parts) < 2:
+                    result['othernames'] = False
                     return result
                 result['othernames'] = result['lastname']
                 result['lastname'] = parts[0]
