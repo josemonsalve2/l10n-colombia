@@ -1,0 +1,350 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Invoice xmlns="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2"
+	xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2"
+	xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2"
+	xmlns:ds="http://www.w3.org/2000/09/xmldsig#"
+	xmlns:ext="urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2"
+	xmlns:sts="dian:gov:co:facturaelectronica:Structures-2-1"
+	xmlns:xades="http://uri.etsi.org/01903/v1.3.2#"
+	xmlns:xades141="http://uri.etsi.org/01903/v1.4.1#"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2     http://docs.oasis-open.org/ubl/os-UBL-2.1/xsd/maindoc/UBL-Invoice-2.1.xsd">
+	<ext:UBLExtensions>
+		<ext:UBLExtension>
+			<ext:ExtensionContent>
+				<sts:DianExtensions>
+					<sts:InvoiceControl>
+						<sts:InvoiceAuthorization>{{InvoiceAuthorization}}</sts:InvoiceAuthorization>
+						<sts:AuthorizationPeriod>
+							<cbc:StartDate>{{StartDate}}</cbc:StartDate>
+							<cbc:EndDate>{{EndDate}}</cbc:EndDate>
+						</sts:AuthorizationPeriod>
+						<sts:AuthorizedInvoices>
+							<sts:Prefix>{{Prefix}}</sts:Prefix>
+							<sts:From>{{From}}</sts:From>
+							<sts:To>{{To}}</sts:To>
+						</sts:AuthorizedInvoices>
+					</sts:InvoiceControl>
+					<sts:InvoiceSource>
+						<cbc:IdentificationCode listAgencyID="6"
+							listAgencyName="United Nations Economic Commission for Europe"
+							listSchemeURI="urn:oasis:names:specification:ubl:codelist:gc:CountryIdentificationCode-2.1">CO</cbc:IdentificationCode>
+					</sts:InvoiceSource>
+					<sts:SoftwareProvider>
+						<sts:ProviderID schemeAgencyID="195"
+							schemeAgencyName="CO, DIAN (Dirección de Impuestos y Aduanas Nacionales)"
+							schemeID="4"
+							schemeName="31">{{ProviderID}}</sts:ProviderID>
+						<sts:SoftwareID schemeAgencyID="195"
+							schemeAgencyName="CO, DIAN (Dirección de Impuestos y Aduanas Nacionales)">{{SoftwareID}}</sts:SoftwareID>
+					</sts:SoftwareProvider>
+					<sts:SoftwareSecurityCode schemeAgencyID="195"
+						schemeAgencyName="CO, DIAN (Dirección de Impuestos y Aduanas Nacionales)">{{SoftwareSecurityCode}}</sts:SoftwareSecurityCode>
+					<sts:AuthorizationProvider>
+						<sts:AuthorizationProviderID schemeAgencyID="195"
+							schemeAgencyName="CO, DIAN (Dirección de Impuestos y Aduanas Nacionales)"
+							schemeID="4"
+							schemeName="31">800197268</sts:AuthorizationProviderID>
+					</sts:AuthorizationProvider>
+					<sts:QRCode>NroFactura={{ID}}
+NitFacturador={{ProviderID}}
+NitAdquiriente={{NitAdquiriente}}
+FechaFactura={{IssueDate}}
+ValorTotalFactura={{PayableAmount}}
+CUFE={{UUID}}
+URL=https://catalogo-vpfe-hab.dian.gov.co/Document/FindDocument?documentKey={{UUID}}&amp;partitionKey={{partitionKey}}&amp;emissionDate={{emissionDate}}</sts:QRCode>
+				</sts:DianExtensions>
+			</ext:ExtensionContent>
+		</ext:UBLExtension>
+		<!--Pendiente Resolver-->
+		<ext:UBLExtension>
+			<ext:ExtensionContent>
+				<ds:Signature/>
+			</ext:ExtensionContent>
+		</ext:UBLExtension>
+	</ext:UBLExtensions>
+	<cbc:UBLVersionID>UBL 2.1</cbc:UBLVersionID>
+	<cbc:CustomizationID>05</cbc:CustomizationID>
+	<cbc:ProfileID>DIAN 2.1</cbc:ProfileID>
+	<cbc:ProfileExecutionID>{{ProfileExecutionID}}</cbc:ProfileExecutionID>
+	<cbc:ID>{{ID}}</cbc:ID>
+	<cbc:UUID schemeID="2" schemeName="CUFE-SHA384">{{UUID}}</cbc:UUID>
+	<cbc:IssueDate>{{IssueDate}}</cbc:IssueDate>
+	<cbc:IssueTime>{{IssueTime}}</cbc:IssueTime>
+	<!--Pendiente Resolver, con esto se podria generalizar cosas de facturas y notas creditos y debito-->
+	<cbc:InvoiceTypeCode>{{InvoiceTypeCode}}</cbc:InvoiceTypeCode>
+	<cbc:Note>{{Note}}</cbc:Note>
+	<!--Pendiente Resolver, moneda podria ser otra?-->
+	<cbc:DocumentCurrencyCode listAgencyID="6"
+		listAgencyName="United Nations Economic Commission for Europe"
+		listID="ISO 4217 Alpha">{{DocumentCurrencyCode}}</cbc:DocumentCurrencyCode>
+	<!--Pendiente Resolver-->
+	<cbc:LineCountNumeric>2</cbc:LineCountNumeric>
+	<cac:InvoicePeriod>
+		<!--Pendiente Resolver-->
+		<cbc:StartDate>{{InvoicePeriodStartDate}}</cbc:StartDate>
+		<cbc:EndDate>{{InvoicePeriodEndDate}}</cbc:EndDate>
+	</cac:InvoicePeriod>
+	<!--Pendiente Resolver-->
+	<cac:BillingReference>
+		<cac:InvoiceDocumentReference>
+			<cbc:ID>SFR3123856</cbc:ID>
+			<cbc:UUID schemeName="CUFE-SHA1">a675432fecc1d537361dcdbdfbd08d6e5283f2bc</cbc:UUID>
+			<cbc:IssueDate>2018-09-29</cbc:IssueDate>
+			<cbc:DocumentDescription>Prepago recibido</cbc:DocumentDescription>
+		</cac:InvoiceDocumentReference>
+	</cac:BillingReference>
+	<!--Pendiente Resolver-->
+	<cac:BillingReference>
+		<cac:InvoiceDocumentReference>
+			<cbc:ID>SETP990000101</cbc:ID>
+			<cbc:UUID schemeName="CUFE-SHA384">1dc661228f152332d876e1f1cd2042ecdea1804ed0da78f84dc9ee0938d69f17037dc53f97778ed2721d65c1fc3c73ac</cbc:UUID>
+			<cbc:IssueDate>2018-09-29</cbc:IssueDate>
+			<cbc:DocumentDescription>Factura anterior</cbc:DocumentDescription>
+		</cac:InvoiceDocumentReference>
+	</cac:BillingReference>
+	<cac:AccountingSupplierParty>
+		<cbc:AdditionalAccountID>{{AccountingSupplierParty.AdditionalAccountID}}</cbc:AdditionalAccountID>
+		<cac:Party>
+			<cac:PartyName>
+				<cbc:Name>{{AccountingSupplierParty.Name}}</cbc:Name>
+			</cac:PartyName>
+			<!--Pendiente Resolver, parece informacion adicional, borrar si no es necesario>
+			<cac:PartyName>
+				<cbc:Name>Establecimiento Principal</cbc:Name>
+			</cac:PartyName>
+			<cac:PartyName>
+				<cbc:Name>DIAN</cbc:Name>
+			</cac:PartyName-->
+			<cac:PhysicalLocation>
+				<cac:Address>
+					<cbc:ID>{{AccountingSupplierParty.AddressID}}</cbc:ID>
+					<cbc:CityName>{{AccountingSupplierParty.AddressCityName}}</cbc:CityName>
+					<cbc:CountrySubentity>{{AccountingSupplierParty.AddressCountrySubentity}}</cbc:CountrySubentity>
+					<cbc:CountrySubentityCode>{{AccountingSupplierParty.AddressCountrySubentityCode}}</cbc:CountrySubentityCode>
+					<cac:AddressLine>
+						<cbc:Line>{{AccountingSupplierParty.AddressLine}}</cbc:Line>
+					</cac:AddressLine>
+					<!--Pendiente Resolver, normalmente es colombia, habria laposibilidad que fuera otro pais?-->
+					<cac:Country>
+						<cbc:IdentificationCode>CO</cbc:IdentificationCode>
+						<cbc:Name languageID="es">Colombia</cbc:Name>
+					</cac:Country>
+				</cac:Address>
+			</cac:PhysicalLocation>
+			<cac:PartyTaxScheme>
+				<cbc:RegistrationName>{{AccountingSupplierParty.Name}}</cbc:RegistrationName>
+				<cbc:CompanyID schemeAgencyID="195"
+					schemeAgencyName="CO, DIAN (Dirección de Impuestos y Aduanas Nacionales)"
+					schemeID="{{AccountingSupplierParty.CompanyIDschemeID}}"
+					schemeName="{{AccountingSupplierParty.CompanyIDschemeName}}">{{AccountingSupplierParty.CompanyID}}</cbc:CompanyID>
+				<!--Pendiente Resolver, listName el anexo dice que eliminar o valor No aplica-->
+				<cbc:TaxLevelCode listName="No aplica">{{AccountingSupplierParty.TaxLevelCode}}</cbc:TaxLevelCode>
+				<cac:RegistrationAddress>
+					<cbc:ID>{{AccountingSupplierParty.AddressID}}</cbc:ID>
+					<cbc:CityName>{{AccountingSupplierParty.AddressCityName}}</cbc:CityName>
+					<cbc:CountrySubentity>{{AccountingSupplierParty.AddressCountrySubentity}}</cbc:CountrySubentity>
+					<cbc:CountrySubentityCode>{{AccountingSupplierParty.AddressCountrySubentityCode}}</cbc:CountrySubentityCode>
+					<cac:AddressLine>
+						<cbc:Line>{{AccountingSupplierParty.AddressLine}}</cbc:Line>
+					</cac:AddressLine>
+					<!--Pendiente Resolver, normalmente es colombia, habria laposibilidad que fuera otro pais?-->
+					<cac:Country>
+						<cbc:IdentificationCode>{{AccountingSupplierParty.CountryIdentificationCode}}</cbc:IdentificationCode>
+						<cbc:Name languageID="es">{{AccountingSupplierParty.CountryName}}</cbc:Name>
+					</cac:Country>
+				</cac:RegistrationAddress>
+				<cac:TaxScheme>
+					<cbc:ID>{{AccountingSupplierParty.TaxSchemeID}}</cbc:ID>
+					<cbc:Name>{{AccountingSupplierParty.TaxSchemeName}}</cbc:Name>
+				</cac:TaxScheme>
+			</cac:PartyTaxScheme>
+			<cac:PartyLegalEntity>
+				<cbc:RegistrationName>{{AccountingSupplierParty.Name}}</cbc:RegistrationName>
+				<cbc:CompanyID schemeAgencyID="195"
+					schemeAgencyName="CO, DIAN (Dirección de Impuestos y Aduanas Nacionales)"
+					schemeID="{{AccountingSupplierParty.CompanyIDschemeID}}"
+					schemeName="{{AccountingSupplierParty.CompanyIDschemeName}}">{{AccountingSupplierParty.CompanyID}}</cbc:CompanyID>
+				<!--Pendiente Resolver, de momento seria el campo ref, pero seria bueno tener el modulo-->
+				<cac:CorporateRegistrationScheme>
+					<cbc:ID>{{Prefix}}</cbc:ID>
+					<cbc:Name>{{AccountingSupplierParty.CorporateRegistrationSchemeName}}</cbc:Name>
+				</cac:CorporateRegistrationScheme>
+			</cac:PartyLegalEntity>
+			<!--Pendiente Resolver-->
+			<cac:Contact>
+				<cbc:Name>Eric Valencia</cbc:Name>
+				<cbc:Telephone>6111111</cbc:Telephone>
+				<cbc:ElectronicMail>eric.valencia@ket.co</cbc:ElectronicMail>
+				<cbc:Note>Test descripcion contacto</cbc:Note>
+			</cac:Contact>
+		</cac:Party>
+	</cac:AccountingSupplierParty>
+	<cac:AccountingCustomerParty>
+		<cbc:AdditionalAccountID>{{AccountingCustomerParty.AdditionalAccountID}}</cbc:AdditionalAccountID>
+		<cac:Party>
+			<cac:PartyName>
+				<cbc:Name>{{AccountingCustomerParty.Name}}</cbc:Name>
+			</cac:PartyName>
+			<cac:PhysicalLocation>
+				<cac:Address>
+					<cbc:ID>{{AccountingCustomerParty.AddressID}}</cbc:ID>
+					<cbc:CityName>{{AccountingCustomerParty.AddressCityName}}</cbc:CityName>
+					<cbc:CountrySubentity>{{AccountingCustomerParty.AddressCountrySubentity}}</cbc:CountrySubentity>
+					<cbc:CountrySubentityCode>{{AccountingCustomerParty.AddressCountrySubentityCode}}</cbc:CountrySubentityCode>
+					<cac:AddressLine>
+						<cbc:Line>{{AccountingCustomerParty.AddressLine}}</cbc:Line>
+					</cac:AddressLine>
+					<cac:Country>
+						<cbc:IdentificationCode>{{AccountingCustomerParty.CountryIdentificationCode}}</cbc:IdentificationCode>
+						<cbc:Name languageID="es">{{AccountingCustomerParty.CountryName}}</cbc:Name>
+					</cac:Country>
+				</cac:Address>
+			</cac:PhysicalLocation>
+			<cac:PartyTaxScheme>
+				<cbc:RegistrationName>{{AccountingCustomerParty.Name}}</cbc:RegistrationName>
+				<cbc:CompanyID schemeAgencyID="195"
+					schemeAgencyName="CO, DIAN (Dirección de Impuestos y Aduanas Nacionales)"
+					schemeID="{{AccountingCustomerParty.CompanyIDschemeID}}"
+					schemeName="{{AccountingCustomerParty.CompanyIDschemeName}}">{{AccountingCustomerParty.CompanyID}}</cbc:CompanyID>
+				<!--Pendiente Resolver, listName el anexo dice que eliminar o valor No aplica-->
+				<cbc:TaxLevelCode listName="No aplica">{{AccountingCustomerParty.TaxLevelCode}}</cbc:TaxLevelCode>
+				<cac:RegistrationAddress>
+					<cbc:ID>{{AccountingCustomerParty.AddressID}}</cbc:ID>
+					<cbc:CityName>{{AccountingCustomerParty.AddressCityName}}</cbc:CityName>
+					<cbc:CountrySubentity>{{AccountingCustomerParty.AddressCountrySubentity}}</cbc:CountrySubentity>
+					<cbc:CountrySubentityCode>{{AccountingCustomerParty.AddressCountrySubentityCode}}</cbc:CountrySubentityCode>
+					<cac:AddressLine>
+						<cbc:Line>{{AccountingCustomerParty.AddressLine}}</cbc:Line>
+					</cac:AddressLine>
+					<cac:Country>
+						<cbc:IdentificationCode>{{AccountingCustomerParty.CountryIdentificationCode}}</cbc:IdentificationCode>
+						<cbc:Name languageID="es">{{AccountingCustomerParty.CountryName}}</cbc:Name>
+					</cac:Country>
+				</cac:RegistrationAddress>
+				<cac:TaxScheme>
+					<cbc:ID>{{AccountingCustomerParty.TaxSchemeID}}</cbc:ID>
+					<cbc:Name>{{AccountingCustomerParty.TaxSchemeName}}</cbc:Name>
+				</cac:TaxScheme>
+			</cac:PartyTaxScheme>
+			<cac:PartyLegalEntity>
+				<cbc:RegistrationName>{{AccountingCustomerParty.Name}}</cbc:RegistrationName>
+				<cbc:CompanyID schemeAgencyID="195"
+					schemeAgencyName="CO, DIAN (Dirección de Impuestos y Aduanas Nacionales)"
+					schemeID="{{AccountingCustomerParty.CompanyIDschemeID}}"
+					schemeName="{{AccountingCustomerParty.CompanyIDschemeName}}">{{AccountingCustomerParty.CompanyID}}</cbc:CompanyID>
+				<cac:CorporateRegistrationScheme>
+					<cbc:Name>{{AccountingCustomerParty.CorporateRegistrationSchemeName}}</cbc:Name>
+				</cac:CorporateRegistrationScheme>
+			</cac:PartyLegalEntity>
+			<cac:Contact>
+				<!--Pendiente Resolver-->
+				<cbc:Name>Diana Cruz</cbc:Name>
+				<cbc:Telephone>31031031089</cbc:Telephone>
+				<cbc:ElectronicMail>dcruz@empresa.org</cbc:ElectronicMail>
+			</cac:Contact>
+		</cac:Party>
+	</cac:AccountingCustomerParty>
+	<!--Pendiente Resolver-->
+	<cac:TaxRepresentativeParty>
+		<cac:PartyIdentification>
+			<cbc:ID schemeAgencyID="195"
+				schemeAgencyName="CO, DIAN (Dirección de Impuestos y Aduanas Nacionales)"
+				schemeID="{{TaxRepresentativeParty.IDschemeID}}"
+				schemeName="{{TaxRepresentativeParty.IDschemeName}}">{{TaxRepresentativeParty.ID}}</cbc:ID>
+		</cac:PartyIdentification>
+	</cac:TaxRepresentativeParty>
+	<!--Pendiente Resolver, podria ser un fragmento no necesario, siempre-->
+	<cac:Delivery>
+		<cac:DeliveryAddress>
+			<cbc:ID>11001</cbc:ID>
+			<cbc:CityName>Bogotá, D.c. </cbc:CityName>
+			<cbc:CountrySubentity>Bogotá, D.c. 11</cbc:CountrySubentity>
+			<cbc:CountrySubentityCode>11</cbc:CountrySubentityCode>
+			<cac:AddressLine>
+				<cbc:Line>CARRERA 8 No 20-14/40</cbc:Line>
+			</cac:AddressLine>
+			<cac:Country>
+				<cbc:IdentificationCode>CO</cbc:IdentificationCode>
+				<cbc:Name languageID="es">Colombia</cbc:Name>
+			</cac:Country>
+		</cac:DeliveryAddress>
+		<cac:DeliveryParty>
+			<cac:PartyName>
+				<cbc:Name>Empresa de transporte</cbc:Name>
+			</cac:PartyName>
+			<cac:PhysicalLocation>
+				<cac:Address>
+					<cbc:ID>11001</cbc:ID>
+					<cbc:CityName>Bogotá, D.c. </cbc:CityName>
+					<cbc:CountrySubentity>Bogotá</cbc:CountrySubentity>
+					<cbc:CountrySubentityCode>11</cbc:CountrySubentityCode>
+					<cac:AddressLine>
+						<cbc:Line>Av.  #17 - 193</cbc:Line>
+					</cac:AddressLine>
+					<cac:Country>
+						<cbc:IdentificationCode>CO</cbc:IdentificationCode>
+						<cbc:Name languageID="es">Colombia</cbc:Name>
+					</cac:Country>
+				</cac:Address>
+			</cac:PhysicalLocation>
+			<cac:PartyTaxScheme>
+				<cbc:RegistrationName>Empresa de transporte</cbc:RegistrationName>
+				<cbc:CompanyID schemeAgencyID="195" schemeAgencyName="CO, DIAN (Dirección de Impuestos y Aduanas Nacionales)" schemeID="1" schemeName="31">981223983</cbc:CompanyID>
+				<cbc:TaxLevelCode listName="04">O-99</cbc:TaxLevelCode>
+				<cac:TaxScheme>
+					<cbc:ID>01</cbc:ID>
+					<cbc:Name>IVA</cbc:Name>
+				</cac:TaxScheme>
+			</cac:PartyTaxScheme>
+			<cac:PartyLegalEntity>
+				<cbc:RegistrationName>Empresa de transporte</cbc:RegistrationName>
+				<cbc:CompanyID schemeAgencyID="195" schemeAgencyName="CO, DIAN (Dirección de Impuestos y Aduanas Nacionales)" schemeID="1" schemeName="31">981223983</cbc:CompanyID>
+				<cac:CorporateRegistrationScheme>
+					<cbc:Name>75433</cbc:Name>
+				</cac:CorporateRegistrationScheme>
+			</cac:PartyLegalEntity>
+			<cac:Contact>
+				<cbc:Name>Eric Van Boxsom</cbc:Name>
+				<cbc:Telephone>9712311</cbc:Telephone>
+				<cbc:Telefax>12431241</cbc:Telefax>
+				<cbc:ElectronicMail>eric.vanboxsom@gosocket.net</cbc:ElectronicMail>
+				<cbc:Note>Test descripcion contacto</cbc:Note>
+			</cac:Contact>
+		</cac:DeliveryParty>
+	</cac:Delivery>
+	<!--Pendiente Resolver, falta definir que modulo del icoterms se elige-->
+	<cac:DeliveryTerms>
+		<cbc:SpecialTerms>Portes Pagados</cbc:SpecialTerms>
+		<cbc:LossRiskResponsibilityCode>CFR</cbc:LossRiskResponsibilityCode>
+		<cbc:LossRisk>Costo y Flete</cbc:LossRisk>
+	</cac:DeliveryTerms>
+	<!--Pendiente Resolver, modulo payment means incompleto-->
+	<cac:PaymentMeans>
+		<cbc:ID>{{PaymentMeansID}}</cbc:ID>
+		<cbc:PaymentMeansCode>{{PaymentMeansCode}}</cbc:PaymentMeansCode>
+		<cbc:PaymentDueDate>{{PaymentDueDate}}</cbc:PaymentDueDate>
+		<cbc:PaymentID>{{PaymentID}}</cbc:PaymentID>
+	</cac:PaymentMeans>
+	<!--Pendiente Resolver-->
+	<cac:PrepaidPayment>
+		<cbc:ID>SFR3123856</cbc:ID>
+		<cbc:PaidAmount currencyID="COP">1000.00</cbc:PaidAmount>
+		<cbc:ReceivedDate>2018-09-29</cbc:ReceivedDate>
+		<cbc:PaidDate>2018-09-29</cbc:PaidDate>
+		<cbc:InstructionID>Prepago recibido</cbc:InstructionID>
+	</cac:PrepaidPayment>
+	<!--Pendiente Resolver-->
+	<cac:TaxTotal/>
+	<!--Pendiente Resolver, hay que resolver el tema de los prepagos-->
+	<!--TaxInclusiveAmount == PayableAmount y PrepaidAmount == 0 mientras tanto-->
+	<cac:LegalMonetaryTotal>
+		<cbc:LineExtensionAmount currencyID="COP">{{LineExtensionAmount}}</cbc:LineExtensionAmount>
+		<cbc:TaxExclusiveAmount currencyID="COP">{{TaxExclusiveAmount}}</cbc:TaxExclusiveAmount>
+		<cbc:TaxInclusiveAmount currencyID="COP">{{TaxInclusiveAmount}}</cbc:TaxInclusiveAmount>
+		<cbc:PrepaidAmount currencyID="COP">{{PrepaidAmount}}</cbc:PrepaidAmount>
+		<cbc:PayableAmount currencyID="COP">{{PayableAmount}}</cbc:PayableAmount>
+	</cac:LegalMonetaryTotal>
+	<!--Pendiente Resolver-->
+	<cac:InvoiceLine/>
+</Invoice>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record model="ir.ui.view" id="view_invoice_form">
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="account.invoice_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//notebook" position="inside">
+                <page name="einvoicing" string="E-Invoicing">
+                    <field name="dian_document_lines" mode="tree" readonly="1">
+                        <tree string="DIAN Documents">
+                            <field name="cufe_cude"/>
+                            <field name="xml_filename"/>
+                            <field name="state"/>
+                        </tree>
+                    </field>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>
