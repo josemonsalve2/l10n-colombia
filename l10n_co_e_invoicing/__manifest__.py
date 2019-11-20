@@ -10,7 +10,7 @@
               "Joan Marín Github@joanmarin",
     "website": "http://www.exaap.com",
     "license": "AGPL-3",
-    "summary": "Types for Tax Groups", 
+    "summary": "Colombian E-Invoicing", 
     "depends": [
         "l10n_co_account_fiscal_position_party_tax_scheme",
         "l10n_co_account_invoice_discrepancy_response",

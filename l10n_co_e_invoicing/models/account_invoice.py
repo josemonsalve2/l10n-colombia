@@ -58,26 +58,55 @@ class AccountInvoice(models.Model):
         einvoicing_taxes = {}
 
         for tax in self.tax_line_ids:
-            if tax.tax_id.tax_group_id.is_einvoicing and not tax.tax_id.tax_group_id.tax_group_type_id:
-                raise UserError(msg % tax.name)
+            if tax.tax_id.tax_group_id.is_einvoicing:
+                if not tax.tax_id.tax_group_id.tax_group_type_id:
+                    raise UserError(msg % tax.name)
 
-            tax_code = tax.tax_id.tax_group_id.tax_group_type_id.code
-            tax_name = tax.tax_id.tax_group_id.tax_group_type_id.name
-            tax_percent = str('{:.2f}'.format(tax.tax_id.amount or 0))
+                tax_code = tax.tax_id.tax_group_id.tax_group_type_id.code
+                tax_name = tax.tax_id.tax_group_id.tax_group_type_id.name
+                tax_percent = str('{:.2f}'.format(tax.tax_id.amount or 0))
 
-            if tax_code not in einvoicing_taxes:
-                einvoicing_taxes[tax_code] = {}
-                einvoicing_taxes[tax_code]['total'] = 0
-                einvoicing_taxes[tax_code]['name'] = tax_name
-            
-            if tax_percent not in einvoicing_taxes[tax_code]:
-                einvoicing_taxes[tax_code][tax_percent] = {}
-                einvoicing_taxes[tax_code][tax_percent]['total'] = 0
-                einvoicing_taxes[tax_code][tax_percent]['base'] = 0
-            
-            einvoicing_taxes[tax_code]['total'] += tax.amount
-            einvoicing_taxes[tax_code][tax_percent]['total'] += tax.amount
-            einvoicing_taxes[tax_code][tax_percent]['base'] += tax.base
+                if tax_code not in einvoicing_taxes:
+                    einvoicing_taxes[tax_code] = {}
+                    einvoicing_taxes[tax_code]['total'] = 0
+                    einvoicing_taxes[tax_code]['name'] = tax_name
+                    einvoicing_taxes[tax_code]['taxes'] = {}
+
+                if tax_percent not in einvoicing_taxes[tax_code]['taxes']:
+                    einvoicing_taxes[tax_code]['taxes'][tax_percent] = {}
+                    einvoicing_taxes[tax_code]['taxes'][tax_percent]['base'] = 0
+                    einvoicing_taxes[tax_code]['taxes'][tax_percent]['amount'] = 0
+
+                einvoicing_taxes[tax_code]['total'] += tax.amount
+                einvoicing_taxes[tax_code]['taxes'][tax_percent]['base'] += tax.base
+                einvoicing_taxes[tax_code]['taxes'][tax_percent]['amount'] += tax.amount
+
+        if '01' not in einvoicing_taxes:
+            einvoicing_taxes['01'] = {}
+            einvoicing_taxes['01']['total'] = 0
+            einvoicing_taxes['01']['name'] = 'IVA'
+            einvoicing_taxes['01']['taxes'] = {}
+            einvoicing_taxes['01']['taxes']['0.00'] = {}
+            einvoicing_taxes['01']['taxes']['0.00']['base'] = 0
+            einvoicing_taxes['01']['taxes']['0.00']['amount'] = 0
+        
+        if '04' not in einvoicing_taxes:
+            einvoicing_taxes['04'] = {}
+            einvoicing_taxes['04']['total'] = 0
+            einvoicing_taxes['04']['name'] = 'ICA'
+            einvoicing_taxes['04']['taxes'] = {}
+            einvoicing_taxes['04']['taxes']['0.00'] = {}
+            einvoicing_taxes['04']['taxes']['0.00']['base'] = 0
+            einvoicing_taxes['04']['taxes']['0.00']['amount'] = 0
+        
+        if '03' not in einvoicing_taxes:
+            einvoicing_taxes['03'] = {}
+            einvoicing_taxes['03']['total'] = 0
+            einvoicing_taxes['03']['name'] = 'INC'
+            einvoicing_taxes['03']['taxes'] = {}
+            einvoicing_taxes['03']['taxes']['0.00'] = {}
+            einvoicing_taxes['03']['taxes']['0.00']['base'] = 0
+            einvoicing_taxes['03']['taxes']['0.00']['amount'] = 0
 
         return einvoicing_taxes
 

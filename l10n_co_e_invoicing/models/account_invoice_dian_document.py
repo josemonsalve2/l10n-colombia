@@ -3,7 +3,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 import global_functions
-from datetime import datetime, date, timedelta
+from datetime import datetime
 from pytz import timezone
 from base64 import b64encode
 from odoo import models, fields
@@ -35,6 +35,8 @@ class AccountInvoiceDianDocument(models.Model):
         invoice = self.invoice_id
         active_dian_resolution = invoice._get_active_dian_resolution()
         einvoicing_taxes = invoice._get_einvoicing_taxes()
+        #for tax in einvoicing_taxes['01']['taxes']:
+        #    raise Warning(tax, einvoicing_taxes['01']['taxes'].items())
         create_date = datetime.strptime(invoice.create_date, '%Y-%m-%d %H:%M:%S')
         create_date = create_date.replace(tzinfo=timezone('UTC'))
         ID = invoice.number
@@ -52,36 +54,36 @@ class AccountInvoiceDianDocument(models.Model):
         else:
             SoftwarePIN = invoice.company_id.software_pin
 
-        CUFE_CUDE = global_functions.generate_cufe_cude(
+        cufe_cude = global_functions.get_cufe_cude(
             ID,
             IssueDate,
             IssueTime,
             str('{:.2f}'.format(invoice.amount_untaxed)),
             '01',
-            str('{:.2f}'.format(
-                einvoicing_taxes['01']['total'] if '01' in einvoicing_taxes else 0)),
+            str('{:.2f}'.format(einvoicing_taxes['01']['total'])),
             '04',
-            str('{:.2f}'.format(
-                einvoicing_taxes['04']['total'] if '04' in einvoicing_taxes else 0)),
+            str('{:.2f}'.format(einvoicing_taxes['04']['total'])),
             '03',
-            str('{:.2f}'.format(
-                einvoicing_taxes['03']['total'] if '03' in einvoicing_taxes else 0)),
+            str('{:.2f}'.format(einvoicing_taxes['03']['total'])),
             str('{:.2f}'.format(invoice.amount_total)),
             NitOFE,
             NitAdq,
             ClTec,
             SoftwarePIN,
             invoice.company_id.profile_execution_id)
-        
-        split_date = IssueDate.split('-')
-        year = int(split_date[0])
-        current_month = int(split_date[1])
+        software_security_code = global_functions.get_software_security_code(
+            IdSoftware,
+            invoice.company_id.software_pin,
+            ID)
+        period_dates = global_functions.get_period_dates(IssueDate)
 
-        if current_month == 12:
-            year += 1
-            month = 1
-        else:
-            month = current_month + 1
+        self.write({
+            'cufe_cude_uncoded': cufe_cude['CUFE/CUDEUncoded'],
+            'cufe_cude': cufe_cude['CUFE/CUDE'],
+            'software_security_code_uncoded':
+                software_security_code['SoftwareSecurityCodeUncoded'],
+            'software_security_code':
+                software_security_code['SoftwareSecurityCode']})
 
         return {
             'InvoiceAuthorization': active_dian_resolution['resolution_number'],
@@ -93,22 +95,20 @@ class AccountInvoiceDianDocument(models.Model):
             'ProviderID': NitOFE,
             'NitAdquiriente': NitAdq,
             'SoftwareID': IdSoftware,
-            'SoftwareSecurityCode': global_functions.generate_software_security_code(
-                IdSoftware,
-                invoice.company_id.software_pin,
-                ID),
+            'SoftwareSecurityCode': software_security_code['SoftwareSecurityCode'],
             'ProfileExecutionID': invoice.company_id.profile_execution_id,
             'ID': ID,
-            'UUID': CUFE_CUDE,
-            'partitionKey': 'co|' + IssueDate.split('-')[2] + '|' + CUFE_CUDE[:2],
+            'UUID': cufe_cude['CUFE/CUDE'],
+            'partitionKey': 'co|' + IssueDate.split('-')[2] + '|' +
+                cufe_cude['CUFE/CUDE'][:2],
             'emissionDate': IssueDate.replace('-', ''),
             'IssueDate': IssueDate,
             'IssueTime': IssueTime,
             'InvoiceTypeCode': '1',
             'LineCountNumeric': len(invoice.invoice_line_ids),
             'DocumentCurrencyCode': invoice.currency_id.name,
-            'InvoicePeriodStartDate': date(year, current_month, 1).strftime("%Y-%m-%d"),
-            'InvoicePeriodEndDate': (date(year, month, 1) - timedelta(days=1)).strftime("%Y-%m-%d"),
+            'InvoicePeriodStartDate': period_dates['PeriodStartDate'],
+            'InvoicePeriodEndDate': period_dates['PeriodEndDate'],
             'AccountingSupplierParty': invoice._get_accounting_supplier_party_values(),
             'AccountingCustomerParty': invoice._get_accounting_customer_party_values(),
             'TaxRepresentativeParty': invoice._get_tax_representative_party_values(),
@@ -116,6 +116,12 @@ class AccountInvoiceDianDocument(models.Model):
             'PaymentMeansCode': '10',
             'PaymentDueDate': invoice.date_due,
             'PaymentID': 'Efectivo',
+            'TaxTotalIVA': einvoicing_taxes['01']['total'],
+            'TaxSubtotalIVA': einvoicing_taxes['01']['taxes'],
+            'TaxTotalICA': einvoicing_taxes['04']['total'],
+            'TaxSubtotalICA': einvoicing_taxes['04']['taxes'],
+            'TaxTotalINC': einvoicing_taxes['03']['total'],
+            'TaxSubtotalINC': einvoicing_taxes['03']['taxes'],
             'LineExtensionAmount': '{:.2f}'.format(invoice.amount_untaxed),
             'TaxExclusiveAmount': '{:.2f}'.format(invoice.amount_untaxed),
             'TaxInclusiveAmount': '{:.2f}'.format(invoice.amount_total),

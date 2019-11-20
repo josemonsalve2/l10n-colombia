@@ -56,7 +56,7 @@ URL=https://catalogo-vpfe-hab.dian.gov.co/Document/FindDocument?documentKey={{UU
 				</sts:DianExtensions>
 			</ext:ExtensionContent>
 		</ext:UBLExtension>
-		<!--Pendiente Resolver-->
+		<!--Pendiente Resolver, firma digital signature-->
 		<ext:UBLExtension>
 			<ext:ExtensionContent>
 				<ds:Signature/>
@@ -78,10 +78,8 @@ URL=https://catalogo-vpfe-hab.dian.gov.co/Document/FindDocument?documentKey={{UU
 	<cbc:DocumentCurrencyCode listAgencyID="6"
 		listAgencyName="United Nations Economic Commission for Europe"
 		listID="ISO 4217 Alpha">{{DocumentCurrencyCode}}</cbc:DocumentCurrencyCode>
-	<!--Pendiente Resolver-->
-	<cbc:LineCountNumeric>2</cbc:LineCountNumeric>
+	<cbc:LineCountNumeric>{{LineCountNumeric}}</cbc:LineCountNumeric>
 	<cac:InvoicePeriod>
-		<!--Pendiente Resolver-->
 		<cbc:StartDate>{{InvoicePeriodStartDate}}</cbc:StartDate>
 		<cbc:EndDate>{{InvoicePeriodEndDate}}</cbc:EndDate>
 	</cac:InvoicePeriod>
@@ -254,7 +252,7 @@ URL=https://catalogo-vpfe-hab.dian.gov.co/Document/FindDocument?documentKey={{UU
 				schemeName="{{TaxRepresentativeParty.IDschemeName}}">{{TaxRepresentativeParty.ID}}</cbc:ID>
 		</cac:PartyIdentification>
 	</cac:TaxRepresentativeParty>
-	<!--Pendiente Resolver, podria ser un fragmento no necesario, siempre-->
+	<!--Pendiente Resolver, podria ser un fragmento no necesario siempre-->
 	<cac:Delivery>
 		<cac:DeliveryAddress>
 			<cbc:ID>11001</cbc:ID>
@@ -334,8 +332,54 @@ URL=https://catalogo-vpfe-hab.dian.gov.co/Document/FindDocument?documentKey={{UU
 		<cbc:PaidDate>2018-09-29</cbc:PaidDate>
 		<cbc:InstructionID>Prepago recibido</cbc:InstructionID>
 	</cac:PrepaidPayment>
-	<!--Pendiente Resolver-->
-	<cac:TaxTotal/>
+	<cac:TaxTotal>
+		<cbc:TaxAmount currencyID="COP">{{'{:.2f}'.format(TaxTotalIVA)}}</cbc:TaxAmount>
+		{% for percent, tax in TaxSubtotalIVA.items() -%}
+		<cac:TaxSubtotal>
+			<cbc:TaxableAmount currencyID="COP">{{'{:.2f}'.format(tax.base)}}</cbc:TaxableAmount>
+			<cbc:TaxAmount currencyID="COP">{{'{:.2f}'.format(tax.amount)}}</cbc:TaxAmount>
+			<cac:TaxCategory>
+				<cbc:Percent>{{percent}}</cbc:Percent>
+				<cac:TaxScheme>
+					<cbc:ID>01</cbc:ID>
+					<cbc:Name>IVA</cbc:Name>
+				</cac:TaxScheme>
+			</cac:TaxCategory>
+		</cac:TaxSubtotal>
+		{% endfor -%}
+	</cac:TaxTotal>
+	<cac:TaxTotal>
+		<cbc:TaxAmount currencyID="COP">{{'{:.2f}'.format(TaxTotalICA)}}</cbc:TaxAmount>
+		{% for percent, tax in TaxSubtotalICA.items() -%}
+		<cac:TaxSubtotal>
+			<cbc:TaxableAmount currencyID="COP">{{'{:.2f}'.format(tax.base)}}</cbc:TaxableAmount>
+			<cbc:TaxAmount currencyID="COP">{{'{:.2f}'.format(tax.amount)}}</cbc:TaxAmount>
+			<cac:TaxCategory>
+				<cbc:Percent>{{percent}}</cbc:Percent>
+				<cac:TaxScheme>
+					<cbc:ID>03</cbc:ID>
+					<cbc:Name>ICA</cbc:Name>
+				</cac:TaxScheme>
+			</cac:TaxCategory>
+		</cac:TaxSubtotal>
+		{% endfor -%}
+	</cac:TaxTotal>
+	<cac:TaxTotal>
+		<cbc:TaxAmount currencyID="COP">{{'{:.2f}'.format(TaxTotalINC)}}</cbc:TaxAmount>
+		{% for percent, tax in TaxSubtotalINC.items() -%}
+		<cac:TaxSubtotal>
+			<cbc:TaxableAmount currencyID="COP">{{'{:.2f}'.format(tax.base)}}</cbc:TaxableAmount>
+			<cbc:TaxAmount currencyID="COP">{{'{:.2f}'.format(tax.amount)}}</cbc:TaxAmount>
+			<cac:TaxCategory>
+				<cbc:Percent>{{percent}}</cbc:Percent>
+				<cac:TaxScheme>
+					<cbc:ID>04</cbc:ID>
+					<cbc:Name>INC</cbc:Name>
+				</cac:TaxScheme>
+			</cac:TaxCategory>
+		</cac:TaxSubtotal>
+		{% endfor -%}
+	</cac:TaxTotal>
 	<!--Pendiente Resolver, hay que resolver el tema de los prepagos-->
 	<!--TaxInclusiveAmount == PayableAmount y PrepaidAmount == 0 mientras tanto-->
 	<cac:LegalMonetaryTotal>
