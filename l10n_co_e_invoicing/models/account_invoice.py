@@ -64,7 +64,7 @@ class AccountInvoice(models.Model):
 
                 tax_code = tax.tax_id.tax_group_id.tax_group_type_id.code
                 tax_name = tax.tax_id.tax_group_id.tax_group_type_id.name
-                tax_percent = str('{:.2f}'.format(tax.tax_id.amount or 0))
+                tax_percent = '{:.2f}'.format(tax.tax_id.amount or 0)
 
                 if tax_code not in einvoicing_taxes:
                     einvoicing_taxes[tax_code] = {}
@@ -168,3 +168,40 @@ class AccountInvoice(models.Model):
             'IDschemeID': supplier.check_digit,
             'IDschemeName': supplier.document_type_id.code,
             'ID': supplier.identification_document}
+    
+    def _get_invoice_lines(self):
+        invoice_lines = {}
+        count = 1
+
+        for invoice_line in self.invoice_line_ids:
+            invoice_lines[count] = {}
+            invoice_lines[count]['InvoicedQuantity'] = '{:.2f}'.format(
+                invoice_line.quantity)
+            invoice_lines[count]['LineExtensionAmount'] = '{:.2f}'.format(
+                invoice_line.price_subtotal)
+            invoice_lines[count]['MultiplierFactorNumeric'] = '{:.2f}'.format(
+                invoice_line.discount)
+            invoice_lines[count]['AllowanceChargeAmount'] = '{:.2f}'.format(
+                invoice_line.disc_amount)
+            invoice_lines[count]['AllowanceChargeBaseAmount'] = '{:.2f}'.format(
+                invoice_line.total_wo_disc)
+            invoice_lines[count]['TaxesTotal'] = {}
+
+            for tax in invoice_line.invoice_line_tax_ids:
+                if tax.amount_type == 'group':
+                    tax_ids = tax.children_tax_ids
+                else:
+                    tax_ids = tax
+
+                for tax_id in tax_ids:
+                    if tax_id.tax_group_id.is_einvoicing and tax_id.amount != 0:
+                        invoice_lines[count]['TaxesTotal'] = (
+                            invoice_line._get_invoice_lines_taxes(
+                                tax_id,
+                                invoice_lines[count]['TaxesTotal']))
+
+            invoice_lines[count]['ItemDescription'] = invoice_line.name
+            invoice_lines[count]['PriceAmount'] = '{:.2f}'.format(
+                invoice_line.price_unit)
+
+        return invoice_lines

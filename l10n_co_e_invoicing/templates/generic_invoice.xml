@@ -390,5 +390,80 @@ URL=https://catalogo-vpfe-hab.dian.gov.co/Document/FindDocument?documentKey={{UU
 		<cbc:PayableAmount currencyID="COP">{{PayableAmount}}</cbc:PayableAmount>
 	</cac:LegalMonetaryTotal>
 	<!--Pendiente Resolver-->
-	<cac:InvoiceLine/>
+	{% for InvoiceLineID, InvoiceLine in InvoiceLines.items() -%}
+	<cac:InvoiceLine>
+		<cbc:ID>{{InvoiceLineID}}</cbc:ID>
+		<cbc:InvoicedQuantity unitCode="EA">{{InvoiceLine.InvoicedQuantity}}</cbc:InvoicedQuantity>
+		<cbc:LineExtensionAmount currencyID="COP">{{InvoiceLine.LineExtensionAmount}}</cbc:LineExtensionAmount>
+		<!--Pendiente Resolver, si valor true van DocumentReference y PricingReference?-->
+		<cbc:FreeOfChargeIndicator>false</cbc:FreeOfChargeIndicator>
+		<!--cac:DocumentReference>
+			<cbc:ID>TST1543623</cbc:ID>
+			<cbc:IssueDate>2019-03-02</cbc:IssueDate>
+			<cbc:DocumentTypeCode>1001-A</cbc:DocumentTypeCode>
+			<cbc:DocumentType>Bienes Propios</cbc:DocumentType>
+		</cac:DocumentReference>
+		<cac:DocumentReference>
+			<cbc:ID>GR8713461</cbc:ID>
+			<cbc:IssueDate>2019-03-02</cbc:IssueDate>
+			<cbc:DocumentTypeCode>AR</cbc:DocumentTypeCode>
+		</cac:DocumentReference>
+		<cac:PricingReference>
+			<cac:AlternativeConditionPrice>
+				<cbc:PriceAmount currencyID="COP">100.00</cbc:PriceAmount>
+				<cbc:PriceTypeCode>03</cbc:PriceTypeCode>
+				<cbc:PriceType>Otro valor</cbc:PriceType>
+			</cac:AlternativeConditionPrice>
+		</cac:PricingReference-->
+		<!--Pendiente Resolver-->
+		<cac:Delivery>
+			<cac:DeliveryLocation>
+				<cbc:ID schemeID="999" schemeName="EAN">613124312412</cbc:ID>
+			</cac:DeliveryLocation>
+		</cac:Delivery>
+		<!--Pendiente Resolver, pueden ser mas descuentos? es obligatorio?, informacion completa?-->
+		<cac:AllowanceCharge>
+			<cbc:ID>1</cbc:ID>
+			<cbc:ChargeIndicator>false</cbc:ChargeIndicator>
+			<cbc:AllowanceChargeReason>Descuento</cbc:AllowanceChargeReason>
+			<cbc:MultiplierFactorNumeric>{{InvoiceLine.MultiplierFactorNumeric}}</cbc:MultiplierFactorNumeric>
+			<cbc:Amount currencyID="COP">{{InvoiceLine.AllowanceChargeAmount}}</cbc:Amount>
+			<cbc:BaseAmount currencyID="COP">{{InvoiceLine.AllowanceChargeBaseAmount}}</cbc:BaseAmount>
+		</cac:AllowanceCharge>
+		<!--Pendiente Resolver, revisar que impuestos se deben y no informar?-->
+		{% for TaxTotalID, TaxTotal in InvoiceLine.TaxesTotal.items() -%}
+		<cac:TaxTotal>
+			<cbc:TaxAmount currencyID="COP">{{TaxTotal.total}}</cbc:TaxAmount>
+			{% for Percent, TaxSubtotal in TaxTotal.taxes.items() -%}
+			<cac:TaxSubtotal>
+				<cbc:TaxableAmount currencyID="COP">{{TaxSubtotal.base}}</cbc:TaxableAmount>
+				<cbc:TaxAmount currencyID="COP">{{TaxSubtotal.amount}}</cbc:TaxAmount>
+				<cac:TaxCategory>
+					<cbc:Percent>{{Percent}}</cbc:Percent>
+					<cac:TaxScheme>
+						<cbc:ID>{{TaxTotalID}}</cbc:ID>
+						<cbc:Name>{{TaxTotal.name}}</cbc:Name>
+					</cac:TaxScheme>
+				</cac:TaxCategory>
+			</cac:TaxSubtotal>
+			{% endfor -%}
+		</cac:TaxTotal>
+		{% endfor -%}
+		<cac:Item>
+			<cbc:Description>{{InvoiceLine.ItemDescription}}</cbc:Description>
+			<!--Pendiente Resolver, que codigo va aca? es obligatorio?-->
+			<cac:SellersItemIdentification>
+				<cbc:ID>AOHV84-225</cbc:ID>
+			</cac:SellersItemIdentification>
+			<!--Pendiente Resolver-->
+			<cac:AdditionalItemIdentification>
+				<cbc:ID schemeID="999" schemeName="EAN13">6543542313534</cbc:ID>
+			</cac:AdditionalItemIdentification>
+		</cac:Item>
+		<cac:Price>
+			<cbc:PriceAmount currencyID="COP">{{InvoiceLine.PriceAmount}}</cbc:PriceAmount>
+			<cbc:BaseQuantity unitCode="EA">{{InvoiceLine.InvoicedQuantity}}</cbc:BaseQuantity>
+		</cac:Price>
+	</cac:InvoiceLine>
+	{% endfor -%}
 </Invoice>

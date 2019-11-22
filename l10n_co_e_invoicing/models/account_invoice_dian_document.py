@@ -35,8 +35,6 @@ class AccountInvoiceDianDocument(models.Model):
         invoice = self.invoice_id
         active_dian_resolution = invoice._get_active_dian_resolution()
         einvoicing_taxes = invoice._get_einvoicing_taxes()
-        #for tax in einvoicing_taxes['01']['taxes']:
-        #    raise Warning(tax, einvoicing_taxes['01']['taxes'].items())
         create_date = datetime.strptime(invoice.create_date, '%Y-%m-%d %H:%M:%S')
         create_date = create_date.replace(tzinfo=timezone('UTC'))
         ID = invoice.number
@@ -126,13 +124,14 @@ class AccountInvoiceDianDocument(models.Model):
             'TaxExclusiveAmount': '{:.2f}'.format(invoice.amount_untaxed),
             'TaxInclusiveAmount': '{:.2f}'.format(invoice.amount_total),
             'PrepaidAmount': '{:.2f}'.format(0),
-            'PayableAmount': '{:.2f}'.format(invoice.amount_total)}
+            'PayableAmount': '{:.2f}'.format(invoice.amount_total),
+            'InvoiceLines': invoice._get_invoice_lines()}
 
     def _get_xml_without_signature(self):
         values = self._prepare_xml_values()
 
         return global_functions.get_template_xml(values, 'generic_invoice')
-    
+
     def _create_xml(self):
         xml_without_signature = self._get_xml_without_signature()
         #signature = self._get_signature(xml_without_signature)
@@ -140,7 +139,7 @@ class AccountInvoiceDianDocument(models.Model):
         #print(xml_without_signature)
 
         return xml_without_signature
-    
+
     def generate_xml_file(self):
         if not self.xml_file:
             xml_file = self._create_xml() or ''
