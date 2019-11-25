@@ -128,8 +128,8 @@ class AccountInvoice(models.Model):
             'CompanyIDschemeName': supplier.document_type_id.code,
             'CompanyID': supplier.identification_document,
             'TaxLevelCode': supplier.property_account_position_id.tax_level_code_id.code,
-            'TaxSchemaID': supplier.property_account_position_id.tax_scheme_id.code,
-            'TaxSchemaName': supplier.property_account_position_id.tax_scheme_id.name,
+            'TaxSchemeID': supplier.property_account_position_id.tax_scheme_id.code,
+            'TaxSchemeName': supplier.property_account_position_id.tax_scheme_id.name,
             'CorporateRegistrationSchemeName': supplier.ref,
             'CountryIdentificationCode': supplier.country_id.code,
             'CountryName': supplier.country_id.name}
@@ -152,8 +152,8 @@ class AccountInvoice(models.Model):
             'CompanyIDschemeName': customer.document_type_id.code,
             'CompanyID': customer.identification_document,
             'TaxLevelCode': customer.property_account_position_id.tax_level_code_id.code,
-            'TaxSchemaID': customer.property_account_position_id.tax_scheme_id.code,
-            'TaxSchemaName': customer.property_account_position_id.tax_scheme_id.name,
+            'TaxSchemeID': customer.property_account_position_id.tax_scheme_id.code,
+            'TaxSchemeName': customer.property_account_position_id.tax_scheme_id.name,
             'CorporateRegistrationSchemeName': customer.ref,
             'CountryIdentificationCode': customer.country_id.code,
             'CountryName': customer.country_id.name}

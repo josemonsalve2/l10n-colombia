@@ -23,8 +23,8 @@
                         <field name="state"
                             widget="statusbar"
                             statusbar_visible="draft,sent,cancel"/>
-                        <button name="generate_xml_file"
-                            string="Generate XML File"
+                        <button name="set_files"
+                            string="Set Files"
                             type="object"
                             states="draft"
                             class="btn-primary"/>
@@ -41,7 +41,12 @@
                                 <field name="xml_file"
                                     widget="binary"
                                     filename="xml_filename"
-                                    readonly="1"/>
+                                    readonly="0"/>
+                                <field name="zipped_filename" invisible="1"/>
+                                <field name="zipped_file"
+                                    widget="binary"
+                                    filename="zipped_filename"
+                                    readonly="0"/>
                                 <field name="cufe_cude" readonly="1"/>
                                 <field name="software_security_code" readonly="1"/>
                             </group>

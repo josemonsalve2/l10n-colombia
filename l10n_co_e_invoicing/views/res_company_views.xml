@@ -8,6 +8,10 @@
                 <xpath expr="//notebook" position="inside">
                     <page name="einvoicing" string="E-Invoicing">
                         <group>
+                            <field name="out_invoice_sent" invisible="1"/>
+                            <field name="out_refund_sent" invisible="1"/>
+                            <field name="in_refund_sent" invisible="1"/>
+                            <field name="invoices_sent" invisible="1"/>
                             <field name="profile_execution_id" required="1"/>
                             <field name="test_set_id" required="1"/>
                             <field name="software_id" required="1"/>

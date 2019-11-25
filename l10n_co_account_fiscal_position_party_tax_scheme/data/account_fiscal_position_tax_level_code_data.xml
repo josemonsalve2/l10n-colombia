@@ -4,7 +4,7 @@
             <field name="name">Gran contribuyente</field>
             <field name="code">O-13</field>
         </record>
-        <record id="account_fiscal_position_tax_level_code_o_13" model="account.fiscal.position.tax.level.code">
+        <record id="account_fiscal_position_tax_level_code_o_15" model="account.fiscal.position.tax.level.code">
             <field name="name">Autorretenedor</field>
             <field name="code">O-15</field>
         </record>

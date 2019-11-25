@@ -10,6 +10,10 @@ from odoo.exceptions import ValidationError
 class ResCompany(models.Model):
     _inherit = "res.company"
 
+    out_invoice_sent = fields.Integer(string='out_invoice Sent')
+    out_refund_sent = fields.Integer(string='out_refund Sent')
+    in_refund_sent = fields.Integer(string='in_refund Sent')
+    invoices_sent = fields.Integer(string='Invoices Sent')
     profile_execution_id = fields.Selection(
         [('1', 'Production'), ('2', 'Test')],
         'Destination Environment of Document',

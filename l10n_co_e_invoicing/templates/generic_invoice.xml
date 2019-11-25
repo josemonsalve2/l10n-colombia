@@ -33,8 +33,8 @@
 					<sts:SoftwareProvider>
 						<sts:ProviderID schemeAgencyID="195"
 							schemeAgencyName="CO, DIAN (Dirección de Impuestos y Aduanas Nacionales)"
-							schemeID="4"
-							schemeName="31">{{ProviderID}}</sts:ProviderID>
+							schemeID="{{ProviderIDschemeID}}"
+							schemeName="{{ProviderIDschemeName}}">{{ProviderID}}</sts:ProviderID>
 						<sts:SoftwareID schemeAgencyID="195"
 							schemeAgencyName="CO, DIAN (Dirección de Impuestos y Aduanas Nacionales)">{{SoftwareID}}</sts:SoftwareID>
 					</sts:SoftwareProvider>
@@ -58,9 +58,7 @@ URL=https://catalogo-vpfe-hab.dian.gov.co/Document/FindDocument?documentKey={{UU
 		</ext:UBLExtension>
 		<!--Pendiente Resolver, firma digital signature-->
 		<ext:UBLExtension>
-			<ext:ExtensionContent>
-				<ds:Signature/>
-			</ext:ExtensionContent>
+			<ext:ExtensionContent/>
 		</ext:UBLExtension>
 	</ext:UBLExtensions>
 	<cbc:UBLVersionID>UBL 2.1</cbc:UBLVersionID>
@@ -433,11 +431,11 @@ URL=https://catalogo-vpfe-hab.dian.gov.co/Document/FindDocument?documentKey={{UU
 		<!--Pendiente Resolver, revisar que impuestos se deben y no informar?-->
 		{% for TaxTotalID, TaxTotal in InvoiceLine.TaxesTotal.items() -%}
 		<cac:TaxTotal>
-			<cbc:TaxAmount currencyID="COP">{{TaxTotal.total}}</cbc:TaxAmount>
+			<cbc:TaxAmount currencyID="COP">{{'{:.2f}'.format(TaxTotal.total)}}</cbc:TaxAmount>
 			{% for Percent, TaxSubtotal in TaxTotal.taxes.items() -%}
 			<cac:TaxSubtotal>
 				<cbc:TaxableAmount currencyID="COP">{{TaxSubtotal.base}}</cbc:TaxableAmount>
-				<cbc:TaxAmount currencyID="COP">{{TaxSubtotal.amount}}</cbc:TaxAmount>
+				<cbc:TaxAmount currencyID="COP">{{'{:.2f}'.format(TaxSubtotal.amount)}}</cbc:TaxAmount>
 				<cac:TaxCategory>
 					<cbc:Percent>{{Percent}}</cbc:Percent>
 					<cac:TaxScheme>
