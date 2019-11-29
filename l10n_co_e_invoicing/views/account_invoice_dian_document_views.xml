@@ -28,15 +28,23 @@
                             type="object"
                             states="draft"
                             class="btn-primary"/>
+                        <button name="sent_zipped_file"
+                            string="Sent Zipped File"
+                            type="object"
+                            states="draft"
+                            class="btn-primary"/>
+                        <button name="GetStatusZip"
+                            string="GetStatusZip"
+                            type="object"
+                            states="draft"
+                            class="btn-primary"/>
                     </header>
                     <sheet>
                         <group>
-                            <group>
+                            <group string="Invoice">
                                 <field name="invoice_id" readonly="0"/>
-                                <field name="cufe_cude_uncoded" readonly="1"/>
-                                <field name="software_security_code_uncoded" readonly="1"/>
                             </group>
-                            <group>
+                            <group string="Files">
                                 <field name="xml_filename" invisible="1"/>
                                 <field name="xml_file"
                                     widget="binary"
@@ -47,8 +55,14 @@
                                     widget="binary"
                                     filename="zipped_filename"
                                     readonly="0"/>
+                            </group>
+                            <group string="Codes">
+                                <field name="cufe_cude_uncoded" readonly="1"/>
                                 <field name="cufe_cude" readonly="1"/>
+                                <field name="software_security_code_uncoded" readonly="1"/>
                                 <field name="software_security_code" readonly="1"/>
+                                <field name="zip_key" readonly="1"/>
+                                <field name="get_status_zip_response" readonly="1"/>
                             </group>
                         </group>
                     </sheet>

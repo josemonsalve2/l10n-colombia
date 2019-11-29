@@ -56,9 +56,8 @@ URL=https://catalogo-vpfe-hab.dian.gov.co/Document/FindDocument?documentKey={{UU
 				</sts:DianExtensions>
 			</ext:ExtensionContent>
 		</ext:UBLExtension>
-		<!--Pendiente Resolver, firma digital signature-->
 		<ext:UBLExtension>
-			<ext:ExtensionContent/>
+			<ext:ExtensionContent2/>
 		</ext:UBLExtension>
 	</ext:UBLExtensions>
 	<cbc:UBLVersionID>UBL 2.1</cbc:UBLVersionID>
@@ -69,10 +68,10 @@ URL=https://catalogo-vpfe-hab.dian.gov.co/Document/FindDocument?documentKey={{UU
 	<cbc:UUID schemeID="2" schemeName="CUFE-SHA384">{{UUID}}</cbc:UUID>
 	<cbc:IssueDate>{{IssueDate}}</cbc:IssueDate>
 	<cbc:IssueTime>{{IssueTime}}</cbc:IssueTime>
-	<!--Pendiente Resolver, con esto se podria generalizar cosas de facturas y notas creditos y debito-->
+	<!--TODO, con esto se podria generalizar cosas de facturas y notas creditos y debito-->
 	<cbc:InvoiceTypeCode>{{InvoiceTypeCode}}</cbc:InvoiceTypeCode>
 	<cbc:Note>{{Note}}</cbc:Note>
-	<!--Pendiente Resolver, moneda podria ser otra?-->
+	<!--TODO, moneda podria ser otra?-->
 	<cbc:DocumentCurrencyCode listAgencyID="6"
 		listAgencyName="United Nations Economic Commission for Europe"
 		listID="ISO 4217 Alpha">{{DocumentCurrencyCode}}</cbc:DocumentCurrencyCode>
@@ -81,7 +80,7 @@ URL=https://catalogo-vpfe-hab.dian.gov.co/Document/FindDocument?documentKey={{UU
 		<cbc:StartDate>{{InvoicePeriodStartDate}}</cbc:StartDate>
 		<cbc:EndDate>{{InvoicePeriodEndDate}}</cbc:EndDate>
 	</cac:InvoicePeriod>
-	<!--Pendiente Resolver-->
+	<!--TODO>
 	<cac:BillingReference>
 		<cac:InvoiceDocumentReference>
 			<cbc:ID>SFR3123856</cbc:ID>
@@ -89,8 +88,8 @@ URL=https://catalogo-vpfe-hab.dian.gov.co/Document/FindDocument?documentKey={{UU
 			<cbc:IssueDate>2018-09-29</cbc:IssueDate>
 			<cbc:DocumentDescription>Prepago recibido</cbc:DocumentDescription>
 		</cac:InvoiceDocumentReference>
-	</cac:BillingReference>
-	<!--Pendiente Resolver-->
+	</cac:BillingReference-->
+	<!--TODO>
 	<cac:BillingReference>
 		<cac:InvoiceDocumentReference>
 			<cbc:ID>SETP990000101</cbc:ID>
@@ -98,14 +97,14 @@ URL=https://catalogo-vpfe-hab.dian.gov.co/Document/FindDocument?documentKey={{UU
 			<cbc:IssueDate>2018-09-29</cbc:IssueDate>
 			<cbc:DocumentDescription>Factura anterior</cbc:DocumentDescription>
 		</cac:InvoiceDocumentReference>
-	</cac:BillingReference>
+	</cac:BillingReference-->
 	<cac:AccountingSupplierParty>
 		<cbc:AdditionalAccountID>{{AccountingSupplierParty.AdditionalAccountID}}</cbc:AdditionalAccountID>
 		<cac:Party>
 			<cac:PartyName>
 				<cbc:Name>{{AccountingSupplierParty.Name}}</cbc:Name>
 			</cac:PartyName>
-			<!--Pendiente Resolver, parece informacion adicional, borrar si no es necesario>
+			<!--TODO, parece informacion adicional, borrar si no es necesario>
 			<cac:PartyName>
 				<cbc:Name>Establecimiento Principal</cbc:Name>
 			</cac:PartyName>
@@ -121,7 +120,7 @@ URL=https://catalogo-vpfe-hab.dian.gov.co/Document/FindDocument?documentKey={{UU
 					<cac:AddressLine>
 						<cbc:Line>{{AccountingSupplierParty.AddressLine}}</cbc:Line>
 					</cac:AddressLine>
-					<!--Pendiente Resolver, normalmente es colombia, habria laposibilidad que fuera otro pais?-->
+					<!--TODO, normalmente es colombia, habria laposibilidad que fuera otro pais?-->
 					<cac:Country>
 						<cbc:IdentificationCode>CO</cbc:IdentificationCode>
 						<cbc:Name languageID="es">Colombia</cbc:Name>
@@ -134,8 +133,8 @@ URL=https://catalogo-vpfe-hab.dian.gov.co/Document/FindDocument?documentKey={{UU
 					schemeAgencyName="CO, DIAN (Dirección de Impuestos y Aduanas Nacionales)"
 					schemeID="{{AccountingSupplierParty.CompanyIDschemeID}}"
 					schemeName="{{AccountingSupplierParty.CompanyIDschemeName}}">{{AccountingSupplierParty.CompanyID}}</cbc:CompanyID>
-				<!--Pendiente Resolver, listName el anexo dice que eliminar o valor No aplica-->
-				<cbc:TaxLevelCode listName="No aplica">{{AccountingSupplierParty.TaxLevelCode}}</cbc:TaxLevelCode>
+				<!--TODO, listName el anexo dice que eliminar o valor No aplica-->
+				<cbc:TaxLevelCode listName="48">{{AccountingSupplierParty.TaxLevelCode}}</cbc:TaxLevelCode>
 				<cac:RegistrationAddress>
 					<cbc:ID>{{AccountingSupplierParty.AddressID}}</cbc:ID>
 					<cbc:CityName>{{AccountingSupplierParty.AddressCityName}}</cbc:CityName>
@@ -144,7 +143,7 @@ URL=https://catalogo-vpfe-hab.dian.gov.co/Document/FindDocument?documentKey={{UU
 					<cac:AddressLine>
 						<cbc:Line>{{AccountingSupplierParty.AddressLine}}</cbc:Line>
 					</cac:AddressLine>
-					<!--Pendiente Resolver, normalmente es colombia, habria laposibilidad que fuera otro pais?-->
+					<!--TODO, normalmente es colombia, habria laposibilidad que fuera otro pais?-->
 					<cac:Country>
 						<cbc:IdentificationCode>{{AccountingSupplierParty.CountryIdentificationCode}}</cbc:IdentificationCode>
 						<cbc:Name languageID="es">{{AccountingSupplierParty.CountryName}}</cbc:Name>
@@ -161,13 +160,13 @@ URL=https://catalogo-vpfe-hab.dian.gov.co/Document/FindDocument?documentKey={{UU
 					schemeAgencyName="CO, DIAN (Dirección de Impuestos y Aduanas Nacionales)"
 					schemeID="{{AccountingSupplierParty.CompanyIDschemeID}}"
 					schemeName="{{AccountingSupplierParty.CompanyIDschemeName}}">{{AccountingSupplierParty.CompanyID}}</cbc:CompanyID>
-				<!--Pendiente Resolver, de momento seria el campo ref, pero seria bueno tener el modulo-->
+				<!--TODO, de momento seria el campo ref, pero seria bueno tener el modulo-->
 				<cac:CorporateRegistrationScheme>
 					<cbc:ID>{{Prefix}}</cbc:ID>
 					<cbc:Name>{{AccountingSupplierParty.CorporateRegistrationSchemeName}}</cbc:Name>
 				</cac:CorporateRegistrationScheme>
 			</cac:PartyLegalEntity>
-			<!--Pendiente Resolver-->
+			<!--TODO-->
 			<cac:Contact>
 				<cbc:Name>Eric Valencia</cbc:Name>
 				<cbc:Telephone>6111111</cbc:Telephone>
@@ -203,8 +202,8 @@ URL=https://catalogo-vpfe-hab.dian.gov.co/Document/FindDocument?documentKey={{UU
 					schemeAgencyName="CO, DIAN (Dirección de Impuestos y Aduanas Nacionales)"
 					schemeID="{{AccountingCustomerParty.CompanyIDschemeID}}"
 					schemeName="{{AccountingCustomerParty.CompanyIDschemeName}}">{{AccountingCustomerParty.CompanyID}}</cbc:CompanyID>
-				<!--Pendiente Resolver, listName el anexo dice que eliminar o valor No aplica-->
-				<cbc:TaxLevelCode listName="No aplica">{{AccountingCustomerParty.TaxLevelCode}}</cbc:TaxLevelCode>
+				<!--TODO, listName el anexo dice que eliminar o valor No aplica-->
+				<cbc:TaxLevelCode listName="48">{{AccountingCustomerParty.TaxLevelCode}}</cbc:TaxLevelCode>
 				<cac:RegistrationAddress>
 					<cbc:ID>{{AccountingCustomerParty.AddressID}}</cbc:ID>
 					<cbc:CityName>{{AccountingCustomerParty.AddressCityName}}</cbc:CityName>
@@ -234,14 +233,14 @@ URL=https://catalogo-vpfe-hab.dian.gov.co/Document/FindDocument?documentKey={{UU
 				</cac:CorporateRegistrationScheme>
 			</cac:PartyLegalEntity>
 			<cac:Contact>
-				<!--Pendiente Resolver-->
+				<!--TODO-->
 				<cbc:Name>Diana Cruz</cbc:Name>
 				<cbc:Telephone>31031031089</cbc:Telephone>
 				<cbc:ElectronicMail>dcruz@empresa.org</cbc:ElectronicMail>
 			</cac:Contact>
 		</cac:Party>
 	</cac:AccountingCustomerParty>
-	<!--Pendiente Resolver-->
+	<!--TODO-->
 	<cac:TaxRepresentativeParty>
 		<cac:PartyIdentification>
 			<cbc:ID schemeAgencyID="195"
@@ -250,7 +249,7 @@ URL=https://catalogo-vpfe-hab.dian.gov.co/Document/FindDocument?documentKey={{UU
 				schemeName="{{TaxRepresentativeParty.IDschemeName}}">{{TaxRepresentativeParty.ID}}</cbc:ID>
 		</cac:PartyIdentification>
 	</cac:TaxRepresentativeParty>
-	<!--Pendiente Resolver, podria ser un fragmento no necesario siempre-->
+	<!--TODO, podria ser un fragmento no necesario siempre-->
 	<cac:Delivery>
 		<cac:DeliveryAddress>
 			<cbc:ID>11001</cbc:ID>
@@ -309,27 +308,27 @@ URL=https://catalogo-vpfe-hab.dian.gov.co/Document/FindDocument?documentKey={{UU
 			</cac:Contact>
 		</cac:DeliveryParty>
 	</cac:Delivery>
-	<!--Pendiente Resolver, falta definir que modulo del icoterms se elige-->
+	<!--TODO, falta definir que modulo del icoterms se elige-->
 	<cac:DeliveryTerms>
 		<cbc:SpecialTerms>Portes Pagados</cbc:SpecialTerms>
 		<cbc:LossRiskResponsibilityCode>CFR</cbc:LossRiskResponsibilityCode>
 		<cbc:LossRisk>Costo y Flete</cbc:LossRisk>
 	</cac:DeliveryTerms>
-	<!--Pendiente Resolver, modulo payment means incompleto-->
+	<!--TODO, modulo payment means incompleto-->
 	<cac:PaymentMeans>
 		<cbc:ID>{{PaymentMeansID}}</cbc:ID>
 		<cbc:PaymentMeansCode>{{PaymentMeansCode}}</cbc:PaymentMeansCode>
 		<cbc:PaymentDueDate>{{PaymentDueDate}}</cbc:PaymentDueDate>
 		<cbc:PaymentID>{{PaymentID}}</cbc:PaymentID>
 	</cac:PaymentMeans>
-	<!--Pendiente Resolver-->
-	<cac:PrepaidPayment>
+	<!--TODO-->
+	<!--cac:PrepaidPayment>
 		<cbc:ID>SFR3123856</cbc:ID>
 		<cbc:PaidAmount currencyID="COP">1000.00</cbc:PaidAmount>
 		<cbc:ReceivedDate>2018-09-29</cbc:ReceivedDate>
 		<cbc:PaidDate>2018-09-29</cbc:PaidDate>
 		<cbc:InstructionID>Prepago recibido</cbc:InstructionID>
-	</cac:PrepaidPayment>
+	</cac:PrepaidPayment-->
 	<cac:TaxTotal>
 		<cbc:TaxAmount currencyID="COP">{{'{:.2f}'.format(TaxTotalIVA)}}</cbc:TaxAmount>
 		{% for percent, tax in TaxSubtotalIVA.items() -%}
@@ -378,8 +377,9 @@ URL=https://catalogo-vpfe-hab.dian.gov.co/Document/FindDocument?documentKey={{UU
 		</cac:TaxSubtotal>
 		{% endfor -%}
 	</cac:TaxTotal>
-	<!--Pendiente Resolver, hay que resolver el tema de los prepagos-->
+	<!--TODO, hay que resolver el tema de los prepagos-->
 	<!--TaxInclusiveAmount == PayableAmount y PrepaidAmount == 0 mientras tanto-->
+	<!--TODOcac PrepaidAmount = suma de PrepaidPayment-->
 	<cac:LegalMonetaryTotal>
 		<cbc:LineExtensionAmount currencyID="COP">{{LineExtensionAmount}}</cbc:LineExtensionAmount>
 		<cbc:TaxExclusiveAmount currencyID="COP">{{TaxExclusiveAmount}}</cbc:TaxExclusiveAmount>
@@ -387,15 +387,16 @@ URL=https://catalogo-vpfe-hab.dian.gov.co/Document/FindDocument?documentKey={{UU
 		<cbc:PrepaidAmount currencyID="COP">{{PrepaidAmount}}</cbc:PrepaidAmount>
 		<cbc:PayableAmount currencyID="COP">{{PayableAmount}}</cbc:PayableAmount>
 	</cac:LegalMonetaryTotal>
-	<!--Pendiente Resolver-->
+	<!--TODO-->
 	{% for InvoiceLineID, InvoiceLine in InvoiceLines.items() -%}
 	<cac:InvoiceLine>
 		<cbc:ID>{{InvoiceLineID}}</cbc:ID>
 		<cbc:InvoicedQuantity unitCode="EA">{{InvoiceLine.InvoicedQuantity}}</cbc:InvoicedQuantity>
 		<cbc:LineExtensionAmount currencyID="COP">{{InvoiceLine.LineExtensionAmount}}</cbc:LineExtensionAmount>
-		<!--Pendiente Resolver, si valor true van DocumentReference y PricingReference?-->
-		<cbc:FreeOfChargeIndicator>false</cbc:FreeOfChargeIndicator>
-		<!--cac:DocumentReference>
+	<!--TODO, si valor true van DocumentReference y PricingReference?>
+		<cbc:FreeOfChargeIndicator>false</cbc:FreeOfChargeIndicator-->
+	<!--TODO, si valor true van DocumentReference y PricingReference?>
+		<cac:DocumentReference>
 			<cbc:ID>TST1543623</cbc:ID>
 			<cbc:IssueDate>2019-03-02</cbc:IssueDate>
 			<cbc:DocumentTypeCode>1001-A</cbc:DocumentTypeCode>
@@ -405,7 +406,8 @@ URL=https://catalogo-vpfe-hab.dian.gov.co/Document/FindDocument?documentKey={{UU
 			<cbc:ID>GR8713461</cbc:ID>
 			<cbc:IssueDate>2019-03-02</cbc:IssueDate>
 			<cbc:DocumentTypeCode>AR</cbc:DocumentTypeCode>
-		</cac:DocumentReference>
+		</cac:DocumentReference-->
+	<!--TODO, si valor true van DocumentReference y PricingReference?>
 		<cac:PricingReference>
 			<cac:AlternativeConditionPrice>
 				<cbc:PriceAmount currencyID="COP">100.00</cbc:PriceAmount>
@@ -413,13 +415,13 @@ URL=https://catalogo-vpfe-hab.dian.gov.co/Document/FindDocument?documentKey={{UU
 				<cbc:PriceType>Otro valor</cbc:PriceType>
 			</cac:AlternativeConditionPrice>
 		</cac:PricingReference-->
-		<!--Pendiente Resolver-->
+		<!--TODO-->
 		<cac:Delivery>
 			<cac:DeliveryLocation>
 				<cbc:ID schemeID="999" schemeName="EAN">613124312412</cbc:ID>
 			</cac:DeliveryLocation>
 		</cac:Delivery>
-		<!--Pendiente Resolver, pueden ser mas descuentos? es obligatorio?, informacion completa?-->
+		<!--TODO, pueden ser mas descuentos? es obligatorio?, informacion completa?-->
 		<cac:AllowanceCharge>
 			<cbc:ID>1</cbc:ID>
 			<cbc:ChargeIndicator>false</cbc:ChargeIndicator>
@@ -428,7 +430,7 @@ URL=https://catalogo-vpfe-hab.dian.gov.co/Document/FindDocument?documentKey={{UU
 			<cbc:Amount currencyID="COP">{{InvoiceLine.AllowanceChargeAmount}}</cbc:Amount>
 			<cbc:BaseAmount currencyID="COP">{{InvoiceLine.AllowanceChargeBaseAmount}}</cbc:BaseAmount>
 		</cac:AllowanceCharge>
-		<!--Pendiente Resolver, revisar que impuestos se deben y no informar?-->
+		<!--TODO, revisar que impuestos se deben y no informar?-->
 		{% for TaxTotalID, TaxTotal in InvoiceLine.TaxesTotal.items() -%}
 		<cac:TaxTotal>
 			<cbc:TaxAmount currencyID="COP">{{'{:.2f}'.format(TaxTotal.total)}}</cbc:TaxAmount>
@@ -449,11 +451,11 @@ URL=https://catalogo-vpfe-hab.dian.gov.co/Document/FindDocument?documentKey={{UU
 		{% endfor -%}
 		<cac:Item>
 			<cbc:Description>{{InvoiceLine.ItemDescription}}</cbc:Description>
-			<!--Pendiente Resolver, que codigo va aca? es obligatorio?-->
+			<!--TODO, que codigo va aca? es obligatorio?-->
 			<cac:SellersItemIdentification>
 				<cbc:ID>AOHV84-225</cbc:ID>
 			</cac:SellersItemIdentification>
-			<!--Pendiente Resolver-->
+			<!--TODO-->
 			<cac:AdditionalItemIdentification>
 				<cbc:ID schemeID="999" schemeName="EAN13">6543542313534</cbc:ID>
 			</cac:AdditionalItemIdentification>

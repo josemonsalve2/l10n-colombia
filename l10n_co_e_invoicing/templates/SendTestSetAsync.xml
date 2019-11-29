@@ -1,0 +1,62 @@
+<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope"
+    xmlns:wcf="http://wcf.dian.colombia">
+    <soap:Header xmlns:wsa="http://www.w3.org/2005/08/addressing">
+        <wsse:Security xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd"
+            xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">
+            <wsu:Timestamp wsu:Id="TS-{{Id}}">
+                <wsu:Created>{{Created}}</wsu:Created>
+                <wsu:Expires>{{Expires}}</wsu:Expires>
+            </wsu:Timestamp>
+            <wsse:BinarySecurityToken EncodingType="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-soap-message-security-1.0#Base64Binary"
+                ValueType="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-x509-token-profile-1.0#X509v3"
+                wsu:Id="X509-{{Id}}">{{BinarySecurityToken}}</wsse:BinarySecurityToken>
+        <!--TODO>
+            <ds:Signature Id="SIG-73E4E5A671B7E68AE41574799313531149"
+                xmlns:ds="http://www.w3.org/2000/09/xmldsig#">
+                <ds:SignedInfo>
+                    <ds:CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#">
+                        <ec:InclusiveNamespaces PrefixList="wsa soap wcf"
+                            xmlns:ec="http://www.w3.org/2001/10/xml-exc-c14n#"/>
+                    </ds:CanonicalizationMethod>
+                    <ds:SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha256"/>
+                    <ds:Reference URI="#id-73E4E5A671B7E68AE41574799313520148">
+                        <ds:Transforms>
+                            <ds:Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#">
+                                <ec:InclusiveNamespaces PrefixList="soap wcf"
+                                    xmlns:ec="http://www.w3.org/2001/10/xml-exc-c14n#"/>
+                            </ds:Transform>
+                        </ds:Transforms>
+                        <ds:DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"/>
+                        <ds:DigestValue>Lf1zVHo4jFciFVzISAdD64ZnJFNWWoLd1n74E8zhP+k=</ds:DigestValue>
+                    </ds:Reference>
+                </ds:SignedInfo>
+                <ds:SignatureValue>
+CU6x6lL3o3VDY/otRVI5lY7f43b1q91lrsr7rrIrS61L5HXQfOBTv4iB23DZAfUYjgO8dZrOb/i1
+DnyYMuoveb6fkimN0OzwMbYnz1rnuDZUKT9jC/qbjCghCl1YqAOroOcYsQsoO6RB7Fq8x6Fz2rB5
+8UCbGo2rRkeUwEjy7p+q7wPlAa9CPpKd4o6Hul/c+ieDXZgXKu3rDnvmlA4n6XpUvEFqCNfFvhbg
+ZXn7NEK2N0ScPdc+0HzYrGqITSk0b4UYkqWVHHDFbtGr6tRA/OBmS2nPUW76BNKJxKHW18oPXErh
+BRgT7nqJPqzsMVcN637WJGvMP7lCVx9SDir7tA==
+                </ds:SignatureValue>
+                <ds:KeyInfo Id="KI-73E4E5A671B7E68AE41574799313519146">
+                    <wsse:SecurityTokenReference wsu:Id="STR-73E4E5A671B7E68AE41574799313519147">
+                        <wsse:Reference URI="#X509-73E4E5A671B7E68AE41574799313519145"
+                            ValueType="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-x509-token-profile-1.0#X509v3"/>
+                        </wsse:SecurityTokenReference>
+                </ds:KeyInfo>
+            </ds:Signature-->
+        </wsse:Security>
+        <wsa:Action>http://wcf.dian.colombia/IWcfDianCustomerServices/SendTestSetAsync</wsa:Action>
+        <wsa:To wsu:Id="id-{{Id}}"
+            xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">https://vpfe-hab.dian.gov.co/WcfDianCustomerServices.svc</wsa:To>
+    </soap:Header>
+    <soap:Body>
+        <wcf:SendTestSetAsync>
+            <!--Optional:-->
+            <wcf:fileName>{{fileName}}</wcf:fileName>
+            <!--Optional:-->
+            <wcf:contentFile>{{contentFile}}</wcf:contentFile>
+            <!--Optional:-->
+            <wcf:testSetId>{{testSetId}}</wcf:testSetId>
+        </wcf:SendTestSetAsync>
+    </soap:Body>
+</soap:Envelope>

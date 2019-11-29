@@ -10,6 +10,7 @@ from odoo.exceptions import ValidationError
 class ResCompany(models.Model):
     _inherit = "res.company"
 
+    einvoicing_enabled = fields.Boolean(string='E-Invoicing Enabled')
     out_invoice_sent = fields.Integer(string='out_invoice Sent')
     out_refund_sent = fields.Integer(string='out_refund Sent')
     in_refund_sent = fields.Integer(string='in_refund Sent')

@@ -2,7 +2,7 @@
 # Copyright 2019 Joan Marín <Github@joanmarin>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from odoo import models, fields, _
+from odoo import api, models, fields, _
 from odoo.exceptions import UserError
 
 
@@ -13,12 +13,34 @@ class AccountInvoice(models.Model):
         comodel_name='account.invoice.dian.document',
         inverse_name='invoice_id',
         string='Dian Document Lines')
-    
+
+    @api.multi
+    def invoice_validate(self):
+        res = super(AccountInvoice, self).invoice_validate()
+
+        if self.company_id.einvoicing_enabled:
+            dian_document_obj = self.env['account.invoice.dian.document']
+            dian_document = dian_document_obj.create({'invoice_id': self.id})
+            dian_document.set_files()
+            #einv.action_post_validate()
+
+        return res
+
+    @api.multi
+    def action_cancel(self):
+        res = super(AccountInvoice, self).action_cancel()
+
+        for dian_document in self.dian_document_lines:
+            if dian_document.state == 'done':
+                raise UserError('You cannot cancel a invoice sent to DIAN')
+
+        return res
+
     def _get_active_dian_resolution(self):
         msg1 = _("Your active dian resolution has no technical key, " +
-            "contact with your administrator.")
+                 "contact with your administrator.")
         msg2 = _("You do not have an active dian resolution, " +
-            "contact with your administrator.")
+                 "contact with your administrator.")
         resolution_number = False
         date_from = False
         date_to = False
@@ -31,18 +53,18 @@ class AccountInvoice(models.Model):
                 resolution_number = date_range_id.resolution_number
                 date_from = date_range_id.date_from
                 date_to = date_range_id.date_to
-                number_from= date_range_id.number_from
+                number_from = date_range_id.number_from
                 number_to = date_range_id.number_to
 
                 if not date_range_id.technical_key:
                     raise UserError(msg1)
-        
+
                 technical_key = date_range_id.technical_key
                 break
-        
+
         if not resolution_number:
             raise UserError(msg2)
-        
+
         return {
             'prefix': self.journal_id.sequence_id.prefix or '',
             'resolution_number': resolution_number,
@@ -54,7 +76,7 @@ class AccountInvoice(models.Model):
 
     def _get_einvoicing_taxes(self):
         msg = _("Your tax '%s' has no e-invoicing tax group type, " +
-            "contact with your administrator.")
+                "contact with your administrator.")
         einvoicing_taxes = {}
 
         for tax in self.tax_line_ids:
@@ -89,7 +111,7 @@ class AccountInvoice(models.Model):
             einvoicing_taxes['01']['taxes']['0.00'] = {}
             einvoicing_taxes['01']['taxes']['0.00']['base'] = 0
             einvoicing_taxes['01']['taxes']['0.00']['amount'] = 0
-        
+
         if '04' not in einvoicing_taxes:
             einvoicing_taxes['04'] = {}
             einvoicing_taxes['04']['total'] = 0
@@ -98,7 +120,7 @@ class AccountInvoice(models.Model):
             einvoicing_taxes['04']['taxes']['0.00'] = {}
             einvoicing_taxes['04']['taxes']['0.00']['base'] = 0
             einvoicing_taxes['04']['taxes']['0.00']['amount'] = 0
-        
+
         if '03' not in einvoicing_taxes:
             einvoicing_taxes['03'] = {}
             einvoicing_taxes['03']['total'] = 0
@@ -133,7 +155,7 @@ class AccountInvoice(models.Model):
             'CorporateRegistrationSchemeName': supplier.ref,
             'CountryIdentificationCode': supplier.country_id.code,
             'CountryName': supplier.country_id.name}
-    
+
     def _get_accounting_customer_party_values(self):
         if self.type in ('in_invoice', 'in_refund'):
             customer = self.company_id.partner_id
@@ -157,7 +179,7 @@ class AccountInvoice(models.Model):
             'CorporateRegistrationSchemeName': customer.ref,
             'CountryIdentificationCode': customer.country_id.code,
             'CountryName': customer.country_id.name}
-    
+
     def _get_tax_representative_party_values(self):
         if self.type in ('out_invoice', 'out_refund'):
             supplier = self.company_id.partner_id
@@ -168,7 +190,7 @@ class AccountInvoice(models.Model):
             'IDschemeID': supplier.check_digit,
             'IDschemeName': supplier.document_type_id.code,
             'ID': supplier.identification_document}
-    
+
     def _get_invoice_lines(self):
         invoice_lines = {}
         count = 1
@@ -203,5 +225,7 @@ class AccountInvoice(models.Model):
             invoice_lines[count]['ItemDescription'] = invoice_line.name
             invoice_lines[count]['PriceAmount'] = '{:.2f}'.format(
                 invoice_line.price_unit)
+
+            count += 1
 
         return invoice_lines

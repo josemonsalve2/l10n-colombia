@@ -2,7 +2,7 @@
 # Copyright 2019 Joan Marín <Github@joanmarin>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from odoo import models, fields
+from odoo import models
 
 
 class AccountInvoiceLine(models.Model):
@@ -24,11 +24,16 @@ class AccountInvoiceLine(models.Model):
             invoice_line_taxes_total[tax_code]['taxes'][tax_percent]['base'] = 0
             invoice_line_taxes_total[tax_code]['taxes'][tax_percent]['amount'] = 0
 
+        tax_amount = tax.amount
+
+        if tax_amount < 0:
+            tax_amount *= -1
+
         invoice_line_taxes_total[tax_code]['total'] += (
-            self.price_subtotal * tax.amount / 100)
+            self.price_subtotal * tax_amount / 100)
         invoice_line_taxes_total[tax_code]['taxes'][tax_percent]['base'] += (
             self.price_subtotal)
         invoice_line_taxes_total[tax_code]['taxes'][tax_percent]['amount'] += (
-            self.price_subtotal * tax.amount / 100)
+            self.price_subtotal * tax_amount / 100)
 
         return invoice_line_taxes_total
