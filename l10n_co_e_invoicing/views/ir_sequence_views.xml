@@ -6,8 +6,9 @@
             <field name="inherit_id" ref="l10n_co_sequence_resolution.sequence_view"/>
             <field name="arch" type="xml">
                 <field name="active_resolution" position="after">
+                    <field name="dian_type" readonly="1" invisible="1"/>
                     <field name="technical_key"
-                        attrs="{'required': [('use_dian_control', '=', True)]}"/>
+                        attrs="{'required': [('use_dian_control', '=', True), ('dian_type', '=', 'e-invoicing')]}"/>
                 </field>
             </field>
         </record>

@@ -10,7 +10,7 @@
               "Joan Marín Github@joanmarin",
     "website": "http://www.exaap.com",
     "license": "AGPL-3",
-    "summary": "Colombian E-Invoicing", 
+    "summary": "Colombian E-Invoicing",
     "depends": [
         "l10n_co_account_fiscal_position_party_tax_scheme",
         "l10n_co_account_invoice_discrepancy_response",
@@ -22,6 +22,13 @@
         "l10n_co_sequence_resolution",
         "base_iso3166",
     ],
+    'external_dependencies': {
+        'python': [
+            'validators',
+            'OpenSSL',
+            'xades',
+        ],
+    },
     "data": [
         'security/ir.model.access.csv',
         "views/account_invoice_views.xml",

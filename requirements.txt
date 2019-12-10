@@ -1,0 +1,4 @@
+validators
+pyopenssl
+xades
+lxml==4.4.2

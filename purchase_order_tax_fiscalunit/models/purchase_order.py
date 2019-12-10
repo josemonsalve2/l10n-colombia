@@ -35,6 +35,9 @@ class PurchaseOrder(models.Model):
         rec = super(PurchaseOrder, self).write(vals)
 
         if vals.get('order_line'):
+            for order in self:
+                order.order_line._recompute_tax_id()
+            '''
             for line in vals.get('order_line'):
                 if line[0] == 2:
                     for order in self:
@@ -52,9 +55,9 @@ class PurchaseOrder(models.Model):
                         order.order_line._recompute_tax_id()
 
                     break
-
+            '''
         return rec
-    
+
     @api.model
     def create(self, vals):
         res = super(PurchaseOrder, self).create(vals)

@@ -45,7 +45,7 @@
                 </xpath>
 
                 <field name="date_from" position="before">
-                    <field name="use_dian_control" invisible="1"/>
+                    <field name="use_dian_control" readonly="1" invisible="1"/>
                     <field name="prefix" readonly="1"/>
                     <field name="resolution_number"
                         attrs="{'required': [('use_dian_control', '=', True)]}"/>

@@ -15,6 +15,8 @@ from xades import XAdESContext, template
 from xades.policy import GenericPolicyId
 from pytz import timezone
 from jinja2 import Environment, FileSystemLoader
+from odoo import _
+from odoo.exceptions import ValidationError
 #from mock import patch
 
 def get_cufe_cude(
@@ -148,31 +150,44 @@ def get_xml_with_signature(
         xmlsig.constants.TransformSha512)
     root.append(signature)
     ctx = XAdESContext(policy)
-    ctx.load_pkcs12(crypto.load_pkcs12(
-        b64decode(certificate_file),
-        certificate_password))
+    ctx.load_pkcs12(get_pkcs12(certificate_file, certificate_password))
     #with patch("xades.policy.urllib.urlopen") as mock:
     #    mock.return_value = b64decode(signature_policy_file).read()
     ctx.sign(signature)
     #ctx.verify(signature)
 
-    #Complememto para corregir errores y posicionar bien los valores
+    #Se debe firmar en un paso anterior, y luego remover el signature para
+    #ubicarlo en posicion necesaria
     root.remove(signature)
     ext = "urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2"
     ds = "http://www.w3.org/2000/09/xmldsig#"
-    #https://lxml.de/tutorial.html
-    for element in root.iter("{%s}ExtensionContent2" % ext):
-        element.append(signature)
-        element.tag = "{%s}ExtensionContent" % ext
+    position = 0
 
+    #https://lxml.de/tutorial.html
+    for element in root.iter("{%s}ExtensionContent" % ext):
+        if position == 1:
+            element.append(signature)
+        position += 1
+
+    #Complememto para añadir atributo faltante
     for element in root.iter("{%s}SignatureValue" % ds):
         element.attrib['Id'] = signature_id + "-sigvalue"
+
     #https://www.decalage.info/en/python/lxml-c14n
     output = StringIO()
-    root.getroottree().write_c14n(output)
+    root.getroottree().write_c14n(output)#, exclusive=1, with_comments=0
     root = output.getvalue()
 
     return root
+
+def get_pkcs12(certificate_file, certificate_password):
+    try:
+        return crypto.load_pkcs12(
+            b64decode(certificate_file),
+            certificate_password)
+    except Exception as e:
+		raise ValidationError(_("The cretificate password or certificate file is not"
+                                " valid.\nException: %s") % e)
 
 def get_xml_soap_values(certificate_file, certificate_password):
     Created = datetime.now().replace(tzinfo=timezone('UTC'))
@@ -180,9 +195,7 @@ def get_xml_soap_values(certificate_file, certificate_password):
     Expires = (Created + timedelta(seconds=60000)).strftime('%Y-%m-%dT%H:%M:%S.001Z')
     Created = Created.strftime('%Y-%m-%dT%H:%M:%S.001Z')
     #https://github.com/mit-dig/idm/blob/master/idm_query_functions.py#L151
-    pkcs12 = crypto.load_pkcs12(
-        b64decode(certificate_file),
-        certificate_password)
+    pkcs12 = get_pkcs12(certificate_file, certificate_password)
     cert = pkcs12.get_certificate()
     der = b64encode(crypto.dump_certificate(
         crypto.FILETYPE_ASN1,
@@ -219,9 +232,7 @@ def get_xml_soap_with_signature(
         signature,
         name="KI-" + signature_id)
     ctx = xmlsig.SignatureContext()
-    ctx.load_pkcs12(crypto.load_pkcs12(
-        b64decode(certificate_file),
-        certificate_password))
+    ctx.load_pkcs12(get_pkcs12(certificate_file, certificate_password))
 
     for element in root.iter("{%s}Security" % wsse):
         element.append(signature)

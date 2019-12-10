@@ -25,7 +25,7 @@ class AccountInvoiceLine(models.Model):
             else:
                 taxes = line.product_id.supplier_taxes_id or line.account_id.tax_ids
 
-             # Keep only taxes of the company
+            # Keep only taxes of the company
             company_id = line.company_id or self.env.user.company_id
             taxes = taxes.filtered(lambda r: r.company_id == company_id)
             taxes = fpos.map_tax(
