@@ -10,15 +10,20 @@ Configuacion:
 
 1) Configurar Secuencias DIAN, principalmente la clave técnica:
 
-.. image:: ./static/images/resolution_dian.png
+.. image:: ./static/images/ir_sequence.png
 
 2) Configurar datos de la compañía:
 
-.. image:: ./static/images/einvoicing_company.png
+.. image:: ./static/images/res_company.png
 
-3) Hacer pruebas con las facturas
+3) Hacer pruebas con las facturas:
 
-.. image:: ./static/images/invoice.png
+.. image:: ./static/images/account_invoice.png
+
+4) Resultados:
+
+.. image:: ./static/images/dian_document.png
+
 
 Credits
 =======
