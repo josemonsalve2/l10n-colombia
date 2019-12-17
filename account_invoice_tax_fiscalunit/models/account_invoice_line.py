@@ -47,31 +47,36 @@ class AccountInvoiceLine(models.Model):
             if incl_tax:
                 line._recompute_fix_price(taxes, line.invoice_line_tax_ids)
 
+        return True
+
     def _recompute_fix_price(self, taxes, fp_taxes):
         fix_price = self.env['account.tax']._fix_tax_included_price
 
         if self.invoice_id.type in ('in_invoice', 'in_refund'):
             prec = self.env['decimal.precision'].precision_get('Product Price')
-            if not self.price_unit or float_compare(
-                    self.price_unit,
-                    self.product_id.standard_price,
-                    precision_digits=prec) == 0:
+
+            if (not self.price_unit
+                    or float_compare(
+                        self.price_unit,
+                        self.product_id.standard_price,
+                        precision_digits=prec) == 0):
                 self.price_unit = fix_price(
                     self.product_id.standard_price,
                     taxes,
                     fp_taxes)
                 self._set_currency()
         else:
-            raise Warning(fix_price)
             self.price_unit = fix_price(self.product_id.lst_price, taxes, fp_taxes)
             self._set_currency()
+
+        return True
 
     @api.multi
     def recalculate_taxes(self, remove_tax_groups_ids, taxes):
         """Updates taxes on all order lines"""
         self.ensure_one()
         taxes_ids = taxes.ids
-                
+
         for tax in taxes:
             remove_tax_parent = False
 

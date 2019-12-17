@@ -10,6 +10,12 @@ class AccountTaxGroupType(models.Model):
 
     code = fields.Char(string='Code', required=True)
     name = fields.Char(string='Name', required=True)
+    type = fields.Selection(
+        [('tax', 'Tax'),
+         ('withholding_tax', 'Withholding Tax')],
+        string='Type',
+        required=True,
+        default=False)
     description = fields.Char(string='Description')
 
     _sql_constraints = [(

@@ -8,10 +8,10 @@ from odoo import models
 class AccountInvoiceLine(models.Model):
     _inherit = "account.invoice.line"
 
-    def _get_invoice_lines_taxes(self, tax, invoice_line_taxes_total):
+    def _get_invoice_lines_taxes(self, tax, tax_amount, invoice_line_taxes_total):
         tax_code = tax.tax_group_id.tax_group_type_id.code
         tax_name = tax.tax_group_id.tax_group_type_id.name
-        tax_percent = '{:.2f}'.format(tax.amount or 0)
+        tax_percent = '{:.2f}'.format(tax_amount)
 
         if tax_code not in invoice_line_taxes_total:
             invoice_line_taxes_total[tax_code] = {}
@@ -24,11 +24,6 @@ class AccountInvoiceLine(models.Model):
             invoice_line_taxes_total[tax_code]['taxes'][tax_percent]['base'] = 0
             invoice_line_taxes_total[tax_code]['taxes'][tax_percent]['amount'] = 0
 
-        tax_amount = tax.amount
-
-        if tax_amount < 0:
-            tax_amount *= -1
-
         invoice_line_taxes_total[tax_code]['total'] += (
             self.price_subtotal * tax_amount / 100)
         invoice_line_taxes_total[tax_code]['taxes'][tax_percent]['base'] += (
@@ -36,4 +31,4 @@ class AccountInvoiceLine(models.Model):
         invoice_line_taxes_total[tax_code]['taxes'][tax_percent]['amount'] += (
             self.price_subtotal * tax_amount / 100)
 
-        return invoice_line_taxes_total
+        return invoice_line_taxes_total		

@@ -75,26 +75,7 @@ def get_template_xml(values, template_name):
     xml = template_xml.render(values)
 
     return xml.replace('&', '&amp;')
-
-def get_period_dates(base_date):
-    split_date = base_date.split('-')
-    current_year = int(split_date[0])
-    current_month = int(split_date[1])
-
-    if current_month == 12:
-        year = current_year + 1
-        month = 1
-    else:
-        year = current_year
-        month = current_month + 1
-
-    period_start_date = date(current_year, current_month, 1)
-    period_end_date = date(year, month, 1) - timedelta(days=1)
-
-    return {
-        'PeriodStartDate': period_start_date.strftime("%Y-%m-%d"),
-        'PeriodEndDate': period_end_date.strftime("%Y-%m-%d")}
-
+   
 #https://github.com/etobella/python-xades
 def get_xml_with_signature(
         xml_without_signature,
@@ -106,7 +87,8 @@ def get_xml_with_signature(
     #base_path = path.dirname(path.dirname(__file__))
     #root = etree.parse(path.join(base_path, name)).getroot()
     #https://lxml.de/tutorial.html
-    root = etree.fromstring(xml_without_signature.encode('UTF-8'))
+    #parser = etree.XMLParser(encoding='utf-8')
+    root = etree.fromstring(xml_without_signature.encode("utf-8"))
     #https://github.com/etobella/python-xades/blob/master/test/test_xades.py
     signature_id = "xmldsig-{}".format(uuid4())
     signature = xmlsig.template.create(
