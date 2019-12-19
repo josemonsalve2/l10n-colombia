@@ -19,6 +19,14 @@ from odoo import _
 from odoo.exceptions import ValidationError
 #from mock import patch
 
+def get_software_security_code(IdSoftware, Pin, NroDocumentos):
+    uncoded_value = (IdSoftware + ' + ' + Pin + ' + ' + NroDocumentos)
+    software_security_code = hashlib.sha384(IdSoftware + Pin + NroDocumentos)
+
+    return {
+        'SoftwareSecurityCodeUncoded': uncoded_value,
+        'SoftwareSecurityCode': software_security_code.hexdigest()}
+
 def get_cufe_cude(
         NumFac,
         FecFac,
@@ -57,14 +65,6 @@ def get_cufe_cude(
         'CUFE/CUDEUncoded': uncoded_value,
         'CUFE/CUDE': CUFE_CUDE.hexdigest()}
 
-def get_software_security_code(IdSoftware, Pin, NroDocumentos):
-    uncoded_value = (IdSoftware + ' + ' + Pin + ' + ' + NroDocumentos)
-    software_security_code = hashlib.sha384(IdSoftware + Pin + NroDocumentos)
-
-    return {
-        'SoftwareSecurityCodeUncoded': uncoded_value,
-        'SoftwareSecurityCode': software_security_code.hexdigest()}
-
 #https://stackoverflow.com/questions/38432809/dynamic-xml-template-generation-using-get-template-jinja2
 def get_template_xml(values, template_name):
     base_path = path.dirname(path.dirname(__file__))
@@ -87,8 +87,9 @@ def get_xml_with_signature(
     #base_path = path.dirname(path.dirname(__file__))
     #root = etree.parse(path.join(base_path, name)).getroot()
     #https://lxml.de/tutorial.html
-    #parser = etree.XMLParser(encoding='utf-8')
-    root = etree.fromstring(xml_without_signature.encode("utf-8"))
+    #parser = etree.XMLParser(encoding='utf-8', remove_blank_text=True)
+    parser =  etree.XMLParser(remove_comments=True)
+    root = etree.fromstring(xml_without_signature.encode("utf-8"), parser=parser)
     #https://github.com/etobella/python-xades/blob/master/test/test_xades.py
     signature_id = "xmldsig-{}".format(uuid4())
     signature = xmlsig.template.create(
@@ -197,7 +198,8 @@ def get_xml_soap_with_signature(
     wsse = "http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd"
     wsu = "http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"
     X509v3 = "http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-x509-token-profile-1.0#X509v3"
-    root = etree.fromstring(xml_soap_without_signature)
+    parser =  etree.XMLParser(remove_comments=True)
+    root = etree.fromstring(xml_soap_without_signature, parser=parser)
     signature_id = "{}".format(Id)
     signature = xmlsig.template.create(
         xmlsig.constants.TransformExclC14N,

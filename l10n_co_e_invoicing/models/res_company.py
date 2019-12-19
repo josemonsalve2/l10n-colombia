@@ -32,6 +32,7 @@ class ResCompany(models.Model):
     signature_policy_file = fields.Binary(string='Signature Policy File')
     files_path = fields.Char(string='Files Path')
     einvoicing_email = fields.Char(string='E-Invoicing Email')
+    report_template = fields.Many2one(string='Report Template', comodel_name='ir.actions.report.xml')
 
     @api.onchange('signature_policy_url')
     def onchange_signature_policy_url(self):

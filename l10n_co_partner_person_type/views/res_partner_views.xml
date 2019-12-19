@@ -10,8 +10,10 @@
                 </xpath>
                 <xpath expr="//field[@name='company_type']" position="before">
                     <field name="person_type"
-                        required="1"
-                        placeholder="- Person Type"/>
+                        placeholder="- Person Type"
+                        attrs="{
+                            'invisible': [('type', '!=', 'contact'), ('parent_id', '!=', False)],
+                            'required': [('parent_id', '=', False)]}"/>
                 </xpath>
             </field>
         </record>

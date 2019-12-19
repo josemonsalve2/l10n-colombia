@@ -17,6 +17,7 @@
         "l10n_co_account_invoice_payment_mean",
         "l10n_co_account_tax_group_type",
         "l10n_co_base_location",
+        "l10n_co_partner_isic",
         "l10n_co_partner_person_type",
         "l10n_co_partner_vat",
         "l10n_co_sequence_resolution",
@@ -36,7 +37,9 @@
         "views/account_invoice_dian_document_views.xml",
         "views/ir_sequence_views.xml",
         "views/res_company_views.xml",
-        "views/account_tax_group_views.xml"
+        "views/account_tax_group_views.xml",
+        "report/account_invoice_report_template_qr.xml",
+        "report/account_invoice_report_template.xml",
     ],
     "installable": True,
 }

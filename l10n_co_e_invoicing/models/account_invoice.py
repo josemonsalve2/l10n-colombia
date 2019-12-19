@@ -41,22 +41,6 @@ class AccountInvoice(models.Model):
 				dian_document
 
 		return res
-	
-	def _get_billing_reference(self):
-		billing_reference = {}
-
-		for origin_invoice in self.origin_invoice_ids:
-			if origin_invoice.state in ('open', 'paid'):
-				for dian_document in origin_invoice.dian_document_lines:
-					if dian_document.state == 'done':
-						billing_reference['ID'] = origin_invoice.number
-						billing_reference['UUID'] = dian_document.cufe_cude
-						billing_reference['IssueDate'] = origin_invoice.date_invoice
-
-		if not billing_reference:
-			raise UserError('Credit Note has not Billing Reference')
-		else:
-			return billing_reference
 
 	def _get_active_dian_resolution(self):
 		msg1 = _("Your active dian resolution has no technical key, " +
@@ -64,11 +48,6 @@ class AccountInvoice(models.Model):
 		msg2 = _("You do not have an active dian resolution, " +
 				 "contact with your administrator.")
 		resolution_number = False
-		date_from = False
-		date_to = False
-		number_from = False
-		number_to = False
-		technical_key = False
 
 		for date_range_id in self.journal_id.sequence_id.date_range_ids:
 			if date_range_id.active_resolution:
@@ -88,13 +67,44 @@ class AccountInvoice(models.Model):
 			raise UserError(msg2)
 
 		return {
-			'prefix': self.journal_id.sequence_id.prefix or '',
-			'resolution_number': resolution_number,
-			'date_from': date_from,
-			'date_to': date_to,
-			'number_from': number_from,
-			'number_to': number_to,
+			'InvoiceAuthorization': resolution_number,
+			'StartDate': date_from,
+			'EndDate': date_to,
+			'Prefix': self.journal_id.sequence_id.prefix or '',
+			'From': number_from,
+			'To': number_to,
 			'technical_key': technical_key}
+
+	def _get_billing_reference(self):
+		billing_reference = {}
+
+		for origin_invoice in self.origin_invoice_ids:
+			if origin_invoice.state in ('open', 'paid'):
+				for dian_document in origin_invoice.dian_document_lines:
+					if dian_document.state == 'done':
+						billing_reference['ID'] = origin_invoice.number
+						billing_reference['UUID'] = dian_document.cufe_cude
+						billing_reference['IssueDate'] = origin_invoice.date_invoice
+
+		if not billing_reference:
+			raise UserError('Credit Note has not Billing Reference')
+		else:
+			return billing_reference
+
+	def _get_payment_exchange_rate(self):
+		company_currency = self.company_id.currency_id
+		rate = 1
+		date = self._get_currency_rate_date() or fields.Date.context_today(self)
+
+		if self.currency_id != company_currency:
+			currency =self.currency_id.with_context(date=date)
+			rate = currency.compute(rate, company_currency)
+
+		return {
+			'SourceCurrencyCode': self.currency_id.name,
+			'TargetCurrencyCode': company_currency.name,
+			'CalculationRate': rate,
+			'Date': date}
 
 	def _get_einvoicing_taxes(self):
 		msg1 = _("Your tax: '%s', has no e-invoicing tax group type, " +

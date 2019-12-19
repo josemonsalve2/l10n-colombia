@@ -37,6 +37,9 @@
                             <field name="signature_policy_file"
                                 widget="binary"
                                 filename="signature_policy_filename"/>
+                            <field name="report_template"
+                                domain="[('model', '=', 'account.invoice')]"
+                                attrs="{'required': [('einvoicing_enabled', '=', True)]}"/>
                         </group>
                     </page>
                 </xpath>

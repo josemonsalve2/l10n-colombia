@@ -13,8 +13,10 @@ import global_functions
 from pytz import timezone
 from requests import post
 from lxml import etree
-from odoo import models, fields, _
+from odoo import models, api, fields, _
 from odoo.exceptions import ValidationError, UserError
+import logging
+logger = logging.getLogger(__name__)
 
 
 DIAN = {
@@ -62,12 +64,22 @@ class AccountInvoiceDianDocument(models.Model):
         string='StatusCode',
         default=False)
     get_status_zip_response = fields.Text(string='Response')
+    qr_information = fields.Char(string="QR Information", compute='_generate_qr_code', store=True)
 
     def _set_filenames(self):
-        msg = _("'%s' does not have a identification document established.")
+        msg1 = _("The document type of '%s' is not NIT")
+        msg2 = _("'%s' does not have a document type established.")
+        msg3 = _("'%s' does not have a identification document established.")
+
+        if self.company_id.partner_id.document_type_id:
+			if self.company_id.partner_id.document_type_id.code != '31':
+				raise UserError(msg1 % self.name)
+        else:
+			raise UserError(msg2 % self.name)
 
         if not self.company_id.partner_id.identification_document:
-            raise UserError(msg)
+            raise UserError(msg3)
+
         #nnnnnnnnnn: NIT del Facturador Electrónico sin DV, de diez (10) dígitos
         # alineados a la derecha y relleno con ceros a la izquierda.
         nnnnnnnnnn = self.company_id.partner_id.identification_document.zfill(10)
@@ -112,30 +124,40 @@ class AccountInvoiceDianDocument(models.Model):
             'zipped_filename': 'z' + znnnnnnnnnnpppaadddddddd + '.zip'})
 
     def _get_xml_values(self, ClTec):
-        einvoicing_taxes = self.invoice_id._get_einvoicing_taxes()
-        create_date = datetime.strptime(self.invoice_id.create_date, '%Y-%m-%d %H:%M:%S')
-        create_date = create_date.replace(tzinfo=timezone('UTC'))
-        ID = self.invoice_id.number
-        IssueDate = self.invoice_id.date_invoice
-        IssueTime = create_date.astimezone(
-            timezone('America/Bogota')).strftime('%H:%M:%S-05:00')
+        msg1 = _("'%s' does not have a valid isic code")
+        msg2 = _("'%s' does not have a isic code established.")
         supplier = self.company_id.partner_id
-        customer = self.invoice_id.partner_id
-        NitOFE = supplier.identification_document
-        NitAdq = customer.identification_document
-        SoftwarePIN = False
-        IdSoftware = self.company_id.software_id
-        TipoAmbie = self.company_id.profile_execution_id
 
-        if not ClTec:
-            SoftwarePIN = self.company_id.software_pin
+        if supplier.isic_id:
+			if supplier.isic_id.code == '0000':
+				raise UserError(msg1 % supplier.name)
+        else:
+			raise UserError(msg2 % supplier.name)
+
+        NitOFE = supplier.identification_document
+        IdSoftware = self.company_id.software_id
+        SoftwarePIN = self.company_id.software_pin
+        ID = self.invoice_id.number
+        software_security_code = global_functions.get_software_security_code(
+            IdSoftware,
+            SoftwarePIN,
+            ID)
+        TipoAmbie = self.company_id.profile_execution_id
+        customer = self.invoice_id.partner_id
+        NitAdq = customer.identification_document
 
         if TipoAmbie == '1':
             QRCodeURL = DIAN['catalogo']
         else:
             QRCodeURL = DIAN['catalogo-hab']
-
+        
+        create_date = datetime.strptime(self.invoice_id.create_date, '%Y-%m-%d %H:%M:%S')
+        create_date = create_date.replace(tzinfo=timezone('UTC'))
+        IssueDate = self.invoice_id.date_invoice
+        IssueTime = create_date.astimezone(
+            timezone('America/Bogota')).strftime('%H:%M:%S-05:00')
         ValFac = self.invoice_id.amount_untaxed
+        einvoicing_taxes = self.invoice_id._get_einvoicing_taxes()
         ValImp1 = einvoicing_taxes['TaxesTotal']['01']['total']
         ValImp2 = einvoicing_taxes['TaxesTotal']['04']['total']
         ValImp3 = einvoicing_taxes['TaxesTotal']['03']['total']
@@ -161,10 +183,6 @@ class AccountInvoiceDianDocument(models.Model):
             ClTec,
             SoftwarePIN,
             TipoAmbie)
-        software_security_code = global_functions.get_software_security_code(
-            IdSoftware,
-            self.company_id.software_pin,
-            ID)
         partition_key = 'co|' + IssueDate.split('-')[2] + '|' + cufe_cude['CUFE/CUDE'][:2]
         emission_date = IssueDate.replace('-', '')
         QRCodeURL = QRCodeURL.format(cufe_cude['CUFE/CUDE'], partition_key, emission_date)
@@ -182,25 +200,27 @@ class AccountInvoiceDianDocument(models.Model):
             'ProviderIDschemeID': supplier.check_digit,
             'ProviderIDschemeName': supplier.document_type_id.code,
             'ProviderID': NitOFE,
-            'NitAdquiriente': NitAdq,
             'SoftwareID': IdSoftware,
             'SoftwareSecurityCode': software_security_code['SoftwareSecurityCode'],
+            'NitAdquiriente': NitAdq,
             'QRCodeURL': QRCodeURL,
             'ProfileExecutionID': TipoAmbie,
             'ID': ID,
             'UUID': cufe_cude['CUFE/CUDE'],
             'IssueDate': IssueDate,
             'IssueTime': IssueTime,
-            'LineCountNumeric': len(self.invoice_id.invoice_line_ids),
             'DocumentCurrencyCode': self.invoice_id.currency_id.name,
+            'LineCountNumeric': len(self.invoice_id.invoice_line_ids),
+            'IndustryClassificationCode': supplier.isic_id.code,
             'AccountingSupplierParty': supplier._get_accounting_partner_party_values(),
             'AccountingCustomerParty': customer._get_accounting_partner_party_values(),
-            #TODO: No esta completamente calro los datos de que tercero son
+            #TODO: No esta completamente claro los datos de que tercero son
             'TaxRepresentativeParty': supplier._get_tax_representative_party_values(),
             'PaymentMeansID': self.invoice_id.payment_mean_id.code,
             'PaymentMeansCode': '10',
             'PaymentDueDate': self.invoice_id.date_due,
             'PaymentID': 'Efectivo',
+            'PaymentExchangeRate': self.invoice_id._get_payment_exchange_rate(),
             'TaxesTotal': einvoicing_taxes['TaxesTotal'],
             'WithholdingTaxesTotal': einvoicing_taxes['WithholdingTaxesTotal'],
             'LineExtensionAmount': '{:.2f}'.format(self.invoice_id.amount_untaxed),
@@ -211,6 +231,7 @@ class AccountInvoiceDianDocument(models.Model):
     def _get_invoice_values(self):
         active_dian_resolution = self.invoice_id._get_active_dian_resolution()
         xml_values = self._get_xml_values(active_dian_resolution['technical_key'])
+        xml_values['InvoiceControl'] = active_dian_resolution
         #Punto 14.1.5.1. del anexo tecnico version 1.8
         #10 Estandar *
         #09 AIU
@@ -223,16 +244,10 @@ class AccountInvoiceDianDocument(models.Model):
         #03 Factura por Contingencia Facturador
         #04 Factura por Contingencia DIAN
         xml_values['InvoiceTypeCode'] = '01'
-        xml_values['InvoiceAuthorization'] = active_dian_resolution['resolution_number']
-        xml_values['StartDate'] = active_dian_resolution['date_from']
-        xml_values['EndDate'] = active_dian_resolution['date_to']
-        xml_values['Prefix'] = active_dian_resolution['prefix']
-        xml_values['From'] = active_dian_resolution['number_from']
-        xml_values['To'] = active_dian_resolution['number_to']
         xml_values['InvoiceLines'] = self.invoice_id._get_invoice_lines()
 
         return xml_values
-    
+
     def _get_credit_note_values(self):
         xml_values = self._get_xml_values(False)
         active_dian_resolution = self.invoice_id._get_active_dian_resolution()
@@ -259,7 +274,7 @@ class AccountInvoiceDianDocument(models.Model):
         xml_values['CreditNoteLines'] = self.invoice_id._get_invoice_lines()
 
         return xml_values
-    
+
     def _get_debit_note_values(self):
         xml_values = self._get_xml_values(False)
         #Punto 14.1.5.3. del anexo tecnico version 1.8
@@ -470,3 +485,22 @@ class AccountInvoiceDianDocument(models.Model):
         self.write({'zipped_file': b64encode(self._get_zipped_file())})
         self.sent_zipped_file()
         self.GetStatusZip()
+
+    def _generate_qr_code(self):
+        #create_date = datetime.strptime(self.invoice_id.create_date, '%Y-%m-%d %H:%M:%S')
+        #create_date = create_date.replace(tzinfo=timezone('UTC'))
+
+        #qr_data = "NumFac: " + self.invoice_id.number + "\n"
+        # qr_data += "FecFac: " + self.invoice_id.date_invoice + "\n"
+        # qr_data += "HorFac: " + create_date.astimezone(
+        #                             timezone('America/Bogota')).strftime('%H:%M:%S-05:00') + "\n"
+        # qr_data += "NitFac: " + self.company_id.partner_id.identification_document + "\n"
+        # qr_data += "NitAdq: " + self.invoice_id.partner_id.identification_document + "\n"
+        # qr_data += "ValFac: " + str(self.invoice_id.amount_untaxed) + "\n"
+        # qr_data += "ValIva: " + str(0.00) + "\n"
+        # qr_data += "ValOtroIm: " + str(0.00) + "\n"
+        # qr_data += "ValTolFac: " + str(0.00) + "\n"
+        # qr_data += "CUFE: " + self.cufe_cude + "\n"
+        # qr_data +=  self.invoice_url
+
+        return "qr_code"
