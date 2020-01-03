@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-10-24 22:16+0000\n"
-"PO-Revision-Date: 2019-10-24 22:16+0000\n"
+"POT-Creation-Date: 2019-12-23 18:34+0000\n"
+"PO-Revision-Date: 2019-12-23 18:34+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -16,13 +16,49 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: l10n_co_account_invoice_discrepancy_response
+#: model:ir.model,name:l10n_co_account_invoice_discrepancy_response.model_account_move
+msgid "Account Entry"
+msgstr "Entrada Contable"
+
+#. module: l10n_co_account_invoice_discrepancy_response
+#: model:ir.model.fields,field_description:l10n_co_account_invoice_discrepancy_response.field_account_invoice_debit_note_date
+msgid "Accounting Date"
+msgstr "Fecha Contable"
+
+#. module: l10n_co_account_invoice_discrepancy_response
+#: model:ir.ui.view,arch_db:l10n_co_account_invoice_discrepancy_response.account_invoice_debit_note_view
+msgid "Cancel"
+msgstr "Cancelar"
+
+#. module: l10n_co_account_invoice_discrepancy_response
+#: code:addons/l10n_co_account_invoice_discrepancy_response/wizards/account_invoice_debit_note.py:47
+#: code:addons/l10n_co_account_invoice_discrepancy_response/wizards/account_invoice_refund.py:21
+#, python-format
+msgid "Cannot refund draft/proforma/cancelled invoice."
+msgstr "No se puede reembolsar una factura borrador/proforma/cancelada."
+
+#. module: l10n_co_account_invoice_discrepancy_response
+#: code:addons/l10n_co_account_invoice_discrepancy_response/wizards/account_invoice_debit_note.py:48
+#: code:addons/l10n_co_account_invoice_discrepancy_response/wizards/account_invoice_refund.py:22
+#, python-format
+msgid "Cannot refund invoice which is already reconciled, invoice should be unreconciled first. You can only refund this invoice."
+msgstr "No se puede reembolsar una factura ya conciliada, antes debe eliminarse la conciliación. Sólo puede reembolsar esta factura."
+
+#. module: l10n_co_account_invoice_discrepancy_response
+#: model:ir.model.fields,help:l10n_co_account_invoice_discrepancy_response.field_account_journal_debit_note_sequence
+msgid "Check this box if you don't want to share the same sequence for invoices and debit notes made from this journal"
+msgstr "Marque esta casilla si no quiere compartir la misma secuencia para facturas y las notas debito hechas desde este diario"
+
+#. module: l10n_co_account_invoice_discrepancy_response
 #: model:ir.model.fields,field_description:l10n_co_account_invoice_discrepancy_response.field_account_invoice_discrepancy_response_code_code
 msgid "Code"
 msgstr "Código"
 
 #. module: l10n_co_account_invoice_discrepancy_response
-#: model:ir.model.fields,field_description:l10n_co_account_invoice_discrepancy_response.field_account_invoice_discrepancy_response_code_id_24483
-msgid "Correction Concept for Refund Invoice"
+#: model:ir.model.fields,field_description:l10n_co_account_invoice_discrepancy_response.field_account_invoice_debit_note_discrepancy_response_code_id
+#: model:ir.model.fields,field_description:l10n_co_account_invoice_discrepancy_response.field_account_invoice_discrepancy_response_code_id_24711
+#: model:ir.model.fields,field_description:l10n_co_account_invoice_discrepancy_response.field_account_invoice_refund_discrepancy_response_code_id
+msgid "Correction concept for Refund Invoice"
 msgstr "Concepto de Corrección para la Factura Rectificativa"
 
 #. module: l10n_co_account_invoice_discrepancy_response
@@ -34,21 +70,93 @@ msgid "Correction concepts for Refund Invoices"
 msgstr "Conceptos de Corrección para Facturas Rectificativas"
 
 #. module: l10n_co_account_invoice_discrepancy_response
+#: model:ir.ui.view,arch_db:l10n_co_account_invoice_discrepancy_response.account_invoice_debit_note_view
+msgid "Create Debit Note"
+msgstr "Crear Nota Débito"
+
+#. module: l10n_co_account_invoice_discrepancy_response
+#: selection:account.invoice.debit.note,filter_debit_note:0
+msgid "Create a draft debit note"
+msgstr "Crear una nota débito borrador"
+
+#. module: l10n_co_account_invoice_discrepancy_response
+#: model:ir.model.fields,field_description:l10n_co_account_invoice_discrepancy_response.field_account_invoice_debit_note_create_uid
 #: model:ir.model.fields,field_description:l10n_co_account_invoice_discrepancy_response.field_account_invoice_discrepancy_response_code_create_uid
 msgid "Created by"
 msgstr "Creado por"
 
 #. module: l10n_co_account_invoice_discrepancy_response
+#: model:ir.model.fields,field_description:l10n_co_account_invoice_discrepancy_response.field_account_invoice_debit_note_create_date
 #: model:ir.model.fields,field_description:l10n_co_account_invoice_discrepancy_response.field_account_invoice_discrepancy_response_code_create_date
 msgid "Created on"
 msgstr "Creado el"
 
 #. module: l10n_co_account_invoice_discrepancy_response
+#: selection:account.invoice,refund_type:0
 #: selection:account.invoice.discrepancy.response.code,type:0
-msgid "Customer Refund"
-msgstr "Factura Rectificativa de Cliente"
+msgid "Credit Note"
+msgstr "Nota Crédito"
 
 #. module: l10n_co_account_invoice_discrepancy_response
+#: model:ir.ui.view,arch_db:l10n_co_account_invoice_discrepancy_response.invoice_form
+msgid "Credit Note Invoice"
+msgstr "Factura de Nota Crédito"
+
+#. module: l10n_co_account_invoice_discrepancy_response
+#: code:addons/l10n_co_account_invoice_discrepancy_response/models/account_journal.py:31
+#, python-format
+msgid "Credit Note Sequence - "
+msgstr "Secuencia de Notas Crédito - "
+
+#. module: l10n_co_account_invoice_discrepancy_response
+#: selection:account.invoice,refund_type:0
+#: selection:account.invoice.discrepancy.response.code,type:0
+#: model:ir.model,name:l10n_co_account_invoice_discrepancy_response.model_account_invoice_debit_note
+#: model:ir.ui.view,arch_db:l10n_co_account_invoice_discrepancy_response.account_invoice_debit_note_view
+msgid "Debit Note"
+msgstr "Nota Débito"
+
+#. module: l10n_co_account_invoice_discrepancy_response
+#: model:ir.model.fields,field_description:l10n_co_account_invoice_discrepancy_response.field_account_invoice_debit_note_date_invoice
+msgid "Debit Note Date"
+msgstr "Fecha de Nota Débito"
+
+#. module: l10n_co_account_invoice_discrepancy_response
+#: model:ir.model.fields,field_description:l10n_co_account_invoice_discrepancy_response.field_account_journal_debit_note_sequence_id
+msgid "Debit Note Entry Sequence"
+msgstr "Secuencia de Asiento de Nota Débito"
+
+#. module: l10n_co_account_invoice_discrepancy_response
+#: code:addons/l10n_co_account_invoice_discrepancy_response/wizards/account_invoice_debit_note.py:77
+#: model:ir.actions.act_window,name:l10n_co_account_invoice_discrepancy_response.account_invoice_debit_note_action
+#: model:ir.ui.view,arch_db:l10n_co_account_invoice_discrepancy_response.invoice_form
+#, python-format
+msgid "Debit Note Invoice"
+msgstr "Factura de Nota Débito"
+
+#. module: l10n_co_account_invoice_discrepancy_response
+#: model:ir.model.fields,field_description:l10n_co_account_invoice_discrepancy_response.field_account_invoice_debit_note_filter_debit_note
+msgid "Debit Note Method"
+msgstr "Método de Nota Débito"
+
+#. module: l10n_co_account_invoice_discrepancy_response
+#: code:addons/l10n_co_account_invoice_discrepancy_response/models/account_journal.py:43
+#, python-format
+msgid "Debit Note Sequence - "
+msgstr "Secuencia de Nota Débito - "
+
+#. module: l10n_co_account_invoice_discrepancy_response
+#: model:ir.model.fields,help:l10n_co_account_invoice_discrepancy_response.field_account_invoice_debit_note_filter_debit_note
+msgid "Debit Note base on this type. You can not Modify and Cancel if the invoice is already reconciled"
+msgstr "Nota Débito basada en este tipo. No se puede modificar o cancelar si la factura ya está conciliada"
+
+#. module: l10n_co_account_invoice_discrepancy_response
+#: model:ir.model.fields,field_description:l10n_co_account_invoice_discrepancy_response.field_account_journal_debit_note_sequence
+msgid "Dedicated Debit Note Sequence"
+msgstr "Secuencia Independiente de Nota Débito"
+
+#. module: l10n_co_account_invoice_discrepancy_response
+#: model:ir.model.fields,field_description:l10n_co_account_invoice_discrepancy_response.field_account_invoice_debit_note_display_name
 #: model:ir.model.fields,field_description:l10n_co_account_invoice_discrepancy_response.field_account_invoice_discrepancy_response_code_display_name
 msgid "Display Name"
 msgstr "Nombre a Mostrar"
@@ -56,9 +164,10 @@ msgstr "Nombre a Mostrar"
 #. module: l10n_co_account_invoice_discrepancy_response
 #: model:ir.ui.view,arch_db:l10n_co_account_invoice_discrepancy_response.account_invoice_discrepancy_response_code_view_search
 msgid "Group By"
-msgstr "Agrupar Por""
+msgstr "Agrupar Por"
 
 #. module: l10n_co_account_invoice_discrepancy_response
+#: model:ir.model.fields,field_description:l10n_co_account_invoice_discrepancy_response.field_account_invoice_debit_note_id
 #: model:ir.model.fields,field_description:l10n_co_account_invoice_discrepancy_response.field_account_invoice_discrepancy_response_code_id
 msgid "ID"
 msgstr "ID"
@@ -69,29 +178,83 @@ msgid "Invoice"
 msgstr "Factura"
 
 #. module: l10n_co_account_invoice_discrepancy_response
+#: model:ir.model,name:l10n_co_account_invoice_discrepancy_response.model_account_invoice_line
+msgid "Invoice Line"
+msgstr "Linea de Factura"
+
+#. module: l10n_co_account_invoice_discrepancy_response
+#: model:ir.model,name:l10n_co_account_invoice_discrepancy_response.model_account_invoice_refund
+#: code:addons/l10n_co_account_invoice_discrepancy_response/wizards/account_invoice_refund.py:107
+#, python-format
+msgid "Invoice Refund"
+msgstr "Factura Rectificativa"
+
+#. module: l10n_co_account_invoice_discrepancy_response
+#: model:ir.model,name:l10n_co_account_invoice_discrepancy_response.model_account_journal
+msgid "Journal"
+msgstr "Diario"
+
+#. module: l10n_co_account_invoice_discrepancy_response
+#: model:ir.model.fields,field_description:l10n_co_account_invoice_discrepancy_response.field_account_invoice_debit_note___last_update
 #: model:ir.model.fields,field_description:l10n_co_account_invoice_discrepancy_response.field_account_invoice_discrepancy_response_code___last_update
 msgid "Last Modified on"
-msgstr "Última Modificación el"
+msgstr "Última modificación en"
 
 #. module: l10n_co_account_invoice_discrepancy_response
+#: model:ir.model.fields,field_description:l10n_co_account_invoice_discrepancy_response.field_account_invoice_debit_note_write_uid
 #: model:ir.model.fields,field_description:l10n_co_account_invoice_discrepancy_response.field_account_invoice_discrepancy_response_code_write_uid
 msgid "Last Updated by"
-msgstr "Última Actualización por"
+msgstr "Última actualización por"
 
 #. module: l10n_co_account_invoice_discrepancy_response
+#: model:ir.model.fields,field_description:l10n_co_account_invoice_discrepancy_response.field_account_invoice_debit_note_write_date
 #: model:ir.model.fields,field_description:l10n_co_account_invoice_discrepancy_response.field_account_invoice_discrepancy_response_code_write_date
 msgid "Last Updated on"
-msgstr "Última Actualización el"
+msgstr "Última actualización el"
 
 #. module: l10n_co_account_invoice_discrepancy_response
 #: model:ir.model.fields,field_description:l10n_co_account_invoice_discrepancy_response.field_account_invoice_discrepancy_response_code_name
 msgid "Name"
-msgstr "Nombre"
+msgstr "NombrE"
+
+#. module: l10n_co_account_invoice_discrepancy_response
+#: code:addons/l10n_co_account_invoice_discrepancy_response/models/account_move.py:16
+#, python-format
+msgid "Please define a sequence for the debit notes"
+msgstr "Por favor, defina una secuencia para notas debito"
+
+#. module: l10n_co_account_invoice_discrepancy_response
+#: code:addons/l10n_co_account_invoice_discrepancy_response/models/account_move.py:15
+#, python-format
+msgid "Please define a sequence for the refunds"
+msgstr "Por favor, defina una secuencia para facturas rectificativas"
+
+#. module: l10n_co_account_invoice_discrepancy_response
+#: code:addons/l10n_co_account_invoice_discrepancy_response/models/account_move.py:17
+#, python-format
+msgid "Please define a sequence on the journal."
+msgstr "Por favor, defina una secuencia para el diario."
+
+#. module: l10n_co_account_invoice_discrepancy_response
+#: model:ir.model.fields,field_description:l10n_co_account_invoice_discrepancy_response.field_account_invoice_debit_note_description
+msgid "Reason"
+msgstr "Motivo"
+
+#. module: l10n_co_account_invoice_discrepancy_response
+#: model:ir.model.fields,field_description:l10n_co_account_invoice_discrepancy_response.field_account_invoice_refund_type
+msgid "Refund Type"
+msgstr "Tipo de Rectificación"
 
 #. module: l10n_co_account_invoice_discrepancy_response
 #: model:ir.ui.view,arch_db:l10n_co_account_invoice_discrepancy_response.account_invoice_discrepancy_response_code_view_search
 msgid "Search"
 msgstr "Buscar"
+
+#. module: l10n_co_account_invoice_discrepancy_response
+#: model:ir.model.fields,help:l10n_co_account_invoice_discrepancy_response.field_account_journal_debit_note_sequence_id
+msgid "This field contains the information related to the numbering of the debit note entries of this journal."
+msgstr "Este campo contiene la información relativa a la numeración de los asientos "
+"de nota débito de este diario."
 
 #. module: l10n_co_account_invoice_discrepancy_response
 #: model:ir.model.fields,field_description:l10n_co_account_invoice_discrepancy_response.field_account_invoice_discrepancy_response_code_type
@@ -100,9 +263,15 @@ msgid "Type"
 msgstr "Tipo"
 
 #. module: l10n_co_account_invoice_discrepancy_response
-#: selection:account.invoice.discrepancy.response.code,type:0
-msgid "Vendor Refund"
-msgstr "Devolución a Proveedor"
+#: model:ir.ui.view,arch_db:l10n_co_account_invoice_discrepancy_response.account_invoice_debit_note_view
+msgid "You will be able to edit and validate this\n"
+"                                debit note directly or keep it draft,\n"
+"                                waiting for the document to be issued by\n"
+"                                your supplier/customer."
+msgstr "Podrá editar y validar esta\n"
+"nota débito directamente o dejarla como borrador, \n"
+"en espera de que su proveedor/cliente expida el \n"
+"documento correspondiente."
 
 #. module: l10n_co_account_invoice_discrepancy_response
 #: model:ir.model,name:l10n_co_account_invoice_discrepancy_response.model_account_invoice_discrepancy_response_code

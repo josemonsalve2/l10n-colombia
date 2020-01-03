@@ -6,13 +6,18 @@
 Partner other names
 ===================
 
-This module was written to extend the functionality of "partner_second_lastname" to support having a second firstname or other names for contact partners.
+This module was written to extend the functionality of
+"partner_second_lastname" to support having a second firstname or other names
+for contact partners.
 
-In some countries, it's important to have a second first name or more than two names for contacts.
+In some countries, it's important to have a second first name or more than two
+names for contacts.
 
-Contact partners will need to fill at least one of the name fields (*Firstname* or *Other Names*).
+Contact partners will need to fill at least one of the name fields (*Firstname*
+or *Other Names*).
 
-Contact partners will need to fill at least one of the name fields (*Lastname* or *Second Lastname*).
+Contact partners will need to fill at least one of the name fields (*Lastname*
+or *Second Lastname*).
 
 
 Usage

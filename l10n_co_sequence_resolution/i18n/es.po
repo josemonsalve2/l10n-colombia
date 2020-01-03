@@ -59,6 +59,11 @@ msgstr "El Número Final debe ser mayor o igual que la Número Inicial."
 
 #. module: l10n_co_sequence_resolution
 #: selection:ir.sequence,dian_type:0
+msgid "Paper Invoice"
+msgstr "Factura en Papel"
+
+#. module: l10n_co_sequence_resolution
+#: selection:ir.sequence,dian_type:0
 msgid "POS Invoice"
 msgstr "Factura POS"
 

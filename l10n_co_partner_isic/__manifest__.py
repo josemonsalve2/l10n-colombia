@@ -8,13 +8,14 @@
     "summary": "ISIC Codes - Classification of Economic Activities ISIC",
     "version": "10.0.1.0.0",
     "license": "AGPL-3",
-    "website": "https://www.exaap.com",
+    "website": "https://github.com/odooloco/l10n-colombia",
     "author": "EXA Auto Parts Github@exaap, "
               "Joan Marín Github@JoanMarin, "
               "Guillermo Montoya Github@guillermm",
     "category": "Localization",
     "depends": [
-        "base"
+        "base",
+        "account"
     ],
     "data": [
         "security/ir.model.access.csv",

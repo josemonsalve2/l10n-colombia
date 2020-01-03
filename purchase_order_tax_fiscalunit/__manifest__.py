@@ -8,7 +8,7 @@
     "version": "10.0.1.0.0",
     "author": "EXA Auto Parts Github@exaap, "
               "Joan Marín Github@JoanMarin",
-    "website": "http://www.exaap.com",
+    "website": "https://github.com/odooloco/l10n-colombia",
     "license": "AGPL-3",
     "summary": "This module allows to evaluate a tax at purchase order level, "
                "using parameters such as total base and others.", 

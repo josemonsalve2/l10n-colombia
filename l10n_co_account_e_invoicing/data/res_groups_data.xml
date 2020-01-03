@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record model="res.groups" id="group_view_einvoicing_email_fields">
+            <field name="name">View E-Invoicing Email Fields</field>
+            <field name="users" eval="[(4, ref('base.user_root'))]"/>
+            <field name="category_id" ref="l10n_co_account_e_invoicing.category_einvoicing"/>
+        </record>
+        <record model="res.groups" id="group_view_operation_type_field">
+            <field name="name">View Operation Type Field</field>
+            <field name="users" eval="[(4, ref('base.user_root'))]"/>
+            <field name="category_id" ref="l10n_co_account_e_invoicing.category_einvoicing"/>
+        </record>
+        <record model="res.groups" id="group_view_invoice_type_field">
+            <field name="name">View Invoice Type Field</field>
+            <field name="users" eval="[(4, ref('base.user_root'))]"/>
+            <field name="category_id" ref="l10n_co_account_e_invoicing.category_einvoicing"/>
+        </record>
+        <record model="res.groups" id="group_send_invoice_dian_field">
+            <field name="name">View Send Invoice to DIAN? Field</field>
+            <field name="users" eval="[(4, ref('base.user_root'))]"/>
+            <field name="category_id" ref="l10n_co_account_e_invoicing.category_einvoicing"/>
+        </record>
+        <record model="res.groups" id="group_view_dian_documents">
+            <field name="name">View DIAN Documents</field>
+            <field name="users" eval="[(4, ref('base.user_root'))]"/>
+            <field name="category_id" ref="l10n_co_account_e_invoicing.category_einvoicing"/>
+        </record>
+        <record model="res.groups" id="group_view_einvoicing_setting_product">
+            <field name="name">View E-Invoicing Setting of the Product</field>
+            <field name="users" eval="[(4, ref('base.user_root'))]"/>
+            <field name="category_id" ref="l10n_co_account_e_invoicing.category_einvoicing"/>
+        </record>
+        <record model="res.groups" id="group_view_invoice_refund_buttons">
+            <field name="name">View Invoice Refund Buttons</field>
+            <field name="users" eval="[(4, ref('base.user_root'))]"/>
+            <field name="category_id" ref="l10n_co_account_e_invoicing.category_einvoicing"/>
+        </record>
+    </data>
+</odoo>

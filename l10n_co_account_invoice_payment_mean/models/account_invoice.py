@@ -14,13 +14,11 @@ class AccountInvoice(models.Model):
 		string='Payment Method',
 		copy=False,
 		default=False)
-	'''
 	payment_mean_code_id = fields.Many2one(
-		comodel='account.payment.mean.code',
+		comodel_name='account.payment.mean.code',
 		string='Mean of Payment',
 		copy=False,
 		default=False)
-	'''
 
 	@api.multi
 	def write(self, vals):

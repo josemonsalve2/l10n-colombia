@@ -10,7 +10,7 @@
     "author": "EXA Auto Parts Github@exaap, "
               "Joan Marín Github@JoanMarin, "
               "Guillermo Montoya Github@guillermm",
-    "website": "http://www.exaap.com",
+    "website": "https://github.com/odooloco/l10n-colombia",
     "license": "AGPL-3",
     "summary": "This module allows to evaluate a tax at invoice level, using parameters such as total base and others.", 
     "depends": [

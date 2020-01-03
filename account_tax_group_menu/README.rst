@@ -6,7 +6,7 @@
 Tax Group Menu
 ==============
 
-Menu for account.tax.group model 
+Menu for account.tax.group model
 
 
 Credits

@@ -19,8 +19,11 @@
 	"data": [
 		"security/ir.model.access.csv",
 		"data/account_invoice_discrepancy_response_code_data.xml",
+		"wizards/account_invoice_debit_note.xml",
+		"wizards/account_invoice_refund.xml",
 		"views/account_invoice_discrepancy_response_code_views.xml",
 		"views/account_invoice_views.xml",
+		"views/account_journal_views.xml",
 	],
 	"installable": True,
 }

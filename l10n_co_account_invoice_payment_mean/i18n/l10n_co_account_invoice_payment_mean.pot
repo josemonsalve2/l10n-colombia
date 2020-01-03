@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-10-11 20:54+0000\n"
-"PO-Revision-Date: 2019-10-11 20:54+0000\n"
+"POT-Creation-Date: 2020-01-02 08:28+0000\n"
+"PO-Revision-Date: 2020-01-02 08:28+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -126,6 +126,11 @@ msgid "Cash demand concentration / Credit Disbursement (CCD)"
 msgstr ""
 
 #. module: l10n_co_account_invoice_payment_mean
+#: model:account.payment.mean.code,name:l10n_co_account_invoice_payment_mean.account_payment_mean_code_018
+msgid "Cash demand concentration / Disbursement (CCD) debit"
+msgstr ""
+
+#. module: l10n_co_account_invoice_payment_mean
 #: model:account.payment.mean.code,name:l10n_co_account_invoice_payment_mean.account_payment_mean_code_022
 msgid "Certified banking project"
 msgstr ""
@@ -154,6 +159,11 @@ msgstr ""
 #. module: l10n_co_account_invoice_payment_mean
 #: model:ir.ui.menu,name:l10n_co_account_invoice_payment_mean.l10n_co_account_payment_mean_menu
 msgid "Colombian Localization Payments"
+msgstr ""
+
+#. module: l10n_co_account_invoice_payment_mean
+#: model:account.payment.mean.code,name:l10n_co_account_invoice_payment_mean.account_payment_mean_code_038
+msgid "Corporate Business Payment Savings Debit (CTP)"
 msgstr ""
 
 #. module: l10n_co_account_invoice_payment_mean
@@ -226,11 +236,6 @@ msgid "Debit Transfer"
 msgstr ""
 
 #. module: l10n_co_account_invoice_payment_mean
-#: model:account.payment.mean.code,name:l10n_co_account_invoice_payment_mean.account_payment_mean_code_018
-msgid "Cash demand concentration / Disbursement (CCD) debit"
-msgstr ""
-
-#. module: l10n_co_account_invoice_payment_mean
 #: model:ir.model.fields,field_description:l10n_co_account_invoice_payment_mean.field_account_payment_mean_code_display_name
 #: model:ir.model.fields,field_description:l10n_co_account_invoice_payment_mean.field_account_payment_mean_display_name
 msgid "Display Name"
@@ -291,6 +296,11 @@ msgid "Local Check"
 msgstr ""
 
 #. module: l10n_co_account_invoice_payment_mean
+#: model:ir.model.fields,field_description:l10n_co_account_invoice_payment_mean.field_account_invoice_payment_mean_code_id
+msgid "Mean of Payment"
+msgstr ""
+
+#. module: l10n_co_account_invoice_payment_mean
 #: model:account.payment.mean.code,name:l10n_co_account_invoice_payment_mean.account_payment_mean_code_000
 msgid "Mutual agreement"
 msgstr ""
@@ -319,11 +329,6 @@ msgstr ""
 #. module: l10n_co_account_invoice_payment_mean
 #: model:account.payment.mean.code,name:l10n_co_account_invoice_payment_mean.account_payment_mean_code_037
 msgid "Payment Corporate Business Savings Credit (CTP)"
-msgstr ""
-
-#. module: l10n_co_account_invoice_payment_mean
-#: model:account.payment.mean.code,name:l10n_co_account_invoice_payment_mean.account_payment_mean_code_038
-msgid "Corporate Business Payment Savings Debit (CTP)"
 msgstr ""
 
 #. module: l10n_co_account_invoice_payment_mean

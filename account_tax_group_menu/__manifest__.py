@@ -10,7 +10,7 @@
     "author": "EXA Auto Parts Github@exaap, "
               "Joan Marín Github@JoanMarin, "
               "Guillermo Montoya Github@guillermm",
-    "website": "http://www.exaap.com",
+    "website": "https://github.com/odooloco/l10n-colombia",
     "license": "AGPL-3",
     "summary": "Menu for account.tax.group model", 
     "depends": [

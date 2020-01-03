@@ -46,9 +46,8 @@ class ResPartner(models.Model):
             si es verificable por el algoritmo VAT. Si no se define,
             de todas formas el VAT se evalua como un NIT.
             '''
-            return ((partner.document_type_id and \
-                partner.document_type_id.checking_required) or \
-                not partner.document_type_id) == True
+            return ((partner.document_type_id and partner.document_type_id.checking_required)
+                    or (not partner.parent_id and not partner.document_type_id)) == True
 
         msg = _('The Identification Document does not seems to be correct.')
 

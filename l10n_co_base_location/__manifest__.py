@@ -8,7 +8,7 @@
     "summary": "Colombian Data ZIP/Cities, States and Countries",
     "version": "10.0.1.0.0",
     "license": "AGPL-3",
-    "website": "https://www.exaap.com",
+    "website": "https://github.com/odooloco/l10n-colombia",
     "author": "EXA Auto Parts Github@exaap, "
               "Joan Marín Github@JoanMarin, "
               "Guillermo Montoya Github@guillermm",

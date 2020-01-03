@@ -7,7 +7,7 @@ Account Tax on Invoice
 ======================
 
 This module allows to evaluate a tax at invoice level,
-using parameters such as total base and others. 
+using parameters such as total base and others.
 
 
 Credits

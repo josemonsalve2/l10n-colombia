@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="invoice_form" model="ir.ui.view">
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='date_invoice']" position="after">
+                    <label for="mandante_partner_id"/>
+                    <div groups="base.group_multi_currency">
+                        <field name="mandante_partner_id"
+                            options="{'no_create': True}"
+                            states="draft"
+                            domain="[('is_mandante', '=', True)]"/>
+                        <button name="update_mandante_partner"
+                                string="Update Mandante in Invoice Lines"
+                                type="object"
+                                class="oe_stat_button"
+                                icon="fa-check"
+				                states="draft"/>
+                    </div>
+                </xpath>
+                <xpath expr="//notebook/page/field[@name='invoice_line_ids']/tree//field[@name='price_subtotal']"
+                    position="after">
+                    <field name="mandante_partner_id"
+                        options="{'no_create': True}"
+                        domain="[('is_mandante', '=', True)]"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

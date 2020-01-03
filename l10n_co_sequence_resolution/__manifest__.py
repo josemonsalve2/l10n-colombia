@@ -9,7 +9,7 @@
     "summary": "Resolution of the DIAN for the sequence.",
     "version": "10.0.1.0.0",
     "license": "AGPL-3",
-    "website": "https://www.exaap.com",
+    "website": "https://github.com/odooloco/l10n-colombia",
     "author": "EXA Auto Parts Github@exaap, "
               "Joan Marín Github@JoanMarin, "
               "Luis Alfredo da Silva, "

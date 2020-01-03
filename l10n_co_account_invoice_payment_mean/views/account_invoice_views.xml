@@ -9,6 +9,9 @@
                     <field name="payment_mean_id"
                         options="{'no_create': True}"
                         attrs="{'required': [('date_invoice', '!=', False)]}"/>
+                    <field name="payment_mean_code_id"
+                        options="{'no_create': True}"
+                        required="1"/>
                 </xpath>
             </field>
         </record>

@@ -22,9 +22,10 @@ class IrSequence(models.Model):
     remaining_days = fields.Integer(
         string='Remaining Days',
         default=False)
-    dian_type = fields.Selection([
-        ('computer_generated_invoice', 'Computer Generated Invoice'),
-        ('pos_invoice', 'POS Invoice')], string='DIAN Type')
+    dian_type = fields.Selection(
+        [('computer_generated_invoice', 'Computer Generated Invoice'),
+         ('paper_invoice', 'Paper Invoice'),
+         ('pos_invoice', 'POS Invoice')], string='DIAN Type')
 
     @api.model
     def create(self, vals):

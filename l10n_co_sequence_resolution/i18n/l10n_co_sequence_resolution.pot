@@ -59,6 +59,11 @@ msgstr ""
 
 #. module: l10n_co_sequence_resolution
 #: selection:ir.sequence,dian_type:0
+msgid "Paper Invoice"
+msgstr ""
+
+#. module: l10n_co_sequence_resolution
+#: selection:ir.sequence,dian_type:0
 msgid "POS Invoice"
 msgstr ""
 

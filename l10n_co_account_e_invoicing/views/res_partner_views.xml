@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+		<record id="view_partner_form" model="ir.ui.view">
+			<field name="model">res.partner</field>
+			<field name="inherit_id" ref="base.view_partner_form"/>
+			<field name="arch" type="xml">
+				<label for="street" position="before">
+					<field name="send_zip_code"/>
+				</label>
+				<field name="phone" position="before">
+					<field name="view_einvoicing_email_field" invisible="1"/>
+					<field name="is_einvoicing_agent"
+						attrs="{'required': [('view_einvoicing_email_field', '=', True)]}"
+						groups="l10n_co_account_e_invoicing.group_view_einvoicing_email_fields"/>
+					<field name="einvoicing_email"
+						attrs="{'required': [('is_einvoicing_agent', '=', 'yes')]}"
+						groups="l10n_co_account_e_invoicing.group_view_einvoicing_email_fields"/>
+				</field>
+			</field>
+		</record>
+	</data>
+</odoo>
