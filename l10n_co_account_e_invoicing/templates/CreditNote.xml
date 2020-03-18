@@ -61,7 +61,6 @@
 	<cbc:UUID schemeID="{{ProfileExecutionID}}" schemeName="CUDE-SHA384">{{UUID}}</cbc:UUID>
 	<cbc:IssueDate>{{IssueDate}}</cbc:IssueDate>
 	<cbc:IssueTime>{{IssueTime}}</cbc:IssueTime>
-	<cbc:DueDate>{{DueDate}}</cbc:DueDate>
 	<cbc:CreditNoteTypeCode>{{CreditNoteTypeCode}}</cbc:CreditNoteTypeCode>
 <!--TODO 1.0: Que nota colocar?-->
 	<cbc:Note>{{Note}}</cbc:Note>
@@ -82,6 +81,7 @@
 	</cac:DiscrepancyResponse>
 <!--TODO 1.0 TODAS LAS FACTURAS DEBEN SER DEL MISMO ADQUIRIENTE-->
 <!--Si CreditNoteTypeCode igual a 20 es obligatorio-->
+	{% if BillingReference.ID %}
 	<cac:BillingReference>
 		<cac:InvoiceDocumentReference>
 			<cbc:ID>{{BillingReference.ID}}</cbc:ID>
@@ -89,6 +89,7 @@
 			<cbc:IssueDate>{{BillingReference.IssueDate}}</cbc:IssueDate>
 		</cac:InvoiceDocumentReference>
 	</cac:BillingReference>
+	{% endif %}
 <!--TODO 2.0: Creo que esto para colocar el numero de la orden, en nuestro caso, seria la cotizacion>
 	<cac:OrderReference>
 		<cbc:ID>{{OrderReferenceID}}</cbc:ID>
@@ -233,7 +234,8 @@
     		<cac:PartyName>
 				<cbc:Name>{{AccountingCustomerParty.PartyName}}</cbc:Name>
 			</cac:PartyName>
-    		{% endif %}
+			{% endif %}
+			{% if AccountingCustomerParty.CompanyID != '2222222222' %}
 			<cac:PhysicalLocation>
 				<cac:Address>
 					<cbc:ID>{{AccountingCustomerParty.AddressID}}</cbc:ID>
@@ -253,6 +255,7 @@
 					</cac:Country>
 				</cac:Address>
 			</cac:PhysicalLocation>
+			{% endif %}
 			<cac:PartyTaxScheme>
 				<cbc:RegistrationName>{{AccountingCustomerParty.Name}}</cbc:RegistrationName>
 				<cbc:CompanyID schemeAgencyID="195"
@@ -262,6 +265,7 @@
 			<!--TODO 2.0: listName el anexo dice que eliminar o valor No aplica,
 				pero para consumidor final dice informar 49-->
 				<cbc:TaxLevelCode listName="{{AccountingCustomerParty.listName}}">{{AccountingCustomerParty.TaxLevelCode}}</cbc:TaxLevelCode>
+				{% if AccountingCustomerParty.CompanyID != '2222222222' %}
 				<cac:RegistrationAddress>
 					<cbc:ID>{{AccountingCustomerParty.AddressID}}</cbc:ID>
 					<cbc:CityName>{{AccountingCustomerParty.AddressCityName}}</cbc:CityName>
@@ -279,6 +283,7 @@
                         <cbc:Name languageID="es">{{AccountingCustomerParty.CountryName}}</cbc:Name>
 					</cac:Country>
 				</cac:RegistrationAddress>
+				{% endif %}
 				<cac:TaxScheme>
 					<cbc:ID>{{AccountingCustomerParty.TaxSchemeID}}</cbc:ID>
 					<cbc:Name>{{AccountingCustomerParty.TaxSchemeName}}</cbc:Name>
@@ -296,7 +301,7 @@
 				</cac:CorporateRegistrationScheme>
 				{% endif %}
 			</cac:PartyLegalEntity>
-			{% if AccountingCustomerParty.Telephone or AccountingCustomerParty.Telefax or AccountingCustomerParty.ElectronicMail %}
+			{% if AccountingCustomerParty.CompanyID != '2222222222' and (AccountingCustomerParty.Telephone or AccountingCustomerParty.Telefax or AccountingCustomerParty.ElectronicMail) %}
 			<cac:Contact>
 			<!--TODO 3.0: opcional, de momento se manda  info de la empresa sin nombre de contacto>
 				<cbc:Name>Diana Cruz</cbc:Name-->
@@ -318,8 +323,10 @@
 			<!--TODO 2.0: no se sabe que es este campo, pero es opcional>
 				<cbc:ID></cbc:ID-->
 				<cbc:FirstName>{{AccountingCustomerParty.FirstName}}</cbc:FirstName>
-                <cbc:FamilyName>{{AccountingCustomerParty.FamilyName}}</cbc:FamilyName>
+				<cbc:FamilyName>{{AccountingCustomerParty.FamilyName}}</cbc:FamilyName>
+				{% if AccountingCustomerParty.MiddleName %}
 				<cbc:MiddleName>{{AccountingCustomerParty.MiddleName}}</cbc:MiddleName>
+				{% endif %}
 			<!--TODO 3.0: solo informar informacion de la residencia>
                 <cac:ResidenceAddress>
 					<cbc:ID>{{AccountingCustomerParty.AddressID}}</cbc:ID>
@@ -351,6 +358,7 @@
 		<!--cbc:ActualDeliveryDate></cbc:ActualDeliveryDate-->
 	<!--TODO 2.0 Hora efectiva de salida de los bienes-->
 		<!--cbc:ActualDeliveryTime></cbc:ActualDeliveryTime-->
+		{% if AccountingCustomerParty.CompanyID != '2222222222' %}
 		<cac:DeliveryAddress>
 			<cbc:ID>{{Delivery.AddressID}}</cbc:ID>
 			<cbc:CityName>{{Delivery.AddressCityName}}</cbc:CityName>
@@ -368,6 +376,7 @@
 				<cbc:Name languageID="es">{{Delivery.CountryName}}</cbc:Name>
 			</cac:Country>
 		</cac:DeliveryAddress>
+		{% endif %}
 	<!--TODO 3.0, Grupo de datos con información sobre la empresa de transporte
 		Desarrollo futuro>
 		<cac:DeliveryParty>
@@ -439,12 +448,15 @@
 			</cac:Contact>
 		</cac:DeliveryParty-->
 	</cac:Delivery>
-<!--TODO 1.0, falta definir que modulo del icoterms se elige>
+	{% if DeliveryTerms.LossRiskResponsibilityCode %}
 	<cac:DeliveryTerms>
-		<cbc:SpecialTerms>Portes Pagados</cbc:SpecialTerms>
-		<cbc:LossRiskResponsibilityCode>CFR</cbc:LossRiskResponsibilityCode>
-		<cbc:LossRisk>Costo y Flete</cbc:LossRisk>
-	</cac:DeliveryTerms-->
+		<cbc:ID>1</cbc:ID>
+	<!--TODO 2.0: Con otro modulo complementario se puede resolver el texto libre-->
+		<!--cbc:SpecialTerms>Portes Pagados</cbc:SpecialTerms-->
+		<cbc:LossRiskResponsibilityCode>{{DeliveryTerms.LossRiskResponsibilityCode}}</cbc:LossRiskResponsibilityCode>
+		<cbc:LossRisk>{{DeliveryTerms.LossRisk}}</cbc:LossRisk>
+	</cac:DeliveryTerms>
+	{% endif %}
 	<cac:PaymentMeans>
 		<cbc:ID>{{PaymentMeansID}}</cbc:ID>
 		<cbc:PaymentMeansCode>{{PaymentMeansCode}}</cbc:PaymentMeansCode>
@@ -494,6 +506,24 @@
 		{% endfor -%}
 	</cac:TaxTotal>
 	{% endfor -%}
+	{% for WithholdingTaxTotalID, WithholdingTaxTotal in WithholdingTaxesTotal.items() -%}
+	<cac:WithholdingTaxTotal>
+		<cbc:TaxAmount currencyID="{{DocumentCurrencyCode}}">{{'{:.2f}'.format(WithholdingTaxTotal.total)}}</cbc:TaxAmount>
+		{% for Percent, TaxSubtotal in WithholdingTaxTotal.taxes.items() -%}
+		<cac:TaxSubtotal>
+			<cbc:TaxableAmount currencyID="{{DocumentCurrencyCode}}">{{'{:.2f}'.format(TaxSubtotal.base)}}</cbc:TaxableAmount>
+			<cbc:TaxAmount currencyID="{{DocumentCurrencyCode}}">{{'{:.2f}'.format(TaxSubtotal.amount)}}</cbc:TaxAmount>
+			<cac:TaxCategory>
+				<cbc:Percent>{{Percent}}</cbc:Percent>
+				<cac:TaxScheme>
+					<cbc:ID>{{WithholdingTaxTotalID}}</cbc:ID>
+					<cbc:Name>{{WithholdingTaxTotal.name}}</cbc:Name>
+				</cac:TaxScheme>
+			</cac:TaxCategory>
+		</cac:TaxSubtotal>
+		{% endfor -%}
+	</cac:WithholdingTaxTotal>
+	{% endfor -%}
 	<cac:LegalMonetaryTotal>
 		<cbc:LineExtensionAmount currencyID="{{DocumentCurrencyCode}}">{{LineExtensionAmount}}</cbc:LineExtensionAmount>
 		<cbc:TaxExclusiveAmount currencyID="{{DocumentCurrencyCode}}">{{TaxExclusiveAmount}}</cbc:TaxExclusiveAmount>
@@ -516,10 +546,10 @@
         <cbc:Note>Información Adicional: Texto libre para añadir información adicional al artículo.</cbc:Note-->
 		<cbc:CreditedQuantity unitCode="{{CreditNoteLine.unitCode}}">{{CreditNoteLine.Quantity}}</cbc:CreditedQuantity>
 		<cbc:LineExtensionAmount currencyID="{{DocumentCurrencyCode}}">{{CreditNoteLine.LineExtensionAmount}}</cbc:LineExtensionAmount>
-		{% if CreditNoteLine.LineExtensionAmount == 0 -%}
+		{% if CreditNoteLine.LineExtensionAmount == '0.00' -%}
 		<cac:PricingReference>
 			<cac:AlternativeConditionPrice>
-				<cbc:PriceAmount currencyID="{{DocumentCurrencyCode}}">{{CreditNoteLine.PriceAmount}}</cbc:PriceAmount>
+				<cbc:PriceAmount currencyID="{{DocumentCurrencyCode}}">{{CreditNoteLine.PricingReferencePriceAmount}}</cbc:PriceAmount>
 				<cbc:PriceTypeCode>01</cbc:PriceTypeCode>
 			</cac:AlternativeConditionPrice>
 		</cac:PricingReference>
@@ -546,6 +576,24 @@
 			{% endfor -%}
 		</cac:TaxTotal>
 		{% endfor -%}
+		{% for WithholdingTaxTotalID, WithholdingTaxTotal in CreditNoteLine.WithholdingTaxesTotal.items() -%}
+		<cac:WithholdingTaxTotal>
+			<cbc:TaxAmount currencyID="{{DocumentCurrencyCode}}">{{'{:.2f}'.format(WithholdingTaxTotal.total)}}</cbc:TaxAmount>
+			{% for Percent, TaxSubtotal in WithholdingTaxTotal.taxes.items() -%}
+			<cac:TaxSubtotal>
+				<cbc:TaxableAmount currencyID="{{DocumentCurrencyCode}}">{{'{:.2f}'.format(TaxSubtotal.base)}}</cbc:TaxableAmount>
+				<cbc:TaxAmount currencyID="{{DocumentCurrencyCode}}">{{'{:.2f}'.format(TaxSubtotal.amount)}}</cbc:TaxAmount>
+				<cac:TaxCategory>
+					<cbc:Percent>{{Percent}}</cbc:Percent>
+					<cac:TaxScheme>
+						<cbc:ID>{{WithholdingTaxTotalID}}</cbc:ID>
+						<cbc:Name>{{WithholdingTaxTotal.name}}</cbc:Name>
+					</cac:TaxScheme>
+				</cac:TaxCategory>
+			</cac:TaxSubtotal>
+			{% endfor -%}
+		</cac:WithholdingTaxTotal>
+		{% endfor -%}
 	<!--TODO 2.0, puede iterar en el campo ID aumenta segun la cantidad de descuentos o cargos por lineas
 		ChargeIndicator true seria un cargo-->
 		<cac:AllowanceCharge>
@@ -560,10 +608,13 @@
 		    <cbc:Description>{{CreditNoteLine.ItemDescription}}</cbc:Description>
 		<!--TODO 2.0, Cantidad de unidad de este artículo por empaque>
 			<cbc:PackSizeNumeric>{{CreditNoteLine.PackSizeNumeric}}</cbc:PackSizeNumeric-->
-		<!--TODO 2.0, Marca: Marca del artículo>
-			<cbc:BrandName>{{CreditNoteLine.BrandName}}</cbc:BrandName-->
-		<!--TODO 2.0, Modelo: Modelo del artículo>
-			<cbc:ModelName>{{CreditNoteLine.BrandName}}</cbc:ModelName-->
+			{% if CreditNoteLine.BrandName %}
+			<cbc:BrandName>{{CreditNoteLine.BrandName}}</cbc:BrandName>
+			{% endif %}
+		<!--TODO 2.0, Mandaremos la referencia del fabricante por ahora, hay que definir luego si esto cambia-->
+			{% if CreditNoteLine.ModelName %}
+			<cbc:ModelName>{{CreditNoteLine.ModelName}}</cbc:ModelName>
+			{% endif %}
 		<!--TODO 2.0, Grupo de datos de identificación del artículo o servicio de acuerdo con el vendedor>
 			<cac:SellersItemIdentification>
 				<cbc:ID>AOHV84-225</cbc:ID>

@@ -1,39 +1,30 @@
 <odoo>
-    <template id="account_invoice_report_template_with_qr" inherit_id="account.report_invoice_document">
-        <xpath expr="//h2" position="replace">
-                <div style="width:700px; height:110px;float:left;">
-                <div style="width:600px;float:left;">
-                    <h2>
-                        <span t-if="o.type == 'out_invoice' and (o.state == 'open' or o.state == 'paid')">Invoice</span>
-                        <span t-if="o.type == 'out_invoice' and o.state == 'proforma2'">PRO-FORMA</span>
-                        <span t-if="o.type == 'out_invoice' and o.state == 'draft'">Draft Invoice</span>
-                        <span t-if="o.type == 'out_invoice' and o.state == 'cancel'">Cancelled Invoice</span>
-                        <span t-if="o.type == 'out_refund'">Refund</span>
-                        <span t-if="o.type == 'in_refund'">Vendor Refund</span>
-                        <span t-if="o.type == 'in_invoice'">Vendor Bill</span>
-                        <span t-field="o.number"/>
-                    </h2>
-                </div>
-                <t t-if="o.company_id.einvoicing_enabled == True">
-                        <t t-foreach="o.dian_document_ids" t-as="dd">
-                            <t t-if="dd.state == 'done' or dd.state == 'sent'">
-                                <img class="image" t-att-src="'data:image/png;base64,%s' % dd.qr_image" style="width:100px;height:100px;margin-bottom:5px"/>
-                            </t>
-                        </t>
-                    </t>
-                </div>
-        </xpath>
-    </template>
-    <template id="external_layout_footer" inherit_id="report.external_layout_footer">
-    <xpath expr="//ul" position="inside">
-        <t t-if="o.company_id.einvoicing_enabled == True">
-            <t t-foreach="o.dian_document_ids" t-as="dd">
-                <t t-if="dd.state == 'done' or dd.state == 'sent'">
+    <template id="report_invoice_document_with_qr"
+        inherit_id="account.report_invoice_document">
+        <xpath expr="//div[@name='invoice_address']" position="before">
+            <div class="col-xs-10">
+                <t t-foreach="o.dian_document_ids" t-as="dd">
                     <br/>
-                    <li><strong>CUFE/CUDE:</strong><span t-field="dd.cufe_cude"/></li>
+                    <br/>
+                    <t t-if="dd.cufe_cude and o.type == 'out_invoice' and dd.state != 'cancel'">
+                        <li style="list-style-type:none;font-size:10px">
+                            <strong>CUFE: </strong><span t-field="dd.cufe_cude"/>
+                        </li>
+                    </t>
+                    <t t-if="dd.cufe_cude and o.type == 'out_refund' and dd.state != 'cancel'">
+                        <li style="font-size:10px">
+                            <strong>CUDE: </strong><span t-field="dd.cufe_cude"/>
+                        </li>
+                    </t>
                 </t>
-            </t>
-        </t>
-    </xpath>
+            </div>
+            <div class="col-xs-2" align="right">
+                <t t-foreach="o.dian_document_ids" t-as="dd">
+                    <t t-if="dd.qr_image and dd.state != 'cancel'">
+                        <img class="image" t-att-src="'data:image/png;base64,%s' % dd.qr_image" style="width:120px;height:120px"/>
+                    </t>
+                </t>
+            </div>
+        </xpath>
     </template>
 </odoo>

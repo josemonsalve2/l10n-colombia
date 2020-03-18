@@ -9,10 +9,12 @@
     "version": "10.0.1.0.0",
     "author": "EXA Auto Parts Github@exaap, "
               "Joan Marín Github@JoanMarin, "
-              "Guillermo Montoya Github@guillermm",
+              "Guillermo Montoya Github@guillermm, "
+              "Odoo Community Association (OCA)",
     "website": "https://github.com/odooloco/l10n-colombia",
     "license": "AGPL-3",
-    "summary": "This module allows to evaluate a tax at invoice level, using parameters such as total base and others.", 
+    "summary": "This module allows to evaluate a tax at invoice level, "
+               "using parameters such as total base and others.",
     "depends": [
         "account_tax_group_menu",
         "account_fiscal_year",

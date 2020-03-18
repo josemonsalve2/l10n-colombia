@@ -6,10 +6,11 @@
 from odoo import fields, models
 import odoo.addons.decimal_precision as dp
 
-class AccountTaxGroup(models.Model):
-	_inherit = "account.tax.group"
 
-	fiscalunit_factor = fields.Float(
-		string="Fiscal Unit Factor",
-		help="Number of Fiscal Units from which the tax is calculated",
-		digits=dp.get_precision("Fiscal Unit"))
+class AccountTaxGroup(models.Model):
+    _inherit = "account.tax.group"
+
+    fiscalunit_factor = fields.Float(
+        string="Fiscal Unit Factor",
+        help="Number of Fiscal Units from which the tax is calculated",
+        digits=dp.get_precision("Fiscal Unit"))

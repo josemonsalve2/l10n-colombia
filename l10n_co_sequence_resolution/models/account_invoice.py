@@ -42,7 +42,6 @@ class AccountInvoice(models.Model):
         string="Warn About Remainings?",
         compute="_get_warn_resolution",
         store=False)
-    
     warn_inactive_resolution = fields.Boolean(
         string="Warn About Inactive Resolution?",
         compute="_get_warn_resolution",

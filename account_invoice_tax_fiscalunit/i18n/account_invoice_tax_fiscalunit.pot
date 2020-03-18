@@ -46,7 +46,7 @@ msgid "Rate"
 msgstr ""
 
 #. module: account_invoice_tax_fiscalunit
-#: code:addons/account_invoice_tax_fiscalunit/models/account_invoice.py:35
+#: code:addons/account_invoice_tax_fiscalunit/models/account_invoice.py:93
 #, python-format
 msgid "There is no date range corresponding to the date of your invoice"
 msgstr ""
@@ -60,4 +60,3 @@ msgstr ""
 #: model:ir.model,name:account_invoice_tax_fiscalunit.model_account_tax_group
 msgid "account.tax.group"
 msgstr ""
-

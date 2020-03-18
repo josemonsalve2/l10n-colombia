@@ -31,7 +31,7 @@ class ResPartner(models.Model):
             if firstname:
                 names.append(firstname)
             if othernames:
-                names.append(othernames)                 
+                names.append(othernames)
             if lastname:
                 names.append(lastname)
             if lastname2:
@@ -46,7 +46,7 @@ class ResPartner(models.Model):
             if firstname:
                 names.append(firstname)
             if othernames:
-                names.append(othernames)       
+                names.append(othernames)
         return u" ".join(names)
 
     @api.depends("firstname", "othernames", "lastname", "lastname2")
@@ -54,7 +54,10 @@ class ResPartner(models.Model):
         """Write the 'name' according to splitted data."""
         for partner in self:
             partner.name = self._get_computed_name(
-                partner.firstname, partner.othernames, partner.lastname, partner.lastname2)
+                partner.firstname,
+                partner.othernames,
+                partner.lastname,
+                partner.lastname2)
 
     @api.model
     def _names_order_default(self):
@@ -89,7 +92,7 @@ class ResPartner(models.Model):
             order = self._get_names_order()
             result = super(ResPartner, self)._get_inverse_name(name, is_company)
             parts = []
-            
+
             if order == 'first_last':
                 if result['lastname2']:
                     parts = result['lastname2'].split(" ", 1)

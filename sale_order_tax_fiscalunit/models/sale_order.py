@@ -34,10 +34,13 @@ class SaleOrder(models.Model):
     def write(self, vals):
         rec = super(SaleOrder, self).write(vals)
 
+        for order in self:
+            order.order_line._recompute_tax_id()
+        '''
         if vals.get('order_line'):
             for order in self:
                 order.order_line._recompute_tax_id()
-            '''
+            
             for line in vals.get('order_line'):
                 if line[0] == 2:
                     for order in self:
@@ -55,7 +58,7 @@ class SaleOrder(models.Model):
                         order.order_line._recompute_tax_id()
 
                     break
-            '''
+        '''
         return rec
 
     @api.model

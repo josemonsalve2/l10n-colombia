@@ -17,4 +17,7 @@ class ResUsers(models.Model):
         """Write the 'name' field according to splitted data."""
         for partner in self:
             partner.name = partner.partner_id._get_computed_name(
-                partner.firstname, partner.othernames, partner.lastname, partner.lastname2)
+                partner.firstname,
+                partner.othernames,
+                partner.lastname,
+                partner.lastname2)

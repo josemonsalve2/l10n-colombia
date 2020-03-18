@@ -32,7 +32,7 @@ To use this module, you need to:
 Credits
 =======
 
-Original Authors
+Authors
 ----------------
 
 * Jairo Llopis <jairo.llopis@tecnativa.com>.
@@ -43,5 +43,6 @@ Original Authors
 Contributors
 ------------
 
+* EXA Auto Parts S.A.S <https://github.com/exaap>
 * Joan Marín <https://github.com/JoanMarin>
 * Guillermo Montoya <https://github.com/guillermm>

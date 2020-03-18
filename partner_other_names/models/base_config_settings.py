@@ -26,8 +26,18 @@ class BaseConfigSettings(models.TransientModel):
     def _partners_for_recalculating(self):
         return self.env['res.partner'].search([
             ('is_company', '=', False),
-            '|', '&', ('firstname', '!=', False), ('lastname', '!=', False),
-            '|', '&', ('firstname', '!=', False), ('lastname2', '!=', False),
-            '|', '&', ('othernames', '!=', False), ('lastname', '!=', False),
-                 '&', ('othernames', '!=', False), ('lastname2', '!=', False)
-        ])
+            '|',
+            '&',
+            ('firstname', '!=', False),
+            ('lastname', '!=', False),
+            '|',
+            '&',
+            ('firstname', '!=', False),
+            ('lastname2', '!=', False),
+            '|',
+            '&',
+            ('othernames', '!=', False),
+            ('lastname', '!=', False),
+            '&',
+            ('othernames', '!=', False),
+            ('lastname2', '!=', False)])

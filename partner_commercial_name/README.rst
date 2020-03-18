@@ -13,6 +13,12 @@ order or purchase.
 Credits
 =======
 
+Authors
+----------------
+
+* EXA Auto Parts S.A.S
+* Odoo Community Association (OCA)
+
 Contributors
 ------------
 

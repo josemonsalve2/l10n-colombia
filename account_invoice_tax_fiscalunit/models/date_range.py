@@ -6,10 +6,11 @@
 from odoo import fields, models
 import odoo.addons.decimal_precision as dp
 
+
 class DateRange(models.Model):
     _inherit = 'date.range'
 
     fiscalunit = fields.Float(
-    	string = 'Fiscal Unit', 
-    	help = 'Value of Fiscal Unit as the Colombian UVT',
-    	digits = dp.get_precision('Fiscal Unit'))
+        string='Fiscal Unit',
+        help='Value of Fiscal Unit as the Colombian UVT',
+        digits=dp.get_precision('Fiscal Unit'))

@@ -11,13 +11,13 @@ class ResPartner(models.Model):
     _inherit = 'res.partner'
 
     document_type_id = fields.Many2one(
-        string = 'Document Type',
-        comodel_name = 'res.partner.document.type')
+        string='Document Type',
+        comodel_name='res.partner.document.type')
     document_type_code = fields.Char(
-            related='document_type_id.code',
-            store=False)
+        related='document_type_id.code',
+        store=False)
     check_digit = fields.Char(string='Verification Digit', size=1)
-    identification_document = fields.Char('Identification Document')
+    identification_document = fields.Char(string='Identification Document')
 
     @api.onchange('country_id', 'identification_document', 'check_digit', 'document_type_id')
     def _onchange_vat(self):
@@ -55,17 +55,17 @@ class ResPartner(models.Model):
             if not partner.vat:
                 continue
 
-            vat_country, vat_number = self._split_vat(partner.vat)
+            vat_country, vat_number = partner._split_vat(partner.vat)
 
-            if self.document_type_code == '43':
+            if partner.document_type_code == '43':
                 vat_country = 'co'
             elif partner.country_id:
                 vat_country = partner.country_id.code.lower()
 
-            if not hasattr(self, 'check_vat_' + vat_country):
+            if not hasattr(partner, 'check_vat_' + vat_country):
                 continue
 
-            check = getattr(self, 'check_vat_' + vat_country)
+            check = getattr(partner, 'check_vat_' + vat_country)
 
             if vat_country == 'co':
                 if not _checking_required(partner):

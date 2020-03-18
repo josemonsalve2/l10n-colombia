@@ -1,0 +1,60 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* l10n_co_stock_e_invoicing
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 10.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-01-10 08:36+0000\n"
+"PO-Revision-Date: 2020-01-10 08:36+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: l10n_co_stock_e_invoicing
+#: code:addons/l10n_co_stock_e_invoicing/models/account_invoice_dian_document.py:14
+#, python-format
+msgid "'%s', must have a brand established."
+msgstr "'%s', debe tener una marca establecida."
+
+#. module: l10n_co_stock_e_invoicing
+#: code:addons/l10n_co_stock_e_invoicing/models/account_invoice_dian_document.py:15
+#, python-format
+msgid "'%s', must have a ref of manufacturer established."
+msgstr "'% s', debe tener establecida una referencia del fabricante."
+
+#. module: l10n_co_stock_e_invoicing
+#: model:ir.model.fields,field_description:l10n_co_stock_e_invoicing.field_stock_incoterms_is_einvoicing
+msgid "Does it Apply for E-Invoicing?"
+msgstr "¿Aplica para la Facturación Electrónica?"
+
+#. module: l10n_co_stock_e_invoicing
+#: code:addons/l10n_co_stock_e_invoicing/models/account_invoice.py:10
+#, python-format
+msgid "Export Bill"
+msgstr "Factura de Exportación"
+
+#. module: l10n_co_stock_e_invoicing
+#: model:ir.model,name:l10n_co_stock_e_invoicing.model_stock_incoterms
+msgid "Incoterms"
+msgstr "Incoterms"
+
+#. module: l10n_co_stock_e_invoicing
+#: model:ir.model,name:l10n_co_stock_e_invoicing.model_account_invoice
+msgid "Invoice"
+msgstr "Factura"
+
+#. module: l10n_co_stock_e_invoicing
+#: code:addons/l10n_co_stock_e_invoicing/models/account_invoice_dian_document.py:13
+#, python-format
+msgid "The export bill must have an incoterm DIAN established."
+msgstr "La factura de exportación debe tener un incoterm DIAN establecido."
+
+#. module: l10n_co_stock_e_invoicing
+#: model:ir.model,name:l10n_co_stock_e_invoicing.model_account_invoice_dian_document
+msgid "account.invoice.dian.document"
+msgstr "account.invoice.dian.document"

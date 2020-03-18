@@ -3,7 +3,7 @@
    :alt: License: AGPL-3
 
 =============================
-Colombian E-Invoicing Mandate
+Colombian Mandate E-Invoicing
 =============================
 
 Credits

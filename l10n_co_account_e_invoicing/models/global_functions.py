@@ -168,13 +168,14 @@ def get_xml_with_signature(
     return root
 
 def get_pkcs12(certificate_file, certificate_password):
+    msg = _("The certificate password or certificate file is not valid.\n\nException: %s")
+
     try:
         return crypto.load_pkcs12(
             b64decode(certificate_file),
             certificate_password)
     except Exception as e:
-		raise ValidationError(_("The cretificate password or certificate file is not"
-                                " valid.\nException: %s") % e)
+		raise ValidationError(msg % e)
 
 def get_xml_soap_values(certificate_file, certificate_password):
     Created = datetime.now().replace(tzinfo=timezone('UTC'))

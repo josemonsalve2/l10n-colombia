@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-11-05 22:22+0000\n"
-"PO-Revision-Date: 2019-11-05 22:22+0000\n"
+"POT-Creation-Date: 2020-01-10 08:25+0000\n"
+"PO-Revision-Date: 2020-01-10 08:25+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -18,14 +18,21 @@ msgstr ""
 #. module: l10n_co_partner_person_type
 #: model:ir.ui.view,arch_db:l10n_co_partner_person_type.view_partner_form
 msgid "- Person Type"
-msgstr "- Tipo de persona"
+msgstr "- Tipo de Persona"
 
 #. module: l10n_co_partner_person_type
+#: model:ir.model,name:l10n_co_partner_person_type.model_account_fiscal_position
+msgid "Fiscal Position"
+msgstr "Posición Fiscal"
+
+#. module: l10n_co_partner_person_type
+#: selection:account.fiscal.position,person_type:0
 #: selection:res.partner,person_type:0
 msgid "Juridical Person and assimilated"
 msgstr "Persona Jurídica y asimiladas"
 
 #. module: l10n_co_partner_person_type
+#: selection:account.fiscal.position,person_type:0
 #: selection:res.partner,person_type:0
 msgid "Natural Person and assimilated"
 msgstr "Persona Natural y asimiladas"
@@ -36,7 +43,8 @@ msgid "Partner"
 msgstr "Tercero"
 
 #. module: l10n_co_partner_person_type
+#: model:ir.model.fields,field_description:l10n_co_partner_person_type.field_account_fiscal_position_person_type
 #: model:ir.model.fields,field_description:l10n_co_partner_person_type.field_res_partner_person_type
 #: model:ir.model.fields,field_description:l10n_co_partner_person_type.field_res_users_person_type
 msgid "Person Type"
-msgstr "Tipo de persona"
+msgstr "Tipo de Persona"

@@ -3,7 +3,7 @@
     <data>
         <record id="view_partner_form" model="ir.ui.view">
             <field name="model">res.partner</field>
-            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="inherit_id" ref="l10n_co_partner_vat.view_partner_form"/>
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='company_type']" position="attributes">
                     <attribute name="invisible">1</attribute>
@@ -14,6 +14,9 @@
                         attrs="{
                             'invisible': [('type', '!=', 'contact'), ('parent_id', '!=', False)],
                             'required': [('parent_id', '=', False)]}"/>
+                </xpath>
+                <xpath expr="//field[@name='property_account_position_id']" position="attributes">
+                    <attribute name="domain">[('person_type', '=', person_type)]</attribute>
                 </xpath>
             </field>
         </record>

@@ -18,7 +18,7 @@
     ],
     "data": [
         "security/ir.model.access.csv",
-        "data/res_partner_document_type_data.xml", 
+        "data/res_partner_document_type_data.xml",
         "views/res_partner_views.xml"
     ],
     "installable": True,

@@ -20,7 +20,7 @@ class ProductTemplate(models.Model):
         default=10)
     reference_price = fields.Float(
         string='Reference Price',
-        help='use this field if the reference price does not depend on the cost price',
+        help='Use this field if the reference price does not depend on the cost price',
         digits=dp.get_precision('Product Price'))
     product_scheme_id = fields.Many2one(
         comodel_name='product.scheme',

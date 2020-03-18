@@ -8,11 +8,24 @@
                 <xpath expr="//notebook" position="inside">
                     <page name="einvoicing" string="E-Invoicing">
                         <group>
-                            <field name="einvoicing_enabled"/>
+                            <label for="einvoicing_enabled"/>
+                            <div>
+                                <field name="einvoicing_enabled"/>
+                                <button name="action_process_dian_documents"
+                                    string="Process DIAN Documents"
+                                    type="object"
+                                    class="oe_stat_button"
+                                    icon="fa-check"
+                                    attrs="{'invisible': [('einvoicing_enabled', '!=', True)]}"/>
+                            </div>
+                            <field name="send_invoice_to_dian"
+                                attrs="{'required': [('einvoicing_enabled', '=', True)]}"/>
                             <field name="profile_execution_id"
                                 attrs="{'required': [('einvoicing_enabled', '=', True)]}"/>
                             <field name="test_set_id"
-                                attrs="{'required': [('einvoicing_enabled', '=', True)]}"/>
+                                attrs="{
+                                'invisible': [('profile_execution_id', '=', '1')],
+                                'required': [('einvoicing_enabled', '=', True), ('profile_execution_id', '=', '2')]}"/>
                             <field name="software_id"
                                 attrs="{'required': [('einvoicing_enabled', '=', True)]}"/>
                             <field name="software_pin"
@@ -24,11 +37,16 @@
                                 attrs="{'required': [('einvoicing_enabled', '=', True)]}"/>
                             <field name="certificate_password"
                                 attrs="{'required': [('einvoicing_enabled', '=', True)]}"/>
+                            <field name="certificate_date" readonly="1"/>
+                            <field name="certificate_remaining_days"
+                                widget="char"
+                                attrs="{'required': [('einvoicing_enabled', '=', True)]}"/>
                             <field name="files_path"/>
                             <field name="einvoicing_email"
                                 attrs="{'required': [('einvoicing_enabled', '=', True)]}"/>
                             <field name="einvoicing_partner_no_email"
                                 attrs="{'required': [('einvoicing_enabled', '=', True)]}"/>
+                            <field name="einvoicing_receives_all_emails"/>
                             <field name="signature_policy_url"
                                 attrs="{'required': [('einvoicing_enabled', '=', True)]}"/>
                             <field name="signature_policy_description"
@@ -42,6 +60,15 @@
                                     <field name="email"/>
                                 </tree>
                             </field>
+                            <label for="get_numbering_range_response"/>
+                            <div>
+                                <button name="action_GetNumberingRange"
+                                    string="GetNumberingRange"
+                                    type="object"
+                                    class="oe_stat_button"
+                                    icon="fa-check"/>
+                                <field name="get_numbering_range_response"/>
+                            </div>
                         </group>
                     </page>
                 </xpath>
