@@ -31,7 +31,6 @@
     ],
     'external_dependencies': {
         'python': [
-            'validators',
             'OpenSSL',
             'xades',
         ],

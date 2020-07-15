@@ -4,7 +4,7 @@
 
 import global_functions
 from datetime import datetime
-from validators import url
+from urllib2 import urlopen
 from requests import post, exceptions
 from lxml import etree
 from odoo import api, models, fields, _
@@ -58,8 +58,15 @@ class ResCompany(models.Model):
 
     @api.onchange('signature_policy_url')
     def onchange_signature_policy_url(self):
-        if not url(self.signature_policy_url):
-            raise ValidationError(_('Invalid URL.'))
+        msg = _('Invalid URL.')
+
+        try:
+            response = urlopen(self.signature_policy_url, timeout=2)
+
+            if response.getcode() != 200:
+                raise ValidationError(msg)
+        except:
+            raise ValidationError(msg)
 
     @api.multi
     def write(self, vals):

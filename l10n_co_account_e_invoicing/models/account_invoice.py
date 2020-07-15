@@ -131,6 +131,7 @@ class AccountInvoice(models.Model):
         for invoice in self:
             if invoice.company_id.einvoicing_enabled:
                 if invoice.type in ("out_invoice", "out_refund"):
+                    invoice.set_invoice_lines_price_reference()
                     xml_filename = False
                     zipped_filename = False
                     ar_xml_filename = False
@@ -374,8 +375,6 @@ class AccountInvoice(models.Model):
 
             disc_amount = 0
             total_wo_disc = 0
-            percentage = 100
-            margin_percentage = invoice_line.product_id.margin_percentage
             brand_name = False
             model_name = False
 
@@ -388,15 +387,7 @@ class AccountInvoice(models.Model):
             if not invoice_line.product_id or not invoice_line.product_id.default_code:
                 raise UserError(msg2 % invoice_line.name)
 
-            if invoice_line.product_id.reference_price > 0:
-                reference_price = invoice_line.product_id.reference_price
-            elif 0 < margin_percentage < 100:
-                percentage = (percentage - margin_percentage) / 100
-                reference_price = invoice_line.product_id.standard_price / percentage
-            else:
-                reference_price = 0
-
-            if invoice_line.price_subtotal <= 0 and reference_price <= 0:
+            if invoice_line.price_subtotal <= 0 and invoice_line.reference_price <= 0:
                 raise UserError(msg3 % invoice_line.product_id.default_code)
 
             if self.invoice_type_code == '02':
@@ -408,7 +399,7 @@ class AccountInvoice(models.Model):
             invoice_lines[count] = {}
             invoice_lines[count]['unitCode'] = invoice_line.uom_id.product_uom_code_id.code
             invoice_lines[count]['Quantity'] = '{:.2f}'.format(invoice_line.quantity)
-            invoice_lines[count]['PricingReferencePriceAmount'] = '{:.2f}'.format(reference_price)
+            invoice_lines[count]['PricingReferencePriceAmount'] = '{:.2f}'.format(invoice_line.reference_price)
             invoice_lines[count]['LineExtensionAmount'] = '{:.2f}'.format(invoice_line.price_subtotal)
             invoice_lines[count]['MultiplierFactorNumeric'] = '{:.2f}'.format(invoice_line.discount)
             invoice_lines[count]['AllowanceChargeAmount'] = '{:.2f}'.format(disc_amount)
@@ -492,3 +483,22 @@ class AccountInvoice(models.Model):
             count += 1
 
         return invoice_lines
+
+    def set_invoice_lines_price_reference(self):
+        for invoice_line in self.invoice_line_ids:
+            percentage = 100
+            margin_percentage = invoice_line.product_id.margin_percentage
+
+            if invoice_line.product_id.reference_price > 0:
+                reference_price = invoice_line.product_id.reference_price
+            elif 0 < margin_percentage < 100:
+                percentage = (percentage - margin_percentage) / 100
+                reference_price = invoice_line.product_id.standard_price / percentage
+            else:
+                reference_price = 0
+
+            invoice_line.write({
+                'cost_price': invoice_line.product_id.standard_price,
+                'reference_price': reference_price})
+
+        return True

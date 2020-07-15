@@ -8,7 +8,7 @@ sys.setdefaultencoding('utf8')
 from StringIO import StringIO
 from datetime import datetime
 from base64 import b64encode, b64decode
-from validators import url
+from urllib2 import urlopen
 from zipfile import ZipFile
 import global_functions
 from pytz import timezone
@@ -447,7 +447,12 @@ class AccountInvoiceDianDocument(models.Model):
                 self._get_debit_note_values(),
                 'DebitNote')
 
-        if not url(self.company_id.signature_policy_url):
+        try:
+            response = urlopen(self.company_id.signature_policy_url, timeout=2)
+
+            if response.getcode() != 200:
+                return False
+        except:
             return False
 
         xml_with_signature = global_functions.get_xml_with_signature(
