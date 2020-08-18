@@ -7,6 +7,7 @@ from datetime import datetime
 from base64 import b64encode, b64decode
 from urllib2 import urlopen
 from zipfile import ZipFile
+import ssl
 import sys
 from pytz import timezone
 from requests import post, exceptions
@@ -53,15 +54,17 @@ class AccountInvoiceDianDocument(models.Model):
         qr_data += "\nFecFac: " + (self.invoice_id.date_invoice or '')
         qr_data += "\nHorFac: " + create_date.strftime('%H:%M:%S-05:00')
         qr_data += "\nNitFac: " + (self.company_id.partner_id.identification_document or '')
-        qr_data += "\nNitAdq: " + (self.invoice_id.partner_id.identification_document or '')
+        qr_data += "\nDocAdq: " + (self.invoice_id.partner_id.identification_document or '')
         qr_data += "\nValFac: " + '{:.2f}'.format(ValFac)
         qr_data += "\nValIva: " + '{:.2f}'.format(ValImp1)
         qr_data += "\nValOtroIm: " + '{:.2f}'.format(ValOtroIm)
         qr_data += "\nValTolFac: " + '{:.2f}'.format(ValTolFac)
 
-        if self.invoice_id.type == "out_invoice" and self.cufe_cude:
+        if (self.invoice_id.type == "out_invoice"
+                and self.invoice_id.invoice_type_code != '03'
+                and self.cufe_cude):
             qr_data += "\nCUFE: " + self.cufe_cude
-        elif self.invoice_id.type == "out_refund" and self.cufe_cude:
+        elif self.cufe_cude:
             qr_data += "\nCUDE: " + self.cufe_cude
 
         qr_data += "\n\n" + (self.invoice_url or '')
@@ -214,7 +217,7 @@ class AccountInvoiceDianDocument(models.Model):
         TipoAmbie = self.company_id.profile_execution_id
         customer = self.invoice_id.partner_id
         delivery = self.invoice_id.partner_shipping_id
-        NitAdq = customer.identification_document
+        DocAdq = customer.identification_document
         document_type_code = False
 
         if customer.document_type_id:
@@ -222,7 +225,7 @@ class AccountInvoiceDianDocument(models.Model):
 
         if document_type_code not in ('11', '12', '13', '21', '22', '31', '41', '42', '50', '91'):
             if customer.person_type == '2':
-                NitAdq = '222222222222'
+                DocAdq = '222222222222'
             else:
                 raise UserError(msg3 % customer.name)
 
@@ -264,7 +267,7 @@ class AccountInvoiceDianDocument(models.Model):
             str('{:.2f}'.format(ValImp3)),
             str('{:.2f}'.format(TaxInclusiveAmount)),
             NitOFE,
-            NitAdq,
+            DocAdq,
             ClTec,
             SoftwarePIN,
             TipoAmbie)
@@ -287,7 +290,7 @@ class AccountInvoiceDianDocument(models.Model):
             'ProviderID': NitOFE,
             'SoftwareID': IdSoftware,
             'SoftwareSecurityCode': software_security_code['SoftwareSecurityCode'],
-            'NitAdquiriente': NitAdq,
+            'DocAdq': DocAdq,
             'QRCodeURL': QRCodeURL,
             'ProfileExecutionID': TipoAmbie,
             'ID': ID,
@@ -455,7 +458,8 @@ class AccountInvoiceDianDocument(models.Model):
                 'DebitNote')
 
         try:
-            response = urlopen(self.company_id.signature_policy_url, timeout=2)
+            context = ssl._create_unverified_context()
+            response = urlopen(self.company_id.signature_policy_url, timeout=2, context=context)
 
             if response.getcode() != 200:
                 return False
