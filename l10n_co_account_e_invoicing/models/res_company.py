@@ -6,6 +6,7 @@ from datetime import datetime
 from urllib2 import urlopen
 from requests import post, exceptions
 from lxml import etree
+import ssl
 import global_functions
 from odoo import api, models, fields, _
 from odoo.exceptions import ValidationError
@@ -62,20 +63,19 @@ class ResCompany(models.Model):
         string='Notification Group')
     get_numbering_range_response = fields.Text(string='GetNumberingRange Response')
 
-    @api.onchange('signature_policy_url')
-    def onchange_signature_policy_url(self):
+    @api.multi
+    def write(self, vals):
         msg = _('Invalid URL.')
 
         try:
-            response = urlopen(self.signature_policy_url, timeout=2)
+            context = ssl._create_unverified_context()
+            response = urlopen(self.signature_policy_url, timeout=2, context=context)
 
             if response.getcode() != 200:
                 raise ValidationError(msg)
         except:
             raise ValidationError(msg)
 
-    @api.multi
-    def write(self, vals):
         rec = super(ResCompany, self).write(vals)
 
         for company in self:

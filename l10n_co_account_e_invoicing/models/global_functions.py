@@ -42,25 +42,25 @@ def get_cufe_cude(
         ValImp3,
         ValTot,
         NitOFE,
-        NumAdq,
+        DocAdq,
         ClTec,
         SoftwarePIN,
         TipoAmbie):
     # CUFE = SHA-384(NumFac + FecFac + HorFac + ValFac + CodImp1 + ValImp1 +
-    # CodImp2 + ValImp2 + CodImp3 + ValImp3 + ValTot + NitOFE + NumAdq +
+    # CodImp2 + ValImp2 + CodImp3 + ValImp3 + ValTot + NitOFE + DocAdq +
     # ClTec + TipoAmbie)
     # CUDE = SHA-384(NumFac + FecFac + HorFac + ValFac + CodImp1 + ValImp1 +
-    # CodImp2 + ValImp2 + CodImp3 + ValImp3 + ValTot + NitOFE + NumAdq +
+    # CodImp2 + ValImp2 + CodImp3 + ValImp3 + ValTot + NitOFE + DocAdq +
     # Software-PIN + TipoAmbie)
     uncoded_value = (NumFac + ' + ' + FecFac + ' + ' + HorFac + ' + ' +
                      ValFac + ' + ' + CodImp1 + ' + ' + ValImp1 + ' + ' +
                      CodImp2 + ' + ' + ValImp2 + ' + ' + CodImp3 + ' + ' +
                      ValImp3 + ' + ' + ValTot + ' + ' + NitOFE + ' + ' +
-                     NumAdq + ' + ' + (ClTec if ClTec else SoftwarePIN) +
+                     DocAdq + ' + ' + (ClTec if ClTec else SoftwarePIN) +
                      ' + ' + TipoAmbie)
     CUFE_CUDE = hashlib.sha384(
         NumFac + FecFac + HorFac + ValFac + CodImp1 + ValImp1 + CodImp2 +
-        ValImp2 + CodImp3 + ValImp3 + ValTot + NitOFE + NumAdq +
+        ValImp2 + CodImp3 + ValImp3 + ValTot + NitOFE + DocAdq +
         (ClTec if ClTec else SoftwarePIN) + TipoAmbie)
 
     return {
