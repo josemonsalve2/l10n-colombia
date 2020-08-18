@@ -10,6 +10,7 @@ import ssl
 import global_functions
 from odoo import api, models, fields, _
 from odoo.exceptions import ValidationError
+ssl._create_default_https_context = ssl._create_unverified_context
 
 
 class ResCompany(models.Model):
@@ -68,8 +69,7 @@ class ResCompany(models.Model):
         msg = _('Invalid URL.')
 
         try:
-            context = ssl._create_unverified_context()
-            response = urlopen(self.signature_policy_url, timeout=2, context=context)
+            response = urlopen(self.signature_policy_url, timeout=2)
 
             if response.getcode() != 200:
                 raise ValidationError(msg)

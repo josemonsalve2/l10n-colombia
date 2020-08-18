@@ -17,6 +17,7 @@ from odoo import models, api, fields, _
 from odoo.exceptions import ValidationError, UserError
 reload(sys)
 sys.setdefaultencoding('utf8')
+ssl._create_default_https_context = ssl._create_unverified_context
 
 DIAN = {
     'wsdl-hab': 'https://vpfe-hab.dian.gov.co/WcfDianCustomerServices.svc?wsdl',
@@ -458,8 +459,7 @@ class AccountInvoiceDianDocument(models.Model):
                 'DebitNote')
 
         try:
-            context = ssl._create_unverified_context()
-            response = urlopen(self.company_id.signature_policy_url, timeout=2, context=context)
+            response = urlopen(self.company_id.signature_policy_url, timeout=2)
 
             if response.getcode() != 200:
                 return False
