@@ -56,7 +56,7 @@
 					ValFac: {{LineExtensionAmount}}
 					ValIva: {{ValIva}}
 					ValOtroIm: {{ValOtroIm}}
-					ValTolFac:{{PayableAmount}}
+					ValTolFac: {{PayableAmount}}
 					CU{% if InvoiceTypeCode != '03' %}F{% else %}D{% endif %}E: {{UUID}}
 					{{QRCodeURL}}</sts:QRCode>
 				</sts:DianExtensions>

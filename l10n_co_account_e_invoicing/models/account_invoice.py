@@ -87,6 +87,14 @@ class AccountInvoice(models.Model):
         string="Warn About Inactive Certificate?",
         compute="_get_warn_certificate",
         store=False)
+    sequence_resolution_id = fields.Many2one(
+        comodel_name='ir.sequence.date_range',
+        string='Sequence Resolution',
+        compute='_compute_sequence_resolution_id',
+        store=False)
+    invoice_datetime = fields.Datetime(
+        string='Invoice Datetime',
+        default=False)
     delivery_datetime = fields.Datetime(
         string='Delivery Datetime',
         default=False)
@@ -116,6 +124,26 @@ class AccountInvoice(models.Model):
         string='DIAN Documents')
 
     @api.multi
+    def _compute_sequence_resolution_id(self):
+        for invoice in self:
+            sequence_resolution = False
+
+            if invoice.type == "out_invoice":
+                sequence_resolution_ids = self.env['ir.sequence.date_range'].search([
+                    ('sequence_id', '=', invoice.journal_id.sequence_id.id)])
+
+                for sequence_resolution_id in sequence_resolution_ids:
+                    move_name = invoice.move_name or ''
+                    number = move_name.replace(sequence_resolution_id.prefix or '', '')
+
+                    if (number.isnumeric()
+                            and sequence_resolution_id.number_from <= int(number)
+                            and int(number) <= sequence_resolution_id.number_to):
+                        sequence_resolution = sequence_resolution_id
+
+            invoice.sequence_resolution_id = sequence_resolution
+
+    @api.multi
     def update(self, values):
         res = super(AccountInvoice, self).update(values)
 
@@ -134,14 +162,16 @@ class AccountInvoice(models.Model):
         res = super(AccountInvoice, self).invoice_validate()
 
         for invoice in self:
+            if not invoice.invoice_datetime:
+                invoice.invoice_datetime = datetime.now().replace(tzinfo=timezone('UTC'))
+
             if (invoice.company_id.einvoicing_enabled
                     and invoice.type in ("out_invoice", "out_refund")):
                 if (invoice.company_id.automatic_delivery_datetime
                         and invoice.company_id.additional_hours_delivery_datetime
                         and not invoice.delivery_datetime):
-                    # TODO 2.0: Mejorar
                     invoice_datetime = datetime.strptime(
-                        invoice.date_invoice + ' 13:00:00',
+                        invoice.invoice_datetime,
                         '%Y-%m-%d %H:%M:%S').replace(tzinfo=timezone('UTC'))
                     hours_added = timedelta(
                         hours=invoice.company_id.additional_hours_delivery_datetime)
@@ -166,11 +196,13 @@ class AccountInvoice(models.Model):
                 xml_filename = False
                 zipped_filename = False
                 ar_xml_filename = False
+                ad_zipped_filename = False
 
                 for dian_document in invoice.dian_document_ids:
                     xml_filename = dian_document.xml_filename
                     zipped_filename = dian_document.zipped_filename
                     ar_xml_filename = dian_document.ar_xml_filename
+                    ad_zipped_filename = dian_document.ad_zipped_filename
                     break
 
                 dian_document_obj = self.env['account.invoice.dian.document']
@@ -179,7 +211,8 @@ class AccountInvoice(models.Model):
                     'company_id': invoice.company_id.id,
                     'xml_filename': xml_filename,
                     'zipped_filename': zipped_filename,
-                    'ar_xml_filename': ar_xml_filename})
+                    'ar_xml_filename': ar_xml_filename,
+                    'ad_zipped_filename': ad_zipped_filename})
                 set_files = dian_document.action_set_files()
 
                 if invoice.send_invoice_to_dian == '0':
@@ -211,15 +244,14 @@ class AccountInvoice(models.Model):
         msg = _("You do not have an active dian resolution, contact with your administrator.")
         resolution_number = False
 
-        for date_range_id in self.journal_id.sequence_id.date_range_ids:
-            if date_range_id.active_resolution:
-                resolution_number = date_range_id.resolution_number
-                date_from = date_range_id.date_from
-                date_to = date_range_id.date_to
-                number_from = date_range_id.number_from
-                number_to = date_range_id.number_to
-                technical_key = date_range_id.technical_key
-                break
+        if self.sequence_resolution_id:
+            resolution_number = self.sequence_resolution_id.resolution_number
+            date_from = self.sequence_resolution_id.date_from
+            date_to = self.sequence_resolution_id.date_to
+            prefix = self.sequence_resolution_id.prefix
+            number_from = self.sequence_resolution_id.number_from
+            number_to = self.sequence_resolution_id.number_to
+            technical_key = self.sequence_resolution_id.technical_key
 
         if not resolution_number:
             raise UserError(msg)
@@ -228,7 +260,7 @@ class AccountInvoice(models.Model):
             'InvoiceAuthorization': resolution_number,
             'StartDate': date_from,
             'EndDate': date_to,
-            'Prefix': self.journal_id.sequence_id.prefix,
+            'Prefix': prefix,
             'From': number_from,
             'To': number_to,
             'technical_key': technical_key}

@@ -42,7 +42,7 @@
 						ValFac: {{LineExtensionAmount}}
 						ValIva: {{ValIva}}
 						ValOtroIm: {{ValOtroIm}}
-						ValTolFac:{{PayableAmount}}
+						ValTolFac: {{PayableAmount}}
 						CUDE: {{UUID}}
 						{{QRCodeURL}}</sts:QRCode>
 				</sts:DianExtensions>

@@ -38,6 +38,8 @@
                 </div>
             </xpath>
             <xpath expr="//field[@name='date_invoice']" position="after">
+                <field name="sequence_resolution_id" invisible="1"/>
+                <field name="invoice_datetime" readonly="1"/>
                 <field name="send_invoice_to_dian"
                     required="1"
                     groups="l10n_co_account_e_invoicing.group_send_invoice_dian_field"/>
