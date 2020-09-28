@@ -3,6 +3,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 from StringIO import StringIO
+from io import BytesIO
 from datetime import datetime
 from base64 import b64encode, b64decode
 from urllib2 import urlopen
@@ -102,6 +103,11 @@ class AccountInvoiceDianDocument(models.Model):
     zipped_file = fields.Binary(string='Zipped File')
     ar_xml_filename = fields.Char(string='ApplicationResponse XML Filename')
     ar_xml_file = fields.Binary(string='ApplicationResponse XML File')
+    validation_datetime = fields.Datetime(
+        string='Validation Datetime',
+        default=False)
+    ad_zipped_filename = fields.Char(string='AttachedDocument Zipped Filename')
+    ad_zipped_file = fields.Binary(string='AttachedDocument Zipped File')
     mail_sent = fields.Boolean(string='Mail Sent?')
     zip_key = fields.Char(string='ZipKey')
     get_status_zip_status_code = fields.Selection(
@@ -180,18 +186,15 @@ class AccountInvoiceDianDocument(models.Model):
         else:
             raise ValidationError("ERROR: TODO 2.0")
 
-        # TODO 2.0
-        # arnnnnnnnnnnpppaadddddddd.xml
-        # adnnnnnnnnnnpppaadddddddd.xml
-
         zdddddddd = str(zip_sent + 1).zfill(8)
         nnnnnnnnnnpppaadddddddd = nnnnnnnnnn + ppp + aa + dddddddd
-        zarnnnnnnnnnnpppaadddddddd = nnnnnnnnnn + ppp + aa + zdddddddd
+        zaradnnnnnnnnnnpppaadddddddd = nnnnnnnnnn + ppp + aa + zdddddddd
 
         self.write({
             'xml_filename': xml_filename_prefix + nnnnnnnnnnpppaadddddddd + '.xml',
-            'zipped_filename': 'z' + zarnnnnnnnnnnpppaadddddddd + '.zip',
-            'ar_xml_filename': 'ar' + zarnnnnnnnnnnpppaadddddddd + '.xml'})
+            'zipped_filename': 'z' + zaradnnnnnnnnnnpppaadddddddd + '.zip',
+            'ar_xml_filename': 'ar' + zaradnnnnnnnnnnpppaadddddddd + '.xml',
+            'ad_zipped_filename': 'ad' + zaradnnnnnnnnnnpppaadddddddd + '.zip'})
 
         return True
 
@@ -235,9 +238,13 @@ class AccountInvoiceDianDocument(models.Model):
         else:
             QRCodeURL = DIAN['catalogo-hab']
 
-        IssueDate = self.invoice_id.date_invoice
-        # TODO 2.0: Mejorar
-        IssueTime = '08:00:00-05:00'
+        invoice_datetime = datetime.strptime(
+            self.invoice_id.invoice_datetime,
+            '%Y-%m-%d %H:%M:%S').replace(tzinfo=timezone('UTC'))
+        IssueDate = invoice_datetime.astimezone(
+            timezone('America/Bogota')).strftime('%Y-%m-%d')
+        IssueTime = invoice_datetime.astimezone(
+            timezone('America/Bogota')).strftime('%H:%M:%S-05:00')
         delivery_datetime = datetime.strptime(
             self.invoice_id.delivery_datetime,
             '%Y-%m-%d %H:%M:%S').replace(tzinfo=timezone('UTC'))
@@ -502,6 +509,79 @@ class AccountInvoiceDianDocument(models.Model):
 
         return True
 
+    def _get_ad_xml_values(self):
+        ProfileExecutionID = self.company_id.profile_execution_id
+        ad_zipped_filename = self.ad_zipped_filename
+        ID = ad_zipped_filename.replace('.zip', '')
+
+        issue_datetime = datetime.now().replace(tzinfo=timezone('UTC'))
+        IssueDate = issue_datetime.astimezone(
+            timezone('America/Bogota')).strftime('%Y-%m-%d')
+        IssueTime = issue_datetime.astimezone(
+            timezone('America/Bogota')).strftime('%H:%M:%S-05:00')
+        ParentDocumentID = self.invoice_id.number
+        UUID = self.cufe_cude
+        supplier = self.company_id.partner_id
+        customer = self.invoice_id.partner_id
+        InvoiceCNDN = b64decode(self.xml_file)
+
+        if self.ar_xml_file:
+            ApplicationResponse = b64decode(self.ar_xml_file)
+        else:
+            ApplicationResponse = 'NO ApplicationResponse'
+
+        validation_datetime = datetime.strptime(
+            self.validation_datetime,
+            '%Y-%m-%d %H:%M:%S').replace(tzinfo=timezone('UTC'))
+        ValidationDate = validation_datetime.astimezone(
+            timezone('America/Bogota')).strftime('%Y-%m-%d')
+        ValidationTime = validation_datetime.astimezone(
+            timezone('America/Bogota')).strftime('%H:%M:%S-05:00')
+
+        return {
+            'ProfileExecutionID': ProfileExecutionID,
+            'ID': ID,
+            'IssueDate': IssueDate,
+            'IssueTime': IssueTime,
+            'ParentDocumentID': ParentDocumentID,
+            'SenderParty': supplier._get_accounting_partner_party_values(),
+            'ReceiverParty': customer._get_accounting_partner_party_values(),
+            'InvoiceCNDN': InvoiceCNDN,
+            'UUID': UUID,
+            'ApplicationResponse': ApplicationResponse,
+            'ValidationDate': ValidationDate,
+            'ValidationTime': ValidationTime}
+
+    def _get_ad_xml_file(self):
+        return global_functions.get_template_xml(
+            self._get_ad_xml_values(),
+            'AttachedDocument')
+
+    def _get_ad_zipped_file(self):
+        ad_zipped_filename = self.ad_zipped_filename
+        ad_xml_filename = ad_zipped_filename.replace('.zip', '.xml')
+        output = BytesIO()
+        zipfile = ZipFile(output, mode='w')
+        zipfile_content = BytesIO()
+        zipfile_content.write(self._get_ad_xml_file().encode("utf-8"))
+        zipfile.writestr(ad_xml_filename, zipfile_content.getvalue())
+        zipfile_content = BytesIO()
+        zipfile_content.write(b64decode(self._get_pdf_file()))
+        zipfile.writestr(self.invoice_id.number + '.pdf', zipfile_content.getvalue())
+        zipfile.close()
+
+        return b64encode(output.getvalue())
+
+    def action_set_ad_zipped_file(self):
+        ad_zipped_file = self._get_ad_zipped_file()
+
+        if ad_zipped_file:
+            self.write({'ad_zipped_file': ad_zipped_file})
+        else:
+            return ad_zipped_file
+
+        return True
+
     def _get_SendTestSetAsync_values(self):
         xml_soap_values = global_functions.get_xml_soap_values(
             self.company_id.certificate_file,
@@ -538,35 +618,14 @@ class AccountInvoiceDianDocument(models.Model):
         if not self.invoice_id.number:
             raise UserError(msg)
 
-        xml_attachment = self.env['ir.attachment'].create({
-            'name': self.xml_filename,
-            'datas_fname': self.xml_filename,
-            'datas': self.xml_file})
-        pdf_attachment = self.env['ir.attachment'].create({
-            'name': self.invoice_id.number + '.pdf',
-            'datas_fname': self.invoice_id.number + '.pdf',
-            'datas': self._get_pdf_file()})
-
-        if self.invoice_id.invoice_type_code in ('01', '02'):
-            ar_xml_attachment = self.env['ir.attachment'].create({
-                'name': self.ar_xml_filename,
-                'datas_fname': self.ar_xml_filename,
-                'datas': self.ar_xml_file})
-
-            template.attachment_ids = [(6, 0, [
-                (xml_attachment.id),
-                (pdf_attachment.id),
-                (ar_xml_attachment.id)])]
-        else:
-            template.attachment_ids = [(6, 0, [(xml_attachment.id), (pdf_attachment.id)])]
-
+        attachment = self.env['ir.attachment'].create({
+            'name': self.ad_zipped_filename,
+            'datas_fname': self.ad_zipped_filename,
+            'datas': self.ad_zipped_file})
+        template.attachment_ids = [(6, 0, [(attachment.id)])]
         template.send_mail(self.invoice_id.id, force_send=True)
         self.write({'mail_sent': True})
-        xml_attachment.unlink()
-        pdf_attachment.unlink()
-
-        if self.invoice_id.invoice_type_code in ('01', '02'):
-            ar_xml_attachment.unlink()
+        attachment.unlink()
 
         return True
 
@@ -626,7 +685,11 @@ class AccountInvoiceDianDocument(models.Model):
                 strings = element.text
 
             for element in root.iter("{%s}XmlBase64Bytes" % b):
-                self.write({'ar_xml_file': element.text})
+                self.write({
+                    'ar_xml_file': element.text,
+                    'validation_datetime': datetime.now().replace(tzinfo=timezone('UTC'))})
+
+            self.action_set_ad_zipped_file()
 
             if not self.mail_sent and send_mail:
                 self.action_send_mail()
