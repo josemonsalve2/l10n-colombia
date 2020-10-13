@@ -936,7 +936,7 @@ msgid "Unknown Error,\n"
 msgstr ""
 
 #. module: l10n_co_account_e_invoicing
-#: code:addons/l10n_co_account_e_invoicing/models/res_company.py:106
+#: code:addons/l10n_co_account_e_invoicing/models/res_company.py:107
 #, python-format
 msgid "Unknown Error,\n"
 "Status Code: %s,\n"
@@ -960,7 +960,7 @@ msgid "Unknown Error: %s\n"
 msgstr ""
 
 #. module: l10n_co_account_e_invoicing
-#: code:addons/l10n_co_account_e_invoicing/models/res_company.py:107
+#: code:addons/l10n_co_account_e_invoicing/models/res_company.py:108
 #, python-format
 msgid "Unknown Error: %s\n"
 "."

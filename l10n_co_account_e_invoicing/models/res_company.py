@@ -68,13 +68,14 @@ class ResCompany(models.Model):
     def write(self, vals):
         msg = _('Invalid URL.')
 
-        try:
-            response = urlopen(self.signature_policy_url, timeout=2)
+        if vals.get('signature_policy_url'):
+            try:
+                response = urlopen(self.signature_policy_url, timeout=2)
 
-            if response.getcode() != 200:
+                if response.getcode() != 200:
+                    raise ValidationError(msg)
+            except:
                 raise ValidationError(msg)
-        except:
-            raise ValidationError(msg)
 
         rec = super(ResCompany, self).write(vals)
 

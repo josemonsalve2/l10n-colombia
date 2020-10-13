@@ -985,7 +985,7 @@ msgstr "Error Desconocido,\n"
 "Contacta con tu administrador o puede elegir un diario con una secuencia de Talonario de Contingencia para Facturación Electrónica y cambiar el Tipo de Factura a 'Documento electrónico de transmisión - tipo 03'."
 
 #. module: l10n_co_account_e_invoicing
-#: code:addons/l10n_co_account_e_invoicing/models/res_company.py:106
+#: code:addons/l10n_co_account_e_invoicing/models/res_company.py:107
 #, python-format
 msgid "Unknown Error,\n"
 "Status Code: %s,\n"
@@ -1015,7 +1015,7 @@ msgstr "Error Desconocido: %s\n"
 "Contacta con tu administrador."
 
 #. module: l10n_co_account_e_invoicing
-#: code:addons/l10n_co_account_e_invoicing/models/res_company.py:107
+#: code:addons/l10n_co_account_e_invoicing/models/res_company.py:108
 #, python-format
 msgid "Unknown Error: %s\n"
 "."
