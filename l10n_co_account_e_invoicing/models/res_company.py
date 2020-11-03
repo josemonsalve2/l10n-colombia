@@ -70,25 +70,25 @@ class ResCompany(models.Model):
 
         if vals.get('signature_policy_url'):
             try:
-                response = urlopen(self.signature_policy_url, timeout=2)
+                for company in self:
+                    response = urlopen(company.signature_policy_url, timeout=2)
 
-                if response.getcode() != 200:
-                    raise ValidationError(msg)
+                    if response.getcode() != 200:
+                        raise ValidationError(msg)
             except:
                 raise ValidationError(msg)
 
         rec = super(ResCompany, self).write(vals)
 
-        for company in self:
-            if company.einvoicing_enabled:
-                if not vals.get('certificate_date'):
-                    pkcs12 = global_functions.get_pkcs12(
-                        company.certificate_file,
-                        company.certificate_password)
-                    x509 = pkcs12.get_certificate()
-                    date = x509.get_notAfter()
-                    date = '{}-{}-{}'.format(date[0:4], date[4:6], date[6:8])
-                    company.certificate_date = date
+        if vals.get('certificate_file') or vals.get('certificate_password'):
+            for company in self:
+                pkcs12 = global_functions.get_pkcs12(
+                    company.certificate_file,
+                    company.certificate_password)
+                x509 = pkcs12.get_certificate()
+                date = x509.get_notAfter()
+                date = '{}-{}-{}'.format(date[0:4], date[4:6], date[6:8])
+                company.certificate_date = date
 
         return rec
 
