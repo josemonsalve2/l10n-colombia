@@ -2,10 +2,11 @@
    :target: https://www.gnu.org/licenses/agpl
    :alt: License: AGPL-3
 
-================================================
-Colombian Localization Odoo version 10
-================================================
+===================================
+Colombian Geographical Localization
+===================================
 
+Punto 6.4. Códigos Geográficos del anexo tecnico version 1.7
 - Phone Prefix in States
 - Dian Code of Countries
 - Data Colombian States

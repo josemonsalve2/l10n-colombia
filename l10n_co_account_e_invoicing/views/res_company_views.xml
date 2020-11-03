@@ -18,6 +18,12 @@
                                     icon="fa-check"
                                     attrs="{'invisible': [('einvoicing_enabled', '!=', True)]}"/>
                             </div>
+                            <label for="automatic_delivery_datetime"/>
+                            <div>
+                                <field name="automatic_delivery_datetime"/>
+                                <field name="additional_hours_delivery_datetime"
+                                    attrs="{'required': [('automatic_delivery_datetime', '=', True)]}"/>
+                            </div>
                             <field name="send_invoice_to_dian"
                                 attrs="{'required': [('einvoicing_enabled', '=', True)]}"/>
                             <field name="profile_execution_id"

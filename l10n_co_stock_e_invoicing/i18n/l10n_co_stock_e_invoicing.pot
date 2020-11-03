@@ -35,7 +35,7 @@ msgstr ""
 #. module: l10n_co_stock_e_invoicing
 #: code:addons/l10n_co_stock_e_invoicing/models/account_invoice.py:10
 #, python-format
-msgid "Export Bill"
+msgid "E-invoice of sale - exportation"
 msgstr ""
 
 #. module: l10n_co_stock_e_invoicing
@@ -51,7 +51,7 @@ msgstr ""
 #. module: l10n_co_stock_e_invoicing
 #: code:addons/l10n_co_stock_e_invoicing/models/account_invoice_dian_document.py:13
 #, python-format
-msgid "The export bill must have an incoterm DIAN established"
+msgid "The 'e-invoice of sale - exportation' must have an incoterm DIAN established"
 msgstr ""
 
 #. module: l10n_co_stock_e_invoicing

@@ -7,19 +7,18 @@ from os import path
 from uuid import uuid4
 from base64 import b64encode, b64decode
 from StringIO import StringIO
-from datetime import datetime, date, timedelta
+from datetime import datetime, timedelta
 from OpenSSL import crypto
-import xmlsig
 from lxml import etree
-from xades import XAdESContext, template
-from xades.policy import GenericPolicyId
 from pytz import timezone
 from jinja2 import Environment, FileSystemLoader
+from xades.policy import GenericPolicyId
+from xades import XAdESContext, template
+import xmlsig
 from qrcode import QRCode, constants
-from cStringIO import StringIO
 from odoo import _
 from odoo.exceptions import ValidationError
-#from mock import patch
+
 
 def get_software_security_code(IdSoftware, Pin, NroDocumentos):
     uncoded_value = (IdSoftware + ' + ' + Pin + ' + ' + NroDocumentos)
@@ -28,6 +27,7 @@ def get_software_security_code(IdSoftware, Pin, NroDocumentos):
     return {
         'SoftwareSecurityCodeUncoded': uncoded_value,
         'SoftwareSecurityCode': software_security_code.hexdigest()}
+
 
 def get_cufe_cude(
         NumFac,
@@ -42,32 +42,33 @@ def get_cufe_cude(
         ValImp3,
         ValTot,
         NitOFE,
-        NumAdq,
+        DocAdq,
         ClTec,
         SoftwarePIN,
         TipoAmbie):
-    #CUFE = SHA-384(NumFac + FecFac + HorFac + ValFac + CodImp1 + ValImp1 +
-    # CodImp2 + ValImp2 + CodImp3 + ValImp3 + ValTot + NitOFE + NumAdq +
+    # CUFE = SHA-384(NumFac + FecFac + HorFac + ValFac + CodImp1 + ValImp1 +
+    # CodImp2 + ValImp2 + CodImp3 + ValImp3 + ValTot + NitOFE + DocAdq +
     # ClTec + TipoAmbie)
-    #CUDE = SHA-384(NumFac + FecFac + HorFac + ValFac + CodImp1 + ValImp1 +
-    # CodImp2 + ValImp2 + CodImp3 + ValImp3 + ValTot + NitOFE + NumAdq +
+    # CUDE = SHA-384(NumFac + FecFac + HorFac + ValFac + CodImp1 + ValImp1 +
+    # CodImp2 + ValImp2 + CodImp3 + ValImp3 + ValTot + NitOFE + DocAdq +
     # Software-PIN + TipoAmbie)
     uncoded_value = (NumFac + ' + ' + FecFac + ' + ' + HorFac + ' + ' +
                      ValFac + ' + ' + CodImp1 + ' + ' + ValImp1 + ' + ' +
                      CodImp2 + ' + ' + ValImp2 + ' + ' + CodImp3 + ' + ' +
                      ValImp3 + ' + ' + ValTot + ' + ' + NitOFE + ' + ' +
-                     NumAdq + ' + ' + (ClTec if ClTec else SoftwarePIN) +
+                     DocAdq + ' + ' + (ClTec if ClTec else SoftwarePIN) +
                      ' + ' + TipoAmbie)
     CUFE_CUDE = hashlib.sha384(
         NumFac + FecFac + HorFac + ValFac + CodImp1 + ValImp1 + CodImp2 +
-        ValImp2 + CodImp3 + ValImp3 + ValTot + NitOFE + NumAdq +
+        ValImp2 + CodImp3 + ValImp3 + ValTot + NitOFE + DocAdq +
         (ClTec if ClTec else SoftwarePIN) + TipoAmbie)
 
     return {
         'CUFE/CUDEUncoded': uncoded_value,
         'CUFE/CUDE': CUFE_CUDE.hexdigest()}
 
-#https://stackoverflow.com/questions/38432809/dynamic-xml-template-generation-using-get-template-jinja2
+
+# https://stackoverflow.com/questions/38432809/dynamic-xml-template-generation-using-get-template-jinja2
 def get_template_xml(values, template_name):
     base_path = path.dirname(path.dirname(__file__))
     env = Environment(loader=FileSystemLoader(path.join(
@@ -77,24 +78,25 @@ def get_template_xml(values, template_name):
     xml = template_xml.render(values)
 
     return xml.replace('&', '&amp;')
-   
-#https://github.com/etobella/python-xades
+
+
+# https://github.com/etobella/python-xades
 def get_xml_with_signature(
         xml_without_signature,
         signature_policy_url,
         signature_policy_description,
         certificate_file,
         certificate_password):
-    ##https://github.com/etobella/python-xades/blob/master/test/base.py
-    #base_path = path.dirname(path.dirname(__file__))
-    #root = etree.parse(path.join(base_path, name)).getroot()
-    #https://lxml.de/tutorial.html
-    #root = etree.fromstring(response.content)
-    #root = etree.tostring(root, encoding='utf-8')
-    #parser = etree.XMLParser(encoding='utf-8', remove_blank_text=True)
-    parser =  etree.XMLParser(remove_comments=True)
+    # https://github.com/etobella/python-xades/blob/master/test/base.py
+    # base_path = path.dirname(path.dirname(__file__))
+    # root = etree.parse(path.join(base_path, name)).getroot()
+    # https://lxml.de/tutorial.html
+    # root = etree.fromstring(response.content)
+    # root = etree.tostring(root, encoding='utf-8')
+    # parser = etree.XMLParser(encoding='utf-8', remove_blank_text=True)
+    parser = etree.XMLParser(remove_comments=True)
     root = etree.fromstring(xml_without_signature.encode("utf-8"), parser=parser)
-    #https://github.com/etobella/python-xades/blob/master/test/test_xades.py
+    # https://github.com/etobella/python-xades/blob/master/test/test_xades.py
     signature_id = "xmldsig-{}".format(uuid4())
     signature = xmlsig.template.create(
         xmlsig.constants.TransformInclC14N,
@@ -138,34 +140,35 @@ def get_xml_with_signature(
     root.append(signature)
     ctx = XAdESContext(policy)
     ctx.load_pkcs12(get_pkcs12(certificate_file, certificate_password))
-    #with patch("xades.policy.urllib.urlopen") as mock:
-    #    mock.return_value = b64decode(signature_policy_file).read()
+    # with patch("xades.policy.urllib.urlopen") as mock:
+    #     mock.return_value = b64decode(signature_policy_file).read()
     ctx.sign(signature)
-    #ctx.verify(signature)
+    # ctx.verify(signature)
 
-    #Se debe firmar en un paso anterior, y luego remover el signature para
-    #ubicarlo en posicion necesaria
+    # Se debe firmar en un paso anterior, y luego remover el signature para
+    # ubicarlo en posicion necesaria
     root.remove(signature)
     ext = "urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2"
     ds = "http://www.w3.org/2000/09/xmldsig#"
     position = 0
 
-    #https://lxml.de/tutorial.html
+    # https://lxml.de/tutorial.html
     for element in root.iter("{%s}ExtensionContent" % ext):
         if position == 1:
             element.append(signature)
         position += 1
 
-    #Complememto para añadir atributo faltante
+    # Complememto para añadir atributo faltante
     for element in root.iter("{%s}SignatureValue" % ds):
         element.attrib['Id'] = signature_id + "-sigvalue"
 
-    #https://www.decalage.info/en/python/lxml-c14n
+    # https://www.decalage.info/en/python/lxml-c14n
     output = StringIO()
-    root.getroottree().write_c14n(output)#, exclusive=1, with_comments=0
+    root.getroottree().write_c14n(output)  # exclusive=1, with_comments=0
     root = output.getvalue()
 
     return root
+
 
 def get_pkcs12(certificate_file, certificate_password):
     msg = _("The certificate password or certificate file is not valid.\n\nException: %s")
@@ -175,14 +178,15 @@ def get_pkcs12(certificate_file, certificate_password):
             b64decode(certificate_file),
             certificate_password)
     except Exception as e:
-		raise ValidationError(msg % e)
+        raise ValidationError(msg % e)
+
 
 def get_xml_soap_values(certificate_file, certificate_password):
     Created = datetime.now().replace(tzinfo=timezone('UTC'))
     Created = Created.astimezone(timezone('UTC'))
     Expires = (Created + timedelta(seconds=60000)).strftime('%Y-%m-%dT%H:%M:%S.001Z')
     Created = Created.strftime('%Y-%m-%dT%H:%M:%S.001Z')
-    #https://github.com/mit-dig/idm/blob/master/idm_query_functions.py#L151
+    # https://github.com/mit-dig/idm/blob/master/idm_query_functions.py#L151
     pkcs12 = get_pkcs12(certificate_file, certificate_password)
     cert = pkcs12.get_certificate()
     der = b64encode(crypto.dump_certificate(
@@ -195,6 +199,7 @@ def get_xml_soap_values(certificate_file, certificate_password):
         'Id': uuid4(),
         'BinarySecurityToken': der}
 
+
 def get_xml_soap_with_signature(
         xml_soap_without_signature,
         Id,
@@ -203,12 +208,12 @@ def get_xml_soap_with_signature(
     wsse = "http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd"
     wsu = "http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"
     X509v3 = "http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-x509-token-profile-1.0#X509v3"
-    parser =  etree.XMLParser(remove_comments=True)
+    parser = etree.XMLParser(remove_comments=True)
     root = etree.fromstring(xml_soap_without_signature, parser=parser)
     signature_id = "{}".format(Id)
     signature = xmlsig.template.create(
         xmlsig.constants.TransformExclC14N,
-        xmlsig.constants.TransformRsaSha256,#solo me ha funcionado con esta
+        xmlsig.constants.TransformRsaSha256,  # solo me ha funcionado con esta
         "SIG-" + signature_id)
     ref = xmlsig.template.add_reference(
         signature,
@@ -239,6 +244,7 @@ def get_xml_soap_with_signature(
     ctx.verify(signature)
 
     return root
+
 
 def get_qr_code(data):
     qr = QRCode(

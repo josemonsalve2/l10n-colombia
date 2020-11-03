@@ -28,13 +28,13 @@ msgstr ""
 #. module: l10n_co_partner_person_type
 #: selection:account.fiscal.position,person_type:0
 #: selection:res.partner,person_type:0
-msgid "Juridical Person and assimilated"
+msgid "Juridical Person"
 msgstr ""
 
 #. module: l10n_co_partner_person_type
 #: selection:account.fiscal.position,person_type:0
 #: selection:res.partner,person_type:0
-msgid "Natural Person and assimilated"
+msgid "Natural Person"
 msgstr ""
 
 #. module: l10n_co_partner_person_type

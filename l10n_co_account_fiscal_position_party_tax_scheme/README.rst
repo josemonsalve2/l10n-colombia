@@ -2,17 +2,17 @@
    :target: https://www.gnu.org/licenses/agpl
    :alt: License: AGPL-3
 
-==========================================================
-Responsabilidades Fiscales para la localizacion Colombiana
-==========================================================
+======================================================================
+Responsabilidades y regímenes Fiscales para la localizacion Colombiana
+======================================================================
 
-Este módulo tiene las responsabilidades fiscales identificados por la DIAN para
+Este módulo tiene las responsabilidades y regímenes fiscales identificados por la DIAN para
 la localizacion Colombiana, informacion obtenida del anexo tecnico para
-facturacion electronica version 1.8, punto 14.2.6.
+facturacion electronica version 1.7, puntos 6.2.4. y 6.2.7.
 
-This module has the fiscal responsibilities identified by the DIAN for the
+This module has the fiscal responsibilities and regimes identified by the DIAN for the
 Colombian localization, information obtained from the technical annex for
-e-invoicing version 1.8, point 14.2.6.
+e-invoicing version 1.7, points 6.2.4. and 6.2.7.
 
 Credits
 =======

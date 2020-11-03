@@ -12,7 +12,7 @@
               "Guillermo Montoya Github@guillermm",
     "website": "https://github.com/odooloco/l10n-colombia",
     "license": "AGPL-3",
-    "summary": "Menu for account.tax.group model", 
+    "summary": "Menu for account.tax.group model",
     "depends": [
         "account",
     ],

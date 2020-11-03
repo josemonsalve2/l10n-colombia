@@ -2,19 +2,27 @@
 # Copyright 2019 Joan Marín <Github@JoanMarin>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-import global_functions
 from datetime import datetime
 from urllib2 import urlopen
 from requests import post, exceptions
 from lxml import etree
+import ssl
+import global_functions
 from odoo import api, models, fields, _
 from odoo.exceptions import ValidationError
+ssl._create_default_https_context = ssl._create_unverified_context
 
 
 class ResCompany(models.Model):
     _inherit = "res.company"
 
     einvoicing_enabled = fields.Boolean(string='E-Invoicing Enabled')
+    automatic_delivery_datetime = fields.Boolean(string='Automatic Delivery Datetime?')
+    additional_hours_delivery_datetime = fields.Float(
+        string='Additional Hours',
+        help='Additional hours to invoice date for delivery date',
+        digits=(12, 4),
+        default=False)
     send_invoice_to_dian = fields.Selection(
         [('0', 'Immediately'),
          ('1', 'After 1 Day'),
@@ -43,7 +51,7 @@ class ResCompany(models.Model):
         string='E-Invoice Email, From:',
         help="Enter the e-invoice sender's email.")
     einvoicing_partner_no_email = fields.Char(
-        string='Failed Emails, To:', 
+        string='Failed Emails, To:',
         help='Enter the email where the invoice will be sent when the customer does not have an email.')
     einvoicing_receives_all_emails = fields.Char(
         string='Email that receives all emails')
@@ -56,32 +64,31 @@ class ResCompany(models.Model):
         string='Notification Group')
     get_numbering_range_response = fields.Text(string='GetNumberingRange Response')
 
-    @api.onchange('signature_policy_url')
-    def onchange_signature_policy_url(self):
-        msg = _('Invalid URL.')
-
-        try:
-            response = urlopen(self.signature_policy_url, timeout=2)
-
-            if response.getcode() != 200:
-                raise ValidationError(msg)
-        except:
-            raise ValidationError(msg)
-
     @api.multi
     def write(self, vals):
+        msg = _('Invalid URL.')
+
+        if vals.get('signature_policy_url'):
+            try:
+                for company in self:
+                    response = urlopen(company.signature_policy_url, timeout=2)
+
+                    if response.getcode() != 200:
+                        raise ValidationError(msg)
+            except:
+                raise ValidationError(msg)
+
         rec = super(ResCompany, self).write(vals)
 
-        for company in self:
-            if company.einvoicing_enabled:
-                if not vals.get('certificate_date'):
-                    pkcs12 = global_functions.get_pkcs12(
-                        company.certificate_file,
-                        company.certificate_password)
-                    x509 = pkcs12.get_certificate()
-                    date = x509.get_notAfter()
-                    date = '{}-{}-{}'.format(date[0:4], date[4:6], date[6:8])
-                    company.certificate_date = date
+        if vals.get('certificate_file') or vals.get('certificate_password'):
+            for company in self:
+                pkcs12 = global_functions.get_pkcs12(
+                    company.certificate_file,
+                    company.certificate_password)
+                x509 = pkcs12.get_certificate()
+                date = x509.get_notAfter()
+                date = '{}-{}-{}'.format(date[0:4], date[4:6], date[6:8])
+                company.certificate_date = date
 
         return rec
 
@@ -141,7 +148,7 @@ class ResCompany(models.Model):
             count = 0
             dian_documents = self.env['account.invoice.dian.document'].search(
                 [('state', 'in', ('draft', 'sent')), ('company_id', '=', company.id)],
-                order = 'zipped_filename asc')
+                order='zipped_filename asc')
 
             for dian_document in dian_documents:
                 today = datetime.strptime(fields.Date.context_today(self), '%Y-%m-%d')

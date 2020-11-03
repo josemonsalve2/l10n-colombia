@@ -20,7 +20,7 @@ class AccountJournal(models.Model):
         help="This field contains the information related to the numbering of the debit note "
              "entries of this journal.",
         copy=False)
-    
+
     @api.multi
     def write(self, vals):
         if vals.get('refund_sequence'):

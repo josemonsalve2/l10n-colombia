@@ -6,8 +6,8 @@ from odoo import fields, models
 
 
 class AccountFiscalPosition(models.Model):
-	_inherit = 'account.fiscal.position'
+    _inherit = 'account.fiscal.position'
 
-	person_type = fields.Selection(
-        [("1", "Juridical Person and assimilated"), ("2", "Natural Person and assimilated")],
-        string="Person Type")
+    person_type = fields.Selection([
+        ("1", "Juridical Person"),
+        ("2", "Natural Person")], string="Person Type")

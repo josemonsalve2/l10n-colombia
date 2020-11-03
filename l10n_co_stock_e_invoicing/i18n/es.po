@@ -35,8 +35,8 @@ msgstr "¿Aplica para la Facturación Electrónica?"
 #. module: l10n_co_stock_e_invoicing
 #: code:addons/l10n_co_stock_e_invoicing/models/account_invoice.py:10
 #, python-format
-msgid "Export Bill"
-msgstr "Factura de Exportación"
+msgid "E-invoice of sale - exportation"
+msgstr "Factura electrónica de venta - exportación"
 
 #. module: l10n_co_stock_e_invoicing
 #: model:ir.model,name:l10n_co_stock_e_invoicing.model_stock_incoterms
@@ -51,8 +51,8 @@ msgstr "Factura"
 #. module: l10n_co_stock_e_invoicing
 #: code:addons/l10n_co_stock_e_invoicing/models/account_invoice_dian_document.py:13
 #, python-format
-msgid "The export bill must have an incoterm DIAN established."
-msgstr "La factura de exportación debe tener un incoterm DIAN establecido."
+msgid "The 'e-invoice of sale - exportation' must have an incoterm DIAN established."
+msgstr "La 'factura electrónica de venta - exportación' debe tener un incoterm DIAN establecido."
 
 #. module: l10n_co_stock_e_invoicing
 #: model:ir.model,name:l10n_co_stock_e_invoicing.model_account_invoice_dian_document

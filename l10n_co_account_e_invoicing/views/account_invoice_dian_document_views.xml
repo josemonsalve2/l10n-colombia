@@ -68,6 +68,11 @@
                                 ('xml_file', '=', False),
                                 ('zipped_file', '=', False),
                                 ('state', 'in', ('cancel'))]}"/>
+                        <button name="action_set_ad_zipped_file"
+                            string="Set AttachedDocument Zipped File"
+                            type="object"
+                            class="btn-primary"
+                            attrs="{'invisible': [('ar_xml_file', '=', False)]}"/>
                         <button name="action_process"
                             string="Process"
                             type="object"
@@ -105,6 +110,12 @@
                                 <field name="ar_xml_file"
                                         widget="binary"
                                         filename="ar_xml_filename"
+                                        readonly="1"/>
+                                <field name="validation_datetime" readonly="1"/>
+                                <field name="ad_zipped_filename" invisible="1"/>
+                                <field name="ad_zipped_file"
+                                        widget="binary"
+                                        filename="ad_zipped_filename"
                                         readonly="1"/>
                                 <field name="mail_sent"/>
                             </group>

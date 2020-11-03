@@ -6,11 +6,12 @@
             <field name="inherit_id" ref="account.view_account_position_form"/>
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='active']" position="after">
+                    <field name="listname" required='1'/>
                     <field name="tax_level_code_ids"
                         widget="many2many_tags"
                         options="{'no_create': True}"
                         required='1'/>
-                    <field name="tax_scheme_id"
+                    <field name="tax_group_type_id"
                         options="{'no_create': True}"
                         required='1'/>
                 </xpath>

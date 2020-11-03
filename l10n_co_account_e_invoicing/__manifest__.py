@@ -13,7 +13,6 @@
     "summary": "Colombian Account E-Invoicing",
     "depends": [
         "l10n_co_account_fiscal_position_party_tax_scheme",
-        "l10n_co_account_fiscal_position_listname",
         "l10n_co_account_invoice_discrepancy_response",
         "l10n_co_account_invoice_payment_mean",
         "l10n_co_account_tax_group_type",
@@ -28,6 +27,7 @@
         "partner_commercial_name",
         "product_brand",
         "product_manufacturer",
+        "sale",
     ],
     'external_dependencies': {
         'python': [
@@ -49,6 +49,7 @@
         "views/product_template_views.xml",
         "views/res_company_views.xml",
         "views/res_partner_views.xml",
+        "report/account_invoice_mail_template.xml",
         "report/account_invoice_report_template.xml",
     ],
     "installable": True,

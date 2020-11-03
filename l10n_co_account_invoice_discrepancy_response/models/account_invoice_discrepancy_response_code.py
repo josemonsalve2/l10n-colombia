@@ -7,11 +7,11 @@ from odoo import fields, models
 
 
 class AccountInvoiceDiscrepancyResponseCode(models.Model):
-	_name = 'account.invoice.discrepancy.response.code'
+    _name = 'account.invoice.discrepancy.response.code'
 
-	name = fields.Char(string='Name')
-	code = fields.Char(string='Code')
-	type = fields.Selection(
-		[('credit', 'Credit Note'),
-		 ('debit', 'Debit Note')],
-		string='Type')
+    name = fields.Char(string='Name')
+    code = fields.Char(string='Code')
+    type = fields.Selection(
+        [('credit', 'Credit Note'),
+         ('debit', 'Debit Note')],
+        string='Type')

@@ -2,8 +2,8 @@
 # Copyright 2019 Joan Marín <Github@JoanMarin>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from global_functions import get_pkcs12
-from datetime import datetime
+from datetime import datetime, timedelta
+from pytz import timezone
 from odoo import api, models, fields, SUPERUSER_ID, _
 from odoo.exceptions import UserError
 
@@ -87,6 +87,17 @@ class AccountInvoice(models.Model):
         string="Warn About Inactive Certificate?",
         compute="_get_warn_certificate",
         store=False)
+    sequence_resolution_id = fields.Many2one(
+        comodel_name='ir.sequence.date_range',
+        string='Sequence Resolution',
+        compute='_compute_sequence_resolution_id',
+        store=False)
+    invoice_datetime = fields.Datetime(
+        string='Invoice Datetime',
+        default=False)
+    delivery_datetime = fields.Datetime(
+        string='Delivery Datetime',
+        default=False)
     operation_type = fields.Selection(
         [('10', 'Standard *'),
          ('20', 'Credit note that references an e-invoice'),
@@ -96,9 +107,9 @@ class AccountInvoice(models.Model):
         string='Operation Type',
         default=_default_operation_type)
     invoice_type_code = fields.Selection(
-        [('01', 'Sales Invoice'),
-         ('03', 'Biller Contingency Invoice'),
-         ('04', 'DIAN Contingency Invoice')],
+        [('01', 'E-invoice of sale'),
+         ('03', 'E-document of transmission - type 03'),
+         ('04', 'E-invoice of sale - type 04')],
         string='Invoice Type',
         default=_default_invoice_type_code)
     send_invoice_to_dian = fields.Selection(
@@ -111,6 +122,26 @@ class AccountInvoice(models.Model):
         comodel_name='account.invoice.dian.document',
         inverse_name='invoice_id',
         string='DIAN Documents')
+
+    @api.multi
+    def _compute_sequence_resolution_id(self):
+        for invoice in self:
+            sequence_resolution = False
+
+            if invoice.type == "out_invoice":
+                sequence_resolution_ids = self.env['ir.sequence.date_range'].search([
+                    ('sequence_id', '=', invoice.journal_id.sequence_id.id)])
+
+                for sequence_resolution_id in sequence_resolution_ids:
+                    move_name = invoice.move_name or ''
+                    number = move_name.replace(sequence_resolution_id.prefix or '', '')
+
+                    if (number.isnumeric()
+                            and sequence_resolution_id.number_from <= int(number)
+                            and int(number) <= sequence_resolution_id.number_to):
+                        sequence_resolution = sequence_resolution_id
+
+            invoice.sequence_resolution_id = sequence_resolution
 
     @api.multi
     def update(self, values):
@@ -126,39 +157,72 @@ class AccountInvoice(models.Model):
 
     @api.multi
     def invoice_validate(self):
+        msg = _("The 'delivery date' must be equal or greater per maximum 10 days to "
+                "the 'invoice date'.")
         res = super(AccountInvoice, self).invoice_validate()
 
         for invoice in self:
-            if invoice.company_id.einvoicing_enabled:
-                if invoice.type in ("out_invoice", "out_refund"):
-                    invoice.set_invoice_lines_price_reference()
-                    xml_filename = False
-                    zipped_filename = False
-                    ar_xml_filename = False
+            if not invoice.invoice_datetime:
+                invoice.invoice_datetime = datetime.now().replace(tzinfo=timezone('UTC'))
 
-                    for dian_document in invoice.dian_document_ids:
-                        xml_filename = dian_document.xml_filename
-                        zipped_filename = dian_document.zipped_filename
-                        ar_xml_filename = dian_document.ar_xml_filename
-                        break
+            if (invoice.company_id.einvoicing_enabled
+                    and invoice.type in ("out_invoice", "out_refund")):
+                if (invoice.company_id.automatic_delivery_datetime
+                        and invoice.company_id.additional_hours_delivery_datetime
+                        and not invoice.delivery_datetime):
+                    invoice_datetime = datetime.strptime(
+                        invoice.invoice_datetime,
+                        '%Y-%m-%d %H:%M:%S').replace(tzinfo=timezone('UTC'))
+                    hours_added = timedelta(
+                        hours=invoice.company_id.additional_hours_delivery_datetime)
+                    invoice.delivery_datetime = invoice_datetime + hours_added
 
-                    dian_document_obj = self.env['account.invoice.dian.document']
-                    dian_document = dian_document_obj.create({
-                        'invoice_id': invoice.id,
-                        'company_id': invoice.company_id.id,
-                        'xml_filename': xml_filename,
-                        'zipped_filename': zipped_filename,
-                        'ar_xml_filename': ar_xml_filename})
-                    set_files = dian_document.action_set_files()
-                     
-                    if invoice.send_invoice_to_dian == '0':
-                        if set_files:
-                            if invoice.invoice_type_code in ('01', '02'):
-                                dian_document.action_send_zipped_file()
-                            elif invoice.invoice_type_code == '04':
-                                dian_document.action_send_mail()
-                        else:
-                            dian_document.send_failure_email()
+                if not invoice.delivery_datetime:
+                    raise UserError(msg)
+
+                date_invoice = datetime.strptime(invoice.date_invoice, '%Y-%m-%d')
+                delivery_datetime = datetime.strptime(
+                    invoice.delivery_datetime,
+                    '%Y-%m-%d %H:%M:%S').replace(tzinfo=timezone('UTC'))
+                delivery_date = delivery_datetime.astimezone(
+                    timezone('America/Bogota')).strftime('%Y-%m-%d')
+                delivery_date = datetime.strptime(delivery_date, '%Y-%m-%d')
+                days = (delivery_date - date_invoice).days
+
+                if days < 0 or days > 10:
+                    raise UserError(msg)
+
+                invoice.set_invoice_lines_price_reference()
+                xml_filename = False
+                zipped_filename = False
+                ar_xml_filename = False
+                ad_zipped_filename = False
+
+                for dian_document in invoice.dian_document_ids:
+                    xml_filename = dian_document.xml_filename
+                    zipped_filename = dian_document.zipped_filename
+                    ar_xml_filename = dian_document.ar_xml_filename
+                    ad_zipped_filename = dian_document.ad_zipped_filename
+                    break
+
+                dian_document_obj = self.env['account.invoice.dian.document']
+                dian_document = dian_document_obj.create({
+                    'invoice_id': invoice.id,
+                    'company_id': invoice.company_id.id,
+                    'xml_filename': xml_filename,
+                    'zipped_filename': zipped_filename,
+                    'ar_xml_filename': ar_xml_filename,
+                    'ad_zipped_filename': ad_zipped_filename})
+                set_files = dian_document.action_set_files()
+
+                if invoice.send_invoice_to_dian == '0':
+                    if set_files:
+                        if invoice.invoice_type_code in ('01', '02'):
+                            dian_document.action_send_zipped_file()
+                        elif invoice.invoice_type_code == '04':
+                            dian_document.action_send_mail()
+                    else:
+                        dian_document.send_failure_email()
 
         return res
 
@@ -180,15 +244,14 @@ class AccountInvoice(models.Model):
         msg = _("You do not have an active dian resolution, contact with your administrator.")
         resolution_number = False
 
-        for date_range_id in self.journal_id.sequence_id.date_range_ids:
-            if date_range_id.active_resolution:
-                resolution_number = date_range_id.resolution_number
-                date_from = date_range_id.date_from
-                date_to = date_range_id.date_to
-                number_from = date_range_id.number_from
-                number_to = date_range_id.number_to
-                technical_key = date_range_id.technical_key
-                break
+        if self.sequence_resolution_id:
+            resolution_number = self.sequence_resolution_id.resolution_number
+            date_from = self.sequence_resolution_id.date_from
+            date_to = self.sequence_resolution_id.date_to
+            prefix = self.sequence_resolution_id.prefix
+            number_from = self.sequence_resolution_id.number_from
+            number_to = self.sequence_resolution_id.number_to
+            technical_key = self.sequence_resolution_id.technical_key
 
         if not resolution_number:
             raise UserError(msg)
@@ -197,7 +260,7 @@ class AccountInvoice(models.Model):
             'InvoiceAuthorization': resolution_number,
             'StartDate': date_from,
             'EndDate': date_to,
-            'Prefix': self.journal_id.sequence_id.prefix,
+            'Prefix': prefix,
             'From': number_from,
             'To': number_to,
             'technical_key': technical_key}
@@ -236,7 +299,7 @@ class AccountInvoice(models.Model):
                     if dian_document.state == 'sent':
                         dian_document_state_sent = True
 
-                if  ((not dian_document_state_done and dian_document_state_cancel)
+                if ((not dian_document_state_done and dian_document_state_cancel)
                         or dian_document_state_draft
                         or dian_document_state_sent):
                     raise UserError(msg2)
@@ -249,7 +312,7 @@ class AccountInvoice(models.Model):
         date = self._get_currency_rate_date() or fields.Date.context_today(self)
 
         if self.currency_id != company_currency:
-            currency =self.currency_id.with_context(date=date)
+            currency = self.currency_id.with_context(date=date)
             rate = currency.compute(rate, company_currency)
 
         return {
@@ -263,10 +326,10 @@ class AccountInvoice(models.Model):
                  "contact with your administrator.")
         msg2 = _("Your withholding tax: '%s', has amount equal to zero (0), the withholding taxes " +
                  "must have amount different to zero (0), contact with your administrator.")
-        msg3 = _("Your tax: '%s', has negative amount or an amount equal to zero (0), the taxes " + 
+        msg3 = _("Your tax: '%s', has negative amount or an amount equal to zero (0), the taxes " +
                  "must have an amount greater than zero (0), contact with your administrator.")
         taxes = {}
-        withholding_taxes= {}
+        withholding_taxes = {}
 
         for tax in self.tax_line_ids:
             if tax.tax_id.tax_group_id.is_einvoicing:
@@ -281,7 +344,7 @@ class AccountInvoice(models.Model):
 
                 if tax_type == 'withholding_tax' and tax.tax_id.amount == 0:
                     raise UserError(msg2 % tax.name)
-    
+
                 if tax_type == 'tax' and tax.tax_id.amount <= 0:
                     raise UserError(msg3 % tax.name)
 
@@ -304,9 +367,9 @@ class AccountInvoice(models.Model):
                     withholding_taxes[tax_code]['taxes'][tax_percent]['base'] += tax.base
                     withholding_taxes[tax_code]['taxes'][tax_percent]['amount'] += tax_amount * (-1)
                 elif tax_type == 'withholding_tax' and tax.tax_id.amount < 0:
-                    #TODO 3.0 Las retenciones se recomienda no enviarlas a la DIAN
-                    #Solo las positivas que indicarian una autorretencion, Si la DIAN
-                    #pide que se envien las retenciones, seria quitar o comentar este if
+                    # TODO 3.0 Las retenciones se recomienda no enviarlas a la DIAN
+                    # Solo las positivas que indicarian una autorretencion, Si la DIAN
+                    # pide que se envien las retenciones, seria quitar o comentar este if
                     pass
                 else:
                     if tax_code not in taxes:
@@ -363,7 +426,7 @@ class AccountInvoice(models.Model):
                  "contact with your administrator.")
         msg5 = _("Your withholding tax: '%s', has amount equal to zero (0), the withholding taxes " +
                  "must have amount different to zero (0), contact with your administrator.")
-        msg6 = _("Your tax: '%s', has negative amount or an amount equal to zero (0), the taxes " + 
+        msg6 = _("Your tax: '%s', has negative amount or an amount equal to zero (0), the taxes " +
                  "must have an amount greater than zero (0), contact with your administrator.")
 
         invoice_lines = {}
@@ -434,16 +497,16 @@ class AccountInvoice(models.Model):
                                     tax_id.amount,
                                     invoice_lines[count]['WithholdingTaxesTotal']))
                         elif tax_type == 'withholding_tax' and tax_id.amount < 0:
-                            #TODO 3.0 Las retenciones se recomienda no enviarlas a la DIAN.
-                            #Solo la parte positiva que indicaria una autoretencion, Si la DIAN
-                            #pide que se envie la parte negativa, seria quitar o comentar este if
+                            # TODO 3.0 Las retenciones se recomienda no enviarlas a la DIAN.
+                            # Solo la parte positiva que indicaria una autoretencion, Si la DIAN
+                            # pide que se envie la parte negativa, seria quitar o comentar este if
                             pass
                         else:
                             invoice_lines[count]['TaxesTotal'] = (
                                 invoice_line._get_invoice_lines_taxes(
                                     tax_id,
                                     tax_id.amount,
-                                    invoice_lines[count]['TaxesTotal']))			
+                                    invoice_lines[count]['TaxesTotal']))
 
             if '01' not in invoice_lines[count]['TaxesTotal']:
                 invoice_lines[count]['TaxesTotal']['01'] = {}

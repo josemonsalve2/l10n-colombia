@@ -44,7 +44,7 @@ class AccountInvoiceLine(models.Model):
         return invoice_line_taxes_total
 
     def _get_information_content_provider_party_values(self):
-		return {
-			'IDschemeID': False,
-			'IDschemeName': False,
-			'ID': False}
+        return {
+            'IDschemeID': False,
+            'IDschemeName': False,
+            'ID': False}

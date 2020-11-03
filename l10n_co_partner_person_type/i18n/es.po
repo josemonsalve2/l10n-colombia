@@ -28,14 +28,14 @@ msgstr "Posición Fiscal"
 #. module: l10n_co_partner_person_type
 #: selection:account.fiscal.position,person_type:0
 #: selection:res.partner,person_type:0
-msgid "Juridical Person and assimilated"
-msgstr "Persona Jurídica y asimiladas"
+msgid "Juridical Person"
+msgstr "Persona Jurídica"
 
 #. module: l10n_co_partner_person_type
 #: selection:account.fiscal.position,person_type:0
 #: selection:res.partner,person_type:0
-msgid "Natural Person and assimilated"
-msgstr "Persona Natural y asimiladas"
+msgid "Natural Person"
+msgstr "Persona Natural"
 
 #. module: l10n_co_partner_person_type
 #: model:ir.model,name:l10n_co_partner_person_type.model_res_partner

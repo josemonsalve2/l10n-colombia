@@ -10,7 +10,7 @@ class AccountInvoiceDianDocument(models.Model):
     _inherit = "account.invoice.dian.document"
 
     def _get_xml_values(self, ClTec):
-        msg1 = _("The export bill must have an incoterm DIAN established.")
+        msg1 = _("The 'e-invoice of sale - exportation' must have an incoterm DIAN established.")
         msg2 = _("'%s', must have a brand established.")
         msg3 = _("'%s', must have a ref of manufacturer established.")
         res = super(AccountInvoiceDianDocument, self)._get_xml_values(ClTec)

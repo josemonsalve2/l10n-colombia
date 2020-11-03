@@ -52,12 +52,12 @@
 					FecFac: {{IssueDate}}
 					HorFac: {{IssueTime}}
 					NitFac: {{ProviderID}}
-					NitAdq: {{NitAdquiriente}}
+					DocAdq: {{DocAdq}}
 					ValFac: {{LineExtensionAmount}}
 					ValIva: {{ValIva}}
 					ValOtroIm: {{ValOtroIm}}
-					ValTolFac:{{PayableAmount}}
-					CUFE: {{UUID}}
+					ValTolFac: {{PayableAmount}}
+					CU{% if InvoiceTypeCode != '03' %}F{% else %}D{% endif %}E: {{UUID}}
 					{{QRCodeURL}}</sts:QRCode>
 				</sts:DianExtensions>
 			</ext:ExtensionContent>
@@ -68,7 +68,6 @@
 	</ext:UBLExtensions>
 	<cbc:UBLVersionID>UBL 2.1</cbc:UBLVersionID>
 	<cbc:CustomizationID>{{CustomizationID}}</cbc:CustomizationID>
-<!--TODO 2.0: anexo tecnico 1.8 dice que va ": Factura Electrónica de Venta"-->
 	<cbc:ProfileID>DIAN 2.1</cbc:ProfileID>
 	<cbc:ProfileExecutionID>{{ProfileExecutionID}}</cbc:ProfileExecutionID>
 	<cbc:ID>{{ID}}</cbc:ID>
@@ -130,12 +129,12 @@
 	<cac:AdditionalDocumentReference>
 		<cbc:ID>{{ID}}</cbc:ID>
 		<cbc:IssueDate>{{IssueDate}}</cbc:IssueDate>
-	<!--TODO 2.0: Revisar luego se supone hay 3 opciones para contingencia, punto 13.1.4. anexo version 1.8:
-		FTC Factura Talonario Contingencia
-		FTP Factura Talonario Papel
-		FTPC Factura Talonario Por computador
-		se establece FTC, por que es el unico que esta habilitado por el portal DIAN, y es el que dan-->
-        <cbc:DocumentTypeCode>FTC</cbc:DocumentTypeCode>
+	<!--TODO 2.0: Revisar Punto 6.1.4. Referencia a documentos no tributarios: cbc:DocumentTypeCode del anexo tecnico version 1.7:
+		AAJ Orden de Entrega (remisión)*
+		R1 Referencias internas
+		R2 Referencias internas
+		Antes se usaba FTC del anexo tecnico version 1.6-->
+        <cbc:DocumentTypeCode>R1</cbc:DocumentTypeCode>
 	</cac:AdditionalDocumentReference>
 	{% endif %}
 	<cac:AccountingSupplierParty>
@@ -266,7 +265,7 @@
 				<cbc:Name>{{AccountingCustomerParty.PartyName}}</cbc:Name>
 			</cac:PartyName>
 			{% endif %}
-			{% if AccountingCustomerParty.CompanyID != '2222222222' %}
+			{% if AccountingCustomerParty.CompanyID != '222222222222' %}
 			<cac:PhysicalLocation>
 				<cac:Address>
 					<cbc:ID>{{AccountingCustomerParty.AddressID}}</cbc:ID>
@@ -296,7 +295,7 @@
 			<!--TODO 2.0: listName el anexo dice que eliminar o valor No aplica,
 				pero para consumidor final dice informar 49-->
 				<cbc:TaxLevelCode listName="{{AccountingCustomerParty.listName}}">{{AccountingCustomerParty.TaxLevelCode}}</cbc:TaxLevelCode>
-				{% if AccountingCustomerParty.CompanyID != '2222222222' %}
+				{% if AccountingCustomerParty.CompanyID != '222222222222' %}
 				<cac:RegistrationAddress>
 					<cbc:ID>{{AccountingCustomerParty.AddressID}}</cbc:ID>
 					<cbc:CityName>{{AccountingCustomerParty.AddressCityName}}</cbc:CityName>
@@ -332,7 +331,7 @@
 				</cac:CorporateRegistrationScheme>
 				{% endif %}
 			</cac:PartyLegalEntity>
-			{% if AccountingCustomerParty.CompanyID != '2222222222' and (AccountingCustomerParty.Telephone or AccountingCustomerParty.Telefax or AccountingCustomerParty.ElectronicMail) %}
+			{% if AccountingCustomerParty.CompanyID != '222222222222' and (AccountingCustomerParty.Telephone or AccountingCustomerParty.Telefax or AccountingCustomerParty.ElectronicMail) %}
 			<cac:Contact>
 			<!--TODO 2.0: opcional, de momento se manda  info de la empresa sin nombre de contacto>
 				<cbc:Name>Diana Cruz</cbc:Name-->
@@ -349,30 +348,6 @@
 				<cbc:Note></cbc:Note-->
 			</cac:Contact>
 			{% endif %}
-			{% if AccountingCustomerParty.AdditionalAccountID == '2' %}
-			<cac:Person>
-			<!--TODO 2.0: no se sabe que es este campo, pero es opcional>
-				<cbc:ID></cbc:ID-->
-				<cbc:FirstName>{{AccountingCustomerParty.FirstName}}</cbc:FirstName>
-				<cbc:FamilyName>{{AccountingCustomerParty.FamilyName}}</cbc:FamilyName>
-				{% if AccountingCustomerParty.MiddleName %}
-				<cbc:MiddleName>{{AccountingCustomerParty.MiddleName}}</cbc:MiddleName>
-				{% endif %}
-			<!--TODO 3.0: solo informar informacion de la residencia>
-                <cac:ResidenceAddress>
-					<cbc:ID>{{AccountingCustomerParty.AddressID}}</cbc:ID>
-					<cbc:CityName>{{AccountingCustomerParty.AddressCityName}}</cbc:CityName>
-					{% if AccountingCustomerParty.AddressPostalZone %}
-					<cbc:PostalZone>{{AccountingCustomerParty.AddressPostalZone}}</cbc:PostalZone>
-					{% endif %}
-					<cbc:CountrySubentity>{{AccountingCustomerParty.AddressCountrySubentity}}</cbc:CountrySubentity>
-					<cbc:CountrySubentityCode>{{AccountingCustomerParty.AddressCountrySubentityCode}}</cbc:CountrySubentityCode>
-					<cac:AddressLine>
-						<cbc:Line>{{AccountingCustomerParty.AddressLine}}</cbc:Line>
-					</cac:AddressLine>
-				</cac:ResidenceAddress-->
-			</cac:Person>
-			{% endif %}
 		</cac:Party>
 	</cac:AccountingCustomerParty>
 <!--TODO 2.0 Grupo de información de la Persona autorizada para descargar documentos-->
@@ -385,11 +360,9 @@
 		</cac:PartyIdentification>
 	</cac:TaxRepresentativeParty-->
 	<cac:Delivery>
-	<!--TODO 2.0 Fecha efectiva de salida de los bienes-->
-		<!--cbc:ActualDeliveryDate></cbc:ActualDeliveryDate-->
-	<!--TODO 2.0 Hora efectiva de salida de los bienes-->
-		<!--cbc:ActualDeliveryTime></cbc:ActualDeliveryTime-->
-		{% if AccountingCustomerParty.CompanyID != '2222222222' %}
+		<cbc:ActualDeliveryDate>{{ActualDeliveryDate}}</cbc:ActualDeliveryDate>
+		<cbc:ActualDeliveryTime>{{ActualDeliveryTime}}</cbc:ActualDeliveryTime>
+		{% if AccountingCustomerParty.CompanyID != '222222222222' %}
 		<cac:DeliveryAddress>
 			<cbc:ID>{{Delivery.AddressID}}</cbc:ID>
 			<cbc:CityName>{{Delivery.AddressCityName}}</cbc:CityName>
@@ -408,8 +381,7 @@
 			</cac:Country>
 		</cac:DeliveryAddress>
 		{% endif %}
-	<!--TODO 3.0, Grupo de datos con información sobre la empresa de transporte
-		Desarrollo futuro>
+	<!--TODO 3.0, Grupo de datos con información sobre la empresa de transporte, desarrollo futuro>
 		<cac:DeliveryParty>
     		<cac:PartyName>
 				<cbc:Name></cbc:Name>

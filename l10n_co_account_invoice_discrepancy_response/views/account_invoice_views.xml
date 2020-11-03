@@ -1,44 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
-    <data>
-        <record id="invoice_form" model="ir.ui.view">
-            <field name="model">account.invoice</field>
-            <field name="inherit_id" ref="account.invoice_form" />
-            <field name="arch" type="xml">
-                <button name="%(account.action_account_invoice_refund)d" position="attributes">
-                    <attribute name="string">Credit Note Invoice</attribute>
-                    <attribute name="icon">fa-file</attribute>
-                </button>
-    
-                <xpath expr="//button[@name='%(account.action_account_invoice_refund)d']" position="after">
-                    <button name="%(account_invoice_debit_note_action)d"
-                        type='action'
-                        string='Debit Note Invoice'
-                        attrs="{'invisible': ['|',
-                            ('refund_type', '=', 'debit'),
-                            ('state', 'in', ['proforma2', 'proforma', 'cancel', 'draft'])]}" 
-                        icon='fa-file'/>
-                </xpath>
+    <record id="invoice_form" model="ir.ui.view">
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="account.invoice_form" />
+        <field name="arch" type="xml">
+            <button name="%(account.action_account_invoice_refund)d" position="attributes">
+                <attribute name="string">Credit Note Invoice</attribute>
+                <attribute name="icon">fa-file</attribute>
+            </button>
 
-                <xpath expr="//field[@name='payment_term_id']" position="after">
-                    <field name="refund_type" invisible="1"/>
-                    <field name="discrepancy_response_code_id"
-                        options="{'no_create': True}"
-                        attrs="{'required': [('type', '=', 'out_refund')],
-                            'invisible': [('type', '!=', 'out_refund')]}"
-                    	domain="[('type', '=', refund_type)]"/>
-                </xpath>
-            </field>
-        </record>
+            <xpath expr="//button[@name='%(account.action_account_invoice_refund)d']" position="after">
+                <button name="%(account_invoice_debit_note_action)d"
+                    type='action'
+                    string='Debit Note Invoice'
+                    attrs="{'invisible': ['|',
+                        ('refund_type', '=', 'debit'),
+                        ('state', 'in', ['proforma2', 'proforma', 'cancel', 'draft'])]}" 
+                    icon='fa-file'/>
+            </xpath>
 
-        <record id="invoice_supplier_form" model="ir.ui.view">
-            <field name="model">account.invoice</field>
-            <field name="inherit_id" ref="account.invoice_supplier_form" />
-            <field name="arch" type="xml">
-                <field name="move_name" position="after">
-                    <field name="refund_type" invisible="1"/>
-                </field>
+            <xpath expr="//field[@name='payment_term_id']" position="after">
+                <field name="refund_type" invisible="1"/>
+                <field name="discrepancy_response_code_id"
+                    options="{'no_create': True}"
+                    attrs="{'required': [('type', '=', 'out_refund')],
+                        'invisible': [('type', '!=', 'out_refund')]}"
+                    domain="[('type', '=', refund_type)]"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="invoice_supplier_form" model="ir.ui.view">
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="account.invoice_supplier_form" />
+        <field name="arch" type="xml">
+            <field name="move_name" position="after">
+                <field name="refund_type" invisible="1"/>
             </field>
-        </record>
-    </data>
+        </field>
+    </record>
 </odoo>
