@@ -89,11 +89,13 @@
 		</cac:InvoiceDocumentReference>
 	</cac:BillingReference>
 	{% endif %}
-<!--TODO 2.0: Creo que esto para colocar el numero de la orden, en nuestro caso, seria la cotizacion>
+	{% if OrderReferenceID %}
 	<cac:OrderReference>
 		<cbc:ID>{{OrderReferenceID}}</cbc:ID>
-		<cbc:IssueDate>{{OrderReferenceIssueDate}}</cbc:IssueDate>
-	</cac:OrderReference-->
+	<!--TODO 2.0: No hay un campo validado aun, para la fecha de la orden del cliente>
+		<cbc:IssueDate>{{OrderReferenceIssueDate}}</cbc:IssueDate-->
+	</cac:OrderReference>
+	{% endif %}
 <!--TODO 3.0: opcional, solo interés mercantil, para referenciar uno o más documentos de despacho asociado>
 	<cac:DespatchDocumentReference>
 		<cbc:ID>8124167214 DA</cbc:ID>

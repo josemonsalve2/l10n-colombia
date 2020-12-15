@@ -89,11 +89,13 @@
 		<cbc:StartDate>{{InvoicePeriodStartDate}}</cbc:StartDate>
 		<cbc:EndDate>{{InvoicePeriodEndDate}}</cbc:EndDate>
 	</cac:InvoicePeriod-->
-<!--TODO 2.0: Creo que esto para colocar el numero de la orden, en nuestro caso, seria la cotizacion>
-   	<cac:OrderReference>
-      	<cbc:ID>{{invoiceReferences}}</cbc:ID>
-      	<cbc:IssueDate>{{invoiceReferences}}</cbc:IssueDate>
-   	</cac:OrderReference-->
+	{% if OrderReferenceID %}
+	<cac:OrderReference>
+		<cbc:ID>{{OrderReferenceID}}</cbc:ID>
+	<!--TODO 2.0: No hay un campo validado aun, para la fecha de la orden del cliente>
+		<cbc:IssueDate>{{OrderReferenceIssueDate}}</cbc:IssueDate-->
+	</cac:OrderReference>
+	{% endif %}
 <!--TODO 2.0: Se debe diligenciar únicamente cuando la FE se origina a partir de la corrección o
 	ajuste que se da mediante un Nota Crédito, ES POSIBLE PERO NO HAY PROBLEMA SI NO ESTA,
 	odoo esto es poco probable y no esta la relacion directa, desarrollo para cumplir con esto>
