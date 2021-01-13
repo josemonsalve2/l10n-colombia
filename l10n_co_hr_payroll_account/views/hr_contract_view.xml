@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+
+
+	<!-- Contract -->
+
+	<record id="hr_contract_extra_view_form" model="ir.ui.view">
+		<field name="name">hr.contract.risk.view.form.inherit</field>
+		<field name="model">hr.contract</field>
+		<field name="inherit_id" ref="hr_contract.hr_contract_view_form"/>
+		<field name="arch" type="xml">
+			<field name="date_end" position="after">
+				<label for="date_to" string="Finalización contrato fijo"/>
+				<div>
+					<field name="date_to" class="oe_inline"/>
+				</div>
+			</field>
+			<field name="job_id" position="after">
+				<field name="risk_id"/>
+			</field>
+			<field name="type_id" position="after">
+				<field name="distribuir"/>
+				<field name="parcial"/>
+				<field name="pensionado"/>
+				<field name="integral"/>
+			</field>
+			<xpath expr="//group[@name='salary_and_advantages']" position="after">
+				<group string="Salario integral">
+					<field name="factor"/>
+					<field name="condicion"/>
+					<field name="compensacion"/>
+				</group>
+			</xpath>
+			<page name="information" position="after">
+				<page string="Entidades" name="setting_tab">
+					<field name="setting_ids" nolabel="1" widget="one2many_list">
+						<tree string="Entidades" editable="bottom">
+							<field name="contrib_id"/>
+							<field name="partner_id"/>
+							<!-- field name="account_debit_id" domain="[('internal_type','!=','view')]"/>
+                            <field name="account_credit_id" domain="[('internal_type','!=','view')]"/ -->
+						</tree>
+					</field>
+				</page>
+				<page string="Deducciones o pagos periodicos" name="deduction_tab">
+					<field name="deduction_ids" nolabel="1" widget="one2many_list">
+						<tree string="Deducciones o pagos periodicos" editable="bottom">
+							<field name="input_id"/>
+							<field name="period"/>
+							<field name="amount"/>
+							<field name="total_deduction"/>
+							<field name="total_accumulated"/>
+							<field name="total_acumulados"/>
+							<field name="saldo_actual"/>
+							<field name="date"/>
+						</tree>
+					</field>
+				</page>
+				<page string="Cuentas analiticas" name="analytic_tab">
+					<field name="analytic_ids" nolabel="1" widget="one2many_list">
+						<tree string="Cuentas analiticas" editable="bottom">
+							<field name="account_analytic_id" domain="[('type','in',['normal'])]" required="1"/>
+							<field name="percent"/>
+						</tree>
+					</field>
+				</page>
+				<page string="Liquidación" name="liquidacion_tab">
+					<group col="4">
+						<field name="date_liquidacion"/>
+						<field name="date_prima"/>
+						<field name="date_cesantias"/>
+						<field name="date_vacaciones"/>
+					</group>
+					<group>
+						<button name="calcular_liquidacion" type="object" string="Calcular" class="oe_highlight"/>
+					</group>
+					<group>
+						<field name="liquidacion_ids" nolabel="1" widget="one2many_list" readonly="True">
+							<tree string="Simulador">
+								<field name="name"/>
+								<field name="base"/>
+								<field name="desde"/>
+								<field name="hasta"/>
+								<field name="dias"/>
+								<field name="amount" sum="Total"/>
+							</tree>
+						</field>
+					</group>
+				</page>
+				<page string="Acumulados" name="acumulados_tab">
+					<group>
+						<field name="acumulado_ids" nolabel="1" widget="one2many_list" readonly="True">
+							<tree string="Acumulados">
+								<field name="date"/>
+								<field name="salary_rule_id"/>
+								<field name="amount"/>
+							</tree>
+						</field>
+					</group>
+				</page>
+				<page string="Cambios salario" name="change_wage_tab">
+					<field name="change_wage_ids" nolabel="1" widget="one2many_list">
+						<tree string="Cambios salario" editable="bottom">
+							<field name="date_start"/>
+							<field name="wage"/>
+						</tree>
+					</field>
+				</page>
+
+			</page>
+		</field>
+	</record>
+
+	<!-- Entidades -->
+
+	<record model="ir.ui.view" id="hr_contract_entidades_tree">
+		<field name="name">Entidades relacionadas</field>
+		<field name="model">hr.contract.setting</field>
+		<field name="type">tree</field>
+		<field name="arch" type="xml">
+			<tree string="Entidades" editable="bottom">
+				<field name="contract_id"/>
+				<field name="contrib_id"/>
+				<field name="partner_id"/>
+				<field name="account_debit_id"/>
+				<field name="account_credit_id"/>
+			</tree>
+		</field>
+	</record>
+
+	<record id="hr_contract_entidades_action" model="ir.actions.act_window">
+		<field name="name">Entidades relacionadas</field>
+		<field name="res_model">hr.contract.setting</field>
+		<field name="view_type">form</field>
+		<field name="view_mode">tree</field>
+	</record>
+
+	<menuitem id="hr_menu_contract_detail" parent="hr.menu_hr_root" name="Detalles" sequence="4" groups="hr.group_hr_manager"/>
+	<menuitem action="hr_contract_entidades_action" id="hr_menu_contract_entidades" parent="l10n_co_hr_payroll.hr_menu_contract_detail" name="Entidades relacionadas" sequence="4" groups="hr.group_hr_manager"/>
+
+	<!-- Deducciones -->
+
+	<record model="ir.ui.view" id="hr_contract_deduction_tree">
+		<field name="name">hr.contract.deduction.tree</field>
+		<field name="model">hr.contract.deduction</field>
+		<field name="type">tree</field>
+		<field name="arch" type="xml">
+			<tree string="Deducciones y pagos periódicos" editable="bottom">
+				<field name="contract_id"/>
+				<field name="input_id"/>
+				<field name="period"/>
+				<field name="amount"/>
+				<field name="total_deduction"/>
+				<field name="total_accumulated"/>
+				<field name="date"/>
+				<field name="total_acumulados"/>
+				<field name="saldo_actual"/>
+			</tree>
+		</field>
+	</record>
+
+	<record id="hr_contract_deduction_action" model="ir.actions.act_window">
+		<field name="name">Deducciones y pagos periódicos</field>
+		<field name="res_model">hr.contract.deduction</field>
+		<field name="view_type">form</field>
+		<field name="view_mode">tree</field>
+	</record>
+
+	<menuitem action="hr_contract_deduction_action" id="hr_menu_contract_deduction" parent="l10n_co_hr_payroll.hr_menu_contract_detail" name="Deducciones y pagos periódicos" sequence="6" groups="hr.group_hr_manager"/>
+
+	<!-- Acumulados -->
+
+	<record model="ir.ui.view" id="hr_contract_acumulados_tree">
+		<field name="name">Acumulados nómina anterior</field>
+		<field name="model">hr.contract.acumulados</field>
+		<field name="type">tree</field>
+		<field name="arch" type="xml">
+			<tree string="Entidades" editable="bottom">
+				<field name="contract_id"/>
+				<field name="date"/>
+				<field name="salary_rule_id"/>
+				<field name="amount"/>
+			</tree>
+		</field>
+	</record>
+
+	<record id="hr_contract_acumulados_action" model="ir.actions.act_window">
+		<field name="name">Acumulados nómina anterior</field>
+		<field name="res_model">hr.contract.acumulados</field>
+		<field name="view_type">form</field>
+		<field name="view_mode">tree</field>
+	</record>
+
+	<menuitem action="hr_contract_acumulados_action" id="hr_menu_contract_acumulados" parent="l10n_co_hr_payroll.hr_menu_contract_detail" name="Acumulados anteriores" sequence="5" groups="hr.group_hr_manager"/>
+
+	<!-- Risk -->
+
+	<record model="ir.ui.view" id="hr_contract_risk_view">
+		<field name="name">Riesgos</field>
+		<field name="model">hr.contract.risk</field>
+		<field name="type">form</field>
+		<field name="arch" type="xml">
+			<form string="Riesgos profesionales">
+				<field name="name" required="1"></field>
+				<field name="code" required="1"></field>
+				<field name="percent"></field>
+			</form>
+		</field>
+	</record>
+
+	<record model="ir.ui.view" id="hr_contract_risk_tree">
+		<field name="name">Riesgos profesionales</field>
+		<field name="model">hr.contract.risk</field>
+		<field name="type">tree</field>
+		<field name="arch" type="xml">
+			<tree string='Riesgos'>
+				<field name="name" required="1"></field>
+				<field name="code" required="1"></field>
+				<field name="percent"></field>
+			</tree>
+		</field>
+	</record>
+
+	<record id="hr_contract_risk_list_action" model="ir.actions.act_window">
+		<field name="name">Riesgos profesionales</field>
+		<field name="res_model">hr.contract.risk</field>
+		<field name="view_type">form</field>
+		<field name="view_mode">tree,form</field>
+	</record>
+
+
+</odoo>
