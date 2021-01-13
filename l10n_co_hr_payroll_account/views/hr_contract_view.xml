@@ -137,7 +137,7 @@
 	</record>
 
 	<menuitem id="hr_menu_contract_detail" parent="hr.menu_hr_root" name="Detalles" sequence="4" groups="hr.group_hr_manager"/>
-	<menuitem action="hr_contract_entidades_action" id="hr_menu_contract_entidades" parent="l10n_co_hr_payroll.hr_menu_contract_detail" name="Entidades relacionadas" sequence="4" groups="hr.group_hr_manager"/>
+	<menuitem action="hr_contract_entidades_action" id="hr_menu_contract_entidades" parent="l10n_co_hr_payroll_account.hr_menu_contract_detail" name="Entidades relacionadas" sequence="4" groups="hr.group_hr_manager"/>
 
 	<!-- Deducciones -->
 
@@ -167,7 +167,7 @@
 		<field name="view_mode">tree</field>
 	</record>
 
-	<menuitem action="hr_contract_deduction_action" id="hr_menu_contract_deduction" parent="l10n_co_hr_payroll.hr_menu_contract_detail" name="Deducciones y pagos periódicos" sequence="6" groups="hr.group_hr_manager"/>
+	<menuitem action="hr_contract_deduction_action" id="hr_menu_contract_deduction" parent="l10n_co_hr_payroll_account.hr_menu_contract_detail" name="Deducciones y pagos periódicos" sequence="6" groups="hr.group_hr_manager"/>
 
 	<!-- Acumulados -->
 
@@ -192,7 +192,7 @@
 		<field name="view_mode">tree</field>
 	</record>
 
-	<menuitem action="hr_contract_acumulados_action" id="hr_menu_contract_acumulados" parent="l10n_co_hr_payroll.hr_menu_contract_detail" name="Acumulados anteriores" sequence="5" groups="hr.group_hr_manager"/>
+	<menuitem action="hr_contract_acumulados_action" id="hr_menu_contract_acumulados" parent="l10n_co_hr_payroll_account.hr_menu_contract_detail" name="Acumulados anteriores" sequence="5" groups="hr.group_hr_manager"/>
 
 	<!-- Risk -->
 
