@@ -14,8 +14,8 @@ class AccountFiscalyear(models.Model):
     sub_transport = fields.Float(
         string='Transport allowance',
         help="Legal transport subsidy in force for the current period")
-    pension_fee = fields.Float(string="Pension rate",
-                               help="Pension rate for the current period")
+    pension_rate = fields.Float(string="Pension rate",
+                                help="Pension rate for the current period")
     health_rate = fields.Float(
         string='Health rate',
         help="Health contribution rate for the current period")
