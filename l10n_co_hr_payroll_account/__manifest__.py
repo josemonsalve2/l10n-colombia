@@ -24,7 +24,7 @@ Modulo de nomina para la localizacion colombiana
         "views/hr_contract_accumulated_view.xml",
         "views/hr_contract_deduction_view.xml",
         "views/hr_contract_risk_view.xml", "views/hr_payslip_view.xml",
-        "views/hr_novedades_view.xml", "views/hr_leave_view.xml",
+        "views/hr_leave_view.xml", "views/hr_payroll_news_view.xml",
         "security/ir.model.access.csv"
     ]
 }

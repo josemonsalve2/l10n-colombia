@@ -750,8 +750,8 @@ class HrPayslip(models.Model):
 
                 #Busca el valor en las novedades, sino encontro en las deducciones
                 if amount == 0.0:
-                    #novedades_ids = self.env['hr.novedades'].search([('identification_id', '=',contract.employee_id.identification_id),('code','=',input.code),('date_from','=',date_from),('date_to','=',date_to),('value','!=',0)])
-                    novedades_ids = self.env['hr.novedades'].search([
+                    #novedades_ids = self.env['hr.payroll.news'].search([('identification_id', '=',contract.employee_id.identification_id),('code','=',input.code),('date_from','=',date_from),('date_to','=',date_to),('value','!=',0)])
+                    novedades_ids = self.env['hr.payroll.news'].search([
                         ('employee_id', '=', contract.employee_id.id),
                         ('input_id', '=', input.id),
                         ('date_from', '=', date_from),
@@ -779,7 +779,7 @@ class HrPayslip(models.Model):
         res = []
         contract_obj = self.env['hr.contract']
         rule_obj = self.env['hr.salary.rule']
-        novedades_obj = self.env['hr.novedades']
+        novedades_obj = self.env['hr.payroll.news']
 
         structure_ids = contract_obj.get_all_structures()
         rule_ids = self.pool.get('hr.payroll.structure').get_all_rules(
