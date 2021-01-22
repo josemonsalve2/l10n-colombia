@@ -7,31 +7,7 @@ import math
 import datetime
 from datetime import date
 from odoo import api, fields, models, tools, _
-from odoo.exceptions import UserError, ValidationError
-
-
-class HrHolidaysStatus(models.Model):
-    _description = "Types of absences"
-    _inherit = "hr.leave.type"
-
-    no_worked = fields.Boolean(
-        string='Not worked',
-        defualt=False,
-        help=
-        "Indicates that this type of absence is non-working, such as suspensions, unpaid leave, etc."
-    )
-    tipo_ausencia = fields.Selection(selection=[('vacaciones', 'Vacaciones'),
-                                                ('incapacidad',
-                                                 'Incapacidades'),
-                                                ('permiso', 'Permisos'),
-                                                ('licencia', 'Licencias'),
-                                                ('sancion', 'Sanciones')],
-                                     string='Tipo de ausencia',
-                                     required=True)
-    remunerado = fields.Boolean(
-        'Remunerado',
-        defualt=False,
-        help="Indica si la ausencia es remunerada o no")
+from odoo.exceptions import ValidationError
 
 
 class HrHolidays(models.Model):
@@ -87,24 +63,24 @@ class HrHolidays(models.Model):
 
         return rs_data
 
-    period_date_from = fields.Date('Fecha inicio periodo',
+    period_date_from = fields.Date(string='Period start date',
                                    states={
                                        'draft': [('readonly', False)],
                                        'confirm': [('readonly', False)]
                                    },
                                    select=True,
                                    copy=False)
-    period_date_to = fields.Date('Fecha fin periodo',
+    period_date_to = fields.Date(string='End date period',
                                  states={
                                      'draft': [('readonly', False)],
                                      'confirm': [('readonly', False)]
                                  },
                                  select=True,
                                  copy=False)
-    fecha_incapacidad = fields.Date('Fecha aprobacion incapacidad',
-                                    select=True,
-                                    copy=False)
-    number_of_days_real = fields.Float('Dias hábiles',
+    date_medical_disability = fields.Date(string='Disability approval date',
+                                          select=True,
+                                          copy=False)
+    number_of_days_real = fields.Float(string='Business days',
                                        compute='_compute_days_real',
                                        default=0.0,
                                        readonly=True,
@@ -112,7 +88,7 @@ class HrHolidays(models.Model):
 
     _constraints = [
         (_check_date_period,
-         'La fecha inicial debe ser menor que la fecha mayor!',
+         'The start date must be less than the greater date!',
          ['period_date_from', 'period_date_to']),
     ]
 
