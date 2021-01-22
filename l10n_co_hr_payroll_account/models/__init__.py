@@ -3,6 +3,12 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 from . import hr_contract
+from . import hr_contract_settings
+from . import hr_contract_change_wage
+from . import hr_contract_deduction
+from . import hr_contract_risk
+from . import hr_contract_accumulated
+from . import hr_contract_settlement
 from . import hr_employee
 from . import hr_salary_rule
 from . import res_config_settings
