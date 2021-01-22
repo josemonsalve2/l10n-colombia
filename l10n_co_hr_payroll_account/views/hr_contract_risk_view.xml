@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+	<record model="ir.ui.view" id="hr_contract_risk_view">
+		<field name="model">hr.contract.risk</field>
+		<field name="type">form</field>
+		<field name="arch" type="xml">
+			<form string="Occupational hazards">
+				<field name="name" required="1"></field>
+				<field name="code" required="1"></field>
+				<field name="percent"></field>
+			</form>
+		</field>
+	</record>
+
+	<record model="ir.ui.view" id="hr_contract_risk_tree">
+		<field name="model">hr.contract.risk</field>
+		<field name="type">tree</field>
+		<field name="arch" type="xml">
+			<tree string='Risks'>
+				<field name="name" required="1"></field>
+				<field name="code" required="1"></field>
+				<field name="percent"></field>
+			</tree>
+		</field>
+	</record>
+
+	<record id="hr_contract_risk_list_action" model="ir.actions.act_window">
+		<field name="name">Occupational hazards</field>
+		<field name="res_model">hr.contract.risk</field>
+		<field name="view_type">form</field>
+		<field name="view_mode">tree,form</field>
+	</record>
+
+</odoo>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+	<record model="ir.ui.view" id="hr_contract_deduction_tree">
+		<field name="model">hr.contract.deduction</field>
+		<field name="type">tree</field>
+		<field name="arch" type="xml">
+			<tree string="Deductions or periodic payments" editable="bottom">
+				<field name="contract_id"/>
+				<field name="input_id"/>
+				<field name="period"/>
+				<field name="amount"/>
+				<field name="total_deduction"/>
+				<field name="total_accumulated"/>
+				<field name="date"/>
+				<field name="total_acumulados"/>
+				<field name="current_balance"/>
+			</tree>
+		</field>
+	</record>
+
+	<record id="hr_contract_deduction_action" model="ir.actions.act_window">
+		<field name="name">Deductions or periodic payments</field>
+		<field name="res_model">hr.contract.deduction</field>
+		<field name="view_type">form</field>
+		<field name="view_mode">tree</field>
+	</record>
+
+	<menuitem action="hr_contract_deduction_action" id="hr_menu_contract_deduction" parent="l10n_co_hr_payroll_account.hr_menu_contract_detail" name="Deductions or periodic payments" sequence="6" groups="hr.group_hr_manager"/>
+
+</odoo>

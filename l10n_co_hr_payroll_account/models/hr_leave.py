@@ -11,21 +11,22 @@ from odoo.exceptions import UserError, ValidationError
 
 
 class HrHolidaysStatus(models.Model):
-    _description = "Tipos de ausencias"
+    _description = "Types of absences"
     _inherit = "hr.leave.type"
 
-    no_trabajado = fields.Boolean(
-        'No trabajado',
+    no_worked = fields.Boolean(
+        string='Not worked',
         defualt=False,
         help=
-        "Indica que este tipo de ausencia es no laborables como son las suspensiones, licencias no remuneradas, etc."
+        "Indicates that this type of absence is non-working, such as suspensions, unpaid leave, etc."
     )
-    tipo_ausencia = fields.Selection([('vacaciones', 'Vacaciones'),
-                                      ('incapacidad', 'Incapacidades'),
-                                      ('permiso', 'Permisos'),
-                                      ('licencia', 'Licencias'),
-                                      ('sancion', 'Sanciones')],
-                                     'Tipo de ausencia',
+    tipo_ausencia = fields.Selection(selection=[('vacaciones', 'Vacaciones'),
+                                                ('incapacidad',
+                                                 'Incapacidades'),
+                                                ('permiso', 'Permisos'),
+                                                ('licencia', 'Licencias'),
+                                                ('sancion', 'Sanciones')],
+                                     string='Tipo de ausencia',
                                      required=True)
     remunerado = fields.Boolean(
         'Remunerado',

@@ -35,7 +35,7 @@ class HrContract(models.Model):
     parcial = fields.Boolean(string='Part time', default=False)
     pensionary = fields.Boolean(string='Pensionary', default=False)
     integral = fields.Boolean(string='integral salary', default=False)
-    condicion = fields.Float('Condición anterior',
+    condition = fields.Float(string='Previous condition',
                              default=0.0,
                              digits_compute=dp.get_precision('Payroll'))
     compensation = fields.Float(string='Compensation',

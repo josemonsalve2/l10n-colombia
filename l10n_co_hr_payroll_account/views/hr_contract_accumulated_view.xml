@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+	<record model="ir.ui.view" id="hr_contract_acumulados_tree">
+		<field name="model">hr.contract.accumulated</field>
+		<field name="type">tree</field>
+		<field name="arch" type="xml">
+			<tree string="Entities" editable="bottom">
+				<field name="contract_id"/>
+				<field name="date"/>
+				<field name="salary_rule_id"/>
+				<field name="amount"/>
+			</tree>
+		</field>
+	</record>
+
+	<record id="hr_contract_accumulated_action" model="ir.actions.act_window">
+		<field name="name">Accumulated previous payroll</field>
+		<field name="res_model">hr.contract.accumulated</field>
+		<field name="view_type">form</field>
+		<field name="view_mode">tree</field>
+	</record>
+
+	<menuitem action="hr_contract_accumulated_action" id="hr_menu_contract_accumulated" parent="l10n_co_hr_payroll_account.hr_menu_contract_detail" name="Previous accumulated" sequence="5" groups="hr.group_hr_manager"/>
+
+</odoo>
