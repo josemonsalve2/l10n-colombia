@@ -9,6 +9,10 @@ from odoo.addons import decimal_precision as dp
 class HrContract(models.Model):
     _inherit = 'hr.contract'
 
+    analytic_ids = fields.One2many(comodel_name='hr.contract.analytic',
+                                   inverse_name='contract_id',
+                                   string='Analityc Account')
+
     setting_ids = fields.One2many(comodel_name='hr.contract.setting',
                                   inverse_name='contract_id',
                                   string='Configuratión')

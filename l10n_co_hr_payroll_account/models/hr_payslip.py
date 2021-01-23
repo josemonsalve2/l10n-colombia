@@ -5,13 +5,60 @@
 import time
 from datetime import datetime, timedelta, time
 from dateutil import relativedelta
-from calendar import monthrange
 import babel
 from pytz import timezone
+import pandas as pd
+from openpyxl import load_workbook
+import base64
+import json
 
 from odoo import api, fields, models, tools, _
 from odoo.addons import decimal_precision as dp
 from odoo.exceptions import UserError, ValidationError
+
+columnas = ['Fecha', 'Nómina No.', 'Regla salarial', 'Valor']
+col_fecha = []
+col_nomina = []
+col_regla = []
+col_valor = []
+
+
+def limpiar_lineas():
+    col_fecha = []
+    col_nomina = []
+    col_regla = []
+    col_valor = []
+
+
+def grabar_linea(fecha, nomina, regla, valor):
+    col_fecha.append(fecha)
+    col_nomina.append(nomina)
+    col_regla.append(regla)
+    col_valor.append(valor)
+
+
+def grabar_linea2(concepto, valor):
+    col_fecha.append('')
+    col_nomina.append('')
+    col_regla.append(concepto)
+    col_valor.append(valor)
+
+
+def linea_blanco():
+    col_fecha.append('')
+    col_nomina.append('')
+    col_regla.append('')
+    col_valor.append('')
+
+
+def grabar_datos(result):
+    total = 0
+    for dato in result:
+        grabar_linea(dato[0], dato[1], dato[2], dato[3])
+        total += dato[3]
+
+    grabar_linea('', '', 'Total', total)
+    linea_blanco()
 
 
 def days_between(start_date, end_date):
@@ -101,7 +148,7 @@ class HrPayslipDetails(models.Model):
     date_to = fields.Date('Fecha final', required=True)
     days_total = fields.Integer('Total días', required=True, default=0)
     days_leave = fields.Integer('Días ausencia', required=True, default=0)
-    days_neto = fields.Integer('Días neto', required=True, default=0)
+    days_neto = fields.Float('Días neto', required=True, default=0)
     wage_actual = fields.Float('Salario básico actual',
                                required=True,
                                default=0)
@@ -116,11 +163,15 @@ class HrPayslipDetails(models.Model):
                                        default=0)
     total_average = fields.Float('Base', required=True, default=0)
     amount = fields.Float('Neto', required=True, default=0)
+    detail_calc = fields.Text('Detalle cálculo')
 
     _sql_constraints = [
         ('_uniq', 'unique(slip_id, salary_rule_id)',
          'Ya existe una regla para misma nomina'),
     ]
+
+
+#----------------------------------------------------------------------------
 
 
 class HrPayslipRun(models.Model):
@@ -142,6 +193,7 @@ class HrPayslipRun(models.Model):
     date_cesantias = fields.Date('Fecha de liquidación de cesantías')
     date_vacaciones = fields.Date('Fecha de liquidación de vacaciones')
     date_liquidacion = fields.Date('Fecha de liquidación contrato')
+    date_pago = fields.Date('Fecha de pagos')
     journal_voucher_id = fields.Many2one(
         'account.journal',
         'Diario de pago',
@@ -221,12 +273,20 @@ class HrPayslipRun(models.Model):
         for run in self:
             if not run.journal_voucher_id:
                 raise UserError(_('Debe primero ingresar el diario de pago'))
+            if not run.date_pago:
+                raise UserError(
+                    _('Debe primero ingresar la fecha de contabilización del pago'
+                      ))
+
             if run.slip_ids:
                 for payslip in run.slip_ids:
                     if payslip.state == 'done':
-                        payslip.write(
-                            {'journal_voucher_id': run.journal_voucher_id.id})
-                        #payslip.process_voucher()
+                        payslip.write({
+                            'journal_voucher_id':
+                            run.journal_voucher_id.id,
+                            'date_pago':
+                            run.date_pago
+                        })
                         payslip.process_payment()
 
         return self.write({'state': 'paid'})
@@ -258,6 +318,9 @@ class HrPayslipRun(models.Model):
         return super(HrPayslipRun, self).unlink()
 
 
+#------------------------------------------------------------------------------------
+
+
 class HrPayslip(models.Model):
     _inherit = 'hr.payslip'
     _description = 'Pay Slip'
@@ -277,6 +340,7 @@ class HrPayslip(models.Model):
     date_cesantias = fields.Date('Fecha inicio cesantías')
     date_vacaciones = fields.Date('Fecha inicio de vacaciones')
     date_liquidacion = fields.Date('Fecha de liquidación')
+    date_pago = fields.Date('Fecha de pagos')
     payment_id = fields.Many2one('account.payment', string='Egreso No.')
     move_bank_id = fields.Many2one('account.move',
                                    string='Asiento contable pago')
@@ -381,145 +445,21 @@ class HrPayslip(models.Model):
         return self.write({'move_bank_id': None, 'state': 'done'})
 
     @api.multi
-    def process_voucher(self):
-        # Este procedimiento crea directamente los asientos contables sin el documento de egreso
-        slip_line_obj = self.env['hr.payslip.line']
-        move_pool = self.env['account.move']
-        move_obj = self.env['account.move.line']
-        precision = self.env['decimal.precision'].precision_get('Payroll')
-        timenow = time.strftime('%Y-%m-%d')
-
-        for slip in self:
-            if not slip.journal_voucher_id:
-                raise UserError(_('Debe primero ingresar el diario de pago'))
-
-            #Busca el neto pagado
-            slip_line_ids = slip_line_obj.search([('slip_id', '=', slip.id),
-                                                  ('code', '=', 'NETO')])
-            if slip_line_ids:
-                for line in slip_line_ids:
-
-                    if line.total != 0.0:
-                        line_ids = []
-
-                        default_partner_id = slip.employee_id.address_home_id.id
-                        name = _('Pago nomina %s') % (slip.employee_id.name)
-                        if slip.move_bank_name:
-                            move = {
-                                'name': slip.move_bank_name,
-                                'narration': name,
-                                'date': slip.date_to,
-                                'ref': 'Pago ' + slip.number,
-                                'journal_id': slip.journal_voucher_id.id,
-                            }
-                        else:
-                            move = {
-                                'narration': name,
-                                'date': slip.date_to,
-                                'ref': 'Pago ' + slip.number,
-                                'journal_id': slip.journal_voucher_id.id,
-                            }
-
-                        acc_id = slip.journal_voucher_id.default_credit_account_id.id
-                        if not acc_id:
-                            raise UserError(
-                                _('El diario "%s" no tiene configurado la cuenta crédito!'
-                                  ) % (slip.journal_voucher_id.name))
-
-                        adjust_credit = (
-                            0,
-                            0,
-                            {
-                                'name': 'Pago nomina ' + slip.number,
-                                'date': slip.date_to,
-                                'partner_id': default_partner_id,
-                                'account_id': acc_id,
-                                'journal_id': slip.journal_voucher_id.id,
-                                'debit': 0.0,
-                                'credit': line.total,
-                                #'analytic_account_id': slip.contract_id.analytic_account_id.id or False,
-                            })
-                        line_ids.append(adjust_credit)
-
-                        acc_id = slip.journal_id.default_debit_account_id.id
-                        if not acc_id:
-                            raise UserError(
-                                _('El diario "%s" no tiene configurado la cuenta debito!'
-                                  ) % (slip.journal_id.name))
-
-                        adjust_debit = (
-                            0,
-                            0,
-                            {
-                                'name': 'Pago nomina ' + slip.number,
-                                'date': slip.date_to,
-                                'partner_id': default_partner_id,
-                                'account_id': acc_id,
-                                'journal_id': slip.journal_voucher_id.id,
-                                'debit': line.total,
-                                'credit': 0.0,
-                                #'analytic_account_id': slip.contract_id.analytic_account_id.id or False,
-                            })
-                        line_ids.append(adjust_debit)
-
-                        move.update({'line_ids': line_ids})
-                        move_id = move_pool.create(move)
-
-                        #Busca el pago creado en el paso anterior
-                        if move_id:
-                            for lin in move_id.line_ids:
-                                if lin.account_id.id == slip.journal_id.default_debit_account_id.id:
-                                    lines2rec = lin
-
-                        #Busca la causación
-                        lines = move_obj.search([
-                            ('move_id', '=', slip.move_id.id),
-                            ('account_id', '=',
-                             slip.journal_id.default_credit_account_id.id),
-                            ('credit', '=', line.total)
-                        ])
-                        if not lines:
-                            raise UserError(
-                                _('La nómina "%s" no presenta una cuenta por pagar por valor de "%s"'
-                                  ) % (slip.number, line.total))
-
-                        total = 0.0
-                        for mov in lines:
-                            lines2rec += mov
-                            total = total + mov.credit
-
-                        if len(lines2rec) > 2:
-                            raise UserError(
-                                _('La nómina "%s" presenta más de una contabilización!'
-                                  ) % (slip.number))
-
-                        diff = line.total - total
-                        if diff != 0.0:
-                            raise UserError(
-                                _('La nómina "%s" presenta una diferencia al conciliar de "%s"'
-                                  ) % (slip.number, diff))
-
-                        lines2rec.reconcile()
-                        move_id.post()
-
-        return self.write({
-            'move_bank_id': move_id.id,
-            'move_bank_name': move_id.name,
-            'state': 'paid'
-        })
-
-    @api.multi
     def process_payment(self):
         # Este procedimiento crea el comprobante de egreso y luego lo contabiliza
         slip_line_obj = self.env['hr.payslip.line']
         move_obj = self.env['account.move.line']
         precision = self.env['decimal.precision'].precision_get('Payroll')
-        timenow = fields.Date.today()
 
         for slip in self:
             print('* slip: ', slip.number)
             if not slip.journal_voucher_id:
                 raise UserError(_('Debe primero ingresar el diario de pago'))
+
+            if not slip.date_pago:
+                raise UserError(
+                    _('Debe primero ingresar la fecha de contabilización del pago'
+                      ))
 
             #Busca el neto pagado
             slip_line_ids = slip_line_obj.search([('slip_id', '=', slip.id),
@@ -562,7 +502,7 @@ class HrPayslip(models.Model):
                         name = _('Pago nómina %s') % (slip.employee_id.name)
                         payment = {
                             'payment_type': 'outbound',
-                            'payment_date': slip.date_to,
+                            'payment_date': slip.date_pago,
                             'partner_type': 'supplier',
                             'partner_id': slip.employee_id.address_home_id.id,
                             'communication': 'Pago nómina ' + slip.number,
@@ -675,6 +615,12 @@ class HrPayslip(models.Model):
             payslip.worked_days_line_ids.unlink()
             payslip.input_line_ids.unlink()
 
+            for att in self.env['ir.attachment'].sudo().search([('res_id', '=',
+                                                                 payslip.id)]):
+                att.unlink()
+
+            limpiar_lineas()
+
             # set the list of contract for which the rules have to be applied
             # if we don't give the contract, then the rules to apply should be for all current contracts of the employee
             contract_ids = payslip.contract_id.ids or \
@@ -682,6 +628,17 @@ class HrPayslip(models.Model):
 
             #computation of the salary input
             contracts = payslip.env['hr.contract'].browse(contract_ids)
+
+            #Revisa que la fecha de inicio no sea menor que la de inicio del contrato
+            day_start = contracts.date_start
+            if not day_start:
+                raise UserError(
+                    _('La nómina de "%s" no presenta un contrato con fecha de inicio o no está activo'
+                      ) % (payslip.employee_id.name))
+
+            if payslip.date_from < day_start:
+                payslip.date_from = day_start
+
             worked_days_line_ids = [
                 (0, 0, day) for day in payslip.get_worked_day_lines(
                     contracts, payslip.date_from.strftime('%Y-%m-%d'),
@@ -701,11 +658,13 @@ class HrPayslip(models.Model):
 
             payslip.write({'line_ids': lines, 'number': number})
 
+            self.env['hr.contract'].create_report_sheet(payslip)
+
         return True
 
     @api.model
     def get_inputs(self, contracts, date_from, date_to):
-        print('--------------------- get_inputs en hr_payroll_co')
+        print('----- get_inputs en hr_payroll_co')
         res = []
 
         #++ Se utiliza la estructura del payslip en vez de la del contrato
@@ -750,8 +709,8 @@ class HrPayslip(models.Model):
 
                 #Busca el valor en las novedades, sino encontro en las deducciones
                 if amount == 0.0:
-                    #novedades_ids = self.env['hr.payroll.news'].search([('identification_id', '=',contract.employee_id.identification_id),('code','=',input.code),('date_from','=',date_from),('date_to','=',date_to),('value','!=',0)])
-                    novedades_ids = self.env['hr.payroll.news'].search([
+                    #novedades_ids = self.env['hr.novedades'].search([('identification_id', '=',contract.employee_id.identification_id),('code','=',input.code),('date_from','=',date_from),('date_to','=',date_to),('value','!=',0)])
+                    novedades_ids = self.env['hr.novedades'].search([
                         ('employee_id', '=', contract.employee_id.id),
                         ('input_id', '=', input.id),
                         ('date_from', '=', date_from),
@@ -779,7 +738,7 @@ class HrPayslip(models.Model):
         res = []
         contract_obj = self.env['hr.contract']
         rule_obj = self.env['hr.salary.rule']
-        novedades_obj = self.env['hr.payroll.news']
+        novedades_obj = self.env['hr.novedades']
 
         structure_ids = contract_obj.get_all_structures()
         rule_ids = self.pool.get('hr.payroll.structure').get_all_rules(
@@ -865,6 +824,18 @@ class HrPayslip(models.Model):
             day_to = datetime.combine(fields.Date.from_string(date_to),
                                       time.max)
 
+            #Febrero
+            nb_of_days = 0
+            if day_to.month == 2:
+                if day_to.day == 28:
+                    nb_of_days = 2
+                if day_to.day == 29:
+                    nb_of_days = 1
+
+            if (day_from.month in (1, 3, 5, 7, 8, 10,
+                                   12)) and (day_from.month != day_to.month):
+                nb_of_days = -1
+
             # compute leave days
             leaves = {}
             calendar = contract.resource_calendar_id
@@ -903,20 +874,7 @@ class HrPayslip(models.Model):
             work_data = contract.employee_id.get_work_days_data(
                 day_from, day_to, calendar=contract.resource_calendar_id)
 
-            #Febrero
-            nb_of_days = 0
-            if day_to.month == 2:
-                if day_to.day == 28:
-                    nb_of_days = 2
-                if day_to.day == 29:
-                    nb_of_days = 1
-
-            if (day_from.month in (1, 3, 5, 7, 8, 10,
-                                   12)) and (day_from.month != day_to.month):
-                nb_of_days = -1
-
             #si no calcula nómina, los días trabajados deben ser cero
-            #if self.tipo_liquida in ['otro']:
             if self.tipo_liquida in ['otro']:
                 work_data['days'] = 0
                 nb_of_days = 0
@@ -933,6 +891,92 @@ class HrPayslip(models.Model):
 
             res.append(attendances)
             res.extend(leaves.values())
+        return res
+
+    @api.multi
+    def onchange_employee_id(self,
+                             date_from,
+                             date_to,
+                             employee_id=False,
+                             contract_id=False):
+        print('** onchange_employee_id sobreescrito')
+        #defaults
+        res = {
+            'value': {
+                'line_ids': [],
+                #delete old input lines
+                'input_line_ids': [(
+                    2,
+                    x,
+                ) for x in self.input_line_ids.ids],
+                #delete old worked days lines
+                'worked_days_line_ids': [(
+                    2,
+                    x,
+                ) for x in self.worked_days_line_ids.ids],
+                #'details_by_salary_head':[], TODO put me back
+                'name':
+                '',
+                'contract_id':
+                False,
+                'struct_id':
+                False,
+            }
+        }
+        if (not employee_id) or (not date_from) or (not date_to):
+            return res
+        ttyme = datetime.combine(fields.Date.from_string(date_from), time.min)
+        employee = self.env['hr.employee'].browse(employee_id)
+        locale = self.env.context.get('lang') or 'en_US'
+        res['value'].update({
+            'name':
+            _('Salary Slip of %s for %s') %
+            (employee.name,
+             tools.ustr(
+                 babel.dates.format_date(
+                     date=ttyme, format='MMMM-y', locale=locale))),
+            'company_id':
+            employee.company_id.id,
+        })
+
+        if not self.env.context.get('contract'):
+            #fill with the first contract of the employee
+            contract_ids = self.get_contract(employee, date_from, date_to)
+        else:
+            if contract_id:
+                #set the list of contract for which the input have to be filled
+                contract_ids = [contract_id]
+            else:
+                #if we don't give the contract, then the input to fill should be for all current contracts of the employee
+                contract_ids = self.get_contract(employee, date_from, date_to)
+
+        if not contract_ids:
+            return res
+        contract = self.env['hr.contract'].browse(contract_ids[0])
+
+        #Revisa que la fecha de inicio no sea menor que la de inicio del contrato
+        day_start = contract.date_start
+        if date_from < day_start:
+            date_from = day_start
+
+            res['value'].update({'date_from': day_start})
+
+        res['value'].update({'contract_id': contract.id})
+        struct = contract.struct_id
+        if not struct:
+            return res
+        res['value'].update({
+            'struct_id': struct.id,
+        })
+        #computation of the salary input
+        contracts = self.env['hr.contract'].browse(contract_ids)
+        worked_days_line_ids = self.get_worked_day_lines(
+            contracts, date_from, date_to)
+        input_line_ids = self.get_inputs(contracts, date_from, date_to)
+        res['value'].update({
+            'worked_days_line_ids': worked_days_line_ids,
+            'input_line_ids': input_line_ids,
+        })
         return res
 
     @api.model
@@ -1063,33 +1107,29 @@ class HrPayslip(models.Model):
             def sum_rule_before(self, code, from_date):
                 #suma una regla salarial del mes anterior
                 #date_start = datetime.strptime(from_date,"%Y-%m-%d")
-                #date_start = from_date
-                #mes = date_start.month -1
-                #ano = date_start.year
-                #if mes == 0:
-                #   mes = 12
-                #   ano = ano = date_start.year -1
+                date_start = from_date
+                mes = date_start.month - 1
+                ano = date_start.year
+                if mes == 0:
+                    mes = 12
+                    ano = ano = date_start.year - 1
 
-                #from_date = str(ano)+'-'+str(mes)+'-01'
+                from_date = str(ano) + '-' + str(mes) + '-01'
 
-                #if mes == 2:
-                #   dia = 28
-                #else:
-                #   dia = 30
+                if mes == 2:
+                    dia = 28
+                else:
+                    dia = 30
 
-                #stop_date = str(ano)+'-'+str(mes)+'-'+str(dia)
-                #start_date = str(ano)+'-'+str(mes)+'-'+'01'
-
-                fecha_mes_anterior = from_date - timedelta(days=30)
-                stop_date = from_date.replace(day=1) - timedelta(days=1)
-                start_date = fecha_mes_anterior.replace(day=1)
+                stop_date = str(ano) + '-' + str(mes) + '-' + str(dia)
+                start_date = str(ano) + '-' + str(mes) + '-' + '01'
 
                 self.env.cr.execute(
-                    """SELECT COALESCE(sum(pl.total),0) as suma
-                                   FROM hr_payslip_line as pl
-                                   inner join hr_payslip as hp on (hp.id = pl.slip_id)
+                    """SELECT COALESCE(sum(pl.total),0) as suma 
+                                   FROM hr_payslip_line as pl  
+                                   inner join hr_payslip as hp on (hp.id = pl.slip_id)                                    
                                    inner join hr_salary_rule r on (r.id = pl.salary_rule_id)
-                                   WHERE hp.contract_id = %(contrato)s
+                                   WHERE hp.contract_id = %(contrato)s 
                                    AND hp.date_from between %(fecha_desde)s::date and %(fecha_hasta)s::date
                                    AND r.code = %(regla)s""", {
                         'contrato': self.contract_id.id,
@@ -1247,7 +1287,7 @@ class HrPayslip(models.Model):
                 to_date = to_date.strftime("%Y-%m-%d")
 
                 self.env.cr.execute(
-                    "SELECT coalesce(sum(number_of_days),0) as dias from hr_payslip_worked_days hd, hr_payslip as hp where hd.code IN ('WORK100','VACACIONES_REMUNERADAS') AND hp.id = hd.payslip_id AND hp.contract_id = %s AND hp.date_from between (to_char(%s::date,'YYYY-mm')||'-01')::date\
+                    "SELECT coalesce(sum(number_of_days),0) as dias from hr_payslip_worked_days hd, hr_payslip as hp where hd.code in ('WORK100','VACACIONES_REMUNERADAS') AND hp.id = hd.payslip_id AND hp.contract_id = %s AND hp.date_from between (to_char(%s::date,'YYYY-mm')||'-01')::date\
                                   AND (to_char(%s::date,'YYYY-mm-dd'))::date",
                     (self.contract_id.id, from_date, to_date))
 
@@ -1407,77 +1447,50 @@ class HrPayslip(models.Model):
 
         return list(result_dict.values())
 
+    @api.multi
+    def get_xls_file(self):
+        """
+        Funcion para descargar el xls 
+        """
+        filename = self.number.replace('/', '-') + '.xlsx'
+        xls_attachment = self.env['ir.attachment'].sudo().search([
+            ('datas_fname', '=', filename), ('res_id', '=', self.id)
+        ])
+
+        if not xls_attachment:
+            raise ValidationError(
+                'No ha generado el archivo Excel. Depronto no existen reglas salariales que generen detalle del cálculo'
+            )
+
+        return {
+            'type': 'ir.actions.act_url',
+            'url': '/download/xls/payslip/{}'.format(self.id),
+            'target': 'self'
+        }
+
+
+#----------------------------------------------------------------------------------
+
 
 class hr_contract(models.Model):
     _name = "hr.contract"
     _inherit = "hr.contract"
 
-    def promedio_vacaciones_comercial(self, date_liquidacion, contract_id):
-
-        fecha_mes_anterior = date_liquidacion - timedelta(days=30)
-        fecha_fin = date_liquidacion.replace(day=1) - timedelta(days=1)
-        fecha_anterior = fecha_mes_anterior.replace(day=1)
-        mes_anterior = 11
-        self.env.cr.execute(
-            """select round(sum(a.salario)::numeric) total
-                          from (
-                          select
-                             s.contract_id as contract_id,
-                             l.total as salario
-                          from hr_payslip_line l
-                          inner join hr_payslip s on (s.id = l.slip_id)
-                          inner join hr_employee e on (e.id = l.employee_id) 
-                          inner join hr_salary_rule r on (r.id = l.salary_rule_id)
-                          where l.total <> 0
-                            and s.contract_id = %(contrato)s
-                            and r.promedio = True
-                            and s.date_from between (%(fecha)s::date - interval '%(mes_anterior)s month')::date and  %(fecha_fin)s::date
-                         union all
-                         select 
-                            c.id as contract_id,
-                            a.amount as salario
-                         from hr_contract_acumulados a
-                         inner join hr_contract c on (c.id = a.contract_id)
-                         inner join hr_employee e on (e.id = c.employee_id)
-                         inner join hr_salary_rule r on (r.id = a.salary_rule_id)
-                         where a.amount <> 0
-                           and c.id = %(contrato)s
-                           and r.promedio = True
-                           and a.date between (%(fecha)s::date - interval '%(mes_anterior)s month')::date and  %(fecha_fin)s::date                       
-                         ) as a
-                         group by a.contract_id""", {
-                'contrato': contract_id.id,
-                'fecha': fecha_anterior,
-                'fecha_fin': fecha_fin,
-                'mes_anterior': mes_anterior,
-            })
-        res = self.env.cr.fetchone()
-        if res:
-            total_salario = res[0] or 0.0
-        else:
-            total_salario = 0.0
-
-        result = total_salario / 12
-        return result
-
     @api.model
-    def promedio_prima(self,
-                       contract_id,
-                       payslip_detail,
-                       proyectado=False,
-                       context=None):
+    def promedio_prima(self, contract_id, payslip_detail, proyectado=False):
         print('########################## promedio_prima')
         result = 0.0
 
         if payslip_detail.days_neto > 0:
             # Busca las incapacidades en el mismo rango de fechas
             self.env.cr.execute(
-                """select coalesce(sum(h.number_of_days_temp),0) from hr_holidays h
-                           inner join hr_holidays_status s on (s.id = h.holiday_status_id)
+                """select coalesce(sum(h.number_of_days),0) 
+                           from hr_leave h
+                           inner join hr_leave_type s on (s.id = h.holiday_status_id)
                            where h.employee_id = %(empleado)s
-                             and h.date_from::date >= %(fecha_inicial)s::date
-                             and h.date_to::date <= %(fecha_final)s::date
-                             and s.no_trabajado = True
+                             and h.request_date_from::date >= %(fecha_inicial)s::date
+                             and h.request_date_to::date <= %(fecha_final)s::date
+                             and s.unpaid = True
                              and h.state = 'validate'""", {
                     'empleado': contract_id.employee_id.id,
                     'fecha_inicial': payslip_detail.date_from,
@@ -1569,14 +1582,15 @@ class hr_contract(models.Model):
 
             print('salario promedio ', payslip_detail.wage_average)
 
-            #Busca los acumulados incluyendo el recibido por parametro
+            #------Busca los acumulados incluyendo el recibido por parametro
             print('Busca los acumulados para otros devengados')
             self.env.cr.execute(
-                """select sum(a.primas) primas
-                          from (
+                """
                           select
-                             s.contract_id as contract_id,
-                             l.total as primas
+                             s.date_from as date,
+                             coalesce(s.number,'') as number,
+                             coalesce(r.name,'') as salary_rule,
+                             l.total as amount
                           from hr_payslip_line l
                           inner join hr_payslip s on (s.id = l.slip_id)
                           inner join hr_employee e on (e.id = l.employee_id) 
@@ -1587,8 +1601,10 @@ class hr_contract(models.Model):
                             and s.date_from between %(fecha_prima)s::date and %(fecha_liquidacion)s::date                         
                          union all
                          select 
-                            c.id as contract_id,
-                            a.amount as primas
+                            a.date as date,
+                            'Acumulado' as number,
+                            coalesce(r.name,'') as salary_rule,
+                            a.amount as amount
                          from hr_contract_acumulados a
                          inner join hr_contract c on (c.id = a.contract_id)
                          inner join hr_employee e on (e.id = c.employee_id)
@@ -1597,19 +1613,19 @@ class hr_contract(models.Model):
                            and c.id = %(contrato)s
                            and r.prima = True                           
                            and a.date between %(fecha_prima)s::date and %(fecha_liquidacion)s::date                         
-                         ) as a
-                         group by a.contract_id""", {
+                         """, {
                     'contrato': contract_id.id,
                     'fecha_prima': payslip_detail.date_from,
                     'fecha_liquidacion': payslip_detail.date_to,
                 })
 
             res = self.env.cr.fetchone()
-            print('res ', res)
+            total = 0
             if res:
-                total = res[0]
-            else:
-                total = 0
+                grabar_datos(res)
+                for result in res:
+                    total += result[3]
+
             print('total ', total)
             payslip_detail.variable_total += total
 
@@ -1620,9 +1636,9 @@ class hr_contract(models.Model):
                     (payslip_detail.variable_total) /
                     payslip_detail.days_neto) * 30
 
-            result = payslip_detail.wage_average + payslip_detail.variable_average
+            resultado = payslip_detail.wage_average + payslip_detail.variable_average
 
-        return result
+        return resultado
 
     @api.model
     def calcular_prima(self,
@@ -1633,14 +1649,14 @@ class hr_contract(models.Model):
                        proyectado=False,
                        amount_salary=0.0,
                        payslip=None,
-                       salary_code=None,
-                       context=None):
-        print('########################### calcular_prima')
+                       salary_code=None):
+        print('############## calcular_prima')
         #Elimina calculos previos
         year_id = self.env['account.fiscalyear'].search([
             ('date_start', '<=', date_liquidacion),
             ('date_stop', '>=', date_liquidacion)
         ])
+
         unlink_ids = self.env['hr.contract.liquidacion'].search([
             ('contract_id', '=', self.id), ('sequence', '=', '1')
         ])
@@ -1670,8 +1686,9 @@ class hr_contract(models.Model):
                     _("Debe ingresar fecha de liquidación de contrato"))
 
             #la fecha de liquidacion debe ser mayor que la de inicio de contrato
-            day_start = datetime.strptime(cont.date_start, "%Y-%m-%d")
-            day_end = datetime.strptime(date_liquidacion, "%Y-%m-%d")
+            day_start = cont.date_start
+            day_end = date_liquidacion
+
             if (day_end - day_start).days <= 0:
                 raise UserError(
                     _('Error!'),
@@ -1685,7 +1702,7 @@ class hr_contract(models.Model):
                     _("Debe ingresar fecha de liquidación de prima"))
 
             #la fecha de liquidacion prima debe ser mayor que la de inicio de contrato
-            day_to = datetime.strptime(date_prima, "%Y-%m-%d")
+            day_to = date_prima
             if (day_to - day_start).days < 0:
                 day_to = day_start
                 #raise UserError(_('Error!'),_("La fecha de liquidación de prima debe ser mayor a la fecha de inicio del contrato"))
@@ -1712,12 +1729,13 @@ class hr_contract(models.Model):
 
             # Busca las incapacidades en el mismo rango de fechas
             self.env.cr.execute(
-                """select coalesce(sum(h.number_of_days_temp),0) from hr_holidays h
-                           inner join hr_holidays_status s on (s.id = h.holiday_status_id)
+                """select coalesce(sum(h.number_of_days),0) 
+                           from hr_leave h
+                           inner join hr_leave_type s on (s.id = h.holiday_status_id)
                            where h.employee_id = %(empleado)s
-                             and h.date_from::date >= %(fecha_inicial)s::date
-                             and h.date_to::date <= %(fecha_final)s::date
-                             and s.no_trabajado = True
+                             and h.request_date_from::date >= %(fecha_inicial)s::date
+                             and h.request_date_to::date <= %(fecha_final)s::date
+                             and s.unpaid = True
                              and h.state = 'validate'""", {
                     'empleado': contract_id.employee_id.id,
                     'fecha_inicial': date_prima,
@@ -1732,9 +1750,9 @@ class hr_contract(models.Model):
 
             promedio_salario_var = self.promedio_prima(contract_id,
                                                        payslip_detail,
-                                                       proyectado,
-                                                       context=context)
+                                                       proyectado)
             print('promedio_salario_var ', promedio_salario_var)
+            grabar_linea2('Promedio salarial', promedio_salario_var)
 
             aux_transporte = 0.00
             if year_id:
@@ -1745,110 +1763,647 @@ class hr_contract(models.Model):
                         aux_transporte = ano.sub_transporte
 
             print('Subsidio de transporte ', aux_transporte)
+            grabar_linea2('Subsidio de transporte ', aux_transporte)
             payslip_detail.subsidio_transporte = aux_transporte
 
             base = round(aux_transporte + promedio_salario_var, 0)
             print('base ', base)
+            grabar_linea2('Total base', base)
             payslip_detail.total_average = base
-
+            grabar_linea2('Dias', dias)
             total_prima = round((base * dias) / 360, 0)
             print('total prima ', total_prima)
+            grabar_linea2('Total prima', total_prima)
             payslip_detail.amount = total_prima
 
-            args = {
-                'name': 'Prima',
-                'base': base,
-                'desde': date_prima,
-                'hasta': date_liquidacion,
-                'dias': dias,
-                'amount': total_prima,
-                'contract_id': cont.id,
-                'sequence': 1,
-            }
-
-            self.env['hr.contract.liquidacion'].create(args)
-
             print('Termina calcular prima')
-
             return total_prima
 
+#------------------------------------------------------------------------
+
+    def promedio_vacaciones_comercial(self, date_liquidacion, contract_id,
+                                      payslip, salary_rule):
+        print('***** promedio_vacaciones_comercial')
+        mes_anterior = 12
+        total = 0
+
+        self.env.cr.execute(
+            """
+                          select
+                             s.date_from as date,
+                             coalesce(s.number,'') as number,
+                             coalesce(r.name,'') as salary_rule,
+                             l.total as amount
+                          from hr_payslip_line l
+                          inner join hr_payslip s on (s.id = l.slip_id)
+                          inner join hr_employee e on (e.id = l.employee_id) 
+                          inner join hr_salary_rule r on (r.id = l.salary_rule_id)
+                          where l.total <> 0
+                            and s.contract_id = %(contrato)s
+                            and r.promedio = True
+                            and s.date_from between (%(fecha)s::date - interval '%(mes_anterior)s month')::date and  %(fecha)s::date
+                         union all
+                         select 
+                            a.date as date,
+                            'Acumulado' as number,
+                            coalesce(r.name,'') as salary_rule,
+                            a.amount as amount
+                         from hr_contract_acumulados a
+                         inner join hr_contract c on (c.id = a.contract_id)
+                         inner join hr_employee e on (e.id = c.employee_id)
+                         inner join hr_salary_rule r on (r.id = a.salary_rule_id)
+                         where a.amount <> 0
+                           and c.id = %(contrato)s
+                           and r.promedio = True
+                           and a.date between (%(fecha)s::date - interval '%(mes_anterior)s month')::date and  %(fecha)s::date                       
+                         """, {
+                'contrato': contract_id.id,
+                'fecha': date_liquidacion,
+                'mes_anterior': mes_anterior,
+            })
+        res = self.env.cr.fetchall()
+        if res:
+            grabar_datos(res)
+            for result in res:
+                total = total + result[3]
+
+        return total
+
     @api.model
-    def get_worked_day_lines_OLD(self,
-                                 contracts,
-                                 date_from,
-                                 date_to,
-                                 tipo_liquida=False):
-        """
-        @param contract: Browse record of contracts
-        @return: returns a list of dict containing the input that should be applied for the given contract between date_from and date_to
-        """
-        res = []
-        # fill only if the contract as a working schedule linked
-        for contract in contracts.filtered(
-                lambda contract: contract.resource_calendar_id):
-            day_from = datetime.combine(fields.Date.from_string(date_from),
-                                        time.min)
-            day_to = datetime.combine(fields.Date.from_string(date_to),
-                                      time.max)
+    def calcular_vacaciones(self,
+                            date_liquidacion,
+                            dias_vacaciones,
+                            contract_id,
+                            amount=0.0,
+                            amount_salary=0.0,
+                            payslip=None,
+                            salary_code=None):
+        print('############## calcular_vacaciones')
 
-            # compute leave days
-            leaves = {}
-            day_leave_intervals = contract.employee_id.iter_leaves(
-                day_from, day_to, calendar=contract.resource_calendar_id)
-            for day_intervals in day_leave_intervals:
-                for interval in day_intervals:
-                    holiday = interval[2]['leaves'].holiday_id
-                    current_leave_struct = leaves.setdefault(
-                        holiday.holiday_status_id, {
-                            'name': holiday.holiday_status_id.name,
-                            'sequence': 5,
-                            'code': holiday.holiday_status_id.name,
-                            'number_of_days': 0.0,
-                            'number_of_hours': 0.0,
-                            'contract_id': contract.id,
-                        })
-                    leave_time = (interval[1] - interval[0]).seconds / 3600
-                    current_leave_struct['number_of_hours'] += leave_time
-                    work_hours = contract.employee_id.get_day_work_hours_count(
-                        interval[0].date(),
-                        calendar=contract.resource_calendar_id)
-                    current_leave_struct[
-                        'number_of_days'] += leave_time / work_hours
+        #Elimina calculos previos
+        unlink_ids = self.env['hr.contract.liquidacion'].search([
+            ('contract_id', '=', self.id), ('sequence', '=', '2')
+        ])
+        if unlink_ids:
+            for liq in unlink_ids:
+                liq.unlink()
 
-            # compute worked days
-            work_data = contract.employee_id.get_work_days_data(
-                day_from, day_to, calendar=contract.resource_calendar_id)
+        #elimina el detalle previo
+        salary_rule = self.env['hr.salary.rule'].search([('code', '=',
+                                                          salary_code)])
+        details_ids = self.env['hr.payslip.details'].search([
+            ('slip_id', '=', payslip.id),
+            ('salary_rule_id', '=', salary_rule.id)
+        ])
+        if details_ids:
+            for detail in details_ids:
+                detail.unlink()
 
-            #Febrero
-            nb_of_days = 0
-            if day_to.month == 2:
-                if day_to.day == 28:
-                    nb_of_days = 2
-                if day_to.day == 29:
-                    nb_of_days = 1
+        for cont in self:
 
-            if (day_from.month in (1, 3, 5, 7, 8, 10,
-                                   12)) and (day_from.month != day_to.month):
-                nb_of_days = -1
+            #------------  VACACIONES ------------------
 
-            #si no calcula nómina, los días trabajados deben ser cero
-            if self.tipo_liquida in ['otro']:
-                work_data['days'] = 0
-                nb_of_days = 0
-                work_data['hours'] = 0
+            #valida fecha de liquidacion de contrato
+            if not date_liquidacion:
+                raise UserError(
+                    _('Error!'),
+                    _("Debe ingresar fecha de liquidación de contrato"))
 
-            attendances = {
-                'name': _("Normal Working Days paid at 100%"),
-                'sequence': 1,
-                'code': 'WORK100',
-                'number_of_days': work_data['days'] + nb_of_days,
-                'number_of_hours': work_data['hours'],
-                'contract_id': contract.id,
-            }
+            #la fecha de liquidacion debe ser mayor que la de inicio de contrato
+            day_start = cont.date_start
+            day_end = date_liquidacion
 
-            res.append(attendances)
-            res.extend(leaves.values())
-        return res
+            if (day_end - day_start).days <= 0:
+                raise UserError(
+                    _('Error!'),
+                    _("La fecha de liquidación de contrato debe ser mayor a la fecha de inicio del mismo"
+                      ))
+
+            #la fecha de liquidacion vacaciones debe ser mayor que la de inicio de contrato
+            day_to = date_liquidacion
+            if (day_to - day_start).days < 0:
+                day_to = day_start
+                #raise UserError(_('Error!'),_("La fecha de liquidación de vacaciones debe ser mayor a la fecha de inicio del contrato"))
+
+            payslip_detail = self.env['hr.payslip.details'].create({
+                'slip_id':
+                payslip.id,
+                'salary_rule_id':
+                salary_rule.id,
+                'date_from':
+                day_to,
+                'date_to':
+                day_end,
+                'days_total':
+                dias_vacaciones,
+                'wage_total':
+                amount_salary,
+                'variable_total':
+                amount,
+            })
+
+            total_salario = self.promedio_vacaciones_comercial(
+                date_liquidacion,
+                contract_id,
+                payslip,
+                salary_rule=salary_rule)
+            print('total salario  ', total_salario)
+
+            promedio_salario = round(total_salario / 12, 0)
+            base = round(promedio_salario, 0)
+            print('base ', base)
+            grabar_linea2('Promedio salarial', base)
+            grabar_linea2('Dias de vacaciones', dias_vacaciones)
+
+            total_vacaciones = round((base / 30) * dias_vacaciones, 0)
+            print('total vacaciones ', total_vacaciones)
+            grabar_linea2('Total vacaciones', total_vacaciones)
+
+            print('Dias de vacaciones', dias_vacaciones)
+            payslip_detail.days_leave = 0
+            payslip_detail.days_neto = dias_vacaciones
+            payslip_detail.total_average = base
+            payslip_detail.subsidio_transporte = 0
+            payslip_detail.amount = total_vacaciones
+
+            print('== Termina calcular vacaciones ==')
+            return total_vacaciones
+
+#------------------------------------------------------------------------
+
+    @api.model
+    def promedio_cesantias(self,
+                           contract_id,
+                           payslip_detail,
+                           proyectado=False):
+        print('########################## promedio_cesantias')
+        result = 0.0
+
+        if payslip_detail.days_neto > 0:
+            # Busca las incapacidades en el mismo rango de fechas
+            self.env.cr.execute(
+                """select coalesce(sum(h.number_of_days),0) 
+                           from hr_leave h
+                           inner join hr_leave_type s on (s.id = h.holiday_status_id)
+                           where h.employee_id = %(empleado)s
+                             and h.request_date_from::date >= %(fecha_inicial)s::date
+                             and h.request_date_to::date <= %(fecha_final)s::date
+                             and s.unpaid = True
+                             and h.state = 'validate'""", {
+                    'empleado': contract_id.employee_id.id,
+                    'fecha_inicial': payslip_detail.date_from,
+                    'fecha_final': payslip_detail.date_to,
+                })
+
+            # Revisa si en los ultimos 6 meses ha cambiado el salario
+            self.env.cr.execute(
+                """select coalesce(sum(wage),0)/( case when count(*)=0 then 1 else count(*) end  )
+                          from hr_contract_change_wage
+                          where contract_id = %(contrato)s
+                          and date_start >= (SELECT (date_trunc('month', TIMESTAMP %(fecha)s) - interval '5 month')::date)
+                          """, {
+                    'contrato': contract_id.id,
+                    'fecha': payslip_detail.date_to
+                })
+            wage = self.env.cr.fetchone()[0] or 0.0
+            print('Promedio 6 meses ', wage)
+            print('Salario basico actual ', contract_id.wage)
+            payslip_detail.wage_actual = contract_id.wage
+
+            if 1 == 1:
+                print('Calcula acumulados para promedio salarial')
+                #Si es proyectdo toma los acumulados desde el mes anterior
+                if proyectado:
+                    mes_anterior = 1
+                else:
+                    mes_anterior = 0
+
+                self.env.cr.execute(
+                    """select round(sum(a.salario)::numeric) total
+                          from (
+                          select
+                             s.contract_id as contract_id,
+                             l.total as salario
+                          from hr_payslip_line l
+                          inner join hr_payslip s on (s.id = l.slip_id)
+                          inner join hr_employee e on (e.id = l.employee_id) 
+                          inner join hr_salary_rule r on (r.id = l.salary_rule_id)
+                          where l.total <> 0
+                            and s.contract_id = %(contrato)s
+                            and r.promedio = True
+                            and s.date_from between %(fecha_prima)s::date and (%(fecha_liquidacion)s::date - interval '%(mes_anterior)s month')::date
+                         union all
+                         select 
+                            c.id as contract_id,
+                            a.amount as salario
+                         from hr_contract_acumulados a
+                         inner join hr_contract c on (c.id = a.contract_id)
+                         inner join hr_employee e on (e.id = c.employee_id)
+                         inner join hr_salary_rule r on (r.id = a.salary_rule_id)
+                         where a.amount <> 0
+                           and c.id = %(contrato)s
+                           and r.promedio = True
+                           and a.date between %(fecha_prima)s::date and (%(fecha_liquidacion)s::date - interval '%(mes_anterior)s month')::date                       
+                         ) as a
+                         group by a.contract_id""", {
+                        'contrato': contract_id.id,
+                        'fecha_prima': payslip_detail.date_from,
+                        'fecha_liquidacion': payslip_detail.date_to,
+                        'mes_anterior': mes_anterior,
+                    })
+                res = self.env.cr.fetchone()
+                if res:
+                    total_salario = res[0] or 0.0
+                else:
+                    total_salario = 0.0
+
+                payslip_detail.wage_total += total_salario
+
+                print('total salario acumulado', total_salario)
+
+                #Si es proyectado se suma un mes con el salario basico
+                if proyectado:
+                    payslip_detail.wage_total += contract_id.wage
+
+            #Calcula el salario promedio dependiendo si ha cambiado en lo ultimos 3 meses
+            if wage == contract_id.wage or wage == 0.0:
+                print('salario actual no cambio en 3 meses ', contract_id.wage)
+                payslip_detail.wage_average = contract_id.wage + contract_id.factor
+            else:
+                if payslip_detail.days_neto != 0:
+                    payslip_detail.wage_average = (
+                        payslip_detail.wage_total /
+                        payslip_detail.days_neto) * 30
+                else:
+                    raise UserError(_('Error!'),
+                                    _("Existe una division por cero"))
+
+            print('salario promedio ', payslip_detail.wage_average)
+
+            #------Busca los acumulados incluyendo el recibido por parametro
+            print('Busca los acumulados para otros devengados')
+            self.env.cr.execute(
+                """
+                          select
+                             s.date_from as date,
+                             coalesce(s.number,'') as number,
+                             coalesce(r.name,'') as salary_rule,
+                             l.total as amount
+                          from hr_payslip_line l
+                          inner join hr_payslip s on (s.id = l.slip_id)
+                          inner join hr_employee e on (e.id = l.employee_id) 
+                          inner join hr_salary_rule r on (r.id = l.salary_rule_id)
+                          where l.total <> 0
+                            and s.contract_id = %(contrato)s
+                            and r.cesantias = True
+                            and s.date_from between %(fecha_prima)s::date and %(fecha_liquidacion)s::date                         
+                         union all
+                         select 
+                            a.date as date,
+                            'Acumulado' as number,
+                            coalesce(r.name,'') as salary_rule,
+                            a.amount as amount
+                         from hr_contract_acumulados a
+                         inner join hr_contract c on (c.id = a.contract_id)
+                         inner join hr_employee e on (e.id = c.employee_id)
+                         inner join hr_salary_rule r on (r.id = a.salary_rule_id)
+                         where a.amount <> 0
+                           and c.id = %(contrato)s
+                           and r.cesantias = True                           
+                           and a.date between %(fecha_prima)s::date and %(fecha_liquidacion)s::date                         
+                         """, {
+                    'contrato': contract_id.id,
+                    'fecha_prima': payslip_detail.date_from,
+                    'fecha_liquidacion': payslip_detail.date_to,
+                })
+
+            res = self.env.cr.fetchone()
+            total = 0
+            if res:
+                grabar_datos(res)
+                for result in res:
+                    total += result[3]
+
+            print('total ', total)
+            payslip_detail.variable_total += total
+
+            if payslip_detail.days_neto < 30:
+                payslip_detail.variable_average = payslip_detail.variable_total
+            else:
+                payslip_detail.variable_average = (
+                    (payslip_detail.variable_total) /
+                    payslip_detail.days_neto) * 30
+
+            resultado = payslip_detail.wage_average + payslip_detail.variable_average
+
+        return resultado
+
+    @api.model
+    def calcular_cesantias(self,
+                           date_liquidacion,
+                           date_cesantia,
+                           contract_id,
+                           amount=0.0,
+                           proyectado=False,
+                           amount_salary=0.0,
+                           payslip=None,
+                           salary_code=None):
+        print('############## calcular_cesantias')
+        #Elimina calculos previos
+        year_id = self.env['account.fiscalyear'].search([
+            ('date_start', '<=', date_liquidacion),
+            ('date_stop', '>=', date_liquidacion)
+        ])
+
+        unlink_ids = self.env['hr.contract.liquidacion'].search([
+            ('contract_id', '=', self.id), ('sequence', '=', '1')
+        ])
+        if unlink_ids:
+            for liq in unlink_ids:
+                liq.unlink()
+
+        #elimina el detalle previo
+        salary_rule = self.env['hr.salary.rule'].search([('code', '=',
+                                                          salary_code)])
+        details_ids = self.env['hr.payslip.details'].search([
+            ('slip_id', '=', payslip.id),
+            ('salary_rule_id', '=', salary_rule.id)
+        ])
+        if details_ids:
+            for detail in details_ids:
+                detail.unlink()
+
+        for cont in self:
+
+            #------------  CESANTIA ------------------
+
+            #valida fecha de liquidacion de contrato
+            if not date_liquidacion:
+                raise UserError(
+                    _('Error!'),
+                    _("Debe ingresar fecha de liquidación de contrato"))
+
+            #la fecha de liquidacion debe ser mayor que la de inicio de contrato
+            day_start = cont.date_start
+            day_end = date_liquidacion
+
+            if (day_end - day_start).days <= 0:
+                raise UserError(
+                    _('Error!'),
+                    _("La fecha de liquidación de contrato debe ser mayor a la fecha de inicio del mismo"
+                      ))
+
+            #calcula prima
+            if not date_cesantia:
+                raise UserError(
+                    _('Error!'),
+                    _("Debe ingresar fecha de liquidación de cesantias"))
+
+            #la fecha de liquidacion cesantia debe ser mayor que la de inicio de contrato
+            day_to = date_cesantia
+            if (day_to - day_start).days < 0:
+                day_to = day_start
+                #raise UserError(_('Error!'),_("La fecha de liquidación de prima debe ser mayor a la fecha de inicio del contrato"))
+
+            dias = days_between(day_to, day_end)
+            print('dias totales ', dias)
+
+            payslip_detail = self.env['hr.payslip.details'].create({
+                'slip_id':
+                payslip.id,
+                'salary_rule_id':
+                salary_rule.id,
+                'date_from':
+                day_to,
+                'date_to':
+                day_end,
+                'days_total':
+                dias,
+                'wage_total':
+                amount_salary,
+                'variable_total':
+                amount,
+            })
+
+            # Busca las incapacidades en el mismo rango de fechas
+            self.env.cr.execute(
+                """select coalesce(sum(h.number_of_days),0) 
+                           from hr_leave h
+                           inner join hr_leave_type s on (s.id = h.holiday_status_id)
+                           where h.employee_id = %(empleado)s
+                             and h.request_date_from::date >= %(fecha_inicial)s::date
+                             and h.request_date_to::date <= %(fecha_final)s::date
+                             and s.unpaid = True
+                             and h.state = 'validate'""", {
+                    'empleado': contract_id.employee_id.id,
+                    'fecha_inicial': date_cesantia,
+                    'fecha_final': date_liquidacion,
+                })
+            ausencias = self.env.cr.fetchone()[0] or 0
+            print('dias ausencias ', ausencias)
+            payslip_detail.days_leave = ausencias
+            dias = dias - ausencias
+            payslip_detail.days_neto = dias
+            print('Dias neto ', dias)
+
+            promedio_salario_var = self.promedio_cesantias(
+                contract_id, payslip_detail, proyectado)
+            print('promedio_salario_var ', promedio_salario_var)
+            grabar_linea2('Promedio salarial', promedio_salario_var)
+
+            aux_transporte = 0.00
+            if year_id:
+                for ano in year_id:
+                    #aux_transporte = (ano.sub_transporte /30) * dias
+                    #Si gana menos de 2 salarios minimos legal vigente
+                    if promedio_salario_var < ano.salario_minimo * 2:
+                        aux_transporte = ano.sub_transporte
+
+            print('Subsidio de transporte ', aux_transporte)
+            grabar_linea2('Subsidio de transporte ', aux_transporte)
+            payslip_detail.subsidio_transporte = aux_transporte
+
+            base = round(aux_transporte + promedio_salario_var, 0)
+            print('base ', base)
+            grabar_linea2('Total base', base)
+            payslip_detail.total_average = base
+            grabar_linea2('Dias', dias)
+            total_cesantia = round((base * dias) / 360, 0)
+            print('total prima ', total_cesantia)
+            grabar_linea2('Total cesantia', total_cesantia)
+            payslip_detail.amount = total_cesantia
+
+            print('Termina calcular cesantia')
+            return total_cesantia
+
+    @api.model
+    def calcular_intereses(self,
+                           date_liquidacion,
+                           date_cesantia,
+                           contract_id,
+                           amount=0.0,
+                           payslip=None,
+                           salary_code=None):
+        print('############## calcular_intereses')
+        #Elimina calculos previos
+        year_id = self.env['account.fiscalyear'].search([
+            ('date_start', '<=', date_liquidacion),
+            ('date_stop', '>=', date_liquidacion)
+        ])
+
+        unlink_ids = self.env['hr.contract.liquidacion'].search([
+            ('contract_id', '=', self.id), ('sequence', '=', '1')
+        ])
+        if unlink_ids:
+            for liq in unlink_ids:
+                liq.unlink()
+
+        #elimina el detalle previo
+        salary_rule = self.env['hr.salary.rule'].search([('code', '=',
+                                                          salary_code)])
+        print('payslip.id ', payslip)
+        print('salary_rule.id ', salary_rule)
+        details_ids = self.env['hr.payslip.details'].search([
+            ('slip_id', '=', payslip.id),
+            ('salary_rule_id', '=', salary_rule.id)
+        ])
+        print('paso 1')
+        if details_ids:
+            for detail in details_ids:
+                detail.unlink()
+
+        for cont in self:
+
+            #------------  INTERESES DE CESANTIAS ------------------
+
+            #valida fecha de liquidacion de contrato
+            if not date_liquidacion:
+                raise UserError(
+                    _('Error!'),
+                    _("Debe ingresar fecha de liquidación de contrato"))
+
+            #la fecha de liquidacion debe ser mayor que la de inicio de contrato
+            day_start = cont.date_start
+            day_end = date_liquidacion
+
+            if (day_end - day_start).days <= 0:
+                raise UserError(
+                    _('Error!'),
+                    _("La fecha de liquidación de contrato debe ser mayor a la fecha de inicio del mismo"
+                      ))
+
+            #calcula prima
+            if not date_cesantia:
+                raise UserError(
+                    _('Error!'),
+                    _("Debe ingresar fecha de liquidación de cesantias"))
+
+            #la fecha de liquidacion cesantia debe ser mayor que la de inicio de contrato
+            day_to = date_cesantia
+            if (day_to - day_start).days < 0:
+                day_to = day_start
+                #raise UserError(_('Error!'),_("La fecha de liquidación de prima debe ser mayor a la fecha de inicio del contrato"))
+
+            dias = days_between(day_to, day_end)
+            print('dias totales ', dias)
+
+            payslip_detail = self.env['hr.payslip.details'].create({
+                'slip_id':
+                payslip.id,
+                'salary_rule_id':
+                salary_rule.id,
+                'date_from':
+                day_to,
+                'date_to':
+                day_end,
+                'days_total':
+                dias,
+                'wage_total':
+                0,
+                'variable_total':
+                amount,
+            })
+
+            # Busca las incapacidades en el mismo rango de fechas
+            self.env.cr.execute(
+                """select coalesce(sum(h.number_of_days),0) 
+                           from hr_leave h
+                           inner join hr_leave_type s on (s.id = h.holiday_status_id)
+                           where h.employee_id = %(empleado)s
+                             and h.request_date_from::date >= %(fecha_inicial)s::date
+                             and h.request_date_to::date <= %(fecha_final)s::date
+                             and s.unpaid = True
+                             and h.state = 'validate'""", {
+                    'empleado': contract_id.employee_id.id,
+                    'fecha_inicial': date_cesantia,
+                    'fecha_final': date_liquidacion,
+                })
+            ausencias = self.env.cr.fetchone()[0] or 0
+            print('dias ausencias ', ausencias)
+            payslip_detail.days_leave = ausencias
+            dias = dias - ausencias
+            payslip_detail.days_neto = dias
+            print('Dias neto ', dias)
+
+            payslip_detail.subsidio_transporte = 0
+
+            base = amount
+            print('base ', base)
+            grabar_linea2('Total base', base)
+            payslip_detail.total_average = base
+            grabar_linea2('Dias', dias)
+            total_intereses = round((base * dias * 0.12) / 360, 0)
+            print('total intereses ', total_intereses)
+            grabar_linea2('Total intereses', total_intereses)
+            payslip_detail.amount = total_intereses
+
+            print('Termina calcular intereses')
+            return total_intereses
+
+
+#----------------------------------------------------------------------------
+
+    @api.model
+    def create_report_sheet(self, payslip):
+        print('** create_report_sheet')
+        slip = self.env['hr.payslip'].browse([payslip.id])
+        filename = self.create_report_xls(payslip)
+
+        datos_global = {
+            'Fecha': col_fecha,
+            'Nómina No.': col_nomina,
+            'Regla salarial': col_regla,
+            'Valor': col_valor
+        }
+        dframe = pd.DataFrame(datos_global)
+        ew = pd.ExcelWriter(filename, engine='xlsxwriter')
+        dframe.to_excel(ew,
+                        index=False,
+                        sheet_name='Detalle',
+                        encoding='utf8',
+                        startrow=2)
+        workbook = ew.book
+        float_fmt = workbook.add_format({
+            'num_format': '#,##0.00',
+            'bold': False,
+            'align': 'right',
+            'border': 0
+        })
+        string_fmt = workbook.add_format({
+            'bold': False,
+            'align': 'left',
+            'border': 0
+        })
+
+        worksheet = ew.sheets['Detalle']
+        worksheet.set_zoom(90)
+        worksheet.write(0, 0, 'Empleado:', string_fmt)
+        worksheet.write(0, 1, payslip.contract_id.employee_id.name, string_fmt)
+        ew.save()
+        ew.close()
+        self.create_attachment(filename, payslip)
+
+        print('== termina create_report_sheet ==')
 
     @api.model
     def create_report_xls(self, payslip):
@@ -1861,7 +2416,40 @@ class hr_contract(models.Model):
                 'Falta configurar el parámetro del sistema con clave home.odoo.report'
             )
 
-        archivo = payslip.number.replace('/', '-') + '.xlsx'
+        if not payslip.number:
+            number = self.env['ir.sequence'].next_by_code('salary.slip')
+            archivo = number.replace('/', '-') + '.xlsx'
+        else:
+            archivo = payslip.number.replace('/', '-') + '.xlsx'
+
         filename = home_report + archivo
 
         return filename
+
+    @api.model
+    def create_attachment(self, filename, payslip):
+        print('** create_attachment')
+        #Adjunta el documento
+        data = open(filename, "rb").read()
+        if not payslip.number:
+            number = self.env['ir.sequence'].next_by_code('salary.slip')
+            filename = number.replace('/', '-') + '.xlsx'
+        else:
+            number = False
+            filename = payslip.number.replace('/', '-') + '.xlsx'
+
+        data_attach = {
+            'name': filename,
+            'datas': base64.encodestring(data),
+            'datas_fname': filename,
+            'description': 'Nómina ' + (payslip.number or number),
+            'res_model': 'hr.payslip',
+            'res_id': payslip.id,
+        }
+        #si existen adjuntos lo borra primero
+        for att in self.env['ir.attachment'].sudo().search([
+            ('datas_fname', '=', filename), ('res_id', '=', payslip.id)
+        ]):
+            att.unlink()
+
+        self.env['ir.attachment'].sudo().create(data_attach)

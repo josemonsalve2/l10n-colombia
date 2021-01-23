@@ -19,8 +19,9 @@
 Modulo de nomina para la localizacion colombiana
     """,
     "data": [
-        "views/res_config_settings_view.xml", "views/hr_salary_rule_view.xml",
-        "views/hr_contract_view.xml", "views/hr_contract_setting_view.xml",
+        "views/res_config_settings_view.xml", "views/hr_department_view.xml",
+        "views/hr_salary_rule_view.xml", "views/hr_contract_view.xml",
+        "views/hr_contract_setting_view.xml",
         "views/hr_contract_accumulated_view.xml",
         "views/hr_contract_deduction_view.xml",
         "views/hr_contract_risk_view.xml", "views/hr_payslip_view.xml",

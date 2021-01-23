@@ -5,7 +5,7 @@
 import time
 import math
 import datetime
-from datetime import date
+from datetime import date, timedelta
 from odoo import api, fields, models, tools, _
 from odoo.exceptions import ValidationError
 

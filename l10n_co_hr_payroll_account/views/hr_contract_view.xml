@@ -48,6 +48,14 @@
 						</tree>
 					</field>
 				</page>
+				<page string="Account Analitycs" name="analytic_tab">
+					<field name="analytic_ids" nolabel="1" widget="one2many_list">
+						<tree string="Account Analitycs" editable="bottom">
+							<field name="account_analytic_id" required="1"/>
+							<field name="percent"/>
+						</tree>
+					</field>
+				</page>
 				<page string="Settlement" name="liquidacion_tab">
 					<group col="4">
 						<field name="date_settlement"/>
