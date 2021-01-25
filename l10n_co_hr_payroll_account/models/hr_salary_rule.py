@@ -37,6 +37,20 @@ class HrSalaryRule(models.Model):
                                    string='Type Distri',
                                    required=True,
                                    default='na')
+    type = fields.Selection(selection=[
+        ('none', 'No aplica'), ('eps', 'Entidad promotora de salud'),
+        ('pension', 'Fondo de pensiones'), ('cesantias', 'Fondo de cesantias'),
+        ('caja', 'Caja de compensación'),
+        ('riesgo', 'Aseguradora de riesgos profesionales'), ('sena', 'SENA'),
+        ('icbf', 'ICBF'), ('solidaridad', 'Fondo de solidaridad'),
+        ('subsistencia', 'Fondo de subsistencia')
+    ],
+                            string='Type',
+                            readonly=False,
+                            select=True,
+                            change_default=True,
+                            track_visibility='always',
+                            required=True)
     register_credit_id = fields.Many2one(
         comodel_name='hr.contribution.register',
         string='Credit contribution record',
