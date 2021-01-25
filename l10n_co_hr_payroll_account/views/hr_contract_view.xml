@@ -56,9 +56,9 @@
 						</tree>
 					</field>
 				</page>
-				<page string="Settlement" name="liquidacion_tab">
+				<page string="liquidation" name="liquidacion_tab">
 					<group col="4">
-						<field name="date_settlement"/>
+						<field name="date_liquidation"/>
 						<field name="date_bunus"/>
 						<field name="date_layoff_fund"/>
 						<field name="date_holidays"/>
@@ -67,7 +67,7 @@
 						<button name="calcular_liquidacion" type="object" string="Calcular" class="oe_highlight"/>
 					</group>
 					<group>
-						<field name="settlement_ids" nolabel="1" widget="one2many_list" readonly="True">
+						<field name="liquidation_ids" nolabel="1" widget="one2many_list" readonly="True">
 							<tree string="Simulador">
 								<field name="name"/>
 								<field name="base"/>

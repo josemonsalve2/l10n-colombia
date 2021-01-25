@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Copyright 2021 Alejandro Olano <Github@alejo-code>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 {
@@ -19,13 +18,13 @@
 Modulo de nomina para la localizacion colombiana
     """,
     "data": [
-        "views/res_config_settings_view.xml", "views/hr_department_view.xml",
+        "views/res_config_settings_view.xml", "views/hr_payslip_view.xml",
+        "views/hr_payslip_run_view.xml", "views/hr_department_view.xml",
         "views/hr_salary_rule_view.xml", "views/hr_contract_view.xml",
         "views/hr_contract_setting_view.xml",
         "views/hr_contract_accumulated_view.xml",
         "views/hr_contract_deduction_view.xml",
-        "views/hr_contract_risk_view.xml", "views/hr_payslip_view.xml",
-        "views/hr_leave_view.xml", "views/hr_payroll_news_view.xml",
-        "security/ir.model.access.csv"
+        "views/hr_contract_risk_view.xml", "views/hr_leave_view.xml",
+        "views/hr_payroll_news_view.xml", "security/ir.model.access.csv"
     ]
 }

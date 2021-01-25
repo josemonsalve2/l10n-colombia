@@ -5,9 +5,9 @@
 from odoo import fields, models
 
 
-class HrContractSettlement(models.Model):
-    _name = 'hr.contract.settlement'
-    _description = 'Contract settlement detail'
+class HrContractliquidation(models.Model):
+    _name = 'hr.contract.liquidation'
+    _description = 'Contract liquidation detail'
     _order = 'contract_id, sequence'
 
     sequence = fields.Integer(string='Sequence', required=True)
@@ -18,7 +18,7 @@ class HrContractSettlement(models.Model):
     days = fields.Float(string='Days', required=True, default=1)
     amount = fields.Float(string='Value', required=True, default=0)
     contract_id = fields.Many2one(comodel_name='hr.contract',
-                                  string="Settlement",
+                                  string="liquidation",
                                   required=True,
                                   ondelete='cascade',
                                   select=True)

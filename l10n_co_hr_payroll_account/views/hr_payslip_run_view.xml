@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="hr_payslip_run_form" model="ir.ui.view">
+        <field name="model">hr.payslip.run</field>
+        <field name="inherit_id" ref="hr_payroll.hr_payslip_run_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='close_payslip_run']" position="after">
+                <button name="generate_payslip_run" type="object" string="Calcular hojas" states="draft" class="oe_highlight"/>
+                <button name="generate_voucher_run" type="object" string="Generar pagos" states="close" class="oe_highlight"/>
+                <button name="unlink_voucher_run" type="object" string="Romper conciliación" states="paid" class="oe_highlight"/>
+            </xpath>
+            <field name="journal_id" position="after">
+                <field name="journal_voucher_id" attrs="{'invisible':[('state','=','draft')]}" options="{'no_create': True}" domain="[('type', 'in', ['cash', 'bank'])]"/>
+            </field>
+            <field name="slip_ids" position="before">
+                <group name="properties" col="4">
+                    <field name="liquid"/>
+                    <field name="type_liquid" attrs="{'invisible':[('liquid','=',False)],'required':[('liquid','&lt;&gt;',False)]}"/>
+                    <field name="struct_id" attrs="{'invisible':[('liquid','=',False)],'required':[('liquid','&lt;&gt;',False)]}" options="{'no_create': True}"/>
+                    <field name="motive_retirement" attrs="{'invisible':[('liquid','=',False)]}"/>
+                </group>
+                <group col="4">
+                    <field name="date_liquidation" attrs="{'invisible':[('liquid','=',False)]}"/>
+                    <field name="date_bunus" attrs="{'invisible':[('liquid','=',False)]}"/>
+                    <field name="date_layoff_fund" attrs="{'invisible':[('liquid','=',False)]}"/>
+                    <field name="date_holidays" attrs="{'invisible':[('liquid','=',False)]}"/>
+                </group>
+            </field>
+        </field>
+    </record>
+
+</odoo>
