@@ -6,52 +6,42 @@ from odoo import fields, models
 class HrSalaryRule(models.Model):
     _inherit = 'hr.salary.rule'
 
-    vacaciones = fields.Boolean(
-        'Vacaciones parcial',
+    holidays = fields.Boolean(
+        string='Parcial Holidays',
         default=False,
         help=
-        "Indica si el valor se acumula para liquidación de vacaciones parciales"
+        "Indicates if the value is accumulated for partial vacation settlement"
     )
-    prima = fields.Boolean(
-        'Inlcuir en prima',
+    bonus = fields.Boolean(
+        string='Include in Bunos',
         default=False,
-        help="Indica si el valor se acumula para liquidación de primas")
-    cesantias = fields.Boolean(
-        'Inlcuir en cesantias',
+        help="Indicates if the value is accumulated for premium settlement")
+    layoff_fund = fields.Boolean(
+        string='Include in severance pay',
         default=False,
-        help="Indica si el valor se acumula para liquidación de cesantias")
-    vacaciones_final = fields.Boolean(
-        'Vacaciones final',
+        help="Indicates if the value is accumulated for severance pay")
+    holidays_final = fields.Boolean(
+        string='Holidays final',
         default=False,
         help=
-        "Indica si el valor se utiliza para calcular las vacciones en la liquidacion del contrato"
+        "Indicates if the value is used to calculate the payments in the settlement of the contract"
     )
-    promedio = fields.Boolean(
-        'Promedio salarial',
+    average = fields.Boolean(
+        string='Average salary',
         default=False,
-        help="Indica si el valor se utiliza para calcular el promedio salarial"
-    )
-    type_distri = fields.Selection([('na', 'No aplica'),
-                                    ('hora', 'Horas reportadas'),
-                                    ('dpto', 'Por contrato'),
-                                    ('novedad', 'Por novedades')],
-                                   'Tipo distribución',
+        help="Indicates if value is used to calculate average salary")
+    type_distri = fields.Selection(selection=[('na', 'No aplica'),
+                                              ('hora', 'Horas reportadas'),
+                                              ('dpto', 'Por contrato'),
+                                              ('novedad', 'Por novedades')],
+                                   string='Type Distri',
                                    required=True,
                                    default='na')
     register_credit_id = fields.Many2one(
-        'hr.contribution.register',
-        'Registro contribución crédito',
-        help="Identificación del movimiento cédito de la regla salarial")
+        comodel_name='hr.contribution.register',
+        string='Credit contribution record',
+        help="Identification of the credit movement of the wage rule")
     # account_bank_type = fields.Many2one('res.partner.bank.type', 'Tipo de cuenta bancaria', help="Se utiliza para relacionar la cuenta bancaria relacionada a aportes voluntarios")
-    salario = fields.Boolean('Salario',
-                             default=False,
-                             help="Indicador para calcular salario promedio")
-
-
-class HrRuleInput(models.Model):
-    _inherit = 'hr.rule.input'
-
-    _sql_constraints = [
-        ('code_uniq', 'unique(code)',
-         'El codigo debe ser unico. El codigo ingresado ya existe'),
-    ]
+    salary = fields.Boolean(string='Salary',
+                            default=False,
+                            help="Indicator to calculate average salary")

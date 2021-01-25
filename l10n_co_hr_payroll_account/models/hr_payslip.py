@@ -6,11 +6,6 @@ from datetime import datetime, timedelta, time
 from dateutil import relativedelta
 import babel
 from pytz import timezone
-import pandas as pd
-from openpyxl import load_workbook
-import base64
-import json
-
 from odoo import api, fields, models, tools, _
 from odoo.addons import decimal_precision as dp
 from odoo.exceptions import UserError, ValidationError
@@ -20,6 +15,13 @@ col_fecha = []
 col_nomina = []
 col_regla = []
 col_valor = []
+
+
+def limpiar_lineas():
+    col_fecha = []
+    col_nomina = []
+    col_regla = []
+    col_valor = []
 
 
 def grabar_linea(fecha, nomina, regla, valor):
@@ -64,46 +66,49 @@ class HrPayslip(models.Model):
         "Indica si se ejecuta una estructura para liquidacion de contratos y vacaciones"
     )
     #deduction_line_ids = fields.One2many('hr.payslip.deduction.line', 'slip_id', 'Detalle deducciones', readonly=True)
-    analytic_ids = fields.One2many('hr.payslip.analytic', 'slip_id',
-                                   'Distribucion cuentas analiticas')
-    details_ids = fields.One2many('hr.payslip.details', 'slip_id',
-                                  'Detalle cálculos')
-    date_prima = fields.Date('Fecha inicio prima')
-    date_cesantias = fields.Date('Fecha inicio cesantías')
-    date_vacaciones = fields.Date('Fecha inicio de vacaciones')
-    date_liquidation = fields.Date('Fecha de liquidación')
-    date_pago = fields.Date('Fecha de pagos')
-    payment_id = fields.Many2one('account.payment', string='Egreso No.')
-    move_bank_id = fields.Many2one('account.move',
-                                   string='Asiento contable pago')
-    move_bank_name = fields.Char('Número pago')
+    analytic_ids = fields.One2many(comodel_name='hr.payslip.analytic',
+                                   inverse_name='slip_id',
+                                   string='Analytical accounts distribution')
+    details_ids = fields.One2many(comodel_name='hr.payslip.details',
+                                  inverse_name='slip_id',
+                                  string='Detail calculations')
+    date_bunus = fields.Date(string='Bunus liquidation date')
+    date_layoff_fund = fields.Date(string='Date Layoff Fund')
+    date_holidays = fields.Date(string='Holiday liquidation date')
+    date_liquidation = fields.Date(string="Contract liquidation date")
+    date_payment = fields.Date(string='Date Payment')
+    payment_id = fields.Many2one(comodel_name='account.payment',
+                                 string='Egress No.')
+    move_bank_id = fields.Many2one(comodel_name='account.move',
+                                   string='Payment accounting entry')
+    move_bank_name = fields.Char(string='Payment number')
     struct_liquida_id = fields.Many2one(
-        'hr.payroll.structure',
-        'Estructura salarial',
+        comodel_name='hr.payroll.structure',
+        string='Salary structure',
         help=
-        "Defina la estructura salarial que se usará para la liquidacion de contratos y vacaciones"
+        "Define the salary structure that will be used for the settlement of contracts and vacations"
     )
-    type_liquid = fields.Selection(
-        [('nomina', 'Solo nómina'),
-         ('otro', 'Solo vacaciones / contratos / primas'),
-         ('nomi_otro', 'Nómina y vacaciones / contratos / primas)')],
-        'Tipo liquidación',
-        required=True,
-        default='nomina')
-    motivo_retiro = fields.Char('Motivo retiro', required=False)
-    recupera = fields.Boolean(
-        'Recupera novedades',
+    type_liquid = fields.Selection(selection=[
+        ('nomina', 'Solo nómina'),
+        ('otro', 'Solo vacaciones / contratos / primas'),
+        ('nomi_otro', 'Nómina y vacaciones / contratos / primas)')
+    ],
+                                   string='Type liquidation',
+                                   required=True,
+                                   default='nomina')
+    motive_retirement = fields.Char(string='Motive Retirement', required=False)
+    recover = fields.Boolean(
+        string='Retrieve news',
         help=
-        "Indica si se cargan nuevamente las novedades antes de hacer los cálculos",
+        "Indicates if the news is loaded again before doing the calculations",
         default=True)
     identification_id = fields.Char(related="employee_id.identification_id",
                                     store=True,
                                     string='Identificación')
     journal_voucher_id = fields.Many2one(
-        'account.journal',
-        'Diario de pago',
-        help="Defina el diario para realizar los pagos o comprobante de egreso"
-    )
+        comodel_name='account.journal',
+        string='Payment journal',
+        help="Define the journal to make payments or proof of expenditure")
     state = fields.Selection(
         [
             ('draft', 'Draft'),

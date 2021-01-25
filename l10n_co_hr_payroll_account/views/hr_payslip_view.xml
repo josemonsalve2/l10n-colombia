@@ -21,20 +21,20 @@
             <field name="credit_note" position="after">
                 <group name="properties" colspan="4">
                     <field name="liquid"/>
-                    <field name="recupera"/>
+                    <field name="recover"/>
                 </group>
                 <group name="properties" colspan="4">
                     <field name="type_liquid" attrs="{'invisible':[('liquid','=',False)],'required':[('liquid','&lt;&gt;',False)]}"/>
                     <field name="struct_id" attrs="{'invisible':[('liquid','=',False)],'required':[('liquid','&lt;&gt;',False)]}"/>
-                    <field name="motivo_retiro" attrs="{'invisible':[('liquid','=',False)]}"/>
+                    <field name="motive_retirement" attrs="{'invisible':[('liquid','=',False)]}"/>
                 </group>
             </field>
             <field name="credit_note" position="after">
                 <group colspan="4">
                     <field name="date_liquidation" attrs="{'invisible':[('liquid','=',False)],'required':[('liquid','&lt;&gt;',False)]}"/>
-                    <field name="date_prima" attrs="{'invisible':[('liquid','=',False)],'required':[('liquid','&lt;&gt;',False)]}"/>
-                    <field name="date_cesantias" attrs="{'invisible':[('liquid','=',False)],'required':[('liquid','&lt;&gt;',False)]}"/>
-                    <field name="date_vacaciones" attrs="{'invisible':[('liquid','=',False)],'required':[('liquid','&lt;&gt;',False)]}"/>
+                    <field name="date_bunus" attrs="{'invisible':[('liquid','=',False)],'required':[('liquid','&lt;&gt;',False)]}"/>
+                    <field name="date_layoff_fund" attrs="{'invisible':[('liquid','=',False)],'required':[('liquid','&lt;&gt;',False)]}"/>
+                    <field name="date_holidays" attrs="{'invisible':[('liquid','=',False)],'required':[('liquid','&lt;&gt;',False)]}"/>
                 </group>
             </field>
 
