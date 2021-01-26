@@ -32,6 +32,7 @@
                 <field name="layoff_fund"/>
                 <field name="average"/>
                 <field name="type_distri"/>
+                <field name="type" />
             </field>
             <field name="register_id" position="after">
                 <field name="register_credit_id"/>

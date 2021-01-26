@@ -406,12 +406,11 @@ class HrPayslip(models.Model):
 
         #++ Se utiliza la estructura del payslip en vez de la del contrato
         structure_ids = []
-        if self.tipo_liquida in ('nomina',
-                                 'nomi_otro') or not self.tipo_liquida:
+        if self.type_liquid in ('nomina', 'nomi_otro') or not self.type_liquid:
             structure_ids = contracts.get_all_structures()
 
-        if self.tipo_liquida in ('otro',
-                                 'nomi_otro') and self.struct_liquida_id:
+        if self.type_liquid in ('otro',
+                                'nomi_otro') and self.struct_liquida_id:
             structure_ids += self.get_all_structures()
 
         rule_ids = self.env['hr.payroll.structure'].browse(
@@ -446,15 +445,15 @@ class HrPayslip(models.Model):
 
                 #Busca el valor en las novedades, sino encontro en las deducciones
                 if amount == 0.0:
-                    #novedades_ids = self.env['hr.novedades'].search([('identification_id', '=',contract.employee_id.identification_id),('code','=',input.code),('date_from','=',date_from),('date_to','=',date_to),('value','!=',0)])
-                    novedades_ids = self.env['hr.novedades'].search([
+                    #news_ids = self.env['hr.payroll.news'].search([('identification_id', '=',contract.employee_id.identification_id),('code','=',input.code),('date_from','=',date_from),('date_to','=',date_to),('value','!=',0)])
+                    news_ids = self.env['hr.payroll.news'].search([
                         ('employee_id', '=', contract.employee_id.id),
                         ('input_id', '=', input.id),
                         ('date_from', '=', date_from),
                         ('date_to', '=', date_to), ('value', '!=', 0)
                     ])
-                    if novedades_ids:
-                        for nov in novedades_ids:
+                    if news_ids:
+                        for nov in news_ids:
                             amount = amount + nov.value
 
                 input_data = {
@@ -475,7 +474,7 @@ class HrPayslip(models.Model):
         res = []
         contract_obj = self.env['hr.contract']
         rule_obj = self.env['hr.salary.rule']
-        novedades_obj = self.env['hr.novedades']
+        news_obj = self.env['hr.payroll.news']
 
         structure_ids = contract_obj.get_all_structures()
         rule_ids = self.pool.get('hr.payroll.structure').get_all_rules(
@@ -493,15 +492,15 @@ class HrPayslip(models.Model):
                         amount = 0.0
                         #Busca el total en las novedades
                         distribuir = False
-                        #novedades_ids = novedades_obj.search([('identification_id', '=',contract.employee_id.identification_id),('code','=',input.code),('date_from','=',date_from),('date_to','=',date_to),('value','!=',0)])
-                        novedades_ids = novedades_obj.search([
+                        #news_ids = news_obj.search([('identification_id', '=',contract.employee_id.identification_id),('code','=',input.code),('date_from','=',date_from),('date_to','=',date_to),('value','!=',0)])
+                        news_ids = news_obj.search([
                             ('employee_id', '=', contract.employee_id.id),
                             ('input_id', '=', input.id),
                             ('date_from', '=', date_from),
                             ('date_to', '=', date_to), ('value', '!=', 0)
                         ])
-                        if novedades_ids:
-                            for nov in novedades_obj.browse(novedades_ids):
+                        if news_ids:
+                            for nov in news_obj.browse(news_ids):
                                 amount = amount + nov.value
                                 if nov.account_analytic_id:
                                     distribuir = True
@@ -510,8 +509,8 @@ class HrPayslip(models.Model):
                             acumulado = 0.0
                             registro = 1
                             #print 'amount ',amount
-                            #novedades_ids = novedades_obj.search(cr, uid, [('identification_id', '=',contract.employee_id.identification_id),('code','=',input.code),('date_from','=',date_from),('date_to','=',date_to),('account_analytic_id','!=',False),('value','!=',0)], context=context)
-                            novedades_ids = novedades_obj.search([
+                            #news_ids = news_obj.search(cr, uid, [('identification_id', '=',contract.employee_id.identification_id),('code','=',input.code),('date_from','=',date_from),('date_to','=',date_to),('account_analytic_id','!=',False),('value','!=',0)], context=context)
+                            news_ids = news_obj.search([
                                 ('employee_id', '=', contract.employee_id.id),
                                 ('input_id', '=', input.id),
                                 ('date_from', '=', date_from),
@@ -519,8 +518,8 @@ class HrPayslip(models.Model):
                                 ('account_analytic_id', '!=', False),
                                 ('value', '!=', 0)
                             ])
-                            for nov in novedades_obj.browse(novedades_ids):
-                                if len(novedades_ids) == registro:
+                            for nov in news_obj.browse(news_ids):
+                                if len(news_ids) == registro:
                                     #Si está en el último registro se coloca el saldo
                                     porcentaje = 100 - acumulado
                                 else:
@@ -612,7 +611,7 @@ class HrPayslip(models.Model):
                 day_from, day_to, calendar=contract.resource_calendar_id)
 
             #si no calcula nómina, los días trabajados deben ser cero
-            if self.tipo_liquida in ['otro']:
+            if self.type_liquid in ['otro']:
                 work_data['days'] = 0
                 nb_of_days = 0
                 work_data['hours'] = 0
@@ -1101,15 +1100,15 @@ class HrPayslip(models.Model):
 
         #dependiendo del tipo de nomina toma las estructuras salariales
         structure_ids = []
-        if payslip.tipo_liquida in ('nomina', 'nomi_otro'):
+        if payslip.type_liquid in ('nomina', 'nomi_otro'):
             if len(contracts) == 1 and payslip.struct_id:
                 structure_ids = list(
                     set(payslip.struct_id._get_parent_structure().ids))
             else:
                 structure_ids = contracts.get_all_structures()
 
-        if payslip.tipo_liquida in ('otro',
-                                    'nomi_otro') and payslip.struct_liquida_id:
+        if payslip.type_liquid in ('otro',
+                                   'nomi_otro') and payslip.struct_liquida_id:
             structure_ids += payslip.get_all_structures()
 
         #get the rules of the structure and thier children
