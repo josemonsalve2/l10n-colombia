@@ -15,9 +15,9 @@
                 <attribute name="required">1</attribute>
             </field>
             <field name="address_home_id" position = "before">
-                <field name="eps"/>
+                <field name="eps" />
                 <field name="pension"/>
-                <field name="cesantias"/>
+                <field name="layoff_fund"/>
             </field>
         </field>
     </record>
