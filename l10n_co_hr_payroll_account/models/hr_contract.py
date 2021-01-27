@@ -93,6 +93,12 @@ class HrContract(models.Model):
     date_layoff_fund = fields.Date(string='Date Layoff Fund')
     date_holidays = fields.Date(string='Holiday liquidation date')
     date_liquidation = fields.Date(string="Contract liquidation date")
+    distribute = fields.Boolean(
+        string='Distribute by analytical account',
+        default=False,
+        help=
+        "Indicates if when calculating the contract payroll it is distributed by cost center"
+    )
     factor = fields.Float(string='Salary factor', required=True, default=0.0)
     parcial = fields.Boolean(string='Part time', default=False)
     pensionary = fields.Boolean(string='Pensionary', default=False)

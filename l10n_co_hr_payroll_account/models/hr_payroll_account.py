@@ -105,7 +105,7 @@ class HrPayslip(models.Model):
 
                 #Veririca si el contrato se distribuye o no
                 dis = []
-                if slip.contract_id.distribuir:
+                if slip.contract_id.distribute:
                     if line.salary_rule_id.type_distri == 'hora':  #No aplica
 
                         self.env.cr.execute(

@@ -14,6 +14,7 @@
 				<field name="risk_id"/>
 			</field>
 			<field name="type_id" position="after">
+				<field name="distribute"/>
 				<field name="parcial"/>
 				<field name="pensionary"/>
 				<field name="integral"/>
