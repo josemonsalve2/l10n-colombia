@@ -1034,7 +1034,7 @@ class HrContract(models.Model):
         home_report = self.env["ir.config_parameter"].get_param(
             "home.odoo.report")
         if not home_report:
-            raise ValidationError(
+            raise UserError(
                 'Falta configurar el parámetro del sistema con clave home.odoo.report'
             )
 

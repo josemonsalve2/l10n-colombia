@@ -395,7 +395,7 @@ class HrPayslip(models.Model):
 
             payslip.write({'line_ids': lines, 'number': number})
 
-            self.env['hr.contract'].create_report_sheet(payslip)
+            # self.env['hr.contract'].create_report_sheet(payslip)
 
         return True
 
@@ -1147,6 +1147,7 @@ class HrPayslip(models.Model):
                             'amount_percentage_base':
                             rule.amount_percentage_base,
                             'register_id': rule.register_id.id,
+                            'type': rule.type,
                             'amount': amount,
                             'employee_id': contract.employee_id.id,
                             'quantity': qty,
