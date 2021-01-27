@@ -65,7 +65,7 @@ class HrPayslip(models.Model):
         help=
         "Indica si se ejecuta una estructura para liquidacion de contratos y vacaciones"
     )
-    #deduction_line_ids = fields.One2many('hr.payslip.deduction.line', 'slip_id', 'Detalle deducciones', readonly=True)
+    # deduction_line_ids = fields.One2many('hr.payslip.deduction.line', 'slip_id', 'Detalle deducciones', readonly=True)
     analytic_ids = fields.One2many(comodel_name='hr.payslip.analytic',
                                    inverse_name='slip_id',
                                    string='Analytical accounts distribution')
@@ -401,18 +401,9 @@ class HrPayslip(models.Model):
 
     @api.model
     def get_inputs(self, contracts, date_from, date_to):
-        print('----- get_inputs en hr_payroll_co')
         res = []
-
-        #++ Se utiliza la estructura del payslip en vez de la del contrato
         structure_ids = []
-        if self.type_liquid in ('nomina', 'nomi_otro') or not self.type_liquid:
-            structure_ids = contracts.get_all_structures()
-
-        if self.type_liquid in ('otro',
-                                'nomi_otro') and self.struct_liquida_id:
-            structure_ids += self.get_all_structures()
-
+        structure_ids = contracts.get_all_structures()
         rule_ids = self.env['hr.payroll.structure'].browse(
             structure_ids).get_all_rules()
         sorted_rule_ids = [
@@ -422,49 +413,35 @@ class HrPayslip(models.Model):
             'input_ids')
 
         for contract in contracts:
-            for input in inputs:
-                #Determina si existe un posible(s) valor(es) para la entrada
-                amount = 0.0
-                deduction_ids = self.env['hr.contract.deduction'].search([
-                    ('contract_id', '=', contract.id),
-                    ('input_id', '=', input.id), ('date', '<=', date_to)
-                ])
-                ded_id = False
-                if deduction_ids:
-                    for reg in deduction_ids:
-                        #Si es un prestamo valida que no se exceda el valor total
-                        if reg.period == 'limited':
-                            if (reg.total_accumulated +
-                                    reg.amount) > reg.total_deduction:
-                                amount = reg.total_deduction - reg.total_accumulated
+            if inputs:
+                for input in inputs:
+                    amount = 0.0
+                    deduction_ids = self.env['hr.contract.deduction'].search([
+                        '&', ('contract_id', '=', contract.id),
+                        ('input_id', '=', input.id)
+                    ])
+                    ded_id = False
+                    if len(deduction_ids) > 0:
+                        for reg in deduction_ids:
+                            if reg.period == 'limited':
+                                if (reg.total_accumulated +
+                                        reg.amount) > reg.total_deduction:
+                                    amount = reg.total_deduction - reg.total_accumulated
+                                else:
+                                    amount = amount + reg.amount
                             else:
                                 amount = amount + reg.amount
-                        else:
-                            amount = amount + reg.amount
-                        ded_id = reg.id
+                            ded_id = reg.id
 
-                #Busca el valor en las novedades, sino encontro en las deducciones
-                if amount == 0.0:
-                    #news_ids = self.env['hr.payroll.news'].search([('identification_id', '=',contract.employee_id.identification_id),('code','=',input.code),('date_from','=',date_from),('date_to','=',date_to),('value','!=',0)])
-                    news_ids = self.env['hr.payroll.news'].search([
-                        ('employee_id', '=', contract.employee_id.id),
-                        ('input_id', '=', input.id),
-                        ('date_from', '=', date_from),
-                        ('date_to', '=', date_to), ('value', '!=', 0)
-                    ])
-                    if news_ids:
-                        for nov in news_ids:
-                            amount = amount + nov.value
-
-                input_data = {
-                    'name': input.name,
-                    'code': input.code,
-                    'contract_id': contract.id,
-                    'amount': amount,
-                    'salary_rule_id': input.input_id.id,
-                    'deduction_id': ded_id,
-                }
-                res += [input_data]
+                    input_data = {
+                        'name': input.name,
+                        'code': input.code,
+                        'contract_id': contract.id,
+                        'amount': amount,
+                        'salary_rule_id': input.input_id.id,
+                        'deduction_id': ded_id,
+                    }
+                    res += [input_data]
 
         return res
 
