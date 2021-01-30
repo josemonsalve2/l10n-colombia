@@ -16,6 +16,7 @@ class HrPayslipLine(models.Model):
         """
         # use partner of salary rule or fallback on employee's address
         emp_contract = self.env['hr.contract.setting']
+        emp_employee = self.env['hr.employee']
         register_partner_db_id = self.salary_rule_id.register_id.partner_id or False
         register_partner_cr_id = self.salary_rule_id.register_credit_id.partner_id or False
         partner_id = self.slip_id.employee_id.address_home_id.id
@@ -32,6 +33,21 @@ class HrPayslipLine(models.Model):
                 ('contract_id', '=', self.slip_id.contract_id.id),
                 ('contrib_id', '=', self.salary_rule_id.register_credit_id.id)
             ])
+        if self.slip_id.employee_id.eps and self.salary_rule_id.type == "eps":
+            employee_entity = emp_employee.search([
+                ('id', '=', self.slip_id.employee_id.id)
+            ]).eps
+            partner_id = employee_entity.id
+        if self.slip_id.employee_id.pension and self.salary_rule_id.type == "pension":
+            employee_entity = emp_employee.search([
+                ('id', '=', self.slip_id.employee_id.id)
+            ]).pension
+            partner_id = employee_entity.id
+        if self.slip_id.employee_id.layoff_fund and self.salary_rule_id.type == "cesantias":
+            employee_entity = emp_employee.search([
+                ('id', '=', self.slip_id.employee_id.id)
+            ]).layoff_fund
+            partner_id = employee_entity.id
 
         if credit_account:
             return (register_partner_cr_id and register_partner_cr_id.id) or (
