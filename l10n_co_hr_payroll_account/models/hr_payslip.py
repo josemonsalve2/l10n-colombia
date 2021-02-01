@@ -873,9 +873,8 @@ class HrPayslip(models.Model):
 
                 return valor
 
-            #Recupera el auxilio de transporte del ano fiscal
+            @api.multi
             def get_auxtransporte_ano(self, from_date):
-                #date_start = datetime.strptime(from_date,"%Y-%m-%d")
                 date_start = from_date
                 ano = date_start.year
 
@@ -883,7 +882,7 @@ class HrPayslip(models.Model):
                 to_date = str(ano) + '-12-31'
 
                 self.env.cr.execute(
-                    "select sub_transporte from account_fiscalyear where date_start = %s::date and date_stop = %s::date",
+                    "select sub_transport from account_fiscal_year where date_from = %s::date and date_to = %s::date",
                     (from_date, to_date))
 
                 res = self.env.cr.fetchone()
@@ -899,7 +898,7 @@ class HrPayslip(models.Model):
                 to_date = str(ano) + '-12-31'
 
                 self.env.cr.execute(
-                    "select salario_minimo from account_fiscalyear where date_start = %s::date and date_stop = %s::date",
+                    "select minimum_wage from account_fiscal_year where date_from = %s::date and date_to = %s::date",
                     (from_date, to_date))
 
                 res = self.env.cr.fetchone()
@@ -1052,6 +1051,8 @@ class HrPayslip(models.Model):
         worked_days_dict = {}
         inputs_dict = {}
         blacklist = []
+        fiscal = self.env['account.fiscal.year'].search([('state', '=',
+                                                          'draft')])
         payslip = self.env['hr.payslip'].browse(payslip_id)
         for worked_days_line in payslip.worked_days_line_ids:
             worked_days_dict[worked_days_line.code] = worked_days_line
@@ -1070,7 +1071,8 @@ class HrPayslip(models.Model):
             'rules': rules,
             'payslip': payslips,
             'worked_days': worked_days,
-            'inputs': inputs
+            'inputs': inputs,
+            'fiscal': fiscal
         }
         #get the ids of the structures on the contracts and their parent id as well
         contracts = self.env['hr.contract'].browse(contract_ids)

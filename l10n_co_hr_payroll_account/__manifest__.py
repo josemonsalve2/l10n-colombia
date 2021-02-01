@@ -11,7 +11,7 @@
     "Generic Modules/Human Resources",
     "depends": [
         "hr", "hr_contract", "hr_holidays", "hr_payroll", "hr_payroll_account",
-        "account_fiscal_year"
+        "l10n_co_account_fiscal_year"
     ],
     "description":
     """

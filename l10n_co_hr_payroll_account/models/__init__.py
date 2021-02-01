@@ -19,7 +19,6 @@ from . import hr_leave
 from . import hr_leave_type
 from . import hr_payroll_news
 from . import hr_payroll_account
-from . import hr_payslip
 from . import hr_payslip_input
 from . import hr_payslip_worked_days
 from . import hr_payslip_analytic
@@ -27,3 +26,4 @@ from . import hr_payslip_line
 from . import hr_payslip_details
 from . import hr_rule_input
 from . import hr_payslip_run
+from . import hr_payslip
