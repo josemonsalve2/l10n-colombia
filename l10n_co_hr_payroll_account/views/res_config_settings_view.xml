@@ -8,8 +8,10 @@
       <field name="date_to" position="after">
         <field name="minimum_wage"/>
         <field name="sub_transport"/>
-        <field name="pension_rate"/>
-        <field name="health_rate"/>
+        <field name="pension_rate_employer"/>
+        <field name="pension_rate_employee"/>
+        <field name="health_rate_employer"/>
+        <field name="health_rate_employee"/>
         <field name="health_rate_integral"/>
         <field name="rate_ccf"/>
         <field name="rate_sena"/>

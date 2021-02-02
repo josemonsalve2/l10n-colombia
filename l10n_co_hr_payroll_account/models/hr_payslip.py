@@ -888,7 +888,7 @@ class HrPayslip(models.Model):
                 res = self.env.cr.fetchone()
                 return res and res[0] or 0.0
 
-            #Recupera el salario del ano fiscal
+            @api.multi
             def get_minsalary_ano(self, from_date):
                 #date_start = datetime.strptime(from_date,"%Y-%m-%d")
                 date_start = from_date
