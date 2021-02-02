@@ -48,6 +48,10 @@ class HrPayslipLine(models.Model):
                 ('id', '=', self.slip_id.employee_id.id)
             ]).layoff_fund
             partner_id = employee_entity.id
+        if self.salary_rule_id.type == "caja":
+            partner_id = self.salary_rule_id.register_id.partner_id.id
+        if self.salary_rule_id.type == "riesgo":
+            partner_id = self.salary_rule_id.register_id.partner_id.id
 
         if credit_account:
             return (register_partner_cr_id and register_partner_cr_id.id) or (
