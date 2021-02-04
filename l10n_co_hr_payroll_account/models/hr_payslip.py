@@ -421,12 +421,11 @@ class HrPayslip(models.Model):
                         ('input_id', '=', input.id)
                     ])
                     ded_id = False
-                    if len(deduction_ids) > 0:
+                    if deduction_ids:
                         for reg in deduction_ids:
                             if reg.period == 'limited':
-                                if (reg.total_accumulated +
-                                        reg.amount) > reg.total_deduction:
-                                    amount = reg.total_deduction - reg.total_accumulated
+                                if reg.current_balance <= 0.0:
+                                    amount = 0.0
                                 else:
                                     amount = amount + reg.amount
                             else:

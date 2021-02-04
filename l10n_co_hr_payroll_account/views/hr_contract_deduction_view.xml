@@ -13,6 +13,7 @@
 				<field name="total_deduction"/>
 				<field name="total_accumulated"/>
 				<field name="date"/>
+				<field name="date_end"/>
 				<field name="total_acumulados"/>
 				<field name="current_balance"/>
 			</tree>

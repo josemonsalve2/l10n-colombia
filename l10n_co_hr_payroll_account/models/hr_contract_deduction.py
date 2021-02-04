@@ -44,20 +44,22 @@ class HrContractDeduction(models.Model):
     date = fields.Date(string='Start date',
                        select=True,
                        help="Date of loan or obligation")
+    date_end = fields.Date(string='Date End',
+                           select=True,
+                           help="Date End or obligation")
     contract_id = fields.Many2one(comodel_name='hr.contract',
                                   string='Contract',
                                   required=True,
                                   ondelete='cascade',
                                   select=True)
 
-    @api.one
+    @api.multi
     @api.depends('amount', 'period', 'total_deduction', 'total_accumulated')
     def _compute_saldo(self):
-
         for line in self:
             result = 0.0
             if line.period == 'limited':
-                #              self.env.cr.execute("""select  sum(l.total) as total
+                #             self.env.cr.execute("""select  sum(l.total) as total
                 #                      from hr_payslip_line l
                 #                      inner join hr_payslip p on (p.id = l.slip_id)
                 #                      inner join hr_payslip_input i on (i.payslip_id = p.id and i.salary_rule_id = l.salary_rule_id)
@@ -69,7 +71,12 @@ class HrContractDeduction(models.Model):
                       from hr_payslip_input i
                       inner join hr_payslip p on (p.id = i.payslip_id)
                       where i.deduction_id = %(prestamo_id)s
-                      """, {'prestamo_id': line.id})
+                      and p.date_from between %(fecha_desde)s::date and %(fecha_hasta)s::date
+                      """, {
+                        'prestamo_id': line.id or 0.0,
+                        'fecha_desde': line.date,
+                        'fecha_hasta': line.date_end,
+                    })
 
                 res = self.env.cr.fetchone() or False
                 if res:
@@ -77,3 +84,4 @@ class HrContractDeduction(models.Model):
                     result = result
 
             line.total_acumulados = result
+            line.current_balance = line.total_deduction - line.total_acumulados

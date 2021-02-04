@@ -46,6 +46,7 @@
 							<field name="total_acumulados"/>
 							<field name="current_balance"/>
 							<field name="date"/>
+							<field name="date_end"/>
 						</tree>
 					</field>
 				</page>
