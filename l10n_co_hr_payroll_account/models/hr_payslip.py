@@ -382,8 +382,7 @@ class HrPayslip(models.Model):
                     payslip.date_to.strftime('%Y-%m-%d'))
             ]
             input_line_ids = [(0, 0, intput) for intput in payslip.get_inputs(
-                contracts, payslip.date_from.strftime('%Y-%m-%d'),
-                payslip.date_to.strftime('%Y-%m-%d'))]
+                contracts, payslip.date_from, payslip.date_to)]
 
             payslip.write({
                 'worked_days_line_ids': worked_days_line_ids,
