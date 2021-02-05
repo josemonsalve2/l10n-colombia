@@ -7,8 +7,10 @@
     '12.0.1.0.0',
     'category':
     'Generic Modules/Human Resources',
-    'author': "Cybrosys Techno Solutions, EXA Auto Parts Github@exaap, Alejandro Olano Github@alejo-code",
-    'depends': ['base', 'hr_payroll', 'hr', 'account'],
+    'author':
+    "Cybrosys Techno Solutions, EXA Auto Parts Github@exaap, Alejandro Olano Github@alejo-code",
+    'depends':
+    ['base', 'hr_payroll', 'hr', 'account', 'l10n_co_hr_payroll_account'],
     'data': [
         'security/ir.model.access.csv',
         'security/security.xml',

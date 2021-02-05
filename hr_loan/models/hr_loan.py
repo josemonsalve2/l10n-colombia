@@ -168,7 +168,7 @@ class HrLoan(models.Model):
                     'loan_id':
                     loan.id
                 })
-                date_start = date_start + relativedelta(months=1)
+                date_start = date_start + relativedelta(days=15)
             loan._compute_loan_amount()
         return True
 
