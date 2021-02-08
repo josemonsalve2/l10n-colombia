@@ -13,7 +13,7 @@
     ['base', 'hr_payroll', 'hr', 'account', 'l10n_co_hr_payroll_account'],
     'data': [
         'security/ir.model.access.csv',
-        'data/salary_rule_loan.xml',
+        #'data/salary_rule_loan.xml',
         'security/security.xml',
         'views/hr_loan_seq.xml',
         'views/hr_loan.xml',
