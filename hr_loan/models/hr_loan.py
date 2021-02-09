@@ -168,7 +168,20 @@ class HrLoan(models.Model):
                     'loan_id':
                     loan.id
                 })
-                date_start = date_start + relativedelta(days=15)
+                #Febrero
+                nb_of_days = 0
+                if date_start.month == 2 and date_start.day >= 15:
+                    nb_of_days = 2
+                if ((date_start.year % 4 == 0 and date_start.year % 100 != 0)
+                        or date_start.year % 400 == 0):
+                    if date_start.day >= 15:
+                        nb_of_days = 1
+                if date_start.month == 2 and date_start.day == 28 or date_start.day == 29:
+                    nb_of_days = 0
+                if date_start.day == 1:
+                    nb_of_days = 1
+                date_start = date_start + relativedelta(
+                    days=15) - relativedelta(days=nb_of_days)
             loan._compute_loan_amount()
         return True
 
