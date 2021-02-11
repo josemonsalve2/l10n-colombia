@@ -189,11 +189,6 @@ class HrLoan(models.Model):
                     date_start2 = date_start + relativedelta(
                         days=15) - relativedelta(
                             days=nb_of_days) - relativedelta(days=1)
-                if date_start2.month == 1 or date_start2.month == 3 or date_start2.month == 5 or date_start2.month == 7 or date_start2.month == 8 or date_start2.month == 10 or date_start2.month == 12:
-                    if date_start2.day == 30:
-                        date_start2 = date_start + relativedelta(
-                            days=15) - relativedelta(
-                                days=nb_of_days) + relativedelta(days=1)
 
                 date_start = date_start2
 
