@@ -1,6 +1,7 @@
 # Copyright 2021 Alejandro Olano <Github@alejo-code>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
+from odoo.tools.func import conditional
 from odoo import models, fields, api, _
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
@@ -39,10 +40,10 @@ class HrLoan(models.Model):
     date = fields.Date(string="Date",
                        default=fields.Date.today(),
                        readonly=True)
-    employee_id = fields.Many2one('hr.employee',
+    employee_id = fields.Many2one(comodel_name='hr.employee',
                                   string="Employee",
                                   required=True)
-    department_id = fields.Many2one('hr.department',
+    department_id = fields.Many2one(comodel_name='hr.department',
                                     related="employee_id.department_id",
                                     readonly=True,
                                     string="Department")
@@ -50,25 +51,27 @@ class HrLoan(models.Model):
     payment_date = fields.Date(string="Payment Start Date",
                                required=True,
                                default=fields.Date.today())
-    loan_lines = fields.One2many('hr.loan.line',
-                                 'loan_id',
+    loan_lines = fields.One2many(comodel_name='hr.loan.line',
+                                 inverse_name='loan_id',
                                  string="Loan Line",
                                  index=True)
-    emp_account_id = fields.Many2one('account.account', string="Loan Account")
-    treasury_account_id = fields.Many2one('account.account',
+    emp_account_id = fields.Many2one(comodel_name='account.account',
+                                     string="Loan Account")
+    treasury_account_id = fields.Many2one(comodel_name='account.account',
                                           string="Treasury Account")
-    journal_id = fields.Many2one('account.journal', string="Journal")
-    company_id = fields.Many2one('res.company',
-                                 'Company',
+    journal_id = fields.Many2one(comodel_name='account.journal',
+                                 string="Journal")
+    company_id = fields.Many2one(comodel_name='res.company',
+                                 string='Company',
                                  readonly=True,
                                  default=lambda self: self.env.user.company_id,
                                  states={'draft': [('readonly', False)]})
     currency_id = fields.Many2one(
-        'res.currency',
+        comodel_name='res.currency',
         string='Currency',
         required=True,
         default=lambda self: self.env.user.company_id.currency_id)
-    job_position = fields.Many2one('hr.job',
+    job_position = fields.Many2one(comodel_name='hr.job',
                                    related="employee_id.job_id",
                                    readonly=True,
                                    string="Job Position")
@@ -85,7 +88,7 @@ class HrLoan(models.Model):
                                      compute='_compute_loan_amount')
 
     state = fields.Selection(
-        [
+        selection=[
             ('draft', 'Draft'),
             ('waiting_approval_1', 'Submitted'),
             ('waiting_approval_2', 'Waiting Approval'),
@@ -201,11 +204,13 @@ class InstallmentLine(models.Model):
     _description = "Installment Line"
 
     date = fields.Date(string="Payment Date", required=True)
-    employee_id = fields.Many2one('hr.employee', string="Employee")
+    employee_id = fields.Many2one(comodel_name='hr.employee',
+                                  string="Employee")
     amount = fields.Float(string="Amount", required=True)
     paid = fields.Boolean(string="Paid")
-    loan_id = fields.Many2one('hr.loan', string="Loan Ref.")
-    payslip_id = fields.Many2one('hr.payslip', string="Payslip Ref.")
+    loan_id = fields.Many2one(comodel_name='hr.loan', string="Loan Ref.")
+    payslip_id = fields.Many2one(comodel_name='hr.payslip',
+                                 string="Payslip Ref.")
 
 
 class HrEmployee(models.Model):

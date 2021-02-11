@@ -9,7 +9,8 @@ from datetime import datetime
 class HrPayslipInput(models.Model):
     _inherit = 'hr.payslip.input'
 
-    loan_line_id = fields.Many2one('hr.loan.line', string="Loan Installment")
+    loan_line_id = fields.Many2one(comodel_name='hr.loan.line',
+                                   string="Loan Installment")
 
 
 class HrPayslip(models.Model):
