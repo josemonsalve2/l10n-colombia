@@ -172,16 +172,31 @@ class HrLoan(models.Model):
                 nb_of_days = 0
                 if date_start.month == 2 and date_start.day >= 15:
                     nb_of_days = 2
-                if ((date_start.year % 4 == 0 and date_start.year % 100 != 0)
-                        or date_start.year % 400 == 0):
-                    if date_start.day >= 15:
-                        nb_of_days = 1
-                if date_start.month == 2 and date_start.day == 28 or date_start.day == 29:
-                    nb_of_days = 0
-                if date_start.day == 1:
-                    nb_of_days = 1
-                date_start = date_start + relativedelta(
+                    if ((date_start.year % 4 == 0
+                         and date_start.year % 100 != 0)
+                            or date_start.year % 400 == 0):
+                        if date_start.day >= 15:
+                            nb_of_days = 1
+                    if date_start.month == 2 and date_start.day == 28 or date_start.day == 29:
+                        nb_of_days = 0
+
+                if date_start.day == 30:
+                    nb_of_days = -1
+
+                date_start2 = date_start + relativedelta(
                     days=15) - relativedelta(days=nb_of_days)
+                if date_start2.day == 16:
+                    date_start2 = date_start + relativedelta(
+                        days=15) - relativedelta(
+                            days=nb_of_days) - relativedelta(days=1)
+                if date_start2.month == 1 or date_start2.month == 3 or date_start2.month == 5 or date_start2.month == 7 or date_start2.month == 8 or date_start2.month == 10 or date_start2.month == 12:
+                    if date_start2.day == 30:
+                        date_start2 = date_start + relativedelta(
+                            days=15) - relativedelta(
+                                days=nb_of_days) + relativedelta(days=1)
+
+                date_start = date_start2
+
             loan._compute_loan_amount()
         return True
 
