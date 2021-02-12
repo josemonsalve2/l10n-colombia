@@ -3,7 +3,7 @@
    :alt: License: AGPL-3
 
 =================
-Hr Holidays Status Limit
+Hr Leave Allocation Contract
 =================
 
 Credits
