@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_account_tax_group_tree" model="ir.ui.view">
+        <field name="model">account.tax.group</field>
+        <field name="inherit_id" ref="account_group_menu.view_account_tax_group_tree"/>
+        <field name="arch" type="xml">
+            <field name="sequence" position="after">
+                <field name="fiscalunit_factor"/>
+            </field>
+        </field>
+    </record>
+</odoo>
