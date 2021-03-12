@@ -1,0 +1,21 @@
+<?xml version = "1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+		<record id="00002" model="res.better.zip.district">
+		<field name="name">Berlin</field>
+        <field name="zip_id" ref="l10n_co_base_location.CO050004"/>
+		</record>
+    </data>
+	<data>
+		<record id="00003" model="res.better.zip.district">
+		<field name="name">Villa Hermosa</field>
+        <field name="zip_id" ref="l10n_co_base_location.CO054448"/>
+		</record>
+    </data>
+	<data>
+		<record id="00004" model="res.better.zip.district">
+		<field name="name"></field>
+        <field name="zip_id" ref="l10n_co_base_location.xxxxxxx"/>
+		</record>
+    </data>
+</odoo>
