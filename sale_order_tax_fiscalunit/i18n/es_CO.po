@@ -1,0 +1,37 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* sale_order_tax_fiscalunit
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 10.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-10-10 16:43+0000\n"
+"PO-Revision-Date: 2019-10-10 16:43+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: sale_order_tax_fiscalunit
+#: model:ir.model.fields,field_description:sale_order_tax_fiscalunit.field_sale_order_rate_order
+msgid "Rate"
+msgstr "Tasa"
+
+#. module: sale_order_tax_fiscalunit
+#: model:ir.model,name:sale_order_tax_fiscalunit.model_sale_order
+msgid "Sales Order"
+msgstr "Pedidos de Venta"
+
+#. module: sale_order_tax_fiscalunit
+#: model:ir.model,name:sale_order_tax_fiscalunit.model_sale_order_line
+msgid "Sales Order Line"
+msgstr "Línea de Pedidos de Venta"
+
+#. module: sale_order_tax_fiscalunit
+#: code:addons/sale_order_tax_fiscalunit/models/sale_order.py:92
+#, python-format
+msgid "There is no date range corresponding to the date of your order"
+msgstr "No hay un intervalo de fechas correspondiente a la fecha de su pedido."
