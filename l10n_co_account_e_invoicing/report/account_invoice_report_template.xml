@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="report_invoice_document_with_qr" inherit_id="account.report_invoice_document">
+        <xpath expr="//div[@name='invoice_address']" position="before">
+            <div class="col-xs-10">
+                <t t-foreach="o.dian_document_ids" t-as="dd">
+                    <br/>
+                    <br/>
+                    <t t-if="dd.cufe_cude and o.type == 'out_invoice' and dd.state != 'cancel'">
+                        <li style="list-style-type:none;font-size:10px">
+                            <strong>CUFE: </strong>
+                            <span t-field="dd.cufe_cude"/>
+                        </li>
+                    </t>
+                    <t t-if="dd.cufe_cude and o.type == 'out_refund' and dd.state != 'cancel'">
+                        <li style="font-size:10px">
+                            <strong>CUDE: </strong>
+                            <span t-field="dd.cufe_cude"/>
+                        </li>
+                    </t>
+                </t>
+            </div>
+            <div class="col-xs-2" align="right">
+                <t t-foreach="o.dian_document_ids" t-as="dd">
+                    <t t-if="dd.qr_image and dd.state != 'cancel'">
+                        <img class="image" t-att-src="'data:image/png;base64,%s' % dd.qr_image" style="width:120px;height:120px"/>
+                    </t>
+                </t>
+            </div>
+        </xpath>
+    </template>
+
+</odoo>
