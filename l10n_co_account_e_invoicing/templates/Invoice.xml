@@ -122,11 +122,14 @@
 		<cbc:ID>8124167214 DA</cbc:ID>
         <cbc:IssueDate>2019-12-12</cbc:IssueDate>
 	</cac:DespatchDocumentReference-->
-<!--TODO 3.0: opcional, solo interés mercantil, para referenciar uno o más documentos de recepción asociado>
+<!--TODO 3.0: opcional, solo interés mercantil, para referenciar uno o más documentos de recepción asociado-->
+	{% if ReceiptDocumentReferenceID %}
 	<cac:ReceiptDocumentReference>
-		<cbc:ID>12314129 GR</cbc:ID>
-        <cbc:IssueDate>2019-12-12</cbc:IssueDate>
-	</cac:ReceiptDocumentReference-->
+		<cbc:ID>{{ReceiptDocumentReferenceID}}</cbc:ID>
+	<!--TODO 2.0: No hay un campo validado aun, para la fecha de la orden del cliente>
+		<cbc:IssueDate>{{ReceiptDocumentReferenceDate}}</cbc:IssueDate-->
+	</cac:ReceiptDocumentReference>
+	{% endif %}
 	{% if InvoiceTypeCode == '03' %}
 	<cac:AdditionalDocumentReference>
 		<cbc:ID>{{ID}}</cbc:ID>
