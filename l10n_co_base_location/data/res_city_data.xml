@@ -616,5 +616,264 @@
         <field name="country_id" ref="base.co"/>
         <field name="state_id" ref="res_country_state_co_05"/>
     </record>
+    <record id="CO056030" model="res.city">
+        <field name="name">VALPARAÍSO</field>
+        <field name="code">05856</field>
+        <field name="phone_prefix">4</field>
+        <field name="country_id" ref="base.co"/>
+        <field name="state_id" ref="res_country_state_co_05"/>
+    </record>
+    <record id="CO056040" model="res.city">
+        <field name="name">CARAMANTA</field>
+        <field name="code">05145</field>
+        <field name="phone_prefix">4</field>
+        <field name="country_id" ref="base.co"/>
+        <field name="state_id" ref="res_country_state_co_05"/>
+    </record>
+    <record id="CO056050" model="res.city">
+        <field name="name">JARDÍN</field>
+        <field name="code">05364</field>
+        <field name="phone_prefix">4</field>
+        <field name="country_id" ref="base.co"/>
+        <field name="state_id" ref="res_country_state_co_05"/>
+    </record>
+    <record id="CO056060" model="res.city">
+        <field name="name">ANDES</field>
+        <field name="code">05034</field>
+        <field name="phone_prefix">4</field>
+        <field name="country_id" ref="base.co"/>
+        <field name="state_id" ref="res_country_state_co_05"/>
+    </record>
+    <record id="CO056070" model="res.city">
+        <field name="name">BETANIA</field>
+        <field name="code">05091</field>
+        <field name="phone_prefix">4</field>
+        <field name="country_id" ref="base.co"/>
+        <field name="state_id" ref="res_country_state_co_05"/>
+    </record>
+    <record id="CO056410" model="res.city">
+        <field name="name">CONCORDIA</field>
+        <field name="code">05209</field>
+        <field name="phone_prefix">4</field>
+        <field name="country_id" ref="base.co"/>
+        <field name="state_id" ref="res_country_state_co_05"/>
+    </record>
+    <record id="CO056420" model="res.city">
+        <field name="name">VENECIA</field>
+        <field name="code">05861</field>
+        <field name="phone_prefix">4</field>
+        <field name="country_id" ref="base.co"/>
+        <field name="state_id" ref="res_country_state_co_05"/>
+    </record>
+    <record id="CO056430" model="res.city">
+        <field name="name">TARSO</field>
+        <field name="code">05792</field>
+        <field name="phone_prefix">4</field>
+        <field name="country_id" ref="base.co"/>
+        <field name="state_id" ref="res_country_state_co_05"/>
+    </record>
+    <record id="CO056440" model="res.city">
+        <field name="name">PUEBLO RICO</field>
+        <field name="code">05576</field>
+        <field name="phone_prefix">4</field>
+        <field name="country_id" ref="base.co"/>
+        <field name="state_id" ref="res_country_state_co_05"/>
+    </record>
+    <record id="CO056450" model="res.city">
+        <field name="name">HISPANIA</field>
+        <field name="code">05353</field>
+        <field name="phone_prefix">4</field>
+        <field name="country_id" ref="base.co"/>
+        <field name="state_id" ref="res_country_state_co_05"/>
+    </record>
+    <record id="CO056460" model="res.city">
+        <field name="name">CIUDAD BOLÍVAR</field>
+        <field name="code">05101</field>
+        <field name="phone_prefix">4</field>
+        <field name="country_id" ref="base.co"/>
+        <field name="state_id" ref="res_country_state_co_05"/>
+    </record>
+    <record id="CO056470" model="res.city">
+        <field name="name">SALGAR</field>
+        <field name="code">05642</field>
+        <field name="phone_prefix">4</field>
+        <field name="country_id" ref="base.co"/>
+        <field name="state_id" ref="res_country_state_co_05"/>
+    </record>
+    <record id="CO056810" model="res.city">
+        <field name="name">MURINDÓ</field>
+        <field name="code">05475</field>
+        <field name="phone_prefix">4</field>
+        <field name="country_id" ref="base.co"/>
+        <field name="state_id" ref="res_country_state_co_05"/>
+    </record>
+    <record id="CO056820" model="res.city">
+        <field name="name">VIGÍA DEL FUERTE</field>
+        <field name="code">05873</field>
+        <field name="phone_prefix">4</field>
+        <field name="country_id" ref="base.co"/>
+        <field name="state_id" ref="res_country_state_co_05"/>
+    </record>
+    <record id="CO056830" model="res.city">
+        <field name="name">URRAO</field>
+        <field name="code">05847</field>
+        <field name="phone_prefix">4</field>
+        <field name="country_id" ref="base.co"/>
+        <field name="state_id" ref="res_country_state_co_05"/>
+    </record>
+    <record id="CO056840" model="res.city">
+        <field name="name">CAICEDO</field>
+        <field name="code">05125</field>
+        <field name="phone_prefix">4</field>
+        <field name="country_id" ref="base.co"/>
+        <field name="state_id" ref="res_country_state_co_05"/>
+    </record>
+    <record id="CO056850" model="res.city">
+        <field name="name">ANZÁ</field>
+        <field name="code">05044</field>
+        <field name="phone_prefix">4</field>
+        <field name="country_id" ref="base.co"/>
+        <field name="state_id" ref="res_country_state_co_05"/>
+    </record>
+    <record id="CO056860" model="res.city">
+        <field name="name">BETULIA</field>
+        <field name="code">05093</field>
+        <field name="phone_prefix">4</field>
+        <field name="country_id" ref="base.co"/>
+        <field name="state_id" ref="res_country_state_co_05"/>
+    </record>
+    <record id="CO057010" model="res.city">
+        <field name="name">PEQUE</field>
+        <field name="code">05543</field>
+        <field name="phone_prefix">4</field>
+        <field name="country_id" ref="base.co"/>
+        <field name="state_id" ref="res_country_state_co_05"/>
+    </record>
+    <record id="CO057020" model="res.city">
+        <field name="name">SABANALARGA</field>
+        <field name="code">05628</field>
+        <field name="phone_prefix">4</field>
+        <field name="country_id" ref="base.co"/>
+        <field name="state_id" ref="res_country_state_co_05"/>
+    </record>
+    <record id="CO057030" model="res.city">
+        <field name="name">BURITICÁ</field>
+        <field name="code">05113</field>
+        <field name="phone_prefix">4</field>
+        <field name="country_id" ref="base.co"/>
+        <field name="state_id" ref="res_country_state_co_05"/>
+    </record>
+    <record id="CO057040" model="res.city">
+        <field name="name">GIRALDO</field>
+        <field name="code">05306</field>
+        <field name="phone_prefix">4</field>
+        <field name="country_id" ref="base.co"/>
+        <field name="state_id" ref="res_country_state_co_05"/>
+    </record>
+    <record id="CO057050" model="res.city">
+        <field name="name">SANTA FÉ DE ANTIOQUIA</field>
+        <field name="code">05042</field>
+        <field name="phone_prefix">4</field>
+        <field name="country_id" ref="base.co"/>
+        <field name="state_id" ref="res_country_state_co_05"/>
+    </record>
+    <record id="CO057060" model="res.city">
+        <field name="name">CAÑAS GORDAS</field>
+        <field name="code">05138</field>
+        <field name="phone_prefix">4</field>
+        <field name="country_id" ref="base.co"/>
+        <field name="state_id" ref="res_country_state_co_05"/>
+    </record>
+    <record id="CO057410" model="res.city">
+        <field name="name">CHIGORODÓ</field>
+        <field name="code">05172</field>
+        <field name="phone_prefix">4</field>
+        <field name="country_id" ref="base.co"/>
+        <field name="state_id" ref="res_country_state_co_05"/>
+    </record>
+    <record id="CO057420" model="res.city">
+        <field name="name">MUTATÁ</field>
+        <field name="code">05480</field>
+        <field name="phone_prefix">4</field>
+        <field name="country_id" ref="base.co"/>
+        <field name="state_id" ref="res_country_state_co_05"/>
+    </record>
+    <record id="CO057430" model="res.city">
+        <field name="name">DABEIBA</field>
+        <field name="code">05234</field>
+        <field name="phone_prefix">4</field>
+        <field name="country_id" ref="base.co"/>
+        <field name="state_id" ref="res_country_state_co_05"/>
+    </record>
+    <record id="CO057440" model="res.city">
+        <field name="name">URAMITA</field>
+        <field name="code">05842</field>
+        <field name="phone_prefix">4</field>
+        <field name="country_id" ref="base.co"/>
+        <field name="state_id" ref="res_country_state_co_05"/>
+    </record>
+    <record id="CO057450" model="res.city">
+        <field name="name">FRONTINO</field>
+        <field name="code">05284</field>
+        <field name="phone_prefix">4</field>
+        <field name="country_id" ref="base.co"/>
+        <field name="state_id" ref="res_country_state_co_05"/>
+    </record>
+    <record id="CO057460" model="res.city">
+        <field name="name">ABRIAQUÍ</field>
+        <field name="code">05004</field>
+        <field name="phone_prefix">4</field>
+        <field name="country_id" ref="base.co"/>
+        <field name="state_id" ref="res_country_state_co_05"/>
+    </record>
+    <record id="CO057810" model="res.city">
+        <field name="name">SAN JUAN DE URABÁ</field>
+        <field name="code">05659</field>
+        <field name="phone_prefix">4</field>
+        <field name="country_id" ref="base.co"/>
+        <field name="state_id" ref="res_country_state_co_05"/>
+    </record>
+    <record id="CO057820" model="res.city">
+        <field name="name">ARBOLETES</field>
+        <field name="code">05051</field>
+        <field name="phone_prefix">4</field>
+        <field name="country_id" ref="base.co"/>
+        <field name="state_id" ref="res_country_state_co_05"/>
+    </record>
+    <record id="CO057830" model="res.city">
+        <field name="name">SAN PEDRO DE URABÁ</field>
+        <field name="code">05665</field>
+        <field name="phone_prefix">4</field>
+        <field name="country_id" ref="base.co"/>
+        <field name="state_id" ref="res_country_state_co_05"/>
+    </record>
+    <record id="CO057840" model="res.city">
+        <field name="name">APARTADÓ</field>
+        <field name="code">05045</field>
+        <field name="phone_prefix">4</field>
+        <field name="country_id" ref="base.co"/>
+        <field name="state_id" ref="res_country_state_co_05"/>
+    </record>
+    <record id="CO057850" model="res.city">
+        <field name="name">CAREPA</field>
+        <field name="code">05147</field>
+        <field name="phone_prefix">4</field>
+        <field name="country_id" ref="base.co"/>
+        <field name="state_id" ref="res_country_state_co_05"/>
+    </record>
+    <record id="CO057860" model="res.city">
+        <field name="name">TURBO</field>
+        <field name="code">05837</field>
+        <field name="phone_prefix">4</field>
+        <field name="country_id" ref="base.co"/>
+        <field name="state_id" ref="res_country_state_co_05"/>
+    </record>
+    <record id="CO057870" model="res.city">
+        <field name="name">NECOCLÍ</field>
+        <field name="code">05837</field>
+        <field name="phone_prefix">4</field>
+        <field name="country_id" ref="base.co"/>
+        <field name="state_id" ref="res_country_state_co_05"/>
+    </record>
 
 </odoo>
