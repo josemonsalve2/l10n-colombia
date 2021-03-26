@@ -8,5 +8,9 @@ from odoo import models, fields
 
 class ResCityZip(models.Model):
     _inherit = "res.city.zip"
-
-    phone_prefix = fields.Char(string='Phone Prefix')
+    phone_prefix = fields.Char(string='Phone Prefix',
+                               related='city_id.phone_prefix')
+    code = fields.Char(string='City Code',
+                       size=64,
+                       related='city_id.code',
+                       help="The official code for the city")
