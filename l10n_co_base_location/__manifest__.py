@@ -17,15 +17,18 @@
     "https://github.com/exaap/l10n-colombia",
     "author":
     "EXA Auto Parts Github@exaap, "
+    "Alejandro Olano Github@alejo-code, "
     "Joan Marín Github@JoanMarin, "
-    "Guillermo Montoya Github@guillermm, "
-    "Alejandro Olano Github@alejo-code",
+    "Guillermo Montoya Github@guillermm,",
     "category":
     "Localization",
     "depends": ["base_location"],
     "data": [
+        "data/res_country_data.xml", "data/res_country_state_data.xml",
+        "data/res_city_data.xml", "data/res_city_zip_data.xml",
         "views/res_country_views.xml", "views/res_country_state_views.xml",
-        "views/res_city_zip_views.xml", "views/res_partner_views.xml"
+        "views/res_city_views.xml", "views/res_city_zip_views.xml",
+        "views/res_partner_views.xml"
     ],
     "installable":
     True,

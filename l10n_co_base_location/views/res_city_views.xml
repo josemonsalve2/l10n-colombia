@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_city_form" model="ir.ui.view">
+        <field name="model">res.city</field>
+        <field name="inherit_id" ref="base_location.view_city_form"/>
+        <field name="arch" type="xml">
+             <xpath expr='//field[@name="name"]' position="after">
+                <field name="code"/>
+                <field name="phone_prefix"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>
