@@ -56,7 +56,7 @@ msgstr ""
 
 #. module: l10n_co_account_invoice_discrepancy_response
 #: model:ir.model.fields,field_description:l10n_co_account_invoice_discrepancy_response.field_account_invoice_debit_note_discrepancy_response_code_id
-#: model:ir.model.fields,field_description:l10n_co_account_invoice_discrepancy_response.field_account_invoice_discrepancy_response_code_id_24711
+#: model:ir.model.fields,field_description:l10n_co_account_invoice_discrepancy_response.field_account_invoice_discrepancy_response_code_id_24517
 #: model:ir.model.fields,field_description:l10n_co_account_invoice_discrepancy_response.field_account_invoice_refund_discrepancy_response_code_id
 msgid "Correction concept for Refund Invoice"
 msgstr ""
@@ -183,8 +183,8 @@ msgid "Invoice Line"
 msgstr ""
 
 #. module: l10n_co_account_invoice_discrepancy_response
-#: model:ir.model,name:l10n_co_account_invoice_discrepancy_response.model_account_invoice_refund
 #: code:addons/l10n_co_account_invoice_discrepancy_response/wizards/account_invoice_refund.py:107
+#: model:ir.model,name:l10n_co_account_invoice_discrepancy_response.model_account_invoice_refund
 #, python-format
 msgid "Invoice Refund"
 msgstr ""
