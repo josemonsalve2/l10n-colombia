@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <record id="invoice_form" model="ir.ui.view">
         <field name="model">account.invoice</field>
@@ -7,7 +7,6 @@
             <xpath expr='//form/sheet/group/group/div' position="after">
                 <field name="rate_invoice" groups="base.group_multi_currency"/>
             </xpath>
-
             <xpath expr='//tree/field[@name="amount"]' position="before">
                 <field name="base"/>
             </xpath>
