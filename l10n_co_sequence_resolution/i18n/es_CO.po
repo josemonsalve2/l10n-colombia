@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-03-19 13:24+0000\n"
-"PO-Revision-Date: 2021-03-19 13:24+0000\n"
+"POT-Creation-Date: 2021-04-13 16:05+0000\n"
+"PO-Revision-Date: 2021-04-13 16:05+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -31,7 +31,7 @@ msgid "DIAN Type"
 msgstr "Tipo DIAN"
 
 #. module: l10n_co_sequence_resolution
-#: code:addons/l10n_co_sequence_resolution/models/ir_sequence.py:105
+#: code:addons/l10n_co_sequence_resolution/models/ir_sequence.py:106
 #, python-format
 msgid "Final Date must be greater or equal than Initial Date."
 msgstr "La Fecha Final debe ser mayor o igual que la Fecha Inicial."
@@ -52,7 +52,7 @@ msgid "Invoice"
 msgstr "Factura"
 
 #. module: l10n_co_sequence_resolution
-#: code:addons/l10n_co_sequence_resolution/models/ir_sequence.py:108
+#: code:addons/l10n_co_sequence_resolution/models/ir_sequence.py:109
 #, python-format
 msgid "Number To must be greater or equal than Number From."
 msgstr "El Número Final debe ser mayor o igual que la Número Inicial."
@@ -98,38 +98,38 @@ msgid "Sequence Date Range"
 msgstr "Rango de fechas de la secuencia"
 
 #. module: l10n_co_sequence_resolution
-#: code:addons/l10n_co_sequence_resolution/models/ir_sequence.py:106
+#: code:addons/l10n_co_sequence_resolution/models/ir_sequence.py:107
 #, python-format
 msgid "The Date Range must be unique or a date must not be included in another Date Range."
 msgstr "El Rango de Fechas debe ser único o la fecha no debe incluirse en otro Rango de Fechas."
 
 #. module: l10n_co_sequence_resolution
-#: code:addons/l10n_co_sequence_resolution/models/ir_sequence.py:109
+#: code:addons/l10n_co_sequence_resolution/models/ir_sequence.py:110
 #, python-format
 msgid "The Number Next must be greater in one to Number To, to represent a finished sequence or Number Next must be included in Number Range."
-msgstr "El Número Siguiente debe ser mayor en uno a Número Final, para representar una secuencia terminada o el Número Siguiente debe incluirse en el Rango de Números."
+msgstr "El Número Siguiente debe ser mayor en uno a Número Final, para representar una secuencia terminada o el Número Siguiente debe incluirse en el Rango de Números"
 
 #. module: l10n_co_sequence_resolution
 #: model_terms:ir.ui.view,arch_db:l10n_co_sequence_resolution.invoice_form
 msgid "The authorized invoicing resolution for this journal is nearby to expire or the authorized numbering is running out.<br/>\n"
-"                        <span style=\"font-weight:bold;\">Please, you must to inform the administration.</span>"
+"                <span style=\"font-weight:bold;\">Please, you must to inform the administration.</span>"
 msgstr "La resolución de facturación autorizada para este diario está próxima a caducar o la numeración autorizada se está agotando.<br/>\n"
 "                        <span style=\"font-weight:bold;\">Por favor, debe informar a la administración.</span>"
 
 #. module: l10n_co_sequence_resolution
-#: code:addons/l10n_co_sequence_resolution/models/ir_sequence.py:115
+#: code:addons/l10n_co_sequence_resolution/models/ir_sequence.py:116
 #, python-format
 msgid "The system needs at least one active DIAN resolution."
 msgstr "El sistema necesita al menos una resolución DIAN activa."
 
 #. module: l10n_co_sequence_resolution
-#: code:addons/l10n_co_sequence_resolution/models/ir_sequence.py:114
+#: code:addons/l10n_co_sequence_resolution/models/ir_sequence.py:115
 #, python-format
 msgid "The system needs only one active DIAN resolution."
 msgstr "El sistema solo necesita una resolución DIAN activa."
 
 #. module: l10n_co_sequence_resolution
-#: code:addons/l10n_co_sequence_resolution/models/ir_sequence.py:162
+#: code:addons/l10n_co_sequence_resolution/models/ir_sequence.py:163
 #, python-format
 msgid "There is no active authorized invoicing resolution."
 msgstr "No hay una resolución de facturación autorizada activa."
@@ -137,7 +137,7 @@ msgstr "No hay una resolución de facturación autorizada activa."
 #. module: l10n_co_sequence_resolution
 #: model_terms:ir.ui.view,arch_db:l10n_co_sequence_resolution.invoice_form
 msgid "There is no active authorized invoicing resolution.<br/>\n"
-"                        <span style=\"font-weight:bold;\">Please, you must to inform the administration.</span>"
+"            <span style=\"font-weight:bold;\">Please, you must to inform the administration.</span>"
 msgstr "No hay una resolución de facturación autorizada activa.<br/>\n"
 "                        <span style=\"font-weight:bold;\">Por favor, debe informar a la administración.</span>"
 

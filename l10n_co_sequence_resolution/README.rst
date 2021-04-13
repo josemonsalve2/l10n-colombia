@@ -13,8 +13,8 @@ Credits
 
 Contributors
 ------------
-
+* Alejandro Olano <https://github.com/alejo-code>
 * Joan Marín <https://github.com/JoanMarin>
 * Dominic Krimmer <https://github.com/dkrimmer84>
 * Luis Alfredo da Silva <luis.adasilvaf@gmail.com>
-* Alejandro Olano https://github.com/alejo-code
+
