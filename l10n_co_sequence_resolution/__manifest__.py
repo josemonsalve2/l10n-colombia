@@ -18,8 +18,8 @@
     "https://github.com/exaap/l10n-colombia",
     "author":
     "EXA Auto Parts Github@exaap, "
-    "Joan Marín Github@JoanMarin, "
     "Alejandro Olano Github@alejo-code, "
+    "Joan Marín Github@JoanMarin, "
     "Luis Alfredo da Silva, "
     "Dominic Krimmer, "
     "Plastinorte S.A.S",
