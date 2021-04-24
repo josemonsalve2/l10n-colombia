@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record model="hr.contribution.register" id="hr_payroll.contrib_register_employees">
+            <field name="name">EMPLEADO</field>
+        </record>
+
+        <record model="hr.contribution.register" id="register_eps">
+            <field name="name">EPS</field>
+        </record>
+
+        <record model="hr.contribution.register" id="register_cesantias">
+            <field name="name">FONDO DE CESANTIAS</field>
+        </record>
+
+        <record model="hr.contribution.register" id="register_pensiones">
+            <field name="name">FONDO DE PENSIONES</field>
+        </record>
+
+        <record model="hr.contribution.register" id="register_arl">
+            <field name="name">ARL</field>
+        </record>
+        
+        <record model="hr.contribution.register" id="register_caja">
+            <field name="name">CAJA DE COMPENSACIÓN</field>
+        </record>
+    </data>
+</odoo>

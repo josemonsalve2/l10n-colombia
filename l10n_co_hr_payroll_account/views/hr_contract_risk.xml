@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="hr_contract_risk_form" model="ir.ui.view">
+            <field name="name">hr.contract.risk.form</field>
+            <field name="model">hr.contract.risk</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Professionals Risks">
+                    <field name="name"/>
+                    <field name="code"/>
+                    <field name="percent"/>
+                    <field name="date"/>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="hr_contract_risk_tree">
+            <field name="name">hr.contract.risk.tre</field>
+            <field name="model">hr.contract.risk</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string='Risks'>
+                    <field name="name"/>
+                    <field name="code"/>
+                    <field name="percent"/>
+                    <field name="date"/>
+                </tree>
+            </field>
+        </record>
+        
+        <record id="hr_contract_risk_list_action" model="ir.actions.act_window">
+                 <field name="name">Professionals Risks</field>
+                 <field name="res_model">hr.contract.risk</field>
+                 <field name="view_type">form</field>
+                 <field name="view_mode">tree,form</field>
+        </record>
+    </data>
+</odoo>

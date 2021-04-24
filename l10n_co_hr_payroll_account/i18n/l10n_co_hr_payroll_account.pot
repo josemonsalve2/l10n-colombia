@@ -1,0 +1,343 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* l10n_co_hr_payroll_account
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 10.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-09-27 06:34+0000\n"
+"PO-Revision-Date: 2018-09-27 06:34+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: l10n_co_hr_payroll_account
+#: model:ir.model.fields,field_description:l10n_co_hr_payroll_account.field_hr_contract_deduction_total_accumulated
+msgid "Total Accumulated"
+msgstr ""
+
+#. module: l10n_co_hr_payroll_account
+#: code:addons/l10n_co_hr_payroll_account/models/hr_payslip.py:141
+#: code:addons/l10n_co_hr_payroll_account/models/hr_payslip.py:156
+#, python-format
+msgid "Adjustment Entry"
+msgstr ""
+
+#. module: l10n_co_hr_payroll_account
+#: model:ir.model.fields,field_description:l10n_co_hr_payroll_account.field_hr_contract_deduction_amount
+#: model:ir.model.fields,field_description:l10n_co_hr_payroll_account.field_hr_payslip_deduction_line_amount
+msgid "Amount"
+msgstr ""
+
+#. module: l10n_co_hr_payroll_account
+#: model:ir.model.fields,field_description:l10n_co_hr_payroll_account.field_hr_contract_register_analytic_account_id
+msgid "Analytic Account"
+msgstr ""
+
+#. module: l10n_co_hr_payroll_account
+#: model:ir.model.fields,field_description:l10n_co_hr_payroll_account.field_hr_contract_deduction_appears_on_payslip
+msgid "Appears on Payslip"
+msgstr ""
+
+#. module: l10n_co_hr_payroll_account
+#: model:ir.model.fields,field_description:l10n_co_hr_payroll_account.field_hr_contract_risk_code
+msgid "Code"
+msgstr ""
+
+#. module: l10n_co_hr_payroll_account
+#: model:ir.model.fields,field_description:l10n_co_hr_payroll_account.field_hr_contract_register_contract_id
+#: model:ir.model.fields,field_description:l10n_co_hr_payroll_account.field_hr_payslip_deduction_line_contract_id
+msgid "Contract"
+msgstr ""
+
+#. module: l10n_co_hr_payroll_account
+#: model:ir.model,name:l10n_co_hr_payroll_account.model_hr_contract_register
+#: model:ir.model.fields,field_description:l10n_co_hr_payroll_account.field_hr_contract_register_register_id
+msgid "Contribution Register"
+msgstr ""
+
+#. module: l10n_co_hr_payroll_account
+#: model:ir.model.fields,field_description:l10n_co_hr_payroll_account.field_hr_contract_register_ids
+#: model:ir.ui.view,arch_db:l10n_co_hr_payroll_account.hr_contract_form
+msgid "Contribution Registers"
+msgstr ""
+
+#. module: l10n_co_hr_payroll_account
+#: model:ir.model.fields,field_description:l10n_co_hr_payroll_account.field_hr_contract_deduction_create_uid
+#: model:ir.model.fields,field_description:l10n_co_hr_payroll_account.field_hr_contract_register_create_uid
+#: model:ir.model.fields,field_description:l10n_co_hr_payroll_account.field_hr_contract_risk_create_uid
+#: model:ir.model.fields,field_description:l10n_co_hr_payroll_account.field_hr_payslip_deduction_line_create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: l10n_co_hr_payroll_account
+#: model:ir.model.fields,field_description:l10n_co_hr_payroll_account.field_hr_contract_deduction_create_date
+#: model:ir.model.fields,field_description:l10n_co_hr_payroll_account.field_hr_contract_register_create_date
+#: model:ir.model.fields,field_description:l10n_co_hr_payroll_account.field_hr_contract_risk_create_date
+#: model:ir.model.fields,field_description:l10n_co_hr_payroll_account.field_hr_payslip_deduction_line_create_date
+msgid "Created on"
+msgstr ""
+
+#. module: l10n_co_hr_payroll_account
+#: model:ir.model.fields,field_description:l10n_co_hr_payroll_account.field_hr_contract_register_account_credit_id
+msgid "Credit Account"
+msgstr ""
+
+#. module: l10n_co_hr_payroll_account
+#: model:ir.model.fields,help:l10n_co_hr_payroll_account.field_hr_contract_deduction_date
+msgid "Date of loan or obligation"
+msgstr ""
+
+#. module: l10n_co_hr_payroll_account
+#: model:ir.model.fields,field_description:l10n_co_hr_payroll_account.field_hr_contract_register_account_debit_id
+msgid "Debit Account"
+msgstr ""
+
+#. module: l10n_co_hr_payroll_account
+#: model:ir.model.fields,field_description:l10n_co_hr_payroll_account.field_hr_payslip_deduction_line_deduction_id
+msgid "Deduction"
+msgstr ""
+
+#. module: l10n_co_hr_payroll_account
+#: model:ir.model.fields,field_description:l10n_co_hr_payroll_account.field_hr_contract_deduction_type
+msgid "Deduction Type"
+msgstr ""
+
+#. module: l10n_co_hr_payroll_account
+#: model:ir.model.fields,field_description:l10n_co_hr_payroll_account.field_hr_contract_deduction_contract_id
+msgid "Deductions"
+msgstr ""
+
+#. module: l10n_co_hr_payroll_account
+#: model:ir.model,name:l10n_co_hr_payroll_account.model_hr_contract_deduction
+#: model:ir.model.fields,field_description:l10n_co_hr_payroll_account.field_hr_contract_deduction_ids
+#: model:ir.ui.view,arch_db:l10n_co_hr_payroll_account.hr_contract_form
+msgid "Deductions or Periodic Payments"
+msgstr ""
+
+#. module: l10n_co_hr_payroll_account
+#: model:ir.model.fields,field_description:l10n_co_hr_payroll_account.field_hr_payslip_deduction_line_ids
+#: model:ir.model,name:l10n_co_hr_payroll_account.model_hr_payslip_deduction_line
+#: model:ir.ui.view,arch_db:l10n_co_hr_payroll_account.hr_payslip_form
+msgid "Detail of Deductions"
+msgstr ""
+
+#. module: l10n_co_hr_payroll_account
+#: model:ir.model.fields,field_description:l10n_co_hr_payroll_account.field_hr_contract_deduction_display_name
+#: model:ir.model.fields,field_description:l10n_co_hr_payroll_account.field_hr_contract_register_display_name
+#: model:ir.model.fields,field_description:l10n_co_hr_payroll_account.field_hr_contract_risk_display_name
+#: model:ir.model.fields,field_description:l10n_co_hr_payroll_account.field_hr_payslip_deduction_line_display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: l10n_co_hr_payroll_account
+#: model:ir.model.fields,field_description:l10n_co_hr_payroll_account.field_hr_contract_risk_date
+msgid "Effective Date"
+msgstr ""
+
+#. module: l10n_co_hr_payroll_account
+#: selection:hr.contract.deduction,type:0
+msgid "Embargo"
+msgstr ""
+
+#. module: l10n_co_hr_payroll_account
+#: model:ir.model.fields,field_description:l10n_co_hr_payroll_account.field_hr_payslip_deduction_line_employee_id
+msgid "Employee"
+msgstr ""
+
+#. module: l10n_co_hr_payroll_account
+#: model:ir.model,name:l10n_co_hr_payroll_account.model_hr_contract
+msgid "Employee Contract"
+msgstr ""
+
+#. module: l10n_co_hr_payroll_account
+#: model:ir.model.fields,field_description:l10n_co_hr_payroll_account.field_hr_contract_deduction_input_id
+msgid "Entry"
+msgstr ""
+
+#. module: l10n_co_hr_payroll_account
+#: model:ir.model.fields,help:l10n_co_hr_payroll_account.field_hr_contract_deduction_input_id
+msgid "Entry or parameter associated with the salary rule"
+msgstr ""
+
+#. module: l10n_co_hr_payroll_account
+#: model:ir.model.fields,field_description:l10n_co_hr_payroll_account.field_hr_contract_deduction_date
+msgid "Fecha"
+msgstr ""
+
+#. module: l10n_co_hr_payroll_account
+#: model:ir.model.fields,field_description:l10n_co_hr_payroll_account.field_hr_contract_deduction_id
+#: model:ir.model.fields,field_description:l10n_co_hr_payroll_account.field_hr_contract_register_id
+#: model:ir.model.fields,field_description:l10n_co_hr_payroll_account.field_hr_contract_risk_id
+#: model:ir.model.fields,field_description:l10n_co_hr_payroll_account.field_hr_payslip_deduction_line_id
+msgid "ID"
+msgstr ""
+
+#. module: l10n_co_hr_payroll_account
+#: model:ir.model.fields,field_description:l10n_co_hr_payroll_account.field_hr_contract_deduction___last_update
+#: model:ir.model.fields,field_description:l10n_co_hr_payroll_account.field_hr_contract_register___last_update
+#: model:ir.model.fields,field_description:l10n_co_hr_payroll_account.field_hr_contract_risk___last_update
+#: model:ir.model.fields,field_description:l10n_co_hr_payroll_account.field_hr_payslip_deduction_line___last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: l10n_co_hr_payroll_account
+#: model:ir.model.fields,field_description:l10n_co_hr_payroll_account.field_hr_contract_deduction_write_uid
+#: model:ir.model.fields,field_description:l10n_co_hr_payroll_account.field_hr_contract_register_write_uid
+#: model:ir.model.fields,field_description:l10n_co_hr_payroll_account.field_hr_contract_risk_write_uid
+#: model:ir.model.fields,field_description:l10n_co_hr_payroll_account.field_hr_payslip_deduction_line_write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: l10n_co_hr_payroll_account
+#: model:ir.model.fields,field_description:l10n_co_hr_payroll_account.field_hr_contract_deduction_write_date
+#: model:ir.model.fields,field_description:l10n_co_hr_payroll_account.field_hr_contract_register_write_date
+#: model:ir.model.fields,field_description:l10n_co_hr_payroll_account.field_hr_contract_risk_write_date
+#: model:ir.model.fields,field_description:l10n_co_hr_payroll_account.field_hr_payslip_deduction_line_write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: l10n_co_hr_payroll_account
+#: selection:hr.contract.deduction,type:0
+msgid "Lien"
+msgstr ""
+
+#. module: l10n_co_hr_payroll_account
+#: selection:hr.contract.deduction,period:0
+msgid "Limited"
+msgstr ""
+
+#. module: l10n_co_hr_payroll_account
+#: selection:hr.contract.deduction,type:0
+msgid "Company Loan"
+msgstr ""
+
+#. module: l10n_co_hr_payroll_account
+#: model:ir.model.fields,field_description:l10n_co_hr_payroll_account.field_hr_contract_risk_name
+msgid "Name"
+msgstr ""
+
+#. module: l10n_co_hr_payroll_account
+#: selection:hr.contract.deduction,type:0
+msgid "Other"
+msgstr ""
+
+#. module: l10n_co_hr_payroll_account
+#: model:ir.model.fields,field_description:l10n_co_hr_payroll_account.field_hr_contract_register_partner_id
+msgid "Partner"
+msgstr ""
+
+#. module: l10n_co_hr_payroll_account
+#: model:ir.model,name:l10n_co_hr_payroll_account.model_hr_payslip
+#: model:ir.model.fields,field_description:l10n_co_hr_payroll_account.field_hr_payslip_deduction_line_slip_id
+msgid "Pay Slip"
+msgstr ""
+
+#. module: l10n_co_hr_payroll_account
+#: model:ir.ui.view,arch_db:l10n_co_hr_payroll_account.hr_payslip_form
+msgid "Payslip Lines"
+msgstr ""
+
+#. module: l10n_co_hr_payroll_account
+#: code:addons/l10n_co_hr_payroll_account/models/hr_payslip.py:73
+#, python-format
+msgid "Payslip of %s"
+msgstr ""
+
+#. module: l10n_co_hr_payroll_account
+#: model:ir.model.fields,field_description:l10n_co_hr_payroll_account.field_hr_contract_risk_percent
+msgid "Percentage"
+msgstr ""
+
+#. module: l10n_co_hr_payroll_account
+#: model:ir.model.fields,help:l10n_co_hr_payroll_account.field_hr_contract_risk_percent
+msgid "Percentage of professional risk"
+msgstr ""
+
+#. module: l10n_co_hr_payroll_account
+#: model:ir.model.fields,field_description:l10n_co_hr_payroll_account.field_hr_contract_deduction_period
+msgid "Period"
+msgstr ""
+
+#. module: l10n_co_hr_payroll_account
+#: model:ir.model.fields,field_description:l10n_co_hr_payroll_account.field_hr_contract_risk_id_14588
+msgid "Professional Risk"
+msgstr ""
+
+#. module: l10n_co_hr_payroll_account
+#: model:ir.actions.act_window,name:l10n_co_hr_payroll_account.hr_contract_risk_list_action
+#: model:ir.model,name:l10n_co_hr_payroll_account.model_hr_contract_risk
+#: model:ir.ui.view,arch_db:l10n_co_hr_payroll_account.hr_contract_risk_form
+msgid "Professionals Risks"
+msgstr ""
+
+#. module: l10n_co_hr_payroll_account
+#: selection:hr.contract.deduction,type:0
+msgid "Retention"
+msgstr ""
+
+#. module: l10n_co_hr_payroll_account
+#: model:ir.model.fields,help:l10n_co_hr_payroll_account.field_hr_contract_risk_code
+msgid "Risk Code"
+msgstr ""
+
+#. module: l10n_co_hr_payroll_account
+#: model:ir.model.fields,help:l10n_co_hr_payroll_account.field_hr_contract_risk_name
+msgid "Risk Name"
+msgstr ""
+
+#. module: l10n_co_hr_payroll_account
+#: model:ir.ui.view,arch_db:l10n_co_hr_payroll_account.hr_contract_risk_tree
+msgid "Risks"
+msgstr ""
+
+#. module: l10n_co_hr_payroll_account
+#: selection:hr.contract.deduction,type:0
+msgid "Saving"
+msgstr ""
+
+#. module: l10n_co_hr_payroll_account
+#: selection:hr.contract.deduction,type:0
+msgid "Sure"
+msgstr ""
+
+#. module: l10n_co_hr_payroll_account
+#: code:addons/l10n_co_hr_payroll_account/models/hr_payslip.py:139
+#, python-format
+msgid "The Expense Journal \"%s\" has not properly configured the Credit Account!"
+msgstr ""
+
+#. module: l10n_co_hr_payroll_account
+#: code:addons/l10n_co_hr_payroll_account/models/hr_payslip.py:154
+#, python-format
+msgid "The Expense Journal \"%s\" has not properly configured the Debit Account!"
+msgstr ""
+
+#. module: l10n_co_hr_payroll_account
+#: model:ir.model.fields,field_description:l10n_co_hr_payroll_account.field_hr_contract_deduction_total_deduction
+msgid "Total"
+msgstr ""
+
+#. module: l10n_co_hr_payroll_account
+#: model:ir.model.fields,help:l10n_co_hr_payroll_account.field_hr_contract_deduction_total_accumulated
+msgid "Total paid or accrued from the concept"
+msgstr ""
+
+#. module: l10n_co_hr_payroll_account
+#: model:ir.model.fields,help:l10n_co_hr_payroll_account.field_hr_contract_deduction_total_deduction
+msgid "Total to Discount"
+msgstr ""
+
+#. module: l10n_co_hr_payroll_account
+#: selection:hr.contract.deduction,period:0
+msgid "Undefined"
+msgstr ""
+
+#. module: l10n_co_hr_payroll_account
+#: model:ir.model.fields,help:l10n_co_hr_payroll_account.field_hr_contract_deduction_amount
+msgid "Value of the quota or percentage according to the formula of the salary rule"
+msgstr ""
