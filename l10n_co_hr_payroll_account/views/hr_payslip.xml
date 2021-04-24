@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="hr_payslip_form" model="ir.ui.view">
+            <field name="name">hr.payslip.form</field>
+            <field name="model">hr.payslip</field>
+            <field name="inherit_id" ref="hr_payroll.view_hr_payslip_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page[3]" position="after">
+                    <page string="Detail of Deductions">
+                        <field name="deduction_line_ids" context="{'group_by':'deduction_id'}" domain="[('appears_on_payslip', '=', True)]">
+                            <tree string="Payslip Lines" colors="blue:total == 0">
+                                <field name="deduction_id"/>
+                                <field name="amount"/>
+                            </tree>
+                        </field>
+                    </page>  
+                </xpath>
+            </field>    
+        </record>
+    </data>
+</odoo>
