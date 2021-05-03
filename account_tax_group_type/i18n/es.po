@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 10.0\n"
+"Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-10-03 15:07+0000\n"
-"PO-Revision-Date: 2019-10-03 15:07+0000\n"
+"POT-Creation-Date: 2021-05-03 14:11+0000\n"
+"PO-Revision-Date: 2021-05-03 14:11+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -16,52 +16,52 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: account_tax_group_type
-#: model:ir.model.fields,field_description:account_tax_group_type.field_account_tax_group_type_code
+#: model:ir.model.fields,field_description:account_tax_group_type.field_account_tax_group_type__code
 msgid "Code"
 msgstr "Código"
 
 #. module: account_tax_group_type
-#: model:ir.model.fields,field_description:account_tax_group_type.field_account_tax_group_type_create_uid
+#: model:ir.model.fields,field_description:account_tax_group_type.field_account_tax_group_type__create_uid
 msgid "Created by"
 msgstr "Creado por"
 
 #. module: account_tax_group_type
-#: model:ir.model.fields,field_description:account_tax_group_type.field_account_tax_group_type_create_date
+#: model:ir.model.fields,field_description:account_tax_group_type.field_account_tax_group_type__create_date
 msgid "Created on"
 msgstr "Creado el"
 
 #. module: account_tax_group_type
-#: model:ir.model.fields,field_description:account_tax_group_type.field_account_tax_group_type_description
+#: model:ir.model.fields,field_description:account_tax_group_type.field_account_tax_group_type__description
 msgid "Description"
 msgstr "Descripción"
 
 #. module: account_tax_group_type
-#: model:ir.model.fields,field_description:account_tax_group_type.field_account_tax_group_type_display_name
+#: model:ir.model.fields,field_description:account_tax_group_type.field_account_tax_group_type__display_name
 msgid "Display Name"
-msgstr "Nombre a Mostrar"
+msgstr "Nombre mostrado"
 
 #. module: account_tax_group_type
-#: model:ir.model.fields,field_description:account_tax_group_type.field_account_tax_group_type_id
+#: model:ir.model.fields,field_description:account_tax_group_type.field_account_tax_group_type__id
 msgid "ID"
-msgstr "ID"
+msgstr ""
 
 #. module: account_tax_group_type
-#: model:ir.model.fields,field_description:account_tax_group_type.field_account_tax_group_type___last_update
+#: model:ir.model.fields,field_description:account_tax_group_type.field_account_tax_group_type____last_update
 msgid "Last Modified on"
-msgstr "Última Modificación el"
+msgstr "Última modificación en"
 
 #. module: account_tax_group_type
-#: model:ir.model.fields,field_description:account_tax_group_type.field_account_tax_group_type_write_uid
+#: model:ir.model.fields,field_description:account_tax_group_type.field_account_tax_group_type__write_uid
 msgid "Last Updated by"
-msgstr "Última Actualización por"
+msgstr "Última actualización por"
 
 #. module: account_tax_group_type
-#: model:ir.model.fields,field_description:account_tax_group_type.field_account_tax_group_type_write_date
+#: model:ir.model.fields,field_description:account_tax_group_type.field_account_tax_group_type__write_date
 msgid "Last Updated on"
-msgstr "Última Actualización el"
+msgstr "Última actualización el"
 
 #. module: account_tax_group_type
-#: model:ir.model.fields,field_description:account_tax_group_type.field_account_tax_group_type_name
+#: model:ir.model.fields,field_description:account_tax_group_type.field_account_tax_group_type__name
 msgid "Name"
 msgstr "Nombre"
 
@@ -69,35 +69,89 @@ msgstr "Nombre"
 #: selection:account.tax.group.type,type:0
 msgid "Tax"
 msgstr "Impuesto"
- 
-#. module: account_tax_group_type
-#: model:ir.model.fields,field_description:account_tax_group_type.field_account_tax_group_tax_group_type_id
-msgid "Tax Group Type"
-msgstr "Tipo de Grupo Impuesto"
 
 #. module: account_tax_group_type
-#: sql_constraint:account.tax.group.type:0
-#: code:addons/account_tax_group_type/models/account_tax_group_type.py:23
+#: model:ir.model,name:account_tax_group_type.model_account_tax_group
+msgid "Tax Group"
+msgstr "Grupo de impuestos"
+
+#. module: account_tax_group_type
+#: model:ir.model.fields,field_description:account_tax_group_type.field_account_tax_group__tax_group_type_id
+msgid "Tax Group Type"
+msgstr "Tipo de Grupo"
+
+#. module: account_tax_group_type
+#: code:addons/account_tax_group_type/models/account_tax_group_type.py:21
 #, python-format
 msgid "The code of Tax Group Type must be unique!"
 msgstr "¡El código del Tipo de Grupo Impuesto debe ser único!"
 
 #. module: account_tax_group_type
-#: model:ir.model.fields,field_description:account_tax_group_type.field_account_tax_group_type_type
+#: model:ir.model.fields,field_description:account_tax_group_type.field_account_tax_group_type__type
 msgid "Type"
 msgstr "Tipo"
- 
+
 #. module: account_tax_group_type
 #: selection:account.tax.group.type,type:0
 msgid "Withholding Tax"
 msgstr "Impuesto de Retención"
 
 #. module: account_tax_group_type
-#: model:ir.model,name:account_tax_group_type.model_account_tax_group
-msgid "account.tax.group"
-msgstr "account.tax.group"
-
-#. module: account_tax_group_type
 #: model:ir.model,name:account_tax_group_type.model_account_tax_group_type
 msgid "account.tax.group.type"
-msgstr "account.tax.group.type"
+msgstr ""
+
+#. module: account_tax_group_type
+#: sql_constraint:account.tax.group.type:0
+msgid "¡El código del Tipo de Grupo Impuesto debe ser único!"
+msgstr "¡El código del Tipo de Grupo Impuesto debe ser único!"
+
+#. module: account_group_menu
+#: model:ir.model,name:account_group_menu.model_account_group
+msgid "Account Group"
+msgstr "Grupo de cuenta"
+
+#. module: account_group_menu
+#: model:ir.ui.menu,name:account_group_menu.account_group_menu
+msgid "Account Groups"
+msgstr "Grupos de cuenta"
+
+#. module: account_group_menu
+#: model_terms:ir.ui.view,arch_db:account_group_menu.view_account_tax_group_form
+#: model_terms:ir.ui.view,arch_db:account_group_menu.view_account_tax_group_search
+msgid "Account Tax Group"
+msgstr "Grupo de Impuestos "
+
+#. module: account_group_menu
+#: model:ir.actions.act_window,name:account_group_menu.action_account_tax_group_tree
+#: model:ir.ui.menu,name:account_group_menu.account_tax_group_menu
+#: model_terms:ir.ui.view,arch_db:account_group_menu.view_account_tax_group_search
+msgid "Account Tax Groups"
+msgstr "Grupos de Impuestos"
+
+#. module: account_group_menu
+#: model:ir.model.fields,field_description:account_group_menu.field_account_group__account_ids
+msgid "Accounts"
+msgstr "Cuentas"
+
+#. module: account_group_menu
+#: model:ir.model.fields,help:account_group_menu.field_account_group__account_ids
+msgid "Assigned accounts."
+msgstr "Cuentas asignadas."
+
+#. module: account_group_menu
+#: model:ir.model.fields,help:account_group_menu.field_account_tax_group__tax_ids
+msgid "Assigned taxes."
+msgstr "Impuestos asignados."
+
+#. module: account_group_menu
+#: model:ir.model,name:account_group_menu.model_account_tax_group
+msgid "Tax Group"
+msgstr "Grupo de Impuestos"
+
+#. module: account_group_menu
+#: model:ir.model.fields,field_description:account_group_menu.field_account_tax_group__tax_ids
+msgid "Taxes"
+msgstr "Impuestos"
+
+
