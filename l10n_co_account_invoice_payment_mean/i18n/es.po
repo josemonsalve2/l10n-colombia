@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-03-18 18:38+0000\n"
-"PO-Revision-Date: 2021-03-18 18:38+0000\n"
+"POT-Creation-Date: 2021-05-03 15:01+0000\n"
+"PO-Revision-Date: 2021-05-03 15:01+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -465,21 +465,21 @@ msgstr "Nota promisoria firmada"
 
 #. module: l10n_co_account_invoice_payment_mean
 #: sql_constraint:account.payment.mean:0
-#: code:addons/l10n_co_account_invoice_payment_mean/models/account_payment_mean.py:17
+#: code:addons/l10n_co_account_invoice_payment_mean/models/account_payment_mean.py:18
 #, python-format
 msgid "The code must be unique"
 msgstr "El código debe ser único"
 
 #. module: l10n_co_account_invoice_payment_mean
 #: sql_constraint:account.payment.mean.code:0
-#: code:addons/l10n_co_account_invoice_payment_mean/models/account_payment_mean_code.py:16
+#: code:addons/l10n_co_account_invoice_payment_mean/models/account_payment_mean_code.py:17
 #, python-format
 msgid "The combination of code and name must be unique"
 msgstr "La combinación de código y nombre debe ser única"
 
 #. module: l10n_co_account_invoice_payment_mean
 #: sql_constraint:account.payment.mean:0
-#: code:addons/l10n_co_account_invoice_payment_mean/models/account_payment_mean.py:16
+#: code:addons/l10n_co_account_invoice_payment_mean/models/account_payment_mean.py:17
 #, python-format
 msgid "The name must be unique"
 msgstr "El nombre debe ser único"
