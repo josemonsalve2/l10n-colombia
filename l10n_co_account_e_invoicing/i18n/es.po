@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-03-19 23:19+0000\n"
-"PO-Revision-Date: 2021-03-19 23:19+0000\n"
+"POT-Creation-Date: 2021-05-03 10:46+0000\n"
+"PO-Revision-Date: 2021-05-03 10:46+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -17,8 +17,8 @@ msgstr ""
 
 #. module: l10n_co_account_e_invoicing
 #: model:mail.template,subject:l10n_co_account_e_invoicing.email_template_for_einvoice
-msgid "${object.company_id.name} generated the e-invoice ${object.number}"
-msgstr "${object.company_id.name} generó la factura electrónica ${object.number}"
+msgid "${object.company_id.partner_id.identification_document};${object.company_id.name};${object.number};${object.invoice_type_code};${object.partner_id.name};"
+msgstr "${object.company_id.partner_id.identification_document};${object.company_id.name};${object.number};${object.invoice_type_code};${object.partner_id.name};"
 
 #. module: l10n_co_account_e_invoicing
 #: code:addons/l10n_co_account_e_invoicing/models/res_partner.py:86
@@ -171,6 +171,7 @@ msgstr "<div style=\"font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-
 "            <p style=\"margin:0px 0px 9px 0px;font-size:13px;font-family:&quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif;\"><strong style=\"font-weight:bold;\">${object.company_id.name}</strong></p>\n"
 "        </div>"
 
+
 #. module: l10n_co_account_e_invoicing
 #: model_terms:ir.ui.view,arch_db:l10n_co_account_e_invoicing.report_invoice_document_with_qr
 msgid "<strong>CUDE: </strong>"
@@ -308,6 +309,7 @@ msgstr "Talonario de Contingencia para Facturación Electrónica"
 msgid "Cordial Saludo,<br/><br/>La factura  del cliente  no pudo ser enviada a la Dian según el protocolo establecido previamente. Por favor revise el estado de la misma en el menú Documentos Dian e intente reprocesarla según el procedimiento definido.<br/>."
 msgstr "Cordial Saludo,<br/><br/>La factura  del cliente  no pudo ser enviada a la Dian según el protocolo establecido previamente. Por favor revise el estado de la misma en el menú Documentos Dian e intente reprocesarla según el procedimiento definido.<br/>."
 
+
 #. module: l10n_co_account_e_invoicing
 #: model:ir.model.fields,field_description:l10n_co_account_e_invoicing.field_account_invoice_line__cost_price
 msgid "Cost Price"
@@ -327,35 +329,36 @@ msgstr "Creado por"
 #: model:ir.model.fields,field_description:l10n_co_account_e_invoicing.field_einvoice_notification_group__create_date
 #: model:ir.model.fields,field_description:l10n_co_account_e_invoicing.field_product_scheme__create_date
 msgid "Created on"
-msgstr "Creado"
+msgstr "Creado el"
 
 #. module: l10n_co_account_e_invoicing
 #: model:ir.model.fields,field_description:l10n_co_account_e_invoicing.field_date_range__out_refund_credit_sent
 msgid "Credit Notes Sent"
-msgstr ""
+msgstr "Notas de Crédito Enviadas"
 
 #. module: l10n_co_account_e_invoicing
 #: selection:account.invoice,operation_type:0
 msgid "Credit note that references an e-invoice"
-msgstr ""
+msgstr "Nota Crédito que referencia una factura electrónica"
+
 
 #. module: l10n_co_account_e_invoicing
 #: selection:account.invoice,operation_type:0
 msgid "Credit note without reference to invoices *"
-msgstr ""
+msgstr "Nota Crédito sin referencia a facturas *"
 
 #. module: l10n_co_account_e_invoicing
 #: model:ir.model.fields,field_description:l10n_co_account_e_invoicing.field_account_invoice_dian_document_line__dian_document_id
 #: model_terms:ir.ui.view,arch_db:l10n_co_account_e_invoicing.account_invoice_dian_document_view_form
 #: model_terms:ir.ui.view,arch_db:l10n_co_account_e_invoicing.view_invoice_form
 msgid "DIAN Document"
-msgstr ""
+msgstr "Documento DIAN"
 
 #. module: l10n_co_account_e_invoicing
 #: model:ir.model.fields,field_description:l10n_co_account_e_invoicing.field_account_invoice_dian_document__dian_document_line_ids
 #: model_terms:ir.ui.view,arch_db:l10n_co_account_e_invoicing.account_invoice_dian_document_view_form
 msgid "DIAN Document Lines"
-msgstr ""
+msgstr "Líneas de Documentos DIAN"
 
 #. module: l10n_co_account_e_invoicing
 #: model:ir.actions.act_window,name:l10n_co_account_e_invoicing.account_invoice_dian_document_action
@@ -364,7 +367,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:l10n_co_account_e_invoicing.account_invoice_dian_document_view_tree
 #: model_terms:ir.ui.view,arch_db:l10n_co_account_e_invoicing.view_invoice_form
 msgid "DIAN Documents"
-msgstr ""
+msgstr "Documentos DIAN"
 
 #. module: l10n_co_account_e_invoicing
 #: model:ir.model.fields,field_description:l10n_co_account_e_invoicing.field_ir_sequence__dian_type
@@ -380,28 +383,28 @@ msgstr "Rango de fechas"
 #. module: l10n_co_account_e_invoicing
 #: model:ir.model.fields,field_description:l10n_co_account_e_invoicing.field_date_range__out_refund_debit_sent
 msgid "Debit Notes Sent"
-msgstr ""
+msgstr "Notas de Débito Enviadas"
 
 #. module: l10n_co_account_e_invoicing
 #: selection:account.invoice,operation_type:0
 msgid "Debit note that references an e-invoice"
-msgstr ""
+msgstr "Nota Débito que referencia una factura electrónica."
 
 #. module: l10n_co_account_e_invoicing
 #: selection:account.invoice,operation_type:0
 msgid "Debit note without reference to invoices *"
-msgstr ""
+msgstr "Nota Débito sin referencia a facturas *"
 
 #. module: l10n_co_account_e_invoicing
 #: model:ir.model.fields,field_description:l10n_co_account_e_invoicing.field_account_invoice__delivery_datetime
 msgid "Delivery Datetime"
-msgstr ""
+msgstr "Fecha y Hora de Entrega"
 
 #. module: l10n_co_account_e_invoicing
 #: model:ir.model.fields,field_description:l10n_co_account_e_invoicing.field_account_invoice_dian_document__profile_execution_id
 #: model:ir.model.fields,field_description:l10n_co_account_e_invoicing.field_res_company__profile_execution_id
 msgid "Destination Environment of Document"
-msgstr ""
+msgstr "Ambiente de Destino del Documento"
 
 #. module: l10n_co_account_e_invoicing
 #: model:ir.model.fields,field_description:l10n_co_account_e_invoicing.field_account_invoice_dian_document__display_name
@@ -414,22 +417,23 @@ msgstr "Nombre a mostrar"
 #. module: l10n_co_account_e_invoicing
 #: model:ir.model.fields,field_description:l10n_co_account_e_invoicing.field_account_tax_group__is_einvoicing
 msgid "Does it Apply for E-Invoicing?"
-msgstr ""
+msgstr "¿Aplica para la Facturación Electrónica?"
+
 
 #. module: l10n_co_account_e_invoicing
 #: selection:account.invoice.dian.document,state:0
 msgid "Done"
-msgstr ""
+msgstr "Hecho"
 
 #. module: l10n_co_account_e_invoicing
 #: selection:account.invoice.dian.document,state:0
 msgid "Draft"
-msgstr ""
+msgstr "Borrador"
 
 #. module: l10n_co_account_e_invoicing
 #: model:ir.model.fields,field_description:l10n_co_account_e_invoicing.field_res_company__einvoicing_email
 msgid "E-Invoice Email, From:"
-msgstr ""
+msgstr "Correo Electrónico de Factura Electrónica, De:"
 
 #. module: l10n_co_account_e_invoicing
 #: code:addons/l10n_co_account_e_invoicing/models/ir_sequence.py:12
@@ -439,46 +443,46 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:l10n_co_account_e_invoicing.view_company_form
 #, python-format
 msgid "E-Invoicing"
-msgstr ""
+msgstr "Facturación Electrónica"
 
 #. module: l10n_co_account_e_invoicing
 #: code:addons/l10n_co_account_e_invoicing/models/res_partner.py:93
 #, python-format
 msgid "E-Invoicing Agent: '%s' does not have a E-Invoicing Email."
-msgstr ""
+msgstr "Agente de Facturación Electrónica: '%s' no tiene un Correo Electrónico de Facturación Electrónica."
 
 #. module: l10n_co_account_e_invoicing
 #: model:ir.model.fields,field_description:l10n_co_account_e_invoicing.field_res_partner__einvoicing_email
 #: model:ir.model.fields,field_description:l10n_co_account_e_invoicing.field_res_users__einvoicing_email
 msgid "E-Invoicing Email"
-msgstr ""
+msgstr "Correo Electrónico de Facturación Electrónica"
 
 #. module: l10n_co_account_e_invoicing
 #: model:ir.model.fields,field_description:l10n_co_account_e_invoicing.field_res_company__einvoicing_enabled
 msgid "E-Invoicing Enabled"
-msgstr ""
+msgstr "Facturación electrónica Habilitada"
 
 #. module: l10n_co_account_e_invoicing
 #: selection:account.invoice,invoice_type_code:0
 msgid "E-document of transmission - type 03"
-msgstr ""
+msgstr "Documento electrónico de transmisión - tipo 03"
 
 #. module: l10n_co_account_e_invoicing
 #: selection:account.invoice,invoice_type_code:0
 msgid "E-invoice of sale"
-msgstr ""
+msgstr "Factura electrónica de venta"
 
 #. module: l10n_co_account_e_invoicing
 #: selection:account.invoice,invoice_type_code:0
 msgid "E-invoice of sale - type 04"
-msgstr ""
+msgstr "Factura electrónica de venta - tipo 04"
 
 #. module: l10n_co_account_e_invoicing
 #: model:ir.model.fields,field_description:l10n_co_account_e_invoicing.field_res_partner__edit_is_einvoicing_agent_field
 #: model:ir.model.fields,field_description:l10n_co_account_e_invoicing.field_res_users__edit_is_einvoicing_agent_field
 #: model:res.groups,name:l10n_co_account_e_invoicing.group_edit_is_einvoicing_agent_field
 msgid "Edit 'Is an E-Invoicing Agent?' Field"
-msgstr ""
+msgstr "Editar Campo '¿Es Agente de Facturación Electrónica?'"
 
 #. module: l10n_co_account_e_invoicing
 #: model:ir.model.fields,field_description:l10n_co_account_e_invoicing.field_einvoice_notification_group__email
@@ -488,52 +492,54 @@ msgstr "Correo electrónico"
 #. module: l10n_co_account_e_invoicing
 #: model:ir.model.fields,field_description:l10n_co_account_e_invoicing.field_res_company__einvoicing_receives_all_emails
 msgid "Email that receives all emails"
-msgstr ""
+msgstr "Correo electrónico que recibe todos los correos electrónicos"
 
 #. module: l10n_co_account_e_invoicing
 #: model:ir.model.fields,help:l10n_co_account_e_invoicing.field_res_company__einvoicing_email
 msgid "Enter the e-invoice sender's email."
-msgstr ""
+msgstr "Correo electrónico que recibe todos los correos electrónicos"
 
 #. module: l10n_co_account_e_invoicing
 #: model:ir.model.fields,help:l10n_co_account_e_invoicing.field_res_company__einvoicing_partner_no_email
 msgid "Enter the email where the invoice will be sent when the customer does not have an email."
-msgstr ""
+msgstr "Ingrese el correo electrónico donde se enviará la factura cuando el cliente no tenga un correo electrónico."
+
 
 #. module: l10n_co_account_e_invoicing
 #: model:ir.model.fields,field_description:l10n_co_account_e_invoicing.field_res_company__einvoicing_partner_no_email
 msgid "Failed Emails, To:"
-msgstr ""
+msgstr "Correos Electrónicos Fallidos, A:"
 
 #. module: l10n_co_account_e_invoicing
 #: model_terms:ir.ui.view,arch_db:l10n_co_account_e_invoicing.account_invoice_dian_document_view_form
 msgid "Files"
-msgstr ""
+msgstr "Archivos"
 
 #. module: l10n_co_account_e_invoicing
 #: model:ir.model.fields,field_description:l10n_co_account_e_invoicing.field_res_company__files_path
 msgid "Files Path"
-msgstr ""
+msgstr "Ruta de Archivos"
 
 #. module: l10n_co_account_e_invoicing
 #: model_terms:ir.ui.view,arch_db:l10n_co_account_e_invoicing.view_company_form
 msgid "GetNumberingRange"
-msgstr ""
+msgstr "GetNumberingRange"
 
 #. module: l10n_co_account_e_invoicing
 #: model:ir.model.fields,field_description:l10n_co_account_e_invoicing.field_res_company__get_numbering_range_response
 msgid "GetNumberingRange Response"
-msgstr ""
+msgstr "Respuesta de GetNumberingRange"
 
 #. module: l10n_co_account_e_invoicing
 #: model_terms:ir.ui.view,arch_db:l10n_co_account_e_invoicing.account_invoice_dian_document_view_form
 msgid "GetStatus"
-msgstr ""
+msgstr "GetStatus"
 
 #. module: l10n_co_account_e_invoicing
 #: model_terms:ir.ui.view,arch_db:l10n_co_account_e_invoicing.account_invoice_dian_document_view_form
 msgid "GetStatusZip"
-msgstr ""
+msgstr "GetStatusZip"
+
 
 #. module: l10n_co_account_e_invoicing
 #: model:ir.model.fields,field_description:l10n_co_account_e_invoicing.field_account_invoice_dian_document__id
@@ -541,19 +547,19 @@ msgstr ""
 #: model:ir.model.fields,field_description:l10n_co_account_e_invoicing.field_einvoice_notification_group__id
 #: model:ir.model.fields,field_description:l10n_co_account_e_invoicing.field_product_scheme__id
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #. module: l10n_co_account_e_invoicing
 #: selection:account.invoice,send_invoice_to_dian:0
 #: selection:res.company,send_invoice_to_dian:0
 msgid "Immediately"
-msgstr ""
+msgstr "Inmediatamente"
 
 #. module: l10n_co_account_e_invoicing
 #: code:addons/l10n_co_account_e_invoicing/models/res_company.py:71
 #, python-format
 msgid "Invalid URL."
-msgstr ""
+msgstr "URL Invalida."
 
 #. module: l10n_co_account_e_invoicing
 #: model:ir.model,name:l10n_co_account_e_invoicing.model_account_invoice
@@ -565,43 +571,43 @@ msgstr "Factura"
 #. module: l10n_co_account_e_invoicing
 #: model:ir.model.fields,field_description:l10n_co_account_e_invoicing.field_account_invoice__invoice_datetime
 msgid "Invoice Datetime"
-msgstr ""
+msgstr "Fecha y Hora de la Factura"
 
 #. module: l10n_co_account_e_invoicing
 #: model:ir.model,name:l10n_co_account_e_invoicing.model_account_invoice_line
 msgid "Invoice Line"
-msgstr "Línea de Factura"
+msgstr "Linea de Factura"
 
 #. module: l10n_co_account_e_invoicing
 #: model:ir.model.fields,field_description:l10n_co_account_e_invoicing.field_account_invoice__invoice_type_code
 msgid "Invoice Type"
-msgstr ""
+msgstr "Tipo de Factura"
 
 #. module: l10n_co_account_e_invoicing
 #: model:ir.model.fields,field_description:l10n_co_account_e_invoicing.field_account_invoice_dian_document__invoice_url
 msgid "Invoice Url"
-msgstr ""
+msgstr "URL de Factura"
 
 #. module: l10n_co_account_e_invoicing
 #: model:ir.model.fields,field_description:l10n_co_account_e_invoicing.field_account_invoice_dian_document__xml_file
 msgid "Invoice XML File"
-msgstr ""
+msgstr "Archivo XML de Factura"
 
 #. module: l10n_co_account_e_invoicing
 #: model:ir.model.fields,field_description:l10n_co_account_e_invoicing.field_account_invoice_dian_document__xml_filename
 msgid "Invoice XML Filename"
-msgstr ""
+msgstr "Nombre de Archivo XML de la Factura"
 
 #. module: l10n_co_account_e_invoicing
 #: model:ir.model.fields,field_description:l10n_co_account_e_invoicing.field_date_range__out_invoice_sent
 msgid "Invoices Sent"
-msgstr ""
+msgstr "Facturas Enviadas"
 
 #. module: l10n_co_account_e_invoicing
 #: model:ir.model.fields,field_description:l10n_co_account_e_invoicing.field_res_partner__is_einvoicing_agent
 #: model:ir.model.fields,field_description:l10n_co_account_e_invoicing.field_res_users__is_einvoicing_agent
 msgid "Is an E-Invoicing Agent?"
-msgstr ""
+msgstr "¿Es un Agente de Facturación Electrónica?"
 
 #. module: l10n_co_account_e_invoicing
 #: model:ir.model.fields,field_description:l10n_co_account_e_invoicing.field_account_invoice_dian_document____last_update
@@ -630,18 +636,18 @@ msgstr "Última actualización el"
 #. module: l10n_co_account_e_invoicing
 #: model:ir.model.fields,field_description:l10n_co_account_e_invoicing.field_account_invoice_dian_document__mail_sent
 msgid "Mail Sent?"
-msgstr ""
+msgstr "¿Correo Enviado?"
 
 #. module: l10n_co_account_e_invoicing
 #: model:ir.model.fields,field_description:l10n_co_account_e_invoicing.field_product_product__margin_percentage
 #: model:ir.model.fields,field_description:l10n_co_account_e_invoicing.field_product_template__margin_percentage
 msgid "Margin Percentage"
-msgstr ""
+msgstr "Porcentaje de Margen"
 
 #. module: l10n_co_account_e_invoicing
 #: selection:account.invoice.dian.document,get_status_zip_status_code:0
 msgid "NSU not found"
-msgstr ""
+msgstr "NSU no encontrado"
 
 #. module: l10n_co_account_e_invoicing
 #: model:ir.model.fields,field_description:l10n_co_account_e_invoicing.field_einvoice_notification_group__name
@@ -651,32 +657,32 @@ msgstr "Nombre"
 #. module: l10n_co_account_e_invoicing
 #: selection:res.partner,is_einvoicing_agent:0
 msgid "No"
-msgstr ""
+msgstr "No"
 
 #. module: l10n_co_account_e_invoicing
 #: selection:res.partner,is_einvoicing_agent:0
 msgid "No, but has email"
-msgstr ""
+msgstr "No, pero tiene correo electrónico."
 
 #. module: l10n_co_account_e_invoicing
 #: model:ir.model.fields,field_description:l10n_co_account_e_invoicing.field_res_company__notification_group_ids
 msgid "Notification Group"
-msgstr ""
+msgstr "Grupo de Notificaciones"
 
 #. module: l10n_co_account_e_invoicing
 #: model:ir.model.fields,field_description:l10n_co_account_e_invoicing.field_account_invoice__operation_type
 msgid "Operation Type"
-msgstr "Tipo de operación"
+msgstr "Tipo de Operación"
 
 #. module: l10n_co_account_e_invoicing
 #: selection:account.invoice.dian.document,get_status_zip_status_code:0
 msgid "Other"
-msgstr ""
+msgstr "Otro"
 
 #. module: l10n_co_account_e_invoicing
 #: model_terms:ir.ui.view,arch_db:l10n_co_account_e_invoicing.account_invoice_dian_document_view_form
 msgid "Process"
-msgstr ""
+msgstr "Procesar"
 
 #. module: l10n_co_account_e_invoicing
 #: model:ir.actions.server,name:l10n_co_account_e_invoicing.ir_cron_process_dian_documents_ir_actions_server
@@ -684,18 +690,18 @@ msgstr ""
 #: model:ir.cron,name:l10n_co_account_e_invoicing.ir_cron_process_dian_documents
 #: model_terms:ir.ui.view,arch_db:l10n_co_account_e_invoicing.view_company_form
 msgid "Process DIAN Documents"
-msgstr ""
+msgstr "Procesar Documentos DIAN"
 
 #. module: l10n_co_account_e_invoicing
 #: selection:account.invoice.dian.document,get_status_zip_status_code:0
 msgid "Processed Correctly"
-msgstr ""
+msgstr "Procesado Correctamente"
 
 #. module: l10n_co_account_e_invoicing
 #: model:ir.model.fields,field_description:l10n_co_account_e_invoicing.field_product_product__product_scheme_id
 #: model:ir.model.fields,field_description:l10n_co_account_e_invoicing.field_product_template__product_scheme_id
 msgid "Product Scheme"
-msgstr ""
+msgstr "Esquema del Producto"
 
 #. module: l10n_co_account_e_invoicing
 #: model:ir.model,name:l10n_co_account_e_invoicing.model_product_template
@@ -705,17 +711,17 @@ msgstr "Plantilla del Producto"
 #. module: l10n_co_account_e_invoicing
 #: selection:res.company,profile_execution_id:0
 msgid "Production"
-msgstr ""
+msgstr "Producción"
 
 #. module: l10n_co_account_e_invoicing
 #: model:ir.model.fields,field_description:l10n_co_account_e_invoicing.field_account_invoice_dian_document__qr_image
 msgid "QR Code"
-msgstr ""
+msgstr "Código QR"
 
 #. module: l10n_co_account_e_invoicing
 #: model_terms:ir.ui.view,arch_db:l10n_co_account_e_invoicing.account_invoice_dian_document_view_form
 msgid "QR Image"
-msgstr ""
+msgstr "Imagen QR"
 
 #. module: l10n_co_account_e_invoicing
 #: model:ir.model.fields,field_description:l10n_co_account_e_invoicing.field_account_invoice_dian_document_line__send_async_reason
@@ -727,45 +733,45 @@ msgstr "Motivo"
 #: model:ir.model.fields,field_description:l10n_co_account_e_invoicing.field_product_product__reference_price
 #: model:ir.model.fields,field_description:l10n_co_account_e_invoicing.field_product_template__reference_price
 msgid "Reference Price"
-msgstr ""
+msgstr "Precio de Referencia"
 
 #. module: l10n_co_account_e_invoicing
 #: model:ir.model.fields,field_description:l10n_co_account_e_invoicing.field_res_company__report_template
 msgid "Report Template"
-msgstr ""
+msgstr "Plantilla de Informe"
 
 #. module: l10n_co_account_e_invoicing
 #: model:ir.model.fields,field_description:l10n_co_account_e_invoicing.field_account_invoice_dian_document__get_status_zip_response
 #: model:ir.model.fields,field_description:l10n_co_account_e_invoicing.field_account_invoice_dian_document_line__send_async_response
 msgid "Response"
-msgstr ""
+msgstr "Respuesta"
 
 #. module: l10n_co_account_e_invoicing
 #: model:ir.model.fields,field_description:l10n_co_account_e_invoicing.field_account_invoice__send_invoice_to_dian
 #: model:ir.model.fields,field_description:l10n_co_account_e_invoicing.field_res_company__send_invoice_to_dian
 msgid "Send Invoice to DIAN?"
-msgstr ""
+msgstr "¿Enviar Factura a DIAN?"
 
 #. module: l10n_co_account_e_invoicing
 #: model_terms:ir.ui.view,arch_db:l10n_co_account_e_invoicing.account_invoice_dian_document_view_form
 msgid "Send Mail"
-msgstr ""
+msgstr "Enviar Correo"
 
 #. module: l10n_co_account_e_invoicing
 #: model:ir.model.fields,field_description:l10n_co_account_e_invoicing.field_res_partner__send_zip_code
 #: model:ir.model.fields,field_description:l10n_co_account_e_invoicing.field_res_users__send_zip_code
 msgid "Send Zip Code?"
-msgstr ""
+msgstr "Enviar Código Postal?"
 
 #. module: l10n_co_account_e_invoicing
 #: model_terms:ir.ui.view,arch_db:l10n_co_account_e_invoicing.account_invoice_dian_document_view_form
 msgid "Send Zipped File"
-msgstr ""
+msgstr "Enviar Archivo Comprimido"
 
 #. module: l10n_co_account_e_invoicing
 #: selection:account.invoice.dian.document,state:0
 msgid "Sent"
-msgstr ""
+msgstr "Enviado"
 
 #. module: l10n_co_account_e_invoicing
 #: model:ir.model,name:l10n_co_account_e_invoicing.model_ir_sequence
@@ -780,52 +786,52 @@ msgstr "Rango de fechas de la secuencia"
 #. module: l10n_co_account_e_invoicing
 #: model:ir.model.fields,field_description:l10n_co_account_e_invoicing.field_account_invoice__sequence_resolution_id
 msgid "Sequence Resolution"
-msgstr ""
+msgstr "Resolución de la Secuencia"
 
 #. module: l10n_co_account_e_invoicing
 #: model_terms:ir.ui.view,arch_db:l10n_co_account_e_invoicing.account_invoice_dian_document_view_form
 msgid "Set AttachedDocument Zipped File"
-msgstr ""
+msgstr "Establecer Archivo Comprimido del AttachedDocument"
 
 #. module: l10n_co_account_e_invoicing
 #: model_terms:ir.ui.view,arch_db:l10n_co_account_e_invoicing.account_invoice_dian_document_view_form
 msgid "Set Files"
-msgstr ""
+msgstr "Establecer Archivos"
 
 #. module: l10n_co_account_e_invoicing
 #: model:ir.model.fields,field_description:l10n_co_account_e_invoicing.field_res_company__signature_policy_description
 msgid "Signature Policy Description"
-msgstr ""
+msgstr "Descripción de la Política de Firma"
 
 #. module: l10n_co_account_e_invoicing
 #: model:ir.model.fields,field_description:l10n_co_account_e_invoicing.field_res_company__signature_policy_url
 msgid "Signature Policy URL"
-msgstr ""
+msgstr "URL de Política de Firma"
 
 #. module: l10n_co_account_e_invoicing
 #: model:ir.model.fields,field_description:l10n_co_account_e_invoicing.field_res_company__software_id
 msgid "Software ID"
-msgstr ""
+msgstr "ID del software"
 
 #. module: l10n_co_account_e_invoicing
 #: model:ir.model.fields,field_description:l10n_co_account_e_invoicing.field_res_company__software_pin
 msgid "Software PIN"
-msgstr ""
+msgstr "PIN del Software"
 
 #. module: l10n_co_account_e_invoicing
 #: model:ir.model.fields,field_description:l10n_co_account_e_invoicing.field_account_invoice_dian_document__software_security_code
 msgid "SoftwareSecurityCode"
-msgstr ""
+msgstr "SoftwareSecurityCode"
 
 #. module: l10n_co_account_e_invoicing
 #: model:ir.model.fields,field_description:l10n_co_account_e_invoicing.field_account_invoice_dian_document__software_security_code_uncoded
 msgid "SoftwareSecurityCode Uncoded"
-msgstr ""
+msgstr "SoftwareSecurityCode Sin Codificar"
 
 #. module: l10n_co_account_e_invoicing
 #: selection:account.invoice,operation_type:0
 msgid "Standard *"
-msgstr ""
+msgstr "Estándar *"
 
 #. module: l10n_co_account_e_invoicing
 #: model:ir.model.fields,field_description:l10n_co_account_e_invoicing.field_account_invoice_dian_document__state
@@ -836,7 +842,7 @@ msgstr "Estado"
 #: model:ir.model.fields,field_description:l10n_co_account_e_invoicing.field_account_invoice_dian_document__get_status_zip_status_code
 #: model:ir.model.fields,field_description:l10n_co_account_e_invoicing.field_account_invoice_dian_document_line__send_async_status_code
 msgid "Status Code"
-msgstr ""
+msgstr "Código de Estado"
 
 #. module: l10n_co_account_e_invoicing
 #: model:ir.model,name:l10n_co_account_e_invoicing.model_account_tax_group
@@ -846,29 +852,30 @@ msgstr "Grupo de impuestos"
 #. module: l10n_co_account_e_invoicing
 #: model:ir.model.fields,field_description:l10n_co_account_e_invoicing.field_ir_sequence_date_range__technical_key
 msgid "Technical Key"
-msgstr ""
+msgstr "Clave Técnica"
 
 #. module: l10n_co_account_e_invoicing
 #: selection:res.company,profile_execution_id:0
 msgid "Test"
-msgstr ""
+msgstr "Prueba"
 
 #. module: l10n_co_account_e_invoicing
 #: model:ir.model.fields,field_description:l10n_co_account_e_invoicing.field_res_company__test_set_id
 msgid "Test Set ID"
-msgstr ""
+msgstr "ID del Set de Prueba"
 
 #. module: l10n_co_account_e_invoicing
 #: code:addons/l10n_co_account_e_invoicing/models/account_invoice.py:171
 #, python-format
 msgid "The 'delivery date' must be equal or greater per maximum 10 days to the 'invoice date'."
-msgstr ""
+msgstr "La 'fecha de entrega' debe ser igual o mayor por un máximo de 10 días a la 'fecha de la factura'."
 
 #. module: l10n_co_account_e_invoicing
 #: model_terms:ir.ui.view,arch_db:l10n_co_account_e_invoicing.view_invoice_form
 msgid "The certificate for this company is nearby to expire.<br/>\n"
 "                <span style=\"font-weight:bold;\">Please, you must to inform the administration.</span>"
-msgstr ""
+msgstr "El certificado de esta empresa está por vencer.<br/>\n"
+"                    <span style=\"font-weight:bold;\">Por favor, debe informar a la administración.</span>"
 
 #. module: l10n_co_account_e_invoicing
 #: code:addons/l10n_co_account_e_invoicing/models/global_functions.py:153
@@ -876,25 +883,27 @@ msgstr ""
 msgid "The certificate password or certificate file is not valid.\n"
 "\n"
 "Exception: %s"
-msgstr ""
+msgstr "La contraseña del certificado o el archivo del certificado no es válido.\n"
+"\n"
+"Excepción: %s"
 
 #. module: l10n_co_account_e_invoicing
 #: model:ir.model.fields,help:l10n_co_account_e_invoicing.field_product_product__margin_percentage
 #: model:ir.model.fields,help:l10n_co_account_e_invoicing.field_product_template__margin_percentage
 msgid "The cost price + this percentage will be the reference price"
-msgstr ""
+msgstr "El precio de costo + este porcentaje será el precio de referencia"
 
 #. module: l10n_co_account_e_invoicing
 #: code:addons/l10n_co_account_e_invoicing/models/res_partner.py:87
 #, python-format
 msgid "The document type of '%s' does not seem to correspond with the person type."
-msgstr ""
+msgstr "El tipo de documento de '%s' no parece corresponder con el tipo de persona."
 
 #. module: l10n_co_account_e_invoicing
 #: code:addons/l10n_co_account_e_invoicing/models/account_invoice_dian_document.py:127
 #, python-format
 msgid "The document type of '%s' is not NIT"
-msgstr ""
+msgstr "El tipo de documento de '%s' no es NIT"
 
 #. module: l10n_co_account_e_invoicing
 #: code:addons/l10n_co_account_e_invoicing/models/res_partner.py:77
@@ -902,19 +911,21 @@ msgstr ""
 msgid "The field 'E-Invoicing Email' is not correctly filled.\n"
 "\n"
 "Please add @ and dot (.)"
-msgstr ""
+msgstr "El campo 'Correo Electrónico de Facturación Electrónica' no se completa correctamente.\n"
+"\n"
+"Por favor agregue @ y punto (.)"
 
 #. module: l10n_co_account_e_invoicing
 #: code:addons/l10n_co_account_e_invoicing/models/account_invoice.py:469
 #, python-format
 msgid "The invoice line %s has no reference"
-msgstr ""
+msgstr "La línea de factura %s no tiene referencia"
 
 #. module: l10n_co_account_e_invoicing
 #: code:addons/l10n_co_account_e_invoicing/models/account_invoice_dian_document.py:381
 #, python-format
 msgid "The invoice type selected is not valid to this invoice."
-msgstr ""
+msgstr "El tipo de factura seleccionado no es válido para esta factura."
 
 #. module: l10n_co_account_e_invoicing
 #: code:addons/l10n_co_account_e_invoicing/models/account_invoice_dian_document.py:688
@@ -922,35 +933,38 @@ msgstr ""
 msgid "The notification group for e-invoice failures is not set.\n"
 "You won't be notified if something goes wrong.\n"
 "Please go to Settings > Company > Notification Group."
-msgstr ""
+msgstr "El grupo de notificación para fallas de factura electrónica no está establecido.\n"
+"No se le notificará si algo sale mal.\n"
+"Vaya a Configuración > Compañia > Grupo de Notificaciones."
 
 #. module: l10n_co_account_e_invoicing
 #: code:addons/l10n_co_account_e_invoicing/models/account_invoice_dian_document.py:543
 #, python-format
 msgid "There is no an active certificate."
-msgstr ""
+msgstr "No hay un certificado activo."
 
 #. module: l10n_co_account_e_invoicing
 #: model_terms:ir.ui.view,arch_db:l10n_co_account_e_invoicing.view_invoice_form
 msgid "There is no an active certificate.<br/>\n"
 "            <span style=\"font-weight:bold;\">Please, you must to inform the administration.</span>"
-msgstr ""
+msgstr "No hay un certificado activo.<br/>\n"
+"                    <span style=\"font-weight:bold;\">Por favor, debe informar a la administración.</span>"
 
 #. module: l10n_co_account_e_invoicing
 #: code:addons/l10n_co_account_e_invoicing/models/account_invoice_dian_document.py:130
 #, python-format
 msgid "There is no date range corresponding to the date of your invoice."
-msgstr ""
+msgstr "No hay intervalo de fechas correspondiente a la fecha de su factura."
 
 #. module: l10n_co_account_e_invoicing
 #: selection:account.invoice.dian.document,get_status_zip_status_code:0
 msgid "TrackId not found"
-msgstr ""
+msgstr "TrackId no encontrado"
 
 #. module: l10n_co_account_e_invoicing
 #: selection:res.partner,is_einvoicing_agent:0
 msgid "Unknown"
-msgstr ""
+msgstr "Desconocido"
 
 #. module: l10n_co_account_e_invoicing
 #: code:addons/l10n_co_account_e_invoicing/models/account_invoice_dian_document.py:904
@@ -960,7 +974,11 @@ msgid "Unknown Error,\n"
 "Reason: %s\n"
 "\n"
 "Contact with your administrator."
-msgstr ""
+msgstr "Error Desconocido,\n"
+"Código de Estado: %s,\n"
+"Razón: %s\n"
+"\n"
+"Contacta con tu administrador."
 
 #. module: l10n_co_account_e_invoicing
 #: code:addons/l10n_co_account_e_invoicing/models/account_invoice_dian_document.py:824
@@ -970,7 +988,12 @@ msgid "Unknown Error,\n"
 "Reason: %s,\n"
 "\n"
 "Contact with your administrator or you can choose a journal with a Contingency Checkbook E-Invoicing sequence and change the Invoice Type to 'E-document of transmission - type 03'."
-msgstr ""
+msgstr "Error Desconocido,\n"
+"Código de Estado: %s,\n"
+"Razón: %s,\n"
+"\n"
+"Contacta con tu administrador o puede elegir un diario con una secuencia de Talonario de Contingencia para Facturación Electrónica y cambiar el Tipo de Factura a 'Documento electrónico de transmisión - tipo 03'."
+
 
 #. module: l10n_co_account_e_invoicing
 #: code:addons/l10n_co_account_e_invoicing/models/res_company.py:110
@@ -978,7 +1001,9 @@ msgstr ""
 msgid "Unknown Error,\n"
 "Status Code: %s,\n"
 "Reason: %s."
-msgstr ""
+msgstr "Error Desconocido,\n"
+"Código de Estado: %s,\n"
+"Razón: %s."
 
 #. module: l10n_co_account_e_invoicing
 #: code:addons/l10n_co_account_e_invoicing/models/account_invoice_dian_document.py:829
@@ -986,7 +1011,10 @@ msgstr ""
 msgid "Unknown Error: %s\n"
 "\n"
 "Contact with your administrator or you can choose a journal with a Contingency Checkbook E-Invoicing sequence and change the Invoice Type to 'E-document of transmission - type 03'."
-msgstr ""
+msgstr "Error Desconocido: %s\n"
+"\n"
+"Contacta con tu administrador o puede elegir un diario con una secuencia de Talonario de Contingencia para Facturación Electrónica y cambiar el Tipo de Factura a 'Documento electrónico de transmisión - tipo 03'."
+
 
 #. module: l10n_co_account_e_invoicing
 #: code:addons/l10n_co_account_e_invoicing/models/account_invoice_dian_document.py:906
@@ -994,197 +1022,198 @@ msgstr ""
 msgid "Unknown Error: %s\n"
 "\n"
 "Contact with your administrator."
-msgstr ""
-
+msgstr "Error Desconocido: %s\n"
+"\n"
+"Contacta con tu administrador."
 #. module: l10n_co_account_e_invoicing
 #: code:addons/l10n_co_account_e_invoicing/models/res_company.py:111
 #, python-format
 msgid "Unknown Error: %s\n"
 "."
-msgstr ""
+msgstr "Error Desconocido: %s\n"
+"."
 
 #. module: l10n_co_account_e_invoicing
 #: model:ir.model.fields,help:l10n_co_account_e_invoicing.field_product_product__reference_price
 #: model:ir.model.fields,help:l10n_co_account_e_invoicing.field_product_template__reference_price
 msgid "Use this field if the reference price does not depend on the cost price"
-msgstr ""
+msgstr "Use este campo si el precio de referencia no depende del precio de costo"
 
 #. module: l10n_co_account_e_invoicing
 #: model:ir.model.fields,field_description:l10n_co_account_e_invoicing.field_account_invoice_dian_document__validation_datetime
 msgid "Validation Datetime"
-msgstr ""
+msgstr "Fecha y Hora de Validación"
 
 #. module: l10n_co_account_e_invoicing
 #: selection:account.invoice.dian.document,get_status_zip_status_code:0
 msgid "Validations contain errors in mandatory fields"
-msgstr ""
+msgstr "Validaciones contienen errores en campos mandatorios"
 
 #. module: l10n_co_account_e_invoicing
 #: model:ir.model.fields,field_description:l10n_co_account_e_invoicing.field_res_partner__view_einvoicing_email_field
 #: model:ir.model.fields,field_description:l10n_co_account_e_invoicing.field_res_users__view_einvoicing_email_field
 #: model:res.groups,name:l10n_co_account_e_invoicing.group_view_einvoicing_email_fields
 msgid "View 'E-Invoicing Email' Fields"
-msgstr ""
+msgstr "Ver Campos de 'Correo Electrónico de Facturación Electrónica'"
 
 #. module: l10n_co_account_e_invoicing
 #: model:res.groups,name:l10n_co_account_e_invoicing.group_view_invoice_type_field
 msgid "View 'Invoice Type' Field"
-msgstr ""
+msgstr "Ver Campo 'Tipo de Factura'"
 
 #. module: l10n_co_account_e_invoicing
 #: model:res.groups,name:l10n_co_account_e_invoicing.group_view_operation_type_field
 msgid "View 'Operation Type' Field"
-msgstr ""
+msgstr "Ver Campo 'Tipo de Operación'"
 
 #. module: l10n_co_account_e_invoicing
 #: model:res.groups,name:l10n_co_account_e_invoicing.group_send_invoice_dian_field
 msgid "View 'Send Invoice to DIAN?' Field"
-msgstr ""
+msgstr "Ver Campo 'Enviar Factura a DIAN?'"
 
 #. module: l10n_co_account_e_invoicing
 #: model:res.groups,name:l10n_co_account_e_invoicing.group_view_dian_documents
 msgid "View DIAN Documents"
-msgstr ""
+msgstr "Ver Documentos DIAN"
 
 #. module: l10n_co_account_e_invoicing
 #: model:res.groups,name:l10n_co_account_e_invoicing.group_view_einvoicing_setting_product
 msgid "View E-Invoicing Setting of the Product"
-msgstr ""
+msgstr "Ver Configuración de Facturación Electrónica del Producto"
 
 #. module: l10n_co_account_e_invoicing
 #: model:res.groups,name:l10n_co_account_e_invoicing.group_view_invoice_refund_buttons
 msgid "View Invoice Refund Buttons"
-msgstr ""
+msgstr "Ver Botones de Reembolso de Factura"
 
 #. module: l10n_co_account_e_invoicing
 #: code:addons/l10n_co_account_e_invoicing/models/account_invoice_dian_document.py:61
 #, python-format
 msgid "WITHOUT VALIDATE"
-msgstr ""
+msgstr "SIN VALIDAR"
 
 #. module: l10n_co_account_e_invoicing
 #: model:ir.model.fields,field_description:l10n_co_account_e_invoicing.field_account_invoice__warn_inactive_certificate
 msgid "Warn About Inactive Certificate?"
-msgstr ""
+msgstr "¿Advertir Sobre el Certificado Inactivo?"
 
 #. module: l10n_co_account_e_invoicing
 #: model:ir.model.fields,field_description:l10n_co_account_e_invoicing.field_account_invoice__warn_remaining_certificate
 msgid "Warn About Remainings?"
-msgstr "¿Advertir Sobre lo Restante?"
+msgstr "¿Advertir Sobre los Restantes?"
 
 #. module: l10n_co_account_e_invoicing
 #: selection:res.partner,is_einvoicing_agent:0
 msgid "Yes"
-msgstr ""
+msgstr "Sí"
 
 #. module: l10n_co_account_e_invoicing
 #: code:addons/l10n_co_account_e_invoicing/models/account_invoice.py:298
 #, python-format
 msgid "You can not make a refund invoice of an invoice with DIAN documents with state 'Draft', 'Sent' or 'Cancelled'."
-msgstr ""
+msgstr "No puede hacer una factura de reembolso de una factura con documentos DIAN con el estado 'Borrador', 'Enviado' o 'Cancelado'."
 
 #. module: l10n_co_account_e_invoicing
 #: code:addons/l10n_co_account_e_invoicing/models/account_invoice.py:295
 #, python-format
 msgid "You can not make a refund invoice of an invoice with state different to 'Open' or 'Paid'."
-msgstr ""
+msgstr "No puede hacer una factura de reembolso de una factura con un estado diferente a 'Abierto' o 'Pagado'."
 
 #. module: l10n_co_account_e_invoicing
 #: code:addons/l10n_co_account_e_invoicing/models/account_invoice.py:252
 #, python-format
 msgid "You cannot cancel a invoice sent to the DIAN and that was approved."
-msgstr ""
+msgstr "No puede cancelar una factura enviada a la DIAN y que fue aprobada."
 
 #. module: l10n_co_account_e_invoicing
 #: code:addons/l10n_co_account_e_invoicing/models/account_invoice.py:267
 #, python-format
 msgid "You do not have an active dian resolution, contact with your administrator."
-msgstr ""
+msgstr "No tiene una resolución activa de dian, póngase en contacto con su administrador."
 
 #. module: l10n_co_account_e_invoicing
 #: code:addons/l10n_co_account_e_invoicing/models/account_invoice.py:467
 #, python-format
 msgid "Your Unit of Measure: '%s', has no Unit of Measure Code, contact with your administrator."
-msgstr ""
+msgstr "Su Unidad de Medida: '%s', no tiene Código de Unidad de Medida, contacte con su administrador."
 
 #. module: l10n_co_account_e_invoicing
 #: code:addons/l10n_co_account_e_invoicing/models/account_invoice_dian_document.py:373
 #, python-format
 msgid "Your active dian resolution has no technical key, contact with your administrator."
-msgstr ""
+msgstr "Su resolución dian activa no tiene clave técnica, póngase en contacto con su administrador."
 
 #. module: l10n_co_account_e_invoicing
 #: code:addons/l10n_co_account_e_invoicing/models/account_invoice_dian_document.py:663
 #, python-format
 msgid "Your invoice has not been validated"
-msgstr ""
+msgstr "Su factura no ha sido validada"
 
 #. module: l10n_co_account_e_invoicing
 #: code:addons/l10n_co_account_e_invoicing/models/account_invoice_dian_document.py:425
 #: code:addons/l10n_co_account_e_invoicing/models/account_invoice_dian_document.py:464
 #, python-format
 msgid "Your journal: %s, has no a credit note sequence"
-msgstr ""
+msgstr "Su diario: %s, no tiene una secuencia de notas de crédito"
 
 #. module: l10n_co_account_e_invoicing
 #: code:addons/l10n_co_account_e_invoicing/models/account_invoice_dian_document.py:372
 #, python-format
 msgid "Your journal: %s, has no a invoice sequence"
-msgstr ""
+msgstr "Su diario: %s, no tiene una secuencia de factura"
 
 #. module: l10n_co_account_e_invoicing
 #: code:addons/l10n_co_account_e_invoicing/models/account_invoice_dian_document.py:378
 #, python-format
 msgid "Your journal: %s, has no a invoice sequence with type equal to Contingency Checkbook E-Invoicing"
-msgstr ""
+msgstr "Su diario: %s, no tiene una secuencia de factura con un tipo igual a Talonario de Contingencia para Facturación Electrónica"
 
 #. module: l10n_co_account_e_invoicing
 #: code:addons/l10n_co_account_e_invoicing/models/account_invoice_dian_document.py:375
 #, python-format
 msgid "Your journal: %s, has no a invoice sequence with type equal to E-Invoicing"
-msgstr ""
+msgstr "Su diario: %s, no tiene una secuencia de factura con un tipo igual a Factura electrónica"
 
 #. module: l10n_co_account_e_invoicing
 #: code:addons/l10n_co_account_e_invoicing/models/account_invoice.py:470
 #, python-format
 msgid "Your product: '%s', has no reference price, contact with your administrator."
-msgstr ""
+msgstr "Su producto: '%s', no tiene precio de referencia, contacte con su administrador."
 
 #. module: l10n_co_account_e_invoicing
 #: code:addons/l10n_co_account_e_invoicing/models/account_invoice.py:365
 #: code:addons/l10n_co_account_e_invoicing/models/account_invoice.py:479
 #, python-format
 msgid "Your tax: '%s', has negative amount or an amount equal to zero (0), the taxes must have an amount greater than zero (0), contact with your administrator."
-msgstr ""
+msgstr "Su impuesto: '%s', tiene una cantidad negativa o una cantidad igual a cero (0), los impuestos deben tener una cantidad mayor que cero (0), póngase en contacto con su administrador."
 
 #. module: l10n_co_account_e_invoicing
 #: code:addons/l10n_co_account_e_invoicing/models/account_invoice.py:358
 #: code:addons/l10n_co_account_e_invoicing/models/account_invoice.py:472
 #, python-format
 msgid "Your tax: '%s', has no e-invoicing tax group type, contact with your administrator."
-msgstr ""
-
+msgstr "Su impuesto: '%s', no tiene ningún tipo de grupo de impuestos de facturación electrónica, póngase en contacto con su administrador."
 #. module: l10n_co_account_e_invoicing
 #: code:addons/l10n_co_account_e_invoicing/models/account_invoice.py:360
 #: code:addons/l10n_co_account_e_invoicing/models/account_invoice.py:474
 #, python-format
 msgid "Your withholding tax: '%s', has amount equal to zero (0), the withholding taxes must have amount different to zero (0), contact with your administrator."
-msgstr ""
+msgstr "Su retención de impuestos: '%s', tiene un monto igual a cero (0), los impuestos de retención deben tener un monto diferente a cero (0), póngase en contacto con su administrador."
 
 #. module: l10n_co_account_e_invoicing
 #: model:ir.model.fields,field_description:l10n_co_account_e_invoicing.field_account_invoice_dian_document__zip_key
 msgid "ZipKey"
-msgstr ""
+msgstr "ZipKey"
 
 #. module: l10n_co_account_e_invoicing
 #: model:ir.model.fields,field_description:l10n_co_account_e_invoicing.field_account_invoice_dian_document__zipped_file
 msgid "Zipped File"
-msgstr ""
+msgstr "Archivo Comprimido"
 
 #. module: l10n_co_account_e_invoicing
 #: model:ir.model.fields,field_description:l10n_co_account_e_invoicing.field_account_invoice_dian_document__zipped_filename
 msgid "Zipped Filename"
-msgstr ""
+msgstr "Nombre de Archivo Comprimido"
 
 #. module: l10n_co_account_e_invoicing
 #: model:ir.model,name:l10n_co_account_e_invoicing.model_account_invoice_dian_document
@@ -1209,15 +1238,15 @@ msgstr ""
 #. module: l10n_co_account_e_invoicing
 #: model:ir.model.fields,field_description:l10n_co_account_e_invoicing.field_product_scheme__scheme_agency_id
 msgid "schemeAgencyID"
-msgstr ""
+msgstr "schemeAgencyID"
 
 #. module: l10n_co_account_e_invoicing
 #: model:ir.model.fields,field_description:l10n_co_account_e_invoicing.field_product_scheme__code
 msgid "schemeID"
-msgstr ""
+msgstr "schemeID"
 
 #. module: l10n_co_account_e_invoicing
 #: model:ir.model.fields,field_description:l10n_co_account_e_invoicing.field_product_scheme__name
 msgid "schemeName"
-msgstr ""
+msgstr "schemeName"
 
