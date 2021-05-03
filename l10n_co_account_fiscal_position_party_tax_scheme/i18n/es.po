@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-03-18 16:26+0000\n"
-"PO-Revision-Date: 2021-03-18 16:26+0000\n"
+"POT-Creation-Date: 2021-05-03 13:25+0000\n"
+"PO-Revision-Date: 2021-05-03 13:25+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -33,7 +33,7 @@ msgstr "Creado el"
 #. module: l10n_co_account_fiscal_position_party_tax_scheme
 #: model:ir.model.fields,field_description:l10n_co_account_fiscal_position_party_tax_scheme.field_account_fiscal_position_tax_level_code__display_name
 msgid "Display Name"
-msgstr "Nombre a mostrar"
+msgstr "Nombre a Mostrar"
 
 #. module: l10n_co_account_fiscal_position_party_tax_scheme
 #: model:ir.model,name:l10n_co_account_fiscal_position_party_tax_scheme.model_account_fiscal_position
@@ -62,17 +62,17 @@ msgstr "ID"
 #. module: l10n_co_account_fiscal_position_party_tax_scheme
 #: model:ir.model.fields,field_description:l10n_co_account_fiscal_position_party_tax_scheme.field_account_fiscal_position_tax_level_code____last_update
 msgid "Last Modified on"
-msgstr "Última modificación en"
+msgstr "Última Modificación el"
 
 #. module: l10n_co_account_fiscal_position_party_tax_scheme
 #: model:ir.model.fields,field_description:l10n_co_account_fiscal_position_party_tax_scheme.field_account_fiscal_position_tax_level_code__write_uid
 msgid "Last Updated by"
-msgstr "Última actualización por"
+msgstr "Última Actualización por"
 
 #. module: l10n_co_account_fiscal_position_party_tax_scheme
 #: model:ir.model.fields,field_description:l10n_co_account_fiscal_position_party_tax_scheme.field_account_fiscal_position_tax_level_code__write_date
 msgid "Last Updated on"
-msgstr "Última actualización el"
+msgstr "Última Actualización el"
 
 #. module: l10n_co_account_fiscal_position_party_tax_scheme
 #: model:ir.model.fields,field_description:l10n_co_account_fiscal_position_party_tax_scheme.field_account_fiscal_position_tax_level_code__name
@@ -81,14 +81,14 @@ msgstr "Nombre"
 
 #. module: l10n_co_account_fiscal_position_party_tax_scheme
 #: selection:account.fiscal.position,listname:0
-#: code:addons/l10n_co_account_fiscal_position_party_tax_scheme/models/account_fiscal_position.py:14
+#: code:addons/l10n_co_account_fiscal_position_party_tax_scheme/models/account_fiscal_position.py:15
 #, python-format
 msgid "Not responsible for VAT"
-msgstr "No responsable de IVA"
+msgstr "No responsable del IVA"
 
 #. module: l10n_co_account_fiscal_position_party_tax_scheme
 #: selection:account.fiscal.position,listname:0
-#: code:addons/l10n_co_account_fiscal_position_party_tax_scheme/models/account_fiscal_position.py:13
+#: code:addons/l10n_co_account_fiscal_position_party_tax_scheme/models/account_fiscal_position.py:14
 #, python-format
 msgid "Responsible for sales tax - VAT"
 msgstr "Responsable del impuesto sobre las ventas - IVA"
@@ -96,12 +96,12 @@ msgstr "Responsable del impuesto sobre las ventas - IVA"
 #. module: l10n_co_account_fiscal_position_party_tax_scheme
 #: model_terms:ir.ui.view,arch_db:l10n_co_account_fiscal_position_party_tax_scheme.account_fiscal_position_tax_level_code_view_search
 msgid "Search"
-msgstr "Búsqueda"
+msgstr "Buscar"
 
 #. module: l10n_co_account_fiscal_position_party_tax_scheme
 #: model:ir.model.fields,field_description:l10n_co_account_fiscal_position_party_tax_scheme.field_account_fiscal_position__tax_group_type_id
 msgid "Tax Group Type"
-msgstr "Tipo de grupo de Impuesto"
+msgstr "Tipo de Grupo"
 
 #. module: l10n_co_account_fiscal_position_party_tax_scheme
 #: model:ir.model,name:l10n_co_account_fiscal_position_party_tax_scheme.model_account_fiscal_position_tax_level_code
