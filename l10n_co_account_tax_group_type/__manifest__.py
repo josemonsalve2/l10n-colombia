@@ -10,8 +10,8 @@
     "license": "AGPL-3",
     "website": "https://github.com/exaap/l10n-colombia",
     "author": "EXA Auto Parts Github@exaap, "
-    "Joan Marín Github@JoanMarin, "
-    "Alejandro Olano Github@alejo-code",
+    "Alejandro Olano Github@alejo-code, "
+    "Joan Marín Github@JoanMarin",
     "category": "Localization",
     "depends": [
         "account_tax_group_type",
