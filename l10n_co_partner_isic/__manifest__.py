@@ -17,9 +17,9 @@
     "https://github.com/odooloco/l10n-colombia",
     "author":
     "EXA Auto Parts Github@exaap, "
+    "Alejandro Olano Github@alejo-code, "
     "Joan Marín Github@JoanMarin, "
-    "Guillermo Montoya Github@guillermm, "
-    "Alejandro Olano Github@alejo-code",
+    "Guillermo Montoya Github@guillermm",
     "category":
     "Localization",
     "depends": ["base", "account"],
