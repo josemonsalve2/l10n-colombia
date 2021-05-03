@@ -12,6 +12,7 @@
     "website":
     "https://github.com/exaap/l10n-colombia",
     "author":
+    "Alejandro Olano Github@alejo-code, "
     "Juan Camilo Zuluaga Serna Github@camilozuluaga, "
     "Joan Marín Github@JoanMarin",
     "category":
