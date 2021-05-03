@@ -13,9 +13,9 @@
     "website":
     "https://github.com/odooloco/l10n-colombia",
     "author":
+    "Alejandro Olano Github@alejo-code, "
     "Juan Camilo Zuluaga Serna Github@camilozuluaga, "
-    "Joan Marín Github@JoanMarin, "
-    "Alejandro Olano Github@alejo-code",
+    "Joan Marín Github@JoanMarin, ",
     "category":
     "Localization",
     "summary":
