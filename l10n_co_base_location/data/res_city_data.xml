@@ -7705,13 +7705,83 @@
         <field name="code">94001</field>
         <field name="phone_prefix">8</field>
         <field name="country_id" ref="base.co"/>
-        <field name="state_id" ref="res_country_state_co_91"/>
+        <field name="state_id" ref="res_country_state_co_94"/>
     </record>
     <record id="CO941010" model="res.city">
         <field name="name">CACAHUAL</field>
         <field name="code">94886</field>
         <field name="phone_prefix">8</field>
         <field name="country_id" ref="base.co"/>
-        <field name="state_id" ref="res_country_state_co_91"/>
+        <field name="state_id" ref="res_country_state_co_94"/>
+    </record>
+    <record id="CO942010" model="res.city">
+        <field name="name">SAN FELIPE</field>
+        <field name="code">94883</field>
+        <field name="phone_prefix">8</field>
+        <field name="country_id" ref="base.co"/>
+        <field name="state_id" ref="res_country_state_co_94"/>
+    </record>
+    <record id="CO944010" model="res.city">
+        <field name="name">BARRANCO MINAS</field>
+        <field name="code">94343</field>
+        <field name="phone_prefix">8</field>
+        <field name="country_id" ref="base.co"/>
+        <field name="state_id" ref="res_country_state_co_94"/>
+    </record>
+    <record id="CO950001" model="res.city">
+        <field name="name">SAN JOSÉ DEL GUAVIARE</field>
+        <field name="code">95001</field>
+        <field name="phone_prefix">8</field>
+        <field name="country_id" ref="base.co"/>
+        <field name="state_id" ref="res_country_state_co_95"/>
+    </record>
+    <record id="CO951001" model="res.city">
+        <field name="name">EL RETORNO</field>
+        <field name="code">95025</field>
+        <field name="phone_prefix">8</field>
+        <field name="country_id" ref="base.co"/>
+        <field name="state_id" ref="res_country_state_co_95"/>
+    </record>
+    <record id="CO952001" model="res.city">
+        <field name="name">MIRAFLORES</field>
+        <field name="code">95200</field>
+        <field name="phone_prefix">8</field>
+        <field name="country_id" ref="base.co"/>
+        <field name="state_id" ref="res_country_state_co_95"/>
+    </record>
+    <record id="CO953001" model="res.city">
+        <field name="name">CALAMAR</field>
+        <field name="code">95015</field>
+        <field name="phone_prefix">8</field>
+        <field name="country_id" ref="base.co"/>
+        <field name="state_id" ref="res_country_state_co_95"/>
+    </record>
+    <record id="CO970001" model="res.city">
+        <field name="name">MITÚ</field>
+        <field name="code">97001</field>
+        <field name="phone_prefix">8</field>
+        <field name="country_id" ref="base.co"/>
+        <field name="state_id" ref="res_country_state_co_97"/>
+    </record>
+    <record id="CO972040" model="res.city">
+        <field name="name">TARAIRA</field>
+        <field name="code">97666</field>
+        <field name="phone_prefix">8</field>
+        <field name="country_id" ref="base.co"/>
+        <field name="state_id" ref="res_country_state_co_97"/>
+    </record>
+    <record id="CO973001" model="res.city">
+        <field name="name">CARURÚ</field>
+        <field name="code">97161</field>
+        <field name="phone_prefix">8</field>
+        <field name="country_id" ref="base.co"/>
+        <field name="state_id" ref="res_country_state_co_97"/>
+    </record>
+    <record id="CO990001" model="res.city">
+        <field name="name">PUERTO CARREÑO</field>
+        <field name="code">99001</field>
+        <field name="phone_prefix">8</field>
+        <field name="country_id" ref="base.co"/>
+        <field name="state_id" ref="res_country_state_co_99"/>
     </record>
 </odoo>
