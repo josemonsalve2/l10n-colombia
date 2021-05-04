@@ -7805,4 +7805,5 @@
         <field name="country_id" ref="base.co"/>
         <field name="state_id" ref="res_country_state_co_99"/>
     </record>
+    
 </odoo>

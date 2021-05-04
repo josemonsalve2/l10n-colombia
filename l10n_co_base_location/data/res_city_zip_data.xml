@@ -14528,15 +14528,15 @@
 		<field name="name">992050</field>
 		<field name="city_id" ref="CO992050"/>
 	</record>
-	<record id="CO992057_zip" model="res.city.zip">
+	<record id="CO992007_zip" model="res.city.zip">
 		<field name="name">992057</field>
 		<field name="city_id" ref="CO992050"/>
 	</record>
-	<record id="CO992058_zip" model="res.city.zip">
+	<record id="CO992008_zip" model="res.city.zip">
 		<field name="name">992058</field>
 		<field name="city_id" ref="CO992050"/>
 	</record>
-	<record id="CO992059_zip" model="res.city.zip">
+	<record id="CO992009_zip" model="res.city.zip">
 		<field name="name">992059</field>
 		<field name="city_id" ref="CO992050"/>
 	</record>
