@@ -7784,4 +7784,25 @@
         <field name="country_id" ref="base.co"/>
         <field name="state_id" ref="res_country_state_co_99"/>
     </record>
+    <record id="CO991001" model="res.city">
+        <field name="name">CUMARIBO</field>
+        <field name="code">99773</field>
+        <field name="phone_prefix">8</field>
+        <field name="country_id" ref="base.co"/>
+        <field name="state_id" ref="res_country_state_co_99"/>
+    </record>
+    <record id="CO992001" model="res.city">
+        <field name="name">LA PRIMAVERA</field>
+        <field name="code">99524</field>
+        <field name="phone_prefix">8</field>
+        <field name="country_id" ref="base.co"/>
+        <field name="state_id" ref="res_country_state_co_99"/>
+    </record>
+    <record id="CO992050" model="res.city">
+        <field name="name">SANTA ROSALÍA</field>
+        <field name="code">99624</field>
+        <field name="phone_prefix">8</field>
+        <field name="country_id" ref="base.co"/>
+        <field name="state_id" ref="res_country_state_co_99"/>
+    </record>
 </odoo>
