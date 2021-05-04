@@ -231,7 +231,7 @@
         <field name="country_id" ref="base.co"/>
         <field name="state_id" ref="res_country_state_co_05"/>
     </record>
-    <record id="CO052830" model="res.city">
+    <record id="CO052820" model="res.city">
         <field name="name">REMEDIOS</field>
         <field name="code">05604</field>
         <field name="phone_prefix">4</field>
@@ -2549,7 +2549,14 @@
         <field name="state_id" ref="res_country_state_co_19"/>
     </record>
     <record id="CO190550" model="res.city">
-        <field name="name">MORALES</field>
+        <field name="name">MORALES - CAUCA</field>
+        <field name="code">19473</field>
+        <field name="phone_prefix">2</field>
+        <field name="country_id" ref="base.co"/>
+        <field name="state_id" ref="res_country_state_co_19"/>
+    </record>
+    <record id="CO134540" model="res.city">
+        <field name="name">MORALES - BOLIVAR</field>
         <field name="code">19473</field>
         <field name="phone_prefix">2</field>
         <field name="country_id" ref="base.co"/>
@@ -2586,13 +2593,6 @@
     <record id="CO191070" model="res.city">
         <field name="name">CALOTO</field>
         <field name="code">19142</field>
-        <field name="phone_prefix">2</field>
-        <field name="country_id" ref="base.co"/>
-        <field name="state_id" ref="res_country_state_co_19"/>
-    </record>
-    <record id="CO191087" model="res.city">
-        <field name="name">GUACHENÉ</field>
-        <field name="code">19300</field>
         <field name="phone_prefix">2</field>
         <field name="country_id" ref="base.co"/>
         <field name="state_id" ref="res_country_state_co_19"/>
