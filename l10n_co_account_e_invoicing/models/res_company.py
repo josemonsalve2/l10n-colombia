@@ -59,7 +59,7 @@ class ResCompany(models.Model):
     einvoicing_receives_all_emails = fields.Char(
         string='Email that receives all emails')
     report_template = fields.Many2one(string='Report Template',
-                                      comodel_name='ir.actions.report.xml')
+                                      comodel_name='ir.actions.report')
     notification_group_ids = fields.One2many(
         comodel_name='einvoice.notification.group',
         inverse_name='company_id',
@@ -75,7 +75,7 @@ class ResCompany(models.Model):
             try:
                 for company in self:
                     response = urllib.request.urlopen(
-                        company.signature_policy_url, timeout=2)
+                        vals.get('signature_policy_url'), timeout=2)
 
                     if response.getcode() != 200:
                         raise ValidationError(msg)
@@ -90,8 +90,8 @@ class ResCompany(models.Model):
                     company.certificate_file, company.certificate_password)
                 x509 = pkcs12.get_certificate()
                 date = x509.get_notAfter()
-                date = '{}-{}-{}'.format(date[0:4], date[4:6], date[6:8])
-                company.certificate_date = date
+                company.certificate_date = datetime.strptime(
+                    date.decode("utf-8"), '%Y%m%d%H%M%SZ').date()
 
         return rec
 
