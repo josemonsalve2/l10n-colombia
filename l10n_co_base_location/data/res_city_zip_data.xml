@@ -12594,7 +12594,7 @@
 	</record>
 	<record id="CO733517_zip" model="res.city.zip">
 		<field name="name">733517</field>
-		<field name="city_id" ref="CO733517"/>
+		<field name="city_id" ref="CO733510"/>
 	</record>
 	<record id="CO733520_zip" model="res.city.zip">
 		<field name="name">733520</field>
@@ -12618,6 +12618,1652 @@
 	</record>
 	<record id="CO733547_zip" model="res.city.zip">
 		<field name="name">733547</field>
-		<field name="city_id" ref="CO733547"/>
+		<field name="city_id" ref="CO733540"/>
+	</record>
+	<record id="CO733548_zip" model="res.city.zip">
+		<field name="name">733548</field>
+		<field name="city_id" ref="CO733540"/>
+	</record>
+	<record id="CO733549_zip" model="res.city.zip">
+		<field name="name">733549</field>
+		<field name="city_id" ref="CO733540"/>
+	</record>
+	<record id="CO733557_zip" model="res.city.zip">
+		<field name="name">733557</field>
+		<field name="city_id" ref="CO733540"/>
+	</record>
+	<record id="CO733558_zip" model="res.city.zip">
+		<field name="name">733558</field>
+		<field name="city_id" ref="CO733540"/>
+	</record>
+	<record id="CO733570_zip" model="res.city.zip">
+		<field name="name">733570</field>
+		<field name="city_id" ref="CO733570"/>
+	</record>
+	<record id="CO733577_zip" model="res.city.zip">
+		<field name="name">733577</field>
+		<field name="city_id" ref="CO733570"/>
+	</record>
+	<record id="CO733578_zip" model="res.city.zip">
+		<field name="name">733578</field>
+		<field name="city_id" ref="CO733570"/>
+	</record>
+	<record id="CO733580_zip" model="res.city.zip">
+		<field name="name">733580</field>
+		<field name="city_id" ref="CO733580"/>
+	</record>
+	<record id="CO733587_zip" model="res.city.zip">
+		<field name="name">733587</field>
+		<field name="city_id" ref="CO733580"/>
+	</record>
+	<record id="CO733588_zip" model="res.city.zip">
+		<field name="name">733588</field>
+		<field name="city_id" ref="CO733580"/>
+	</record>
+	<record id="CO733590_zip" model="res.city.zip">
+		<field name="name">733590</field>
+		<field name="city_id" ref="CO733590"/>
+	</record>
+	<record id="CO733597_zip" model="res.city.zip">
+		<field name="name">733597</field>
+		<field name="city_id" ref="CO733590"/>
+	</record>
+	<record id="CO734001_zip" model="res.city.zip">
+		<field name="name">734001</field>
+		<field name="city_id" ref="CO734001"/>
+	</record>
+	<record id="CO734007_zip" model="res.city.zip">
+		<field name="name">734007</field>
+		<field name="city_id" ref="CO734001"/>
+	</record>
+	<record id="CO734020_zip" model="res.city.zip">
+		<field name="name">734020</field>
+		<field name="city_id" ref="CO734020"/>
+	</record>
+	<record id="CO734027_zip" model="res.city.zip">
+		<field name="name">734027</field>
+		<field name="city_id" ref="CO734020"/>
+	</record>
+	<record id="CO734028_zip" model="res.city.zip">
+		<field name="name">734028</field>
+		<field name="city_id" ref="CO734020"/>
+	</record>
+	<record id="CO734040_zip" model="res.city.zip">
+		<field name="name">734040</field>
+		<field name="city_id" ref="CO734040"/>
+	</record>
+	<record id="CO734047_zip" model="res.city.zip">
+		<field name="name">734047</field>
+		<field name="city_id" ref="CO734040"/>
+	</record>
+	<record id="CO734048_zip" model="res.city.zip">
+		<field name="name">734048</field>
+		<field name="city_id" ref="CO734040"/>
+	</record>
+	<record id="CO734060_zip" model="res.city.zip">
+		<field name="name">734060</field>
+		<field name="city_id" ref="CO734060"/>
+	</record>
+	<record id="CO734067_zip" model="res.city.zip">
+		<field name="name">734067</field>
+		<field name="city_id" ref="CO734060"/>
+	</record>
+	<record id="CO734068_zip" model="res.city.zip">
+		<field name="name">734068</field>
+		<field name="city_id" ref="CO734060"/>
+	</record>
+	<record id="CO734501_zip" model="res.city.zip">
+		<field name="name">734501</field>
+		<field name="city_id" ref="CO734501"/>
+	</record>
+	<record id="CO734507_zip" model="res.city.zip">
+		<field name="name">734507</field>
+		<field name="city_id" ref="CO734501"/>
+	</record>
+	<record id="CO734508_zip" model="res.city.zip">
+		<field name="name">734508</field>
+		<field name="city_id" ref="CO734501"/>
+	</record>
+	<record id="CO734509_zip" model="res.city.zip">
+		<field name="name">734509</field>
+		<field name="city_id" ref="CO734501"/>
+	</record>
+	<record id="CO734520_zip" model="res.city.zip">
+		<field name="name">734520</field>
+		<field name="city_id" ref="CO734520"/>
+	</record>
+	<record id="CO734527_zip" model="res.city.zip">
+		<field name="name">734527</field>
+		<field name="city_id" ref="CO734520"/>
+	</record>
+	<record id="CO734528_zip" model="res.city.zip">
+		<field name="name">734528</field>
+		<field name="city_id" ref="CO734520"/>
+	</record>
+	<record id="CO734540_zip" model="res.city.zip">
+		<field name="name">734540</field>
+		<field name="city_id" ref="CO734540"/>
+	</record>
+	<record id="CO734547_zip" model="res.city.zip">
+		<field name="name">734547</field>
+		<field name="city_id" ref="CO734540"/>
+	</record>
+	<record id="CO734560_zip" model="res.city.zip">
+		<field name="name">734560</field>
+		<field name="city_id" ref="CO734560"/>
+	</record>
+	<record id="CO734567_zip" model="res.city.zip">
+		<field name="name">734567</field>
+		<field name="city_id" ref="CO734560"/>
+	</record>
+	<record id="CO735001_zip" model="res.city.zip">
+		<field name="name">735001</field>
+		<field name="city_id" ref="CO735001"/>
+	</record>
+	<record id="CO735007_zip" model="res.city.zip">
+		<field name="name">735007</field>
+		<field name="city_id" ref="CO735001"/>
+	</record>
+	<record id="CO735008_zip" model="res.city.zip">
+		<field name="name">735008</field>
+		<field name="city_id" ref="CO735001"/>
+	</record>
+	<record id="CO735020_zip" model="res.city.zip">
+		<field name="name">735020</field>
+		<field name="city_id" ref="CO735020"/>
+	</record>
+	<record id="CO735027_zip" model="res.city.zip">
+		<field name="name">735027</field>
+		<field name="city_id" ref="CO735020"/>
+	</record>
+	<record id="CO735028_zip" model="res.city.zip">
+		<field name="name">735028</field>
+		<field name="city_id" ref="CO735020"/>
+	</record>
+	<record id="CO735029_zip" model="res.city.zip">
+		<field name="name">735029</field>
+		<field name="city_id" ref="CO735020"/>
+	</record>
+	<record id="CO735037_zip" model="res.city.zip">
+		<field name="name">735037</field>
+		<field name="city_id" ref="CO735020"/>
+	</record>
+	<record id="CO735050_zip" model="res.city.zip">
+		<field name="name">735050</field>
+		<field name="city_id" ref="CO735050"/>
+	</record>
+	<record id="CO735057_zip" model="res.city.zip">
+		<field name="name">735057</field>
+		<field name="city_id" ref="CO735050"/>
+	</record>
+	<record id="CO735058_zip" model="res.city.zip">
+		<field name="name">735058</field>
+		<field name="city_id" ref="CO735050"/>
+	</record>
+	<record id="CO735070_zip" model="res.city.zip">
+		<field name="name">735070</field>
+		<field name="city_id" ref="CO735070"/>
+	</record>
+	<record id="CO735077_zip" model="res.city.zip">
+		<field name="name">735077</field>
+		<field name="city_id" ref="CO735070"/>
+	</record>
+	<record id="CO735078_zip" model="res.city.zip">
+		<field name="name">735078</field>
+		<field name="city_id" ref="CO735070"/>
+	</record>
+	<record id="CO735501_zip" model="res.city.zip">
+		<field name="name">735501</field>
+		<field name="city_id" ref="CO735501"/>
+	</record>
+	<record id="CO735507_zip" model="res.city.zip">
+		<field name="name">735507</field>
+		<field name="city_id" ref="CO735501"/>
+	</record>
+	<record id="CO735508_zip" model="res.city.zip">
+		<field name="name">735508</field>
+		<field name="city_id" ref="CO735501"/>
+	</record>
+	<record id="CO735509_zip" model="res.city.zip">
+		<field name="name">735509</field>
+		<field name="city_id" ref="CO735501"/>
+	</record>
+	<record id="CO735517_zip" model="res.city.zip">
+		<field name="name">735517</field>
+		<field name="city_id" ref="CO735501"/>
+	</record>
+	<record id="CO735530_zip" model="res.city.zip">
+		<field name="name">735530</field>
+		<field name="city_id" ref="CO735530"/>
+	</record>
+	<record id="CO735537_zip" model="res.city.zip">
+		<field name="name">735537</field>
+		<field name="city_id" ref="CO735530"/>
+	</record>
+	<record id="CO735538_zip" model="res.city.zip">
+		<field name="name">735538</field>
+		<field name="city_id" ref="CO735530"/>
+	</record>
+	<record id="CO735550_zip" model="res.city.zip">
+		<field name="name">735550</field>
+		<field name="city_id" ref="CO735550"/>
+	</record>
+	<record id="CO735557_zip" model="res.city.zip">
+		<field name="name">735557</field>
+		<field name="city_id" ref="CO735550"/>
+	</record>
+	<record id="CO735560_zip" model="res.city.zip">
+		<field name="name">735560</field>
+		<field name="city_id" ref="CO735560"/>
+	</record>
+	<record id="CO735567_zip" model="res.city.zip">
+		<field name="name">735567</field>
+		<field name="city_id" ref="CO735560"/>
+	</record>
+	<record id="CO735568_zip" model="res.city.zip">
+		<field name="name">735568</field>
+		<field name="city_id" ref="CO735560"/>
+	</record>
+	<record id="CO735569_zip" model="res.city.zip">
+		<field name="name">735569</field>
+		<field name="city_id" ref="CO735560"/>
+	</record>
+	<record id="CO735580_zip" model="res.city.zip">
+		<field name="name">735580</field>
+		<field name="city_id" ref="CO735580"/>
+	</record>
+	<record id="CO735587_zip" model="res.city.zip">
+		<field name="name">735587</field>
+		<field name="city_id" ref="CO735580"/>
+	</record>
+	<record id="CO735588_zip" model="res.city.zip">
+		<field name="name">735588</field>
+		<field name="city_id" ref="CO735580"/>
+	</record>
+	<record id="CO735589_zip" model="res.city.zip">
+		<field name="name">735589</field>
+		<field name="city_id" ref="CO735580"/>
+	</record>
+	<record id="CO760001_zip" model="res.city.zip">
+		<field name="name">760001</field>
+		<field name="city_id" ref="CO760001"/>
+	</record>
+	<record id="CO760002_zip" model="res.city.zip">
+		<field name="name">760002</field>
+		<field name="city_id" ref="CO760001"/>
+	</record>
+	<record id="CO760003_zip" model="res.city.zip">
+		<field name="name">760003</field>
+		<field name="city_id" ref="CO760001"/>
+	</record>
+	<record id="CO760004_zip" model="res.city.zip">
+		<field name="name">760004</field>
+		<field name="city_id" ref="CO760001"/>
+	</record>
+	<record id="CO760006_zip" model="res.city.zip">
+		<field name="name">760006</field>
+		<field name="city_id" ref="CO760001"/>
+	</record>
+	<record id="CO760007_zip" model="res.city.zip">
+		<field name="name">760007</field>
+		<field name="city_id" ref="CO760001"/>
+	</record>
+	<record id="CO760008_zip" model="res.city.zip">
+		<field name="name">760008</field>
+		<field name="city_id" ref="CO760001"/>
+	</record>
+	<record id="CO760009_zip" model="res.city.zip">
+		<field name="name">760009</field>
+		<field name="city_id" ref="CO760001"/>
+	</record>
+	<record id="CO760010_zip" model="res.city.zip">
+		<field name="name">760010</field>
+		<field name="city_id" ref="CO760001"/>
+	</record>
+	<record id="CO760011_zip" model="res.city.zip">
+		<field name="name">760011</field>
+		<field name="city_id" ref="CO760001"/>
+	</record>
+	<record id="CO760012_zip" model="res.city.zip">
+		<field name="name">760012</field>
+		<field name="city_id" ref="CO760001"/>
+	</record>
+	<record id="CO760013_zip" model="res.city.zip">
+		<field name="name">760013</field>
+		<field name="city_id" ref="CO760001"/>
+	</record>
+	<record id="CO760014_zip" model="res.city.zip">
+		<field name="name">760014</field>
+		<field name="city_id" ref="CO760001"/>
+	</record>
+	<record id="CO760015_zip" model="res.city.zip">
+		<field name="name">760015</field>
+		<field name="city_id" ref="CO760001"/>
+	</record>
+	<record id="CO760016_zip" model="res.city.zip">
+		<field name="name">760016</field>
+		<field name="city_id" ref="CO760001"/>
+	</record>
+	<record id="CO760020_zip" model="res.city.zip">
+		<field name="name">760020</field>
+		<field name="city_id" ref="CO760001"/>
+	</record>
+	<record id="CO760021_zip" model="res.city.zip">
+		<field name="name">760021</field>
+		<field name="city_id" ref="CO760001"/>
+	</record>
+	<record id="CO760022_zip" model="res.city.zip">
+		<field name="name">760022</field>
+		<field name="city_id" ref="CO760001"/>
+	</record>
+	<record id="CO760023_zip" model="res.city.zip">
+		<field name="name">760023</field>
+		<field name="city_id" ref="CO760001"/>
+	</record>
+	<record id="CO760024_zip" model="res.city.zip">
+		<field name="name">760024</field>
+		<field name="city_id" ref="CO760001"/>
+	</record>
+	<record id="CO760025_zip" model="res.city.zip">
+		<field name="name">760025</field>
+		<field name="city_id" ref="CO760001"/>
+	</record>
+	<record id="CO760026_zip" model="res.city.zip">
+		<field name="name">760026</field>
+		<field name="city_id" ref="CO760001"/>
+	</record>
+	<record id="CO760030_zip" model="res.city.zip">
+		<field name="name">760030</field>
+		<field name="city_id" ref="CO760001"/>
+	</record>
+	<record id="CO760031_zip" model="res.city.zip">
+		<field name="name">760031</field>
+		<field name="city_id" ref="CO760001"/>
+	</record>
+	<record id="CO760032_zip" model="res.city.zip">
+		<field name="name">760032</field>
+		<field name="city_id" ref="CO760001"/>
+	</record>
+	<record id="CO760033_zip" model="res.city.zip">
+		<field name="name">760033</field>
+		<field name="city_id" ref="CO760001"/>
+	</record>
+	<record id="CO760034_zip" model="res.city.zip">
+		<field name="name">760034</field>
+		<field name="city_id" ref="CO760001"/>
+	</record>
+	<record id="CO760035_zip" model="res.city.zip">
+		<field name="name">760035</field>
+		<field name="city_id" ref="CO760001"/>
+	</record>
+	<record id="CO760036_zip" model="res.city.zip">
+		<field name="name">760036</field>
+		<field name="city_id" ref="CO760001"/>
+	</record>
+	<record id="CO760040_zip" model="res.city.zip">
+		<field name="name">760040</field>
+		<field name="city_id" ref="CO760001"/>
+	</record>
+	<record id="CO760041_zip" model="res.city.zip">
+		<field name="name">760041</field>
+		<field name="city_id" ref="CO760001"/>
+	</record>
+	<record id="CO760042_zip" model="res.city.zip">
+		<field name="name">760042</field>
+		<field name="city_id" ref="CO760001"/>
+	</record>
+	<record id="CO760043_zip" model="res.city.zip">
+		<field name="name">760043</field>
+		<field name="city_id" ref="CO760001"/>
+	</record>
+	<record id="CO760044_zip" model="res.city.zip">
+		<field name="name">760044</field>
+		<field name="city_id" ref="CO760001"/>
+	</record>
+	<record id="CO760045_zip" model="res.city.zip">
+		<field name="name">760045</field>
+		<field name="city_id" ref="CO760001"/>
+	</record>
+	<record id="CO760046_zip" model="res.city.zip">
+		<field name="name">760046</field>
+		<field name="city_id" ref="CO760001"/>
+	</record>
+	<record id="CO760050_zip" model="res.city.zip">
+		<field name="name">760050</field>
+		<field name="city_id" ref="CO760001"/>
+	</record>
+	<record id="CO760501_zip" model="res.city.zip">
+		<field name="name">760501</field>
+		<field name="city_id" ref="CO760501"/>
+	</record>
+	<record id="CO760502_zip" model="res.city.zip">
+		<field name="name">760502</field>
+		<field name="city_id" ref="CO760501"/>
+	</record>
+	<record id="CO760507_zip" model="res.city.zip">
+		<field name="name">760507</field>
+		<field name="city_id" ref="CO760501"/>
+	</record>
+	<record id="CO760508_zip" model="res.city.zip">
+		<field name="name">760508</field>
+		<field name="city_id" ref="CO760501"/>
+	</record>
+	<record id="CO760510_zip" model="res.city.zip">
+		<field name="name">760510</field>
+		<field name="city_id" ref="CO760510"/>
+	</record>
+	<record id="CO760517_zip" model="res.city.zip">
+		<field name="name">760517</field>
+		<field name="city_id" ref="CO760510"/>
+	</record>
+	<record id="CO76058_zip" model="res.city.zip">
+		<field name="name">760518</field>
+		<field name="city_id" ref="CO760510"/>
+	</record>
+	<record id="CO760520_zip" model="res.city.zip">
+		<field name="name">760520</field>
+		<field name="city_id" ref="CO760520"/>
+	</record>
+	<record id="CO760527_zip" model="res.city.zip">
+		<field name="name">760527</field>
+		<field name="city_id" ref="CO760520"/>
+	</record>
+	<record id="CO760528_zip" model="res.city.zip">
+		<field name="name">760528</field>
+		<field name="city_id" ref="CO760520"/>
+	</record>
+	<record id="CO760529_zip" model="res.city.zip">
+		<field name="name">760529</field>
+		<field name="city_id" ref="CO760520"/>
+	</record>
+	<record id="CO760530_zip" model="res.city.zip">
+		<field name="name">760530</field>
+		<field name="city_id" ref="CO760530"/>
+	</record>
+	<record id="CO760537_zip" model="res.city.zip">
+		<field name="name">760537</field>
+		<field name="city_id" ref="CO760530"/>
+	</record>
+	<record id="CO760538_zip" model="res.city.zip">
+		<field name="name">760538</field>
+		<field name="city_id" ref="CO760530"/>
+	</record>
+	<record id="CO760540_zip" model="res.city.zip">
+		<field name="name">760540</field>
+		<field name="city_id" ref="CO760540"/>
+	</record>
+	<record id="CO760547_zip" model="res.city.zip">
+		<field name="name">760547</field>
+		<field name="city_id" ref="CO760540"/>
+	</record>
+	<record id="CO760548_zip" model="res.city.zip">
+		<field name="name">760548</field>
+		<field name="city_id" ref="CO760540"/>
+	</record>
+	<record id="CO760550_zip" model="res.city.zip">
+		<field name="name">760550</field>
+		<field name="city_id" ref="CO760550"/>
+	</record>
+	<record id="CO760557_zip" model="res.city.zip">
+		<field name="name">760557</field>
+		<field name="city_id" ref="CO760550"/>
+	</record>
+	<record id="CO761001_zip" model="res.city.zip">
+		<field name="name">761001</field>
+		<field name="city_id" ref="CO761001"/>
+	</record>
+	<record id="CO761007_zip" model="res.city.zip">
+		<field name="name">761007</field>
+		<field name="city_id" ref="CO761001"/>
+	</record>
+	<record id="CO761008_zip" model="res.city.zip">
+		<field name="name">761008</field>
+		<field name="city_id" ref="CO761001"/>
+	</record>
+	<record id="CO761020_zip" model="res.city.zip">
+		<field name="name">761020</field>
+		<field name="city_id" ref="CO761020"/>
+	</record>
+	<record id="CO761027_zip" model="res.city.zip">
+		<field name="name">761027</field>
+		<field name="city_id" ref="CO761020"/>
+	</record>
+	<record id="CO761028_zip" model="res.city.zip">
+		<field name="name">761028</field>
+		<field name="city_id" ref="CO761020"/>
+	</record>
+	<record id="CO761030_zip" model="res.city.zip">
+		<field name="name">761030</field>
+		<field name="city_id" ref="CO761030"/>
+	</record>
+	<record id="CO761037_zip" model="res.city.zip">
+		<field name="name">761037</field>
+		<field name="city_id" ref="CO761030"/>
+	</record>
+	<record id="CO761038_zip" model="res.city.zip">
+		<field name="name">761038</field>
+		<field name="city_id" ref="CO761030"/>
+	</record>
+	<record id="CO761040_zip" model="res.city.zip">
+		<field name="name">761040</field>
+		<field name="city_id" ref="CO761040"/>
+	</record>
+	<record id="CO761047_zip" model="res.city.zip">
+		<field name="name">761047</field>
+		<field name="city_id" ref="CO761040"/>
+	</record>
+	<record id="CO761048_zip" model="res.city.zip">
+		<field name="name">761048</field>
+		<field name="city_id" ref="CO761040"/>
+	</record>
+	<record id="CO761501_zip" model="res.city.zip">
+		<field name="name">761501</field>
+		<field name="city_id" ref="CO761501"/>
+	</record>
+	<record id="CO761507_zip" model="res.city.zip">
+		<field name="name">761507</field>
+		<field name="city_id" ref="CO761501"/>
+	</record>
+	<record id="CO761508_zip" model="res.city.zip">
+		<field name="name">761508</field>
+		<field name="city_id" ref="CO761501"/>
+	</record>
+	<record id="CO761510_zip" model="res.city.zip">
+		<field name="name">761510</field>
+		<field name="city_id" ref="CO761510"/>
+	</record>
+	<record id="CO761517_zip" model="res.city.zip">
+		<field name="name">761517</field>
+		<field name="city_id" ref="CO761510"/>
+	</record>
+	<record id="CO761520_zip" model="res.city.zip">
+		<field name="name">761520</field>
+		<field name="city_id" ref="CO761520"/>
+	</record>
+	<record id="CO761527_zip" model="res.city.zip">
+		<field name="name">761527</field>
+		<field name="city_id" ref="CO761520"/>
+	</record>
+	<record id="CO761528_zip" model="res.city.zip">
+		<field name="name">761528</field>
+		<field name="city_id" ref="CO761520"/>
+	</record>
+	<record id="CO761530_zip" model="res.city.zip">
+		<field name="name">761530</field>
+		<field name="city_id" ref="CO761530"/>
+	</record>
+	<record id="CO761537_zip" model="res.city.zip">
+		<field name="name">761537</field>
+		<field name="city_id" ref="CO761530"/>
+	</record>
+	<record id="CO761540_zip" model="res.city.zip">
+		<field name="name">761540</field>
+		<field name="city_id" ref="CO761540"/>
+	</record>
+	<record id="CO761547_zip" model="res.city.zip">
+		<field name="name">761547</field>
+		<field name="city_id" ref="CO761540"/>
+	</record>
+	<record id="CO761548_zip" model="res.city.zip">
+		<field name="name">761548</field>
+		<field name="city_id" ref="CO761540"/>
+	</record>
+	<record id="CO761550_zip" model="res.city.zip">
+		<field name="name">761550</field>
+		<field name="city_id" ref="CO761550"/>
+	</record>
+	<record id="CO761557_zip" model="res.city.zip">
+		<field name="name">761557</field>
+		<field name="city_id" ref="CO761550"/>
+	</record>
+	<record id="CO761558_zip" model="res.city.zip">
+		<field name="name">761558</field>
+		<field name="city_id" ref="CO761550"/>
+	</record>
+	<record id="CO761560_zip" model="res.city.zip">
+		<field name="name">761560</field>
+		<field name="city_id" ref="CO761560"/>
+	</record>
+	<record id="CO761567_zip" model="res.city.zip">
+		<field name="name">761567</field>
+		<field name="city_id" ref="CO761560"/>
+	</record>
+	<record id="CO762001_zip" model="res.city.zip">
+		<field name="name">762001</field>
+		<field name="city_id" ref="CO762001"/>
+	</record>
+	<record id="CO762007_zip" model="res.city.zip">
+		<field name="name">762007</field>
+		<field name="city_id" ref="CO762001"/>
+	</record>
+	<record id="CO762008_zip" model="res.city.zip">
+		<field name="name">762008</field>
+		<field name="city_id" ref="CO762001"/>
+	</record>
+	<record id="CO762010_zip" model="res.city.zip">
+		<field name="name">762010</field>
+		<field name="city_id" ref="CO762010"/>
+	</record>
+	<record id="CO762017_zip" model="res.city.zip">
+		<field name="name">762017</field>
+		<field name="city_id" ref="CO762010"/>
+	</record>
+	<record id="CO762018_zip" model="res.city.zip">
+		<field name="name">762018</field>
+		<field name="city_id" ref="CO762010"/>
+	</record>
+	<record id="CO762021_zip" model="res.city.zip">
+		<field name="name">762021</field>
+		<field name="city_id" ref="CO762021"/>
+	</record>
+	<record id="CO762022_zip" model="res.city.zip">
+		<field name="name">762022</field>
+		<field name="city_id" ref="CO762021"/>
+	</record>
+	<record id="CO762027_zip" model="res.city.zip">
+		<field name="name">762027</field>
+		<field name="city_id" ref="CO762021"/>
+	</record>
+	<record id="CO762030_zip" model="res.city.zip">
+		<field name="name">762030</field>
+		<field name="city_id" ref="CO762030"/>
+	</record>
+	<record id="CO762037_zip" model="res.city.zip">
+		<field name="name">762037</field>
+		<field name="city_id" ref="CO762030"/>
+	</record>
+	<record id="CO762040_zip" model="res.city.zip">
+		<field name="name">762040</field>
+		<field name="city_id" ref="CO762040"/>
+	</record>
+	<record id="CO762047_zip" model="res.city.zip">
+		<field name="name">762047</field>
+		<field name="city_id" ref="CO762040"/>
+	</record>
+	<record id="CO762501_zip" model="res.city.zip">
+		<field name="name">762501</field>
+		<field name="city_id" ref="CO762501"/>
+	</record>
+	<record id="CO762507_zip" model="res.city.zip">
+		<field name="name">762507</field>
+		<field name="city_id" ref="CO762501"/>
+	</record>
+	<record id="CO762510_zip" model="res.city.zip">
+		<field name="name">762510</field>
+		<field name="city_id" ref="CO762510"/>
+	</record>
+	<record id="CO762517_zip" model="res.city.zip">
+		<field name="name">762517</field>
+		<field name="city_id" ref="CO762510"/>
+	</record>
+	<record id="CO762520_zip" model="res.city.zip">
+		<field name="name">762520</field>
+		<field name="city_id" ref="CO762520"/>
+	</record>
+	<record id="CO762527_zip" model="res.city.zip">
+		<field name="name">762527</field>
+		<field name="city_id" ref="CO762520"/>
+	</record>
+	<record id="CO762528_zip" model="res.city.zip">
+		<field name="name">762528</field>
+		<field name="city_id" ref="CO762520"/>
+	</record>
+	<record id="CO762530_zip" model="res.city.zip">
+		<field name="name">762530</field>
+		<field name="city_id" ref="CO762530"/>
+	</record>
+	<record id="CO762537_zip" model="res.city.zip">
+		<field name="name">762537</field>
+		<field name="city_id" ref="CO762530"/>
+	</record>
+	<record id="CO762538_zip" model="res.city.zip">
+		<field name="name">762538</field>
+		<field name="city_id" ref="CO762530"/>
+	</record>
+	<record id="CO762540_zip" model="res.city.zip">
+		<field name="name">762540</field>
+		<field name="city_id" ref="CO762540"/>
+	</record>
+	<record id="CO762547_zip" model="res.city.zip">
+		<field name="name">762547</field>
+		<field name="city_id" ref="CO762540"/>
+	</record>
+	<record id="CO762548_zip" model="res.city.zip">
+		<field name="name">7625408</field>
+		<field name="city_id" ref="CO762540"/>
+	</record>
+	<record id="CO763001_zip" model="res.city.zip">
+		<field name="name">763001</field>
+		<field name="city_id" ref="CO763001"/>
+	</record>
+	<record id="CO763007_zip" model="res.city.zip">
+		<field name="name">763007</field>
+		<field name="city_id" ref="CO763001"/>
+	</record>
+	<record id="CO763008_zip" model="res.city.zip">
+		<field name="name">763008</field>
+		<field name="city_id" ref="CO763001"/>
+	</record>
+	<record id="CO763010_zip" model="res.city.zip">
+		<field name="name">763010</field>
+		<field name="city_id" ref="CO763010"/>
+	</record>
+	<record id="CO763017_zip" model="res.city.zip">
+		<field name="name">763017</field>
+		<field name="city_id" ref="CO763010"/>
+	</record>
+	<record id="CO763021_zip" model="res.city.zip">
+		<field name="name">763021</field>
+		<field name="city_id" ref="CO763021"/>
+	</record>
+	<record id="CO763022_zip" model="res.city.zip">
+		<field name="name">763022</field>
+		<field name="city_id" ref="CO763021"/>
+	</record>
+	<record id="CO763023_zip" model="res.city.zip">
+		<field name="name">763023</field>
+		<field name="city_id" ref="CO763021"/>
+	</record>
+	<record id="CO763027_zip" model="res.city.zip">
+		<field name="name">763027</field>
+		<field name="city_id" ref="CO763021"/>
+	</record>
+	<record id="CO763028_zip" model="res.city.zip">
+		<field name="name">763028</field>
+		<field name="city_id" ref="CO763021"/>
+	</record>
+	<record id="CO763029_zip" model="res.city.zip">
+		<field name="name">763029</field>
+		<field name="city_id" ref="CO763021"/>
+	</record>
+	<record id="CO763030_zip" model="res.city.zip">
+		<field name="name">763030</field>
+		<field name="city_id" ref="CO763030"/>
+	</record>
+	<record id="CO763037_zip" model="res.city.zip">
+		<field name="name">763037</field>
+		<field name="city_id" ref="CO763030"/>
+	</record>
+	<record id="CO763038_zip" model="res.city.zip">
+		<field name="name">763038</field>
+		<field name="city_id" ref="CO763030"/>
+	</record>
+	<record id="CO763041_zip" model="res.city.zip">
+		<field name="name">763041</field>
+		<field name="city_id" ref="CO763041"/>
+	</record>
+	<record id="CO763042_zip" model="res.city.zip">
+		<field name="name">763042</field>
+		<field name="city_id" ref="CO763041"/>
+	</record>
+	<record id="CO763047_zip" model="res.city.zip">
+		<field name="name">763047</field>
+		<field name="city_id" ref="CO763041"/>
+	</record>
+	<record id="CO763048_zip" model="res.city.zip">
+		<field name="name">763048</field>
+		<field name="city_id" ref="CO763041"/>
+	</record>
+	<record id="CO763049_zip" model="res.city.zip">
+		<field name="name">763049</field>
+		<field name="city_id" ref="CO763041"/>
+	</record>
+	<record id="CO763501_zip" model="res.city.zip">
+		<field name="name">763501</field>
+		<field name="city_id" ref="CO763501"/>
+	</record>
+	<record id="CO763507_zip" model="res.city.zip">
+		<field name="name">763507</field>
+		<field name="city_id" ref="CO763501"/>
+	</record>
+	<record id="CO763508_zip" model="res.city.zip">
+		<field name="name">763508</field>
+		<field name="city_id" ref="CO763501"/>
+	</record>
+	<record id="CO763510_zip" model="res.city.zip">
+		<field name="name">763510</field>
+		<field name="city_id" ref="CO763510"/>
+	</record>
+	<record id="CO763517_zip" model="res.city.zip">
+		<field name="name">763517</field>
+		<field name="city_id" ref="CO763510"/>
+	</record>
+	<record id="CO763518_zip" model="res.city.zip">
+		<field name="name">763518</field>
+		<field name="city_id" ref="CO763510"/>
+	</record>
+	<record id="CO763520_zip" model="res.city.zip">
+		<field name="name">763520</field>
+		<field name="city_id" ref="CO763520"/>
+	</record>
+	<record id="CO763527_zip" model="res.city.zip">
+		<field name="name">763527</field>
+		<field name="city_id" ref="CO763520"/>
+	</record>
+	<record id="CO763528_zip" model="res.city.zip">
+		<field name="name">763528</field>
+		<field name="city_id" ref="CO763520"/>
+	</record>
+	<record id="CO763531_zip" model="res.city.zip">
+		<field name="name">763531</field>
+		<field name="city_id" ref="CO763531"/>
+	</record>
+	<record id="CO763532_zip" model="res.city.zip">
+		<field name="name">763532</field>
+		<field name="city_id" ref="CO763531"/>
+	</record>
+	<record id="CO763533_zip" model="res.city.zip">
+		<field name="name">763533</field>
+		<field name="city_id" ref="CO763531"/>
+	</record>
+	<record id="CO763537_zip" model="res.city.zip">
+		<field name="name">763537</field>
+		<field name="city_id" ref="CO763531"/>
+	</record>
+	<record id="CO763538_zip" model="res.city.zip">
+		<field name="name">763538</field>
+		<field name="city_id" ref="CO763531"/>
+	</record>
+	<record id="CO763539_zip" model="res.city.zip">
+		<field name="name">763539</field>
+		<field name="city_id" ref="CO763531"/>
+	</record>
+	<record id="CO763547_zip" model="res.city.zip">
+		<field name="name">763547</field>
+		<field name="city_id" ref="CO763531"/>
+	</record>
+	<record id="CO763550_zip" model="res.city.zip">
+		<field name="name">763550</field>
+		<field name="city_id" ref="CO763550"/>
+	</record>
+	<record id="CO763557_zip" model="res.city.zip">
+		<field name="name">763557</field>
+		<field name="city_id" ref="CO763550"/>
+	</record>
+	<record id="CO763558_zip" model="res.city.zip">
+		<field name="name">763558</field>
+		<field name="city_id" ref="CO763550"/>
+	</record>
+	<record id="CO763560_zip" model="res.city.zip">
+		<field name="name">763560</field>
+		<field name="city_id" ref="CO763560"/>
+	</record>
+	<record id="CO763567_zip" model="res.city.zip">
+		<field name="name">763567</field>
+		<field name="city_id" ref="CO763560"/>
+	</record>
+	<record id="CO763568_zip" model="res.city.zip">
+		<field name="name">763568</field>
+		<field name="city_id" ref="CO763560"/>
+	</record>
+	<record id="CO763570_zip" model="res.city.zip">
+		<field name="name">763570</field>
+		<field name="city_id" ref="CO763570"/>
+	</record>
+	<record id="CO763577_zip" model="res.city.zip">
+		<field name="name">7635777</field>
+		<field name="city_id" ref="CO763570"/>
+	</record>
+	<record id="CO763578_zip" model="res.city.zip">
+		<field name="name">763578</field>
+		<field name="city_id" ref="CO763570"/>
+	</record>
+	<record id="CO763579_zip" model="res.city.zip">
+		<field name="name">763579</field>
+		<field name="city_id" ref="CO763570"/>
+	</record>
+	<record id="CO764001_zip" model="res.city.zip">
+		<field name="name">764001</field>
+		<field name="city_id" ref="CO764001"/>
+	</record>
+	<record id="CO764007_zip" model="res.city.zip">
+		<field name="name">764007</field>
+		<field name="city_id" ref="CO764001"/>
+	</record>
+	<record id="CO764008_zip" model="res.city.zip">
+		<field name="name">764008</field>
+		<field name="city_id" ref="CO764001"/>
+	</record>
+	<record id="CO764501_zip" model="res.city.zip">
+		<field name="name">764501</field>
+		<field name="city_id" ref="CO764501"/>
+	</record>
+	<record id="CO764502_zip" model="res.city.zip">
+		<field name="name">764502</field>
+		<field name="city_id" ref="CO764501"/>
+	</record>
+	<record id="CO764503_zip" model="res.city.zip">
+		<field name="name">764503</field>
+		<field name="city_id" ref="CO764501"/>
+	</record>
+	<record id="CO764504_zip" model="res.city.zip">
+		<field name="name">764504</field>
+		<field name="city_id" ref="CO764501"/>
+	</record>
+	<record id="CO764507_zip" model="res.city.zip">
+		<field name="name">764507</field>
+		<field name="city_id" ref="CO764501"/>
+	</record>
+	<record id="CO764508_zip" model="res.city.zip">
+		<field name="name">764508</field>
+		<field name="city_id" ref="CO764501"/>
+	</record>
+	<record id="CO764509_zip" model="res.city.zip">
+		<field name="name">764509</field>
+		<field name="city_id" ref="CO764501"/>
+	</record>
+	<record id="CO764517_zip" model="res.city.zip">
+		<field name="name">764517</field>
+		<field name="city_id" ref="CO764501"/>
+	</record>
+	<record id="CO810001_zip" model="res.city.zip">
+		<field name="name">810001</field>
+		<field name="city_id" ref="CO810001"/>
+	</record>
+	<record id="CO810007_zip" model="res.city.zip">
+		<field name="name">810007</field>
+		<field name="city_id" ref="CO810001"/>
+	</record>
+	<record id="CO810008_zip" model="res.city.zip">
+		<field name="name">810008</field>
+		<field name="city_id" ref="CO810001"/>
+	</record>
+	<record id="CO810009_zip" model="res.city.zip">
+		<field name="name">810009</field>
+		<field name="city_id" ref="CO810001"/>
+	</record>
+	<record id="CO812010_zip" model="res.city.zip">
+		<field name="name">812010</field>
+		<field name="city_id" ref="CO812010"/>
+	</record>
+	<record id="CO812017_zip" model="res.city.zip">
+		<field name="name">812017</field>
+		<field name="city_id" ref="CO812010"/>
+	</record>
+	<record id="CO812018_zip" model="res.city.zip">
+		<field name="name">812018</field>
+		<field name="city_id" ref="CO812010"/>
+	</record>
+	<record id="CO812019_zip" model="res.city.zip">
+		<field name="name">812019</field>
+		<field name="city_id" ref="CO812010"/>
+	</record>
+	<record id="CO813010_zip" model="res.city.zip">
+		<field name="name">813010</field>
+		<field name="city_id" ref="CO813010"/>
+	</record>
+	<record id="CO813017_zip" model="res.city.zip">
+		<field name="name">813017</field>
+		<field name="city_id" ref="CO813010"/>
+	</record>
+	<record id="CO813018_zip" model="res.city.zip">
+		<field name="name">813018</field>
+		<field name="city_id" ref="CO813010"/>
+	</record>
+	<record id="CO814010_zip" model="res.city.zip">
+		<field name="name">814010</field>
+		<field name="city_id" ref="CO814010"/>
+	</record>
+	<record id="CO814017_zip" model="res.city.zip">
+		<field name="name">814017</field>
+		<field name="city_id" ref="CO814010"/>
+	</record>
+	<record id="CO814018_zip" model="res.city.zip">
+		<field name="name">814018</field>
+		<field name="city_id" ref="CO814010"/>
+	</record>
+	<record id="CO814050_zip" model="res.city.zip">
+		<field name="name">814050</field>
+		<field name="city_id" ref="CO814050"/>
+	</record>
+	<record id="CO814057_zip" model="res.city.zip">
+		<field name="name">814057</field>
+		<field name="city_id" ref="CO814050"/>
+	</record>
+	<record id="CO814058_zip" model="res.city.zip">
+		<field name="name">814058</field>
+		<field name="city_id" ref="CO814050"/>
+	</record>
+	<record id="CO816010_zip" model="res.city.zip">
+		<field name="name">816010</field>
+		<field name="city_id" ref="CO816010"/>
+	</record>
+	<record id="CO816017_zip" model="res.city.zip">
+		<field name="name">816017</field>
+		<field name="city_id" ref="CO816010"/>
+	</record>
+	<record id="CO816018_zip" model="res.city.zip">
+		<field name="name">816018</field>
+		<field name="city_id" ref="CO816010"/>
+	</record>
+	<record id="CO816019_zip" model="res.city.zip">
+		<field name="name">816019</field>
+		<field name="city_id" ref="CO816010"/>
+	</record>
+	<record id="CO850001_zip" model="res.city.zip">
+		<field name="name">850001</field>
+		<field name="city_id" ref="CO850001"/>
+	</record>
+	<record id="CO850002_zip" model="res.city.zip">
+		<field name="name">850002</field>
+		<field name="city_id" ref="CO850001"/>
+	</record>
+	<record id="CO850007_zip" model="res.city.zip">
+		<field name="name">850007</field>
+		<field name="city_id" ref="CO850001"/>
+	</record>
+	<record id="CO850008_zip" model="res.city.zip">
+		<field name="name">850008</field>
+		<field name="city_id" ref="CO850001"/>
+	</record>
+	<record id="CO850009_zip" model="res.city.zip">
+		<field name="name">850009</field>
+		<field name="city_id" ref="CO850001"/>
+	</record>
+	<record id="CO851010_zip" model="res.city.zip">
+		<field name="name">851010</field>
+		<field name="city_id" ref="CO851010"/>
+	</record>
+	<record id="CO851017_zip" model="res.city.zip">
+		<field name="name">851017</field>
+		<field name="city_id" ref="CO851010"/>
+	</record>
+	<record id="CO851030_zip" model="res.city.zip">
+		<field name="name">851030</field>
+		<field name="city_id" ref="CO851030"/>
+	</record>
+	<record id="CO851037_zip" model="res.city.zip">
+		<field name="name">851037</field>
+		<field name="city_id" ref="CO851030"/>
+	</record>
+	<record id="CO851038_zip" model="res.city.zip">
+		<field name="name">851038</field>
+		<field name="city_id" ref="CO851030"/>
+	</record>
+	<record id="CO851050_zip" model="res.city.zip">
+		<field name="name">851050</field>
+		<field name="city_id" ref="CO851050"/>
+	</record>
+	<record id="CO851057_zip" model="res.city.zip">
+		<field name="name">851057</field>
+		<field name="city_id" ref="CO851050"/>
+	</record>
+	<record id="CO851058_zip" model="res.city.zip">
+		<field name="name">851058</field>
+		<field name="city_id" ref="CO851050"/>
+	</record>
+	<record id="CO851070_zip" model="res.city.zip">
+		<field name="name">851070</field>
+		<field name="city_id" ref="CO851070"/>
+	</record>
+	<record id="CO851077_zip" model="res.city.zip">
+		<field name="name">851077</field>
+		<field name="city_id" ref="CO851070"/>
+	</record>
+	<record id="CO851078_zip" model="res.city.zip">
+		<field name="name">851078</field>
+		<field name="city_id" ref="CO851070"/>
+	</record>
+	<record id="CO852010_zip" model="res.city.zip">
+		<field name="name">852010</field>
+		<field name="city_id" ref="CO852010"/>
+	</record>
+	<record id="CO852017_zip" model="res.city.zip">
+		<field name="name">852017</field>
+		<field name="city_id" ref="CO852010"/>
+	</record>
+	<record id="CO852018_zip" model="res.city.zip">
+		<field name="name">852018</field>
+		<field name="city_id" ref="CO852010"/>
+	</record>
+	<record id="CO852019_zip" model="res.city.zip">
+		<field name="name">852019</field>
+		<field name="city_id" ref="CO852010"/>
+	</record>
+	<record id="CO852030_zip" model="res.city.zip">
+		<field name="name">852030</field>
+		<field name="city_id" ref="CO852030"/>
+	</record>
+	<record id="CO852037_zip" model="res.city.zip">
+		<field name="name">852037</field>
+		<field name="city_id" ref="CO852030"/>
+	</record>
+	<record id="CO852038_zip" model="res.city.zip">
+		<field name="name">852038</field>
+		<field name="city_id" ref="CO852030"/>
+	</record>
+	<record id="CO852039_zip" model="res.city.zip">
+		<field name="name">852039</field>
+		<field name="city_id" ref="CO852030"/>
+	</record>
+	<record id="CO852050_zip" model="res.city.zip">
+		<field name="name">852050</field>
+		<field name="city_id" ref="CO852050"/>
+	</record>
+	<record id="CO852057_zip" model="res.city.zip">
+		<field name="name">852057</field>
+		<field name="city_id" ref="CO852050"/>
+	</record>
+	<record id="CO852058_zip" model="res.city.zip">
+		<field name="name">852058</field>
+		<field name="city_id" ref="CO852050"/>
+	</record>
+	<record id="CO853010_zip" model="res.city.zip">
+		<field name="name">853010</field>
+		<field name="city_id" ref="CO853010"/>
+	</record>
+	<record id="CO853017_zip" model="res.city.zip">
+		<field name="name">853017</field>
+		<field name="city_id" ref="CO853010"/>
+	</record>
+	<record id="CO853018_zip" model="res.city.zip">
+		<field name="name">853018</field>
+		<field name="city_id" ref="CO853010"/>
+	</record>
+	<record id="CO853019_zip" model="res.city.zip">
+		<field name="name">853019</field>
+		<field name="city_id" ref="CO853010"/>
+	</record>
+	<record id="CO853030_zip" model="res.city.zip">
+		<field name="name">853030</field>
+		<field name="city_id" ref="CO853030"/>
+	</record>
+	<record id="CO853037_zip" model="res.city.zip">
+		<field name="name">853037</field>
+		<field name="city_id" ref="CO853030"/>
+	</record>
+	<record id="CO853038_zip" model="res.city.zip">
+		<field name="name">853038</field>
+		<field name="city_id" ref="CO853030"/>
+	</record>
+	<record id="CO853039_zip" model="res.city.zip">
+		<field name="name">853039</field>
+		<field name="city_id" ref="CO853030"/>
+	</record>
+	<record id="CO853050_zip" model="res.city.zip">
+		<field name="name">853050</field>
+		<field name="city_id" ref="CO853050"/>
+	</record>
+	<record id="CO853057_zip" model="res.city.zip">
+		<field name="name">853057</field>
+		<field name="city_id" ref="CO853050"/>
+	</record>
+	<record id="CO853058_zip" model="res.city.zip">
+		<field name="name">853058</field>
+		<field name="city_id" ref="CO853050"/>
+	</record>
+	<record id="CO853059_zip" model="res.city.zip">
+		<field name="name">853059</field>
+		<field name="city_id" ref="CO853050"/>
+	</record>
+	<record id="CO854010_zip" model="res.city.zip">
+		<field name="name">854010</field>
+		<field name="city_id" ref="CO854010"/>
+	</record>
+	<record id="CO854017_zip" model="res.city.zip">
+		<field name="name">854017</field>
+		<field name="city_id" ref="CO854010"/>
+	</record>
+	<record id="CO854018_zip" model="res.city.zip">
+		<field name="name">854018</field>
+		<field name="city_id" ref="CO854010"/>
+	</record>
+	<record id="CO854019_zip" model="res.city.zip">
+		<field name="name">854019</field>
+		<field name="city_id" ref="CO854010"/>
+	</record>
+	<record id="CO854030_zip" model="res.city.zip">
+		<field name="name">854030</field>
+		<field name="city_id" ref="CO854030"/>
+	</record>
+	<record id="CO854037_zip" model="res.city.zip">
+		<field name="name">854037</field>
+		<field name="city_id" ref="CO854030"/>
+	</record>
+	<record id="CO854038_zip" model="res.city.zip">
+		<field name="name">854038</field>
+		<field name="city_id" ref="CO854030"/>
+	</record>
+	<record id="CO854039_zip" model="res.city.zip">
+		<field name="name">854039</field>
+		<field name="city_id" ref="CO854030"/>
+	</record>
+	<record id="CO855010_zip" model="res.city.zip">
+		<field name="name">855010</field>
+		<field name="city_id" ref="CO855010"/>
+	</record>
+	<record id="CO855017_zip" model="res.city.zip">
+		<field name="name">855017</field>
+		<field name="city_id" ref="CO855010"/>
+	</record>
+	<record id="CO855018_zip" model="res.city.zip">
+		<field name="name">855018</field>
+		<field name="city_id" ref="CO855010"/>
+	</record>
+	<record id="CO855030_zip" model="res.city.zip">
+		<field name="name">855030</field>
+		<field name="city_id" ref="CO855030"/>
+	</record>
+	<record id="CO855037_zip" model="res.city.zip">
+		<field name="name">855037</field>
+		<field name="city_id" ref="CO855030"/>
+	</record>
+	<record id="CO855038_zip" model="res.city.zip">
+		<field name="name">855038</field>
+		<field name="city_id" ref="CO855030"/>
+	</record>
+	<record id="CO855039_zip" model="res.city.zip">
+		<field name="name">855039</field>
+		<field name="city_id" ref="CO855030"/>
+	</record>
+	<record id="CO855050_zip" model="res.city.zip">
+		<field name="name">855050</field>
+		<field name="city_id" ref="CO855050"/>
+	</record>
+	<record id="CO855057_zip" model="res.city.zip">
+		<field name="name">855057</field>
+		<field name="city_id" ref="CO855050"/>
+	</record>
+	<record id="CO855058_zip" model="res.city.zip">
+		<field name="name">855058</field>
+		<field name="city_id" ref="CO855050"/>
+	</record>
+	<record id="CO856010_zip" model="res.city.zip">
+		<field name="name">856010</field>
+		<field name="city_id" ref="CO856010"/>
+	</record>
+	<record id="CO856017_zip" model="res.city.zip">
+		<field name="name">856017</field>
+		<field name="city_id" ref="CO856010"/>
+	</record>
+	<record id="CO856018_zip" model="res.city.zip">
+		<field name="name">856018</field>
+		<field name="city_id" ref="CO856010"/>
+	</record>
+	<record id="CO856019_zip" model="res.city.zip">
+		<field name="name">856019</field>
+		<field name="city_id" ref="CO856010"/>
+	</record>
+	<record id="CO856030_zip" model="res.city.zip">
+		<field name="name">856030</field>
+		<field name="city_id" ref="CO856030"/>
+	</record>
+	<record id="CO856037_zip" model="res.city.zip">
+		<field name="name">856037</field>
+		<field name="city_id" ref="CO856030"/>
+	</record>
+	<record id="CO856038_zip" model="res.city.zip">
+		<field name="name">856038</field>
+		<field name="city_id" ref="CO856030"/>
+	</record>
+	<record id="CO856050_zip" model="res.city.zip">
+		<field name="name">856050</field>
+		<field name="city_id" ref="CO856050"/>
+	</record>
+	<record id="CO856057_zip" model="res.city.zip">
+		<field name="name">856057</field>
+		<field name="city_id" ref="CO856050"/>
+	</record>
+	<record id="CO856058_zip" model="res.city.zip">
+		<field name="name">856058</field>
+		<field name="city_id" ref="CO856050"/>
+	</record>
+	<record id="CO860001_zip" model="res.city.zip">
+		<field name="name">860001</field>
+		<field name="city_id" ref="CO860001"/>
+	</record>
+	<record id="CO860007_zip" model="res.city.zip">
+		<field name="name">860007</field>
+		<field name="city_id" ref="CO860001"/>
+	</record>
+	<record id="CO860008_zip" model="res.city.zip">
+		<field name="name">860008</field>
+		<field name="city_id" ref="CO860001"/>
+	</record>
+	<record id="CO861001_zip" model="res.city.zip">
+		<field name="name">861001</field>
+		<field name="city_id" ref="CO861001"/>
+	</record>
+	<record id="CO861007_zip" model="res.city.zip">
+		<field name="name">861007</field>
+		<field name="city_id" ref="CO861001"/>
+	</record>
+	<record id="CO861008_zip" model="res.city.zip">
+		<field name="name">861008</field>
+		<field name="city_id" ref="CO861001"/>
+	</record>
+	<record id="CO861020_zip" model="res.city.zip">
+		<field name="name">861020</field>
+		<field name="city_id" ref="CO861020"/>
+	</record>
+	<record id="CO861027_zip" model="res.city.zip">
+		<field name="name">861027</field>
+		<field name="city_id" ref="CO861020"/>
+	</record>
+	<record id="CO861040_zip" model="res.city.zip">
+		<field name="name">861040</field>
+		<field name="city_id" ref="CO861040"/>
+	</record>
+	<record id="CO861047_zip" model="res.city.zip">
+		<field name="name">861047</field>
+		<field name="city_id" ref="CO861040"/>
+	</record>
+	<record id="CO861060_zip" model="res.city.zip">
+		<field name="name">861060</field>
+		<field name="city_id" ref="CO861060"/>
+	</record>
+	<record id="CO861067_zip" model="res.city.zip">
+		<field name="name">861067</field>
+		<field name="city_id" ref="CO861060"/>
+	</record>
+	<record id="CO861068_zip" model="res.city.zip">
+		<field name="name">861068</field>
+		<field name="city_id" ref="CO861060"/>
+	</record>
+	<record id="CO861080_zip" model="res.city.zip">
+		<field name="name">861080</field>
+		<field name="city_id" ref="CO861080"/>
+	</record>
+	<record id="CO861087_zip" model="res.city.zip">
+		<field name="name">861087</field>
+		<field name="city_id" ref="CO861080"/>
+	</record>
+	<record id="CO861088_zip" model="res.city.zip">
+		<field name="name">861088</field>
+		<field name="city_id" ref="CO861080"/>
+	</record>
+	<record id="CO862001_zip" model="res.city.zip">
+		<field name="name">862001</field>
+		<field name="city_id" ref="CO862001"/>
+	</record>
+	<record id="CO862007_zip" model="res.city.zip">
+		<field name="name">862007</field>
+		<field name="city_id" ref="CO862001"/>
+	</record>
+	<record id="CO862008_zip" model="res.city.zip">
+		<field name="name">862008</field>
+		<field name="city_id" ref="CO862001"/>
+	</record>
+	<record id="CO862020_zip" model="res.city.zip">
+		<field name="name">862020</field>
+		<field name="city_id" ref="CO862020"/>
+	</record>
+	<record id="CO862027_zip" model="res.city.zip">
+		<field name="name">862027</field>
+		<field name="city_id" ref="CO862020"/>
+	</record>
+	<record id="CO862028_zip" model="res.city.zip">
+		<field name="name">862028</field>
+		<field name="city_id" ref="CO862020"/>
+	</record>
+	<record id="CO862040_zip" model="res.city.zip">
+		<field name="name">862040</field>
+		<field name="city_id" ref="CO862040"/>
+	</record>
+	<record id="CO862047_zip" model="res.city.zip">
+		<field name="name">862047</field>
+		<field name="city_id" ref="CO862040"/>
+	</record>
+	<record id="CO862060_zip" model="res.city.zip">
+		<field name="name">862060</field>
+		<field name="city_id" ref="CO862060"/>
+	</record>
+	<record id="CO862067_zip" model="res.city.zip">
+		<field name="name">862067</field>
+		<field name="city_id" ref="CO862060"/>
+	</record>
+	<record id="CO862068_zip" model="res.city.zip">
+		<field name="name">862068</field>
+		<field name="city_id" ref="CO862060"/>
+	</record>
+	<record id="CO862069_zip" model="res.city.zip">
+		<field name="name">862069</field>
+		<field name="city_id" ref="CO862060"/>
+	</record>
+	<record id="CO862080_zip" model="res.city.zip">
+		<field name="name">862080</field>
+		<field name="city_id" ref="CO862080"/>
+	</record>
+	<record id="CO862087_zip" model="res.city.zip">
+		<field name="name">862087</field>
+		<field name="city_id" ref="CO862080"/>
+	</record>
+	<record id="CO863001_zip" model="res.city.zip">
+		<field name="name">863001</field>
+		<field name="city_id" ref="CO863001"/>
+	</record>
+	<record id="CO863007_zip" model="res.city.zip">
+		<field name="name">863007</field>
+		<field name="city_id" ref="CO863001"/>
+	</record>
+	<record id="CO863008_zip" model="res.city.zip">
+		<field name="name">863008</field>
+		<field name="city_id" ref="CO863001"/>
+	</record>
+	<record id="CO863001_zip" model="res.city.zip">
+		<field name="name">863001</field>
+		<field name="city_id" ref="CO863001"/>
+	</record>
+	<record id="CO863007_zip" model="res.city.zip">
+		<field name="name">863007</field>
+		<field name="city_id" ref="CO863001"/>
+	</record>
+	<record id="CO863008_zip" model="res.city.zip">
+		<field name="name">863008</field>
+		<field name="city_id" ref="CO863001"/>
+	</record>
+	<record id="CO864001_zip" model="res.city.zip">
+		<field name="name">864001</field>
+		<field name="city_id" ref="CO864001"/>
+	</record>
+	<record id="CO864007_zip" model="res.city.zip">
+		<field name="name">864007</field>
+		<field name="city_id" ref="CO864001"/>
+	</record>
+	<record id="CO864008_zip" model="res.city.zip">
+		<field name="name">864008</field>
+		<field name="city_id" ref="CO864001"/>
+	</record>
+	<record id="CO864009_zip" model="res.city.zip">
+		<field name="name">864009</field>
+		<field name="city_id" ref="CO864001"/>
+	</record>
+	<record id="CO880001_zip" model="res.city.zip">
+		<field name="name">880001</field>
+		<field name="city_id" ref="CO880001"/>
+	</record>
+	<record id="CO880007_zip" model="res.city.zip">
+		<field name="name">880007</field>
+		<field name="city_id" ref="CO880001"/>
+	</record>
+	<record id="CO880008_zip" model="res.city.zip">
+		<field name="name">880008</field>
+		<field name="city_id" ref="CO880001"/>
+	</record>
+	<record id="CO880020_zip" model="res.city.zip">
+		<field name="name">880020</field>
+		<field name="city_id" ref="CO880020"/>
+	</record>
+	<record id="CO880027_zip" model="res.city.zip">
+		<field name="name">880027</field>
+		<field name="city_id" ref="CO880020"/>
+	</record>
+	<record id="CO880028_zip" model="res.city.zip">
+		<field name="name">880028</field>
+		<field name="city_id" ref="CO880020"/>
+	</record>
+	<record id="CO910001_zip" model="res.city.zip">
+		<field name="name">910001</field>
+		<field name="city_id" ref="CO910001"/>
+	</record>
+	<record id="CO910007_zip" model="res.city.zip">
+		<field name="name">910007</field>
+		<field name="city_id" ref="CO910001"/>
+	</record>
+	<record id="CO910008_zip" model="res.city.zip">
+		<field name="name">910008</field>
+		<field name="city_id" ref="CO910001"/>
+	</record>
+	<record id="CO911010_zip" model="res.city.zip">
+		<field name="name">911010</field>
+		<field name="city_id" ref="CO911010"/>
+	</record>
+	<record id="CO911017_zip" model="res.city.zip">
+		<field name="name">911017</field>
+		<field name="city_id" ref="CO911010"/>
+	</record>
+	<record id="CO911018_zip" model="res.city.zip">
+		<field name="name">911018</field>
+		<field name="city_id" ref="CO911010"/>
+	</record>
+	<record id="CO911030_zip" model="res.city.zip">
+		<field name="name">911030</field>
+		<field name="city_id" ref="CO911030"/>
+	</record>
+	<record id="CO911037_zip" model="res.city.zip">
+		<field name="name">911037</field>
+		<field name="city_id" ref="CO911030"/>
+	</record>
+	<record id="CO911038_zip" model="res.city.zip">
+		<field name="name">911038</field>
+		<field name="city_id" ref="CO911030"/>
+	</record>
+	<record id="CO911039_zip" model="res.city.zip">
+		<field name="name">911039</field>
+		<field name="city_id" ref="CO911030"/>
+	</record>
+	<record id="CO912010_zip" model="res.city.zip">
+		<field name="name">CO912010</field>
+		<field name="city_id" ref="CO912010"/>
+	</record>
+	<record id="CO912017_zip" model="res.city.zip">
+		<field name="name">CO912017</field>
+		<field name="city_id" ref="CO912010"/>
+	</record>
+	<record id="CO912018_zip" model="res.city.zip">
+		<field name="name">CO912018</field>
+		<field name="city_id" ref="CO912010"/>
+	</record>
+	<record id="CO912019_zip" model="res.city.zip">
+		<field name="name">CO912019</field>
+		<field name="city_id" ref="CO912010"/>
+	</record>
+	<record id="CO913010_zip" model="res.city.zip">
+		<field name="name">913010</field>
+		<field name="city_id" ref="CO913010"/>
+	</record>
+	<record id="CO913017_zip" model="res.city.zip">
+		<field name="name">913017</field>
+		<field name="city_id" ref="CO913010"/>
+	</record>
+	<record id="CO913018_zip" model="res.city.zip">
+		<field name="name">913018</field>
+		<field name="city_id" ref="CO913010"/>
+	</record>
+	<record id="CO913019_zip" model="res.city.zip">
+		<field name="name">913019</field>
+		<field name="city_id" ref="CO913010"/>
+	</record>
+	<record id="CO913050_zip" model="res.city.zip">
+		<field name="name">913050</field>
+		<field name="city_id" ref="CO913050"/>
+	</record>
+	<record id="CO913057_zip" model="res.city.zip">
+		<field name="name">913057</field>
+		<field name="city_id" ref="CO913050"/>
+	</record>
+	<record id="CO914050_zip" model="res.city.zip">
+		<field name="name">914050</field>
+		<field name="city_id" ref="CO914050"/>
+	</record>
+	<record id="CO914057_zip" model="res.city.zip">
+		<field name="name">914057</field>
+		<field name="city_id" ref="CO914050"/>
+	</record>
+	<record id="CO915010_zip" model="res.city.zip">
+		<field name="name">915010</field>
+		<field name="city_id" ref="CO915010"/>
+	</record>
+	<record id="CO915017_zip" model="res.city.zip">
+		<field name="name">915017</field>
+		<field name="city_id" ref="CO915010"/>
+	</record>
+	<record id="CO915018_zip" model="res.city.zip">
+		<field name="name">915018</field>
+		<field name="city_id" ref="CO915010"/>
+	</record>
+	<record id="CO915019_zip" model="res.city.zip">
+		<field name="name">915019</field>
+		<field name="city_id" ref="CO915010"/>
+	</record>
+	<record id="CO917010_zip" model="res.city.zip">
+		<field name="name">917010</field>
+		<field name="city_id" ref="CO917010"/>
+	</record>
+	<record id="CO917017_zip" model="res.city.zip">
+		<field name="name">917017</field>
+		<field name="city_id" ref="CO917010"/>
+	</record>
+	<record id="CO917018_zip" model="res.city.zip">
+		<field name="name">917018</field>
+		<field name="city_id" ref="CO917010"/>
+	</record>
+	<record id="CO940001_zip" model="res.city.zip">
+		<field name="name">940001</field>
+		<field name="city_id" ref="CO940001"/>
+	</record>
+	<record id="CO940007_zip" model="res.city.zip">
+		<field name="name">940007</field>
+		<field name="city_id" ref="CO940001"/>
+	</record>
+	<record id="CO940008_zip" model="res.city.zip">
+		<field name="name">940008</field>
+		<field name="city_id" ref="CO940001"/>
+	</record>
+	<record id="CO940009_zip" model="res.city.zip">
+		<field name="name">940009</field>
+		<field name="city_id" ref="CO940001"/>
+	</record>
+	<record id="CO940017_zip" model="res.city.zip">
+		<field name="name">940017</field>
+		<field name="city_id" ref="CO940001"/>
+	</record>
+	<record id="CO940018_zip" model="res.city.zip">
+		<field name="name">940018</field>
+		<field name="city_id" ref="CO940001"/>
+	</record>
+	<record id="CO940019_zip" model="res.city.zip">
+		<field name="name">940019</field>
+		<field name="city_id" ref="CO940001"/>
+	</record>
+	<record id="CO940027_zip" model="res.city.zip">
+		<field name="name">940027</field>
+		<field name="city_id" ref="CO940001"/>
+	</record>
+	<record id="CO940028_zip" model="res.city.zip">
+		<field name="name">940028</field>
+		<field name="city_id" ref="CO940001"/>
+	</record>
+	<record id="CO941010_zip" model="res.city.zip">
+		<field name="name">941010</field>
+		<field name="city_id" ref="CO941010"/>
+	</record>
+	<record id="CO941017_zip" model="res.city.zip">
+		<field name="name">941017</field>
+		<field name="city_id" ref="CO941010"/>
+	</record>
+	<record id="CO941018_zip" model="res.city.zip">
+		<field name="name">941018</field>
+		<field name="city_id" ref="CO941010"/>
 	</record>
 </odoo>
+
+
+
+
+
+
+
+
+
+
