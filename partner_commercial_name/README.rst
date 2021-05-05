@@ -22,6 +22,7 @@ Authors
 Contributors
 ------------
 
+* Alejandro Olano <https://github.com/alejo-code>
 * Diego Ivan <https://github.com/Diegoivanc>
 * Joan Marín <https://github.com/JoanMarin>
-* Alejandro Olano https://github.com/alejo-code
+
