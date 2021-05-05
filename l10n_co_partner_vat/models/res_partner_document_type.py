@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 # Copyright 2018 Joan Marín <Github@JoanMarin>
 # Copyright 2018 Guillermo Montoya <Github@guillermm>
+# Copyright 2021 Alejandro Olano <Github@alejo-code>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 from odoo import fields, models, api
@@ -10,17 +11,10 @@ class ResPartnerDocumentType(models.Model):
     _name = 'res.partner.document.type'
     _description = 'Partner Document Type'
 
-    name = fields.Char(
-        string='Document Type',
-        size=100,
-        required=True)
-    code = fields.Char(
-        string='Code',
-        size=2,
-        required=True)
-    checking_required = fields.Boolean(
-        string='VAT Check Required',
-        default=False)
+    name = fields.Char(string='Document Type', size=100, required=True)
+    code = fields.Char(string='Code', size=2, required=True)
+    checking_required = fields.Boolean(string='VAT Check Required',
+                                       default=False)
 
     @api.multi
     def name_get(self):
