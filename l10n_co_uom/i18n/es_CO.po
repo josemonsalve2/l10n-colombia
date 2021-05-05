@@ -1,0 +1,77 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* l10n_co_uom
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-05-03 19:41+0000\n"
+"PO-Revision-Date: 2021-05-03 19:41+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: l10n_co_uom
+#: model:ir.model.fields,field_description:l10n_co_uom.field_uom_uom_code__code
+msgid "Code"
+msgstr "Código"
+
+#. module: l10n_co_uom
+#: model:ir.model.fields,field_description:l10n_co_uom.field_uom_uom_code__create_uid
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: l10n_co_uom
+#: model:ir.model.fields,field_description:l10n_co_uom.field_uom_uom_code__create_date
+msgid "Created on"
+msgstr "Creado el"
+
+#. module: l10n_co_uom
+#: model:ir.model.fields,field_description:l10n_co_uom.field_uom_uom_code__display_name
+msgid "Display Name"
+msgstr "Nombre a mostrar"
+
+#. module: l10n_co_uom
+#: model:ir.model.fields,field_description:l10n_co_uom.field_uom_uom_code__id
+msgid "ID"
+msgstr ""
+
+#. module: l10n_co_uom
+#: model:ir.model.fields,field_description:l10n_co_uom.field_uom_uom_code____last_update
+msgid "Last Modified on"
+msgstr "Última modificación en"
+
+#. module: l10n_co_uom
+#: model:ir.model.fields,field_description:l10n_co_uom.field_uom_uom_code__write_uid
+msgid "Last Updated by"
+msgstr "Última actualización por"
+
+#. module: l10n_co_uom
+#: model:ir.model.fields,field_description:l10n_co_uom.field_uom_uom_code__write_date
+msgid "Last Updated on"
+msgstr "Última actualización el"
+
+#. module: l10n_co_uom
+#: model:ir.model.fields,field_description:l10n_co_uom.field_uom_uom_code__name
+msgid "Name"
+msgstr "Nombre"
+
+#. module: l10n_co_uom
+#: model:ir.model,name:l10n_co_uom.model_uom_uom
+msgid "Product Unit of Measure"
+msgstr "Unidad de medida del producto"
+
+#. module: l10n_co_uom
+#: model:ir.model.fields,field_description:l10n_co_uom.field_uom_uom__product_uom_code_id
+msgid "Unit of Measure Code"
+msgstr "Código de Unidad de Medida"
+
+#. module: l10n_co_uom
+#: model:ir.model,name:l10n_co_uom.model_uom_uom_code
+msgid "uom.uom.code"
+msgstr ""
+
