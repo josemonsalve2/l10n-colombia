@@ -5040,6 +5040,13 @@
         <field name="country_id" ref="base.co"/>
         <field name="state_id" ref="res_country_state_co_52"/>
     </record>
+    <record id="CO521050" model="res.city">
+        <field name="name">ALBÁN</field>
+        <field name="code">52019</field>
+        <field name="phone_prefix">2</field>
+        <field name="country_id" ref="base.co"/>
+        <field name="state_id" ref="res_country_state_co_52"/>
+    </record>
     <record id="CO520570" model="res.city">
         <field name="name">ARBOLEDA</field>
         <field name="code">52051</field>
@@ -5964,6 +5971,27 @@
         <field name="country_id" ref="base.co"/>
         <field name="state_id" ref="res_country_state_co_68"/>
     </record>
+    <record id="CO682521" model="res.city">
+        <field name="name">ONZAGA</field>
+        <field name="code">68502</field>
+        <field name="phone_prefix">7</field>
+        <field name="country_id" ref="base.co"/>
+        <field name="state_id" ref="res_country_state_co_68"/>
+    </record>
+    <record id="CO683021" model="res.city">
+        <field name="name">OIBA</field>
+        <field name="code">68500</field>
+        <field name="phone_prefix">7</field>
+        <field name="country_id" ref="base.co"/>
+        <field name="state_id" ref="res_country_state_co_68"/>
+    </record>
+    <record id="CO681031" model="res.city">
+        <field name="name">GUACA</field>
+        <field name="code">68318</field>
+        <field name="phone_prefix">7</field>
+        <field name="country_id" ref="base.co"/>
+        <field name="state_id" ref="res_country_state_co_68"/>
+    </record>
     <record id="CO680541" model="res.city">
         <field name="name">TONA</field>
         <field name="code">68820</field>
@@ -6800,6 +6828,55 @@
     <record id="CO731501" model="res.city">
         <field name="name">VILLAHERMOSA</field>
         <field name="code">73870</field>
+        <field name="phone_prefix">8</field>
+        <field name="country_id" ref="base.co"/>
+        <field name="state_id" ref="res_country_state_co_73"/>
+    </record>
+    <record id="CO731580" model="res.city">
+        <field name="name">PALOCABILDO</field>
+        <field name="code">73520</field>
+        <field name="phone_prefix">8</field>
+        <field name="country_id" ref="base.co"/>
+        <field name="state_id" ref="res_country_state_co_73"/>
+    </record>
+    <record id="CO815010" model="res.city">
+        <field name="name">SARAVENA</field>
+        <field name="code">81736</field>
+        <field name="phone_prefix">7</field>
+        <field name="country_id" ref="base.co"/>
+        <field name="state_id" ref="res_country_state_co_81"/>
+    </record>
+    <record id="CO941047" model="res.city">
+        <field name="name">PUERTO COLOMBIA</field>
+        <field name="code">94884</field>
+        <field name="phone_prefix">8</field>
+        <field name="country_id" ref="base.co"/>
+        <field name="state_id" ref="res_country_state_co_94"/>
+    </record>
+    <record id="CO942057" model="res.city">
+        <field name="name">LA GUADALUPE</field>
+        <field name="code">94885</field>
+        <field name="phone_prefix">8</field>
+        <field name="country_id" ref="base.co"/>
+        <field name="state_id" ref="res_country_state_co_94"/>
+    </record>
+    <record id="CO916057" model="res.city">
+        <field name="name">MIRITÍ - PARANÁ</field>
+        <field name="code">91460</field>
+        <field name="phone_prefix">8</field>
+        <field name="country_id" ref="base.co"/>
+        <field name="state_id" ref="res_country_state_co_91"/>
+    </record>
+    <record id="CO916017" model="res.city">
+        <field name="name">LA VICTORIA</field>
+        <field name="code">91430</field>
+        <field name="phone_prefix">8</field>
+        <field name="country_id" ref="base.co"/>
+        <field name="state_id" ref="res_country_state_co_91"/>
+    </record>
+    <record id="CO732001" model="res.city">
+        <field name="name">FALAN</field>
+        <field name="code">73270</field>
         <field name="phone_prefix">8</field>
         <field name="country_id" ref="base.co"/>
         <field name="state_id" ref="res_country_state_co_73"/>
@@ -7805,5 +7882,46 @@
         <field name="country_id" ref="base.co"/>
         <field name="state_id" ref="res_country_state_co_99"/>
     </record>
-    
+    <record id="CO943017" model="res.city">
+        <field name="name">PANA PANA</field>
+        <field name="code">94887</field>
+        <field name="phone_prefix">8</field>
+        <field name="country_id" ref="base.co"/>
+        <field name="state_id" ref="res_country_state_co_99"/>
+    </record>
+    <record id="CO943057" model="res.city">
+        <field name="name">MORICHAL</field>
+        <field name="code">94888</field>
+        <field name="phone_prefix">8</field>
+        <field name="country_id" ref="base.co"/>
+        <field name="state_id" ref="res_country_state_co_99"/>
+    </record>
+    <record id="CO971007" model="res.city">
+        <field name="name">YAVARATÉ</field>
+        <field name="code">97889</field>
+        <field name="phone_prefix">8</field>
+        <field name="country_id" ref="base.co"/>
+        <field name="state_id" ref="res_country_state_co_97"/>
+    </record>
+    <record id="CO972007" model="res.city">
+        <field name="name">PACOA</field>
+        <field name="code">97511</field>
+        <field name="phone_prefix">8</field>
+        <field name="country_id" ref="base.co"/>
+        <field name="state_id" ref="res_country_state_co_97"/>
+    </record>
+    <record id="CO973047" model="res.city">
+        <field name="name">PAPUNAUA</field>
+        <field name="code">97777</field>
+        <field name="phone_prefix">8</field>
+        <field name="country_id" ref="base.co"/>
+        <field name="state_id" ref="res_country_state_co_97"/>
+    </record>
+    <record id="CO944057" model="res.city">
+        <field name="name">MAPIRIPANA</field>
+        <field name="code">94663</field>
+        <field name="phone_prefix">8</field>
+        <field name="country_id" ref="base.co"/>
+        <field name="state_id" ref="res_country_state_co_94"/>
+    </record>
 </odoo>
