@@ -4,8 +4,12 @@
         <field name="model">res.partner</field>
         <field name="inherit_id" ref="account.view_partner_property_form"/>
         <field name="arch" type="xml">
-            <field name="property_account_position_id" position="replace"/>
-            <group name="fiscal_information" position="replace"/>
+            <xpath expr="//page[@name='sales_purchases']//group[@name='fiscal_information']" position="inside">
+                <field name="property_account_position_id" position="replace"/>
+            </xpath>
+            <group name="fiscal_information" position="attributes">
+                <attribute name="attrs">{'invisible':1}</attribute>
+            </group>
         </field>
     </record>
 
@@ -20,19 +24,16 @@
             <field name="vat" position="attributes">
                 <attribute name="invisible">1</attribute>
             </field>
+            <field name="l10n_co_document_type" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
 
             <field name="vat" position="before">
-                <field name="property_account_position_id"
-                    options="{'no_create': True, 'no_open': True}"
-                    attrs="{'required': ['|', ('supplier', '=', True), ('customer', '=', True)]}"/>
-                <field name="document_type_id"
-                    widget="selection"
-                    attrs="{'required': ['|', ('supplier', '=', True), ('customer', '=', True)]}"/>
-                <field name="identification_document"
-                    attrs="{'required': ['|', '|', ('supplier', '=', True), ('customer', '=', True), ('document_type_id', '!=', False)]}"/>
+                <field name="property_account_position_id" options="{'no_create': True, 'no_open': True}" attrs="{'required': ['|', ('supplier', '=', True), ('customer', '=', True)]}"/>
+                <field name="document_type_id" widget="selection" attrs="{'required': ['|', ('supplier', '=', True), ('customer', '=', True)]}"/>
+                <field name="identification_document" attrs="{'required': ['|', '|', ('supplier', '=', True), ('customer', '=', True), ('document_type_id', '!=', False)]}"/>
                 <field name="document_type_code" invisible="1"/>
-                <field name="check_digit"
-                    attrs="{'invisible': [('document_type_code', '!=', '31')], 'required': [('document_type_code', '=', '31')]}"/>
+                <field name="check_digit" attrs="{'invisible': [('document_type_code', '!=', '31')], 'required': [('document_type_code', '=', '31')]}"/>
                 <field name="vat" invisible="1"/>
             </field>
         </field>

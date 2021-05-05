@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 # Copyright 2018 Joan Marín <Github@JoanMarin>
 # Copyright 2018 Guillermo Montoya <Github@guillermm>
+# Copyright 2021 Alejandro Olano <Github@alejo-code>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 from odoo import api, fields, models, _
@@ -11,15 +12,14 @@ class ResPartner(models.Model):
     _inherit = 'res.partner'
 
     document_type_id = fields.Many2one(
-        string='Document Type',
-        comodel_name='res.partner.document.type')
-    document_type_code = fields.Char(
-        related='document_type_id.code',
-        store=False)
+        string='Document Type', comodel_name='res.partner.document.type')
+    document_type_code = fields.Char(related='document_type_id.code',
+                                     store=False)
     check_digit = fields.Char(string='Verification Digit', size=1)
     identification_document = fields.Char(string='Identification Document')
 
-    @api.onchange('country_id', 'identification_document', 'check_digit', 'document_type_id')
+    @api.onchange('country_id', 'identification_document', 'check_digit',
+                  'document_type_id')
     def _onchange_vat(self):
         if self.country_id and self.identification_document:
             if self.country_id.code:
@@ -46,8 +46,10 @@ class ResPartner(models.Model):
             si es verificable por el algoritmo VAT. Si no se define,
             de todas formas el VAT se evalua como un NIT.
             '''
-            return ((partner.document_type_id and partner.document_type_id.checking_required)
-                    or (not partner.parent_id and not partner.document_type_id)) == True
+            return ((partner.document_type_id
+                     and partner.document_type_id.checking_required)
+                    or (not partner.parent_id
+                        and not partner.document_type_id)) == True
 
         msg = _('The Identification Document does not seems to be correct.')
 
