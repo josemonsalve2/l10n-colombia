@@ -150,7 +150,7 @@ class AccountInvoiceDianDocument(models.Model):
         daterange = self.env['date.range'].search(param)
 
         if (not daterange or daterange.company_id != self.company_id
-                or not daterange.type_id or not daterange.type_id.fiscal_year):
+                or not daterange.type_id or not daterange.type_id.name):
             raise UserError(msg4)
         else:
             # Regla: el consecutivo se iniciará en “00000001” cada primero de enero.
@@ -166,7 +166,7 @@ class AccountInvoiceDianDocument(models.Model):
         # El Código “ppp” es 000 para Software Propio
         ppp = '000'
         # aa: Dos (2) últimos dígitos año calendario
-        aa = date_invoice[2:4]
+        aa = date_invoice[2:2]
         # dddddddd: consecutivo del paquete de archivos comprimidos enviados;
         # de ocho (8) dígitos decimales alineados a la derecha y ajustado a la
         # izquierda con ceros; en el rango:
