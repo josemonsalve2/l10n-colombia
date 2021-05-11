@@ -24,12 +24,11 @@ class AccountInvoice(models.Model):
                 ('sequence_id', '=', self.journal_id.sequence_id.id),
                 ('active_resolution', '=', True)
             ])
-            today = datetime.strptime(fields.Date.context_today(self),
-                                      '%Y-%m-%d')
+            today = fields.Date.context_today(self)
 
             if date_range:
                 date_range.ensure_one()
-                date_to = datetime.strptime(date_range.date_to, '%Y-%m-%d')
+                date_to = date_range.date_to
                 days = (date_to - today).days
                 numbers = date_range.number_to - date_range.number_next_actual
 
