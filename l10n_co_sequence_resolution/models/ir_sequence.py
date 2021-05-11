@@ -83,11 +83,13 @@ class IrSequence(models.Model):
 
             for date_range_id in sequence_id.date_range_ids:
                 number_next_actual = date_range_id.number_next_actual
-
+                date_from = datetime.strftime(date_range_id.date_from,
+                                              '%Y-%m-%d')
+                date_to = datetime.strftime(date_range_id.date_to, '%Y-%m-%d')
                 if (number_next_actual >= date_range_id.number_from
                         and number_next_actual <= date_range_id.number_to
-                        and current_date >= date_range_id.date_from
-                        and current_date <= date_range_id.date_to):
+                        and current_date >= date_from
+                        and current_date <= date_to):
                     if not date_range_id.active_resolution:
                         date_range_id.active_resolution = True
 
