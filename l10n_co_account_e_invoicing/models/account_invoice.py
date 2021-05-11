@@ -70,10 +70,8 @@ class AccountInvoice(models.Model):
                 and self.company_id.certificate_password
                 and self.company_id.certificate_date):
             remaining_days = self.company_id.certificate_remaining_days or 0
-            today = datetime.strptime(fields.Date.context_today(self),
-                                      '%Y-%m-%d')
-            date_to = datetime.strptime(self.company_id.certificate_date,
-                                        '%Y-%m-%d')
+            today = fields.Date.context_today(self)
+            date_to = self.company_id.certificate_date
             days = (date_to - today).days
             warn_inactive_certificate = False
 
