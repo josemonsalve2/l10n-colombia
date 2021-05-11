@@ -4,7 +4,6 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 from datetime import datetime, timedelta
-import pandas as pd
 from pytz import timezone
 from odoo import api, models, fields, SUPERUSER_ID, _
 from odoo.exceptions import UserError
