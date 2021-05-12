@@ -13,6 +13,7 @@ from . import date_range
 from . import account_tax_group
 from . import account_invoice_line
 from . import account_invoice
+from . import account_move
 from . import account_invoice_dian_document_line
 from . import account_invoice_dian_document
 from . import einvoice_notification_group

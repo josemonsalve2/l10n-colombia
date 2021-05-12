@@ -3,6 +3,8 @@
 # Copyright 2021 Alejandro Olano <Github@alejo-code>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
+import pytz
+from dateutil import tz
 from datetime import datetime, timedelta
 from pytz import timezone
 from odoo import api, models, fields, SUPERUSER_ID, _
@@ -171,11 +173,15 @@ class AccountInvoice(models.Model):
             "The 'delivery date' must be equal or greater per maximum 10 days to "
             "the 'invoice date'.")
         res = super(AccountInvoice, self).invoice_validate()
-
+        timezone = pytz.timezone(self.env.user.tz or 'America/Bogota')
+        from_zone = tz.gettz('UTC')
+        to_zone = tz.gettz(timezone.zone)
         for invoice in self:
             if not invoice.invoice_datetime:
-                invoice.invoice_datetime = datetime.now().replace(
-                    tzinfo=timezone('UTC'))
+                invoice_datetime = datetime.now().replace(tzinfo=from_zone)
+                invoice_datetime = invoice_datetime.astimezone(
+                    to_zone).strftime('%Y-%m-%d %H:%M:%S')
+                invoice.invoice_datetime = invoice_datetime
 
             if (invoice.company_id.einvoicing_enabled
                     and invoice.type in ("out_invoice", "out_refund")):
@@ -192,14 +198,11 @@ class AccountInvoice(models.Model):
                 if not invoice.delivery_datetime:
                     raise UserError(msg)
 
-                date_invoice = datetime.strptime(invoice.date_invoice,
-                                                 '%Y-%m-%d')
-                delivery_datetime = datetime.strptime(
-                    invoice.delivery_datetime,
-                    '%Y-%m-%d %H:%M:%S').replace(tzinfo=timezone('UTC'))
-                delivery_date = delivery_datetime.astimezone(
-                    timezone('America/Bogota')).strftime('%Y-%m-%d')
-                delivery_date = datetime.strptime(delivery_date, '%Y-%m-%d')
+                date_invoice = invoice.date_invoice
+                delivery_date = datetime.strftime(invoice.delivery_datetime,
+                                                  '%Y-%m-%d')
+                delivery_date = datetime.strptime(delivery_date,
+                                                  '%Y-%m-%d').date()
                 days = (delivery_date - date_invoice).days
 
                 if days < 0 or days > 10:

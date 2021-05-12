@@ -3,6 +3,8 @@
 # Copyright 2021 Alejandro Olano <Github@alejo-code>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
+import pytz
+from dateutil import tz
 import urllib.request
 from io import BytesIO
 from datetime import datetime
@@ -131,7 +133,10 @@ class AccountInvoiceDianDocument(models.Model):
         msg4 = _(
             'There is no date range corresponding to the date of your invoice.'
         )
-        date_invoice = self.invoice_id.date_invoice
+        formato = '%Y-%m-%d %H:%M:%S'
+
+        obj_datetime = datetime.strftime(self.invoice_id.date_invoice, formato)
+        date_invoice = obj_datetime
 
         if self.company_id.partner_id.document_type_id:
             if self.company_id.partner_id.document_type_id.code != '31':
@@ -150,7 +155,7 @@ class AccountInvoiceDianDocument(models.Model):
         daterange = self.env['date.range'].search(param)
 
         if (not daterange or daterange.company_id != self.company_id
-                or not daterange.type_id or not daterange.type_id.fiscal_year):
+                or not daterange.type_id or not daterange.type_id.name):
             raise UserError(msg4)
         else:
             # Regla: el consecutivo se iniciará en “00000001” cada primero de enero.
@@ -242,21 +247,13 @@ class AccountInvoiceDianDocument(models.Model):
             QRCodeURL = DIAN['catalogo']
         else:
             QRCodeURL = DIAN['catalogo-hab']
-
-        invoice_datetime = datetime.strptime(
-            self.invoice_id.invoice_datetime,
-            '%Y-%m-%d %H:%M:%S').replace(tzinfo=timezone('UTC'))
-        IssueDate = invoice_datetime.astimezone(
-            timezone('America/Bogota')).strftime('%Y-%m-%d')
-        IssueTime = invoice_datetime.astimezone(
-            timezone('America/Bogota')).strftime('%H:%M:%S-05:00')
-        delivery_datetime = datetime.strptime(
-            self.invoice_id.delivery_datetime,
-            '%Y-%m-%d %H:%M:%S').replace(tzinfo=timezone('UTC'))
-        ActualDeliveryDate = delivery_datetime.astimezone(
-            timezone('America/Bogota')).strftime('%Y-%m-%d')
-        ActualDeliveryTime = delivery_datetime.astimezone(
-            timezone('America/Bogota')).strftime('%H:%M:%S-05:00')
+        invoice_datetime = self.invoice_id.invoice_datetime
+        IssueDate = datetime.strftime(invoice_datetime, '%Y-%m-%d')
+        IssueTime = datetime.strftime(invoice_datetime, '%H:%M:%S-05:00')
+        delivery_datetime = self.invoice_id.delivery_datetime
+        ActualDeliveryDate = datetime.strftime(delivery_datetime, '%Y-%m-%d')
+        ActualDeliveryTime = datetime.strftime(delivery_datetime,
+                                               '%H:%M:%S-05:00')
         ValFac = self.invoice_id.amount_untaxed
         einvoicing_taxes = self.invoice_id._get_einvoicing_taxes()
         ValImp1 = einvoicing_taxes['TaxesTotal']['01']['total']

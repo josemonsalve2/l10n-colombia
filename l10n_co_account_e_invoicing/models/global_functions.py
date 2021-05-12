@@ -23,7 +23,9 @@ from odoo.exceptions import ValidationError
 
 def get_software_security_code(IdSoftware, Pin, NroDocumentos):
     uncoded_value = (IdSoftware + ' + ' + Pin + ' + ' + NroDocumentos)
-    software_security_code = hashlib.sha384(IdSoftware + Pin + NroDocumentos)
+    software_security_code = hashlib.new('sha384',
+                                         (str(IdSoftware) + str(Pin) +
+                                          str(NroDocumentos)).encode("utf-8"))
 
     return {
         'SoftwareSecurityCodeUncoded': uncoded_value,
