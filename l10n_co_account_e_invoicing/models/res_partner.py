@@ -181,7 +181,7 @@ class ResPartner(models.Model):
             'PartyName': self.commercial_name,
             'Name': name,
             'AddressID': self.zip_id.code or '',
-            'AddressCityName': self.zip_id.city or '',
+            'AddressCityName': self.zip_id.name or '',
             'AddressPostalZone': zip_code,
             'AddressCountrySubentity': self.state_id.name or '',
             'AddressCountrySubentityCode': self.state_id.code or '',
