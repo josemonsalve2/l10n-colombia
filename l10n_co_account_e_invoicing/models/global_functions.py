@@ -7,7 +7,7 @@ import hashlib
 from os import path
 from uuid import uuid4
 from base64 import b64encode, b64decode
-from io import StringIO
+from io import BytesIO
 from datetime import datetime, timedelta
 from OpenSSL import crypto
 from lxml import etree
@@ -146,7 +146,7 @@ def get_xml_with_signature(xml_without_signature, signature_policy_url,
         element.attrib['Id'] = signature_id + "-sigvalue"
 
     # https://www.decalage.info/en/python/lxml-c14n
-    output = StringIO()
+    output = BytesIO()
     root.getroottree().write_c14n(output)  # exclusive=1, with_comments=0
     root = output.getvalue()
 
@@ -226,7 +226,7 @@ def get_qr_code(data):
     qr.add_data(data)
     qr.make(fit=True)
     img = qr.make_image()
-    temp = StringIO()
+    temp = BytesIO()
     img.save(temp, format="PNG")
     qr_img = b64encode(temp.getvalue())
 
