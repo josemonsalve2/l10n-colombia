@@ -53,14 +53,14 @@ class AccountInvoiceDianDocument(models.Model):
         ValFac = self.invoice_id.amount_untaxed
         ValOtroIm = ValImp2 - ValImp3
         ValTolFac = ValFac + ValImp1 + ValOtroIm
-        create_date = datetime.strptime(self.invoice_id.create_date,
+
+        create_date = datetime.strftime(self.invoice_id.create_date,
                                         '%Y-%m-%d %H:%M:%S')
-        create_date = create_date.replace(tzinfo=timezone('UTC'))
-        create_date = create_date.astimezone(timezone('America/Bogota'))
         qr_data = "NumFac: " + (self.invoice_id.number
                                 or _('WITHOUT VALIDATE'))
-        qr_data += "\nFecFac: " + (self.invoice_id.date_invoice or '')
-        qr_data += "\nHorFac: " + create_date.strftime('%H:%M:%S-05:00')
+        qr_data += "\nFecFac: " + (str(self.invoice_id.date_invoice) or '')
+        qr_data += "\nHorFac: " + datetime.strftime(
+            self.invoice_id.create_date, '%H:%M:%S-05:00')
         qr_data += "\nNitFac: " + (
             self.company_id.partner_id.identification_document or '')
         qr_data += "\nDocAdq: " + (
@@ -523,9 +523,9 @@ class AccountInvoiceDianDocument(models.Model):
         return xml_with_signature
 
     def _get_zipped_file(self):
-        output = StringIO()
+        output = BytesIO()
         zipfile = ZipFile(output, mode='w')
-        zipfile_content = StringIO()
+        zipfile_content = BytesIO()
         zipfile_content.write(b64decode(self.xml_file))
         zipfile.writestr(self.xml_filename, zipfile_content.getvalue())
         zipfile.close()
@@ -940,12 +940,12 @@ class AccountInvoiceDianDocument(models.Model):
         xml_soap_values = global_functions.get_xml_soap_values(
             self.company_id.certificate_file,
             self.company_id.certificate_password)
-        output = StringIO()
+        output = BytesIO()
         zipfile = ZipFile(output, mode='w')
-        zipfile_content = StringIO()
+        zipfile_content = BytesIO()
         zipfile_content.write(b64decode(self.xml_file))
         zipfile.writestr(self.xml_filename, zipfile_content.getvalue())
-        zipfile_content = StringIO()
+        zipfile_content = BytesIO()
         zipfile_content.write(b64decode(self.ar_xml_file))
         zipfile.writestr(self.ar_xml_filename, zipfile_content.getvalue())
         zipfile.close()
