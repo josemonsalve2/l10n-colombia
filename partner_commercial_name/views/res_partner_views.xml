@@ -7,6 +7,9 @@
             <field name="name" position="after">
                 <field name="commercial_name" placeholder="Commercial Name"/>
             </field>
+            <field name="mobile" position="after">
+                <field name="fax" />
+            </field>
         </field>
     </record>
 
