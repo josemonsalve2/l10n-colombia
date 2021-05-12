@@ -3,15 +3,12 @@
 # Copyright 2021 Alejandro Olano <Github@alejo-code>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-import pytz
-from dateutil import tz
 import urllib.request
 from io import BytesIO
 from datetime import datetime
 from base64 import b64encode, b64decode
 from zipfile import ZipFile
 import ssl
-import sys
 from pytz import timezone
 from requests import post, exceptions
 from lxml import etree
@@ -133,10 +130,9 @@ class AccountInvoiceDianDocument(models.Model):
         msg4 = _(
             'There is no date range corresponding to the date of your invoice.'
         )
-        formato = '%Y-%m-%d %H:%M:%S'
 
-        obj_datetime = datetime.strftime(self.invoice_id.date_invoice, formato)
-        date_invoice = obj_datetime
+        date_invoice = datetime.strftime(self.invoice_id.date_invoice,
+                                         '%Y-%m-%d %H:%M:%S')
 
         if self.company_id.partner_id.document_type_id:
             if self.company_id.partner_id.document_type_id.code != '31':

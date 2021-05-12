@@ -48,10 +48,12 @@ def get_cufe_cude(NumFac, FecFac, HorFac, ValFac, CodImp1, ValImp1, CodImp2,
                      ValImp3 + ' + ' + ValTot + ' + ' + NitOFE + ' + ' +
                      DocAdq + ' + ' + (ClTec if ClTec else SoftwarePIN) +
                      ' + ' + TipoAmbie)
-    CUFE_CUDE = hashlib.sha384(NumFac + FecFac + HorFac + ValFac + CodImp1 +
-                               ValImp1 + CodImp2 + ValImp2 + CodImp3 +
-                               ValImp3 + ValTot + NitOFE + DocAdq +
-                               (ClTec if ClTec else SoftwarePIN) + TipoAmbie)
+    CUFE_CUDE = hashlib.new(
+        'sha384', (str(NumFac) + str(FecFac) + str(HorFac) + str(ValFac) +
+                   str(CodImp1) + str(CodImp2) + str(ValImp2) + str(CodImp3) +
+                   str(ValImp3) + str(ValTot) + str(NitOFE) + str(DocAdq) +
+                   str(ClTec if ClTec else SoftwarePIN) +
+                   str(TipoAmbie)).encode("utf-8"))
 
     return {
         'CUFE/CUDEUncoded': uncoded_value,
