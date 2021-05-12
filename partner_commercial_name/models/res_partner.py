@@ -11,6 +11,7 @@ class ResPartner(models.Model):
     _inherit = 'res.partner'
 
     commercial_name = fields.Char(string='Commercial Name')
+    fax = fields.Char(string="Fax")
 
     @api.multi
     def name_get(self):
