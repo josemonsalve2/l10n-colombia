@@ -629,7 +629,8 @@ class AccountInvoiceDianDocument(models.Model):
             self.company_id.certificate_password)
 
         xml_soap_values['fileName'] = self.zipped_filename.replace('.zip', '')
-        xml_soap_values['contentFile'] = self.zipped_file
+        xml_soap_values['contentFile'] = b64encode(
+            self.zipped_file).decode('utf8')
         xml_soap_values['testSetId'] = self.company_id.test_set_id
 
         return xml_soap_values
