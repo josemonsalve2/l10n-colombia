@@ -511,7 +511,7 @@ class AccountInvoiceDianDocument(models.Model):
 
             if response.getcode() != 200:
                 return False
-        except:
+        except Exception as e:
             return False
 
         xml_with_signature = global_functions.get_xml_with_signature(
@@ -645,7 +645,7 @@ class AccountInvoiceDianDocument(models.Model):
         return xml_soap_values
 
     def _get_pdf_file(self):
-        template = self.env['ir.actions.report.xml'].browse(
+        template = self.env['ir.actions.report'].browse(
             self.company_id.report_template.id)
         pdf = self.env['report'].sudo().get_pdf([self.invoice_id.id],
                                                 template.report_name)
@@ -915,7 +915,7 @@ class AccountInvoiceDianDocument(models.Model):
                 wsdl,
                 headers={'content-type': 'application/soap+xml;charset=utf-8'},
                 data=etree.tostring(xml_soap_with_signature))
-
+            print(response.text)
             if response.status_code == 200:
                 return self._get_status_response(response, send_mail)
             else:

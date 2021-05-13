@@ -29,7 +29,7 @@
                         <field name="certificate_file" widget="binary" filename="certificate_filename" attrs="{'required': [('einvoicing_enabled', '=', True)]}"/>
                         <field name="certificate_password" attrs="{'required': [('einvoicing_enabled', '=', True)]}"/>
                         <field name="certificate_date" readonly="1"/>
-                        <field name="certificate_remaining_days" widget="char" attrs="{'required': [('einvoicing_enabled', '=', True)]}"/>
+                        <field name="certificate_remaining_days"  attrs="{'required': [('einvoicing_enabled', '=', True)]}"/>
                         <field name="files_path"/>
                         <field name="einvoicing_email" attrs="{'required': [('einvoicing_enabled', '=', True)]}"/>
                         <field name="einvoicing_partner_no_email" attrs="{'required': [('einvoicing_enabled', '=', True)]}"/>
@@ -38,7 +38,7 @@
                         <field name="signature_policy_description" attrs="{'required': [('einvoicing_enabled', '=', True)]}"/>
                         <field name="report_template" domain="[('model', '=', 'account.invoice')]" attrs="{'required': [('einvoicing_enabled', '=', True)]}"/>
                         <field name="notification_group_ids">
-                            <tree editable="bottom">
+                            <tree>
                                 <field name="name"/>
                                 <field name="email"/>
                             </tree>

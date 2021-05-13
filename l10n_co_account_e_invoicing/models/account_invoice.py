@@ -188,9 +188,7 @@ class AccountInvoice(models.Model):
                 if (invoice.company_id.automatic_delivery_datetime and
                         invoice.company_id.additional_hours_delivery_datetime
                         and not invoice.delivery_datetime):
-                    invoice_datetime = datetime.strptime(
-                        invoice.invoice_datetime,
-                        '%Y-%m-%d %H:%M:%S').replace(tzinfo=timezone('UTC'))
+                    invoice_datetime = invoice.invoice_datetime
                     hours_added = timedelta(hours=invoice.company_id.
                                             additional_hours_delivery_datetime)
                     invoice.delivery_datetime = invoice_datetime + hours_added
