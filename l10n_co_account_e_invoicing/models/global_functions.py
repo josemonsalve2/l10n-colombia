@@ -9,7 +9,7 @@ from uuid import uuid4
 from base64 import b64encode, b64decode
 from io import BytesIO
 from datetime import datetime, timedelta
-from OpenSSL import crypto
+import OpenSSL.crypto as crypto
 from lxml import etree
 from pytz import timezone
 from jinja2 import Environment, FileSystemLoader
@@ -48,17 +48,13 @@ def get_cufe_cude(NumFac, FecFac, HorFac, ValFac, CodImp1, ValImp1, CodImp2,
                      ValImp3 + ' + ' + ValTot + ' + ' + NitOFE + ' + ' +
                      DocAdq + ' + ' + (ClTec if ClTec else SoftwarePIN) +
                      ' + ' + TipoAmbie)
-    CUFE_CUDE = hashlib.new(
-        'sha384', (str(NumFac) + str(FecFac) + str(HorFac) + str(ValFac) +
-                   str(CodImp1) + str(CodImp2) + str(ValImp2) + str(CodImp3) +
-                   str(ValImp3) + str(ValTot) + str(NitOFE) + str(DocAdq) +
-                   str(ClTec if ClTec else SoftwarePIN) +
-                   str(TipoAmbie)).encode("utf-8"))
+    CUFE_CUDE = (NumFac + FecFac + HorFac + ValFac + CodImp1 + ValImp1 +
+                 CodImp2 + ValImp2 + CodImp3 + ValImp3 + ValTot + NitOFE +
+                 DocAdq + (ClTec if ClTec else SoftwarePIN) + TipoAmbie)
+    sha384 = hashlib.sha384(CUFE_CUDE.encode("utf-8"))
+    cufe_vr = sha384.hexdigest()
 
-    return {
-        'CUFE/CUDEUncoded': uncoded_value,
-        'CUFE/CUDE': CUFE_CUDE.hexdigest()
-    }
+    return {'CUFE/CUDEUncoded': uncoded_value, 'CUFE/CUDE': cufe_vr}
 
 
 # https://stackoverflow.com/questions/38432809/dynamic-xml-template-generation-using-get-template-jinja2
@@ -189,7 +185,7 @@ def get_xml_soap_with_signature(xml_soap_without_signature, Id,
     wsse = "http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd"
     wsu = "http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"
     X509v3 = "http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-x509-token-profile-1.0#X509v3"
-    parser = etree.XMLParser(remove_blank_text=True, ns_clean=False)
+    parser = etree.XMLParser(remove_comments=True)
     root = etree.fromstring(xml_soap_without_signature, parser=parser)
     signature_id = "{}".format(Id)
     signature = xmlsig.template.create(

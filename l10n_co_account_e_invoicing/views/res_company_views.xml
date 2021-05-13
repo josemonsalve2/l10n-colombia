@@ -38,7 +38,7 @@
                         <field name="signature_policy_description" attrs="{'required': [('einvoicing_enabled', '=', True)]}"/>
                         <field name="report_template" domain="[('model', '=', 'account.invoice')]" attrs="{'required': [('einvoicing_enabled', '=', True)]}"/>
                         <field name="notification_group_ids">
-                            <tree>
+                            <tree editable="bottom">
                                 <field name="name"/>
                                 <field name="email"/>
                             </tree>
