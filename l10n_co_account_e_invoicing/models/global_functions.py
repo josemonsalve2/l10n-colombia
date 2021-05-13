@@ -166,15 +166,15 @@ def get_pkcs12(certificate_file, certificate_password):
 
 
 def get_xml_soap_values(certificate_file, certificate_password):
-    Created = datetime.now().replace(tzinfo=timezone('UTC'))
-    Created = Created.astimezone(timezone('UTC'))
-    Expires = (Created +
-               timedelta(seconds=60000)).strftime('%Y-%m-%dT%H:%M:%S.001Z')
-    Created = Created.strftime('%Y-%m-%dT%H:%M:%S.001Z')
+    Created = datetime.utcnow()
+    Expires = Created + timedelta(seconds=60000)
+    Created = Created.strftime("%Y-%m-%dT%H:%M:%SZ")
+    Expires = Expires.strftime("%Y-%m-%dT%H:%M:%SZ")
     # https://github.com/mit-dig/idm/blob/master/idm_query_functions.py#L151
     pkcs12 = get_pkcs12(certificate_file, certificate_password)
     cert = pkcs12.get_certificate()
-    der = b64encode(crypto.dump_certificate(crypto.FILETYPE_ASN1, cert))
+    der = b64encode(crypto.dump_certificate(crypto.FILETYPE_ASN1,
+                                            cert)).decode('utf8')
 
     return {
         'Created': Created,
@@ -189,7 +189,7 @@ def get_xml_soap_with_signature(xml_soap_without_signature, Id,
     wsse = "http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd"
     wsu = "http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"
     X509v3 = "http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-x509-token-profile-1.0#X509v3"
-    parser = etree.XMLParser(remove_comments=True)
+    parser = etree.XMLParser(remove_blank_text=True, ns_clean=False)
     root = etree.fromstring(xml_soap_without_signature, parser=parser)
     signature_id = "{}".format(Id)
     signature = xmlsig.template.create(

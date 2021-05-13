@@ -79,8 +79,8 @@ class ResCompany(models.Model):
 
                     if response.getcode() != 200:
                         raise ValidationError(msg)
-            except:
-                raise ValidationError(msg)
+            except Exception as e:
+                raise ValidationError(msg % e)
 
         rec = super(ResCompany, self).write(vals)
 
@@ -157,10 +157,8 @@ class ResCompany(models.Model):
                 order='zipped_filename asc')
 
             for dian_document in dian_documents:
-                today = datetime.strptime(fields.Date.context_today(self),
-                                          '%Y-%m-%d')
-                date_from = datetime.strptime(
-                    dian_document.invoice_id.date_invoice, '%Y-%m-%d')
+                today = fields.Date.context_today(self)
+                date_from = dian_document.invoice_id.date_invoice
                 days = (today - date_from).days
 
                 if int(dian_document.invoice_id.send_invoice_to_dian) <= days:

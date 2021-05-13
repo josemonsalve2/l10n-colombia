@@ -1,16 +1,9 @@
-from copy import deepcopy
-import logging
-import time
-from datetime import date
-from collections import OrderedDict, defaultdict
-from odoo import api, fields, models, _
-from odoo.osv import expression
-from odoo.exceptions import RedirectWarning, UserError, ValidationError
-from odoo.tools.misc import formatLang, format_date
-from odoo.tools import float_is_zero, float_compare
-from odoo.tools.safe_eval import safe_eval
-from odoo.addons import decimal_precision as dp
-from lxml import etree
+# -*- coding: utf-8 -*-
+# Copyright 2021 Alejandro Olano <Github@alejo-code>
+# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+
+from odoo import api, models, _
+from odoo.exceptions import UserError
 
 
 class AccountMove(models.Model):
