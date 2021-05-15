@@ -227,6 +227,6 @@ def get_qr_code(data):
     img = qr.make_image()
     temp = BytesIO()
     img.save(temp, format="PNG")
-    qr_img = b64encode(temp.getvalue())
+    qr_img = b64encode(temp.getvalue()).decode('utf-8')
 
     return qr_img
