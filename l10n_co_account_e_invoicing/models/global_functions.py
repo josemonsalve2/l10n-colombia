@@ -7,9 +7,9 @@ import hashlib
 from os import path
 from uuid import uuid4
 from base64 import b64encode, b64decode
-from io import StringIO
+from io import BytesIO
 from datetime import datetime, timedelta
-from OpenSSL import crypto
+import OpenSSL.crypto as crypto
 from lxml import etree
 from pytz import timezone
 from jinja2 import Environment, FileSystemLoader
@@ -23,9 +23,9 @@ from odoo.exceptions import ValidationError
 
 def get_software_security_code(IdSoftware, Pin, NroDocumentos):
     uncoded_value = (IdSoftware + ' + ' + Pin + ' + ' + NroDocumentos)
-    software_security_code = hashlib.new('sha384',
-                                         (str(IdSoftware) + str(Pin) +
-                                          str(NroDocumentos)).encode("utf-8"))
+    software_security_code = IdSoftware + Pin + NroDocumentos
+    software_security_code = hashlib.sha384(
+        software_security_code.encode('utf-8'))
 
     return {
         'SoftwareSecurityCodeUncoded': uncoded_value,
@@ -48,12 +48,10 @@ def get_cufe_cude(NumFac, FecFac, HorFac, ValFac, CodImp1, ValImp1, CodImp2,
                      ValImp3 + ' + ' + ValTot + ' + ' + NitOFE + ' + ' +
                      DocAdq + ' + ' + (ClTec if ClTec else SoftwarePIN) +
                      ' + ' + TipoAmbie)
-    CUFE_CUDE = hashlib.new(
-        'sha384', (str(NumFac) + str(FecFac) + str(HorFac) + str(ValFac) +
-                   str(CodImp1) + str(CodImp2) + str(ValImp2) + str(CodImp3) +
-                   str(ValImp3) + str(ValTot) + str(NitOFE) + str(DocAdq) +
-                   str(ClTec if ClTec else SoftwarePIN) +
-                   str(TipoAmbie)).encode("utf-8"))
+    CUFE_CUDE = (NumFac + FecFac + HorFac + ValFac + CodImp1 + ValImp1 +
+                 CodImp2 + ValImp2 + CodImp3 + ValImp3 + ValTot + NitOFE +
+                 DocAdq + (ClTec if ClTec else SoftwarePIN) + TipoAmbie)
+    CUFE_CUDE = hashlib.sha384(CUFE_CUDE.encode('utf-8'))
 
     return {
         'CUFE/CUDEUncoded': uncoded_value,
@@ -83,7 +81,7 @@ def get_xml_with_signature(xml_without_signature, signature_policy_url,
     # root = etree.fromstring(response.content)
     # root = etree.tostring(root, encoding='utf-8')
     # parser = etree.XMLParser(encoding='utf-8', remove_blank_text=True)
-    parser = etree.XMLParser(remove_comments=True)
+    parser = etree.XMLParser(remove_blank_text=True, encoding='utf-8')
     root = etree.fromstring(xml_without_signature.encode("utf-8"),
                             parser=parser)
     # https://github.com/etobella/python-xades/blob/master/test/test_xades.py
@@ -146,9 +144,9 @@ def get_xml_with_signature(xml_without_signature, signature_policy_url,
         element.attrib['Id'] = signature_id + "-sigvalue"
 
     # https://www.decalage.info/en/python/lxml-c14n
-    output = StringIO()
+    output = BytesIO()
     root.getroottree().write_c14n(output)  # exclusive=1, with_comments=0
-    root = output.getvalue()
+    root = b64encode(output.getvalue()).decode("utf-8")
 
     return root
 
@@ -166,15 +164,15 @@ def get_pkcs12(certificate_file, certificate_password):
 
 
 def get_xml_soap_values(certificate_file, certificate_password):
-    Created = datetime.now().replace(tzinfo=timezone('UTC'))
-    Created = Created.astimezone(timezone('UTC'))
-    Expires = (Created +
-               timedelta(seconds=60000)).strftime('%Y-%m-%dT%H:%M:%S.001Z')
-    Created = Created.strftime('%Y-%m-%dT%H:%M:%S.001Z')
+    Created = datetime.utcnow()
+    Expires = Created + timedelta(seconds=60000)
+    Created = Created.strftime("%Y-%m-%dT%H:%M:%SZ")
+    Expires = Expires.strftime("%Y-%m-%dT%H:%M:%SZ")
     # https://github.com/mit-dig/idm/blob/master/idm_query_functions.py#L151
     pkcs12 = get_pkcs12(certificate_file, certificate_password)
     cert = pkcs12.get_certificate()
-    der = b64encode(crypto.dump_certificate(crypto.FILETYPE_ASN1, cert))
+    der = b64encode(crypto.dump_certificate(crypto.FILETYPE_ASN1,
+                                            cert)).decode('utf-8')
 
     return {
         'Created': Created,
@@ -189,8 +187,9 @@ def get_xml_soap_with_signature(xml_soap_without_signature, Id,
     wsse = "http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd"
     wsu = "http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"
     X509v3 = "http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-x509-token-profile-1.0#X509v3"
-    parser = etree.XMLParser(remove_comments=True)
-    root = etree.fromstring(xml_soap_without_signature, parser=parser)
+    parser = etree.XMLParser(remove_blank_text=True, encoding='utf-8')
+    root = etree.fromstring(xml_soap_without_signature.encode("utf-8"),
+                            parser=parser)
     signature_id = "{}".format(Id)
     signature = xmlsig.template.create(
         xmlsig.constants.TransformExclC14N,
@@ -226,7 +225,7 @@ def get_qr_code(data):
     qr.add_data(data)
     qr.make(fit=True)
     img = qr.make_image()
-    temp = StringIO()
+    temp = BytesIO()
     img.save(temp, format="PNG")
     qr_img = b64encode(temp.getvalue())
 
