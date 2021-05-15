@@ -3,10 +3,12 @@
 # Copyright 2021 Alejandro Olano <Github@alejo-code>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
+import pytz
+from dateutil import tz
 import urllib.request
 from io import BytesIO
 from datetime import datetime
-from base64 import b64encode, b64decode
+from base64 import b64encode, b64decode, encodestring
 from zipfile import ZipFile
 import ssl
 from pytz import timezone
@@ -530,7 +532,7 @@ class AccountInvoiceDianDocument(models.Model):
         zipfile.writestr(self.xml_filename, zipfile_content.getvalue())
         zipfile.close()
 
-        return b64decode(output.getvalue())
+        return output.getvalue()
 
     def action_set_files(self):
         if self.invoice_id.warn_inactive_certificate:
@@ -540,10 +542,10 @@ class AccountInvoiceDianDocument(models.Model):
             self._set_filenames()
 
         xml_file = self._get_xml_file()
-
+        zipped_file = self._get_zipped_file()
         if xml_file:
             self.write({'xml_file': xml_file})
-            self.write({'zipped_file': b64encode(self._get_zipped_file())})
+            self.write({'zipped_file': zipped_file})
         else:
             return xml_file
 
@@ -553,12 +555,13 @@ class AccountInvoiceDianDocument(models.Model):
         ProfileExecutionID = self.company_id.profile_execution_id
         ad_zipped_filename = self.ad_zipped_filename
         ID = ad_zipped_filename.replace('.zip', '')
-
-        issue_datetime = datetime.now().replace(tzinfo=timezone('UTC'))
-        IssueDate = issue_datetime.astimezone(
-            timezone('America/Bogota')).strftime('%Y-%m-%d')
-        IssueTime = issue_datetime.astimezone(
-            timezone('America/Bogota')).strftime('%H:%M:%S-05:00')
+        timezone = pytz.timezone(self.env.user.tz or 'America/Bogota')
+        from_zone = tz.gettz('UTC')
+        to_zone = tz.gettz(timezone.zone)
+        issue_datetime = datetime.now().replace(tzinfo=from_zone)
+        IssueDate = issue_datetime.astimezone(to_zone).strftime('%Y-%m-%d')
+        IssueTime = issue_datetime.astimezone(to_zone).strftime(
+            '%H:%M:%S-05:00')
         ParentDocumentID = self.invoice_id.number
         UUID = self.cufe_cude
         supplier = self.company_id.partner_id
@@ -570,13 +573,11 @@ class AccountInvoiceDianDocument(models.Model):
         else:
             ApplicationResponse = 'NO ApplicationResponse'
 
-        validation_datetime = datetime.strptime(
-            self.validation_datetime,
-            '%Y-%m-%d %H:%M:%S').replace(tzinfo=timezone('UTC'))
-        ValidationDate = validation_datetime.astimezone(
-            timezone('America/Bogota')).strftime('%Y-%m-%d')
-        ValidationTime = validation_datetime.astimezone(
-            timezone('America/Bogota')).strftime('%H:%M:%S-05:00')
+        validation_datetime = self.validation_datetime
+
+        ValidationDate = datetime.strftime(validation_datetime, '%Y-%m-%d')
+        ValidationTime = datetime.strftime(validation_datetime,
+                                           '%H:%M:%S-05:00')
 
         return {
             'ProfileExecutionID': ProfileExecutionID,
@@ -649,10 +650,10 @@ class AccountInvoiceDianDocument(models.Model):
     def _get_pdf_file(self):
         template = self.env['ir.actions.report'].browse(
             self.company_id.report_template.id)
-        pdf = self.env['report'].sudo().get_pdf([self.invoice_id.id],
-                                                template.report_name)
-
-        return b64encode(pdf).decode('utf-8')
+        pdf = self.env.ref('account.account_invoices').sudo().render_qweb_pdf(
+            [self.invoice_id.id])[0]
+        b64_pdf = b64encode(pdf).decode('utf-8')
+        return b64_pdf
 
     @api.multi
     def action_send_mail(self):
@@ -766,10 +767,14 @@ class AccountInvoiceDianDocument(models.Model):
 
         if strings == '':
             for element in root.iter("{%s}Body" % s):
-                strings = etree.tostring(element, pretty_print=True)
+                strings = etree.tostring(element,
+                                         xml_declaration=False,
+                                         encoding='UTF-8').decode('utf-8')
 
             if strings == '':
-                strings = etree.tostring(root, pretty_print=True)
+                strings = etree.tostring(root,
+                                         xml_declaration=False,
+                                         encoding='UTF-8').decode('utf-8')
 
         self.write({
             'get_status_zip_status_code': status_code,

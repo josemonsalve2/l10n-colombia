@@ -21,13 +21,13 @@
                     </t>
                 </t>
             </div>
-            <div class="col-xs-2" align="right">
+            <!--div class="col-xs-2" align="right">
                 <t t-foreach="o.dian_document_ids" t-as="dd">
-                    <t t-if="dd.qr_image and dd.state != 'cancel'">
+                    <t t-esc="dd.qr_image.len() and dd.state != 'cancel'">
                         <img class="image" t-att-src="'data:image/png;base64,%s' % dd.qr_image" style="width:120px;height:120px"/>
                     </t>
                 </t>
-            </div>
+            </div-->
         </xpath>
     </template>
 
