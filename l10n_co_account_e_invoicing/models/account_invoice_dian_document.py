@@ -528,7 +528,8 @@ class AccountInvoiceDianDocument(models.Model):
         output = BytesIO()
         zipfile = ZipFile(output, mode='w')
         zipfile_content = BytesIO()
-        zipfile_content.write(b64decode(self.xml_file))
+        xml_file = self._get_xml_file()
+        zipfile_content.write(b64decode(xml_file))
         zipfile.writestr(self.xml_filename, zipfile_content.getvalue())
         zipfile.close()
 
@@ -542,8 +543,9 @@ class AccountInvoiceDianDocument(models.Model):
             self._set_filenames()
 
         xml_file = self._get_xml_file()
-        zipped_file = self._get_zipped_file()
+
         if xml_file:
+            zipped_file = self._get_zipped_file()
             self.write({'xml_file': xml_file})
             self.write({'zipped_file': zipped_file})
         else:
