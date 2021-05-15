@@ -23,9 +23,9 @@ from odoo.exceptions import ValidationError
 
 def get_software_security_code(IdSoftware, Pin, NroDocumentos):
     uncoded_value = (IdSoftware + ' + ' + Pin + ' + ' + NroDocumentos)
-    software_security_code = hashlib.new('sha384',
-                                         (str(IdSoftware) + str(Pin) +
-                                          str(NroDocumentos)).encode("utf-8"))
+    software_security_code = IdSoftware + Pin + NroDocumentos
+    software_security_code = hashlib.sha384(
+        software_security_code.encode('utf-8'))
 
     return {
         'SoftwareSecurityCodeUncoded': uncoded_value,
@@ -46,15 +46,16 @@ def get_cufe_cude(NumFac, FecFac, HorFac, ValFac, CodImp1, ValImp1, CodImp2,
                      ValFac + ' + ' + CodImp1 + ' + ' + ValImp1 + ' + ' +
                      CodImp2 + ' + ' + ValImp2 + ' + ' + CodImp3 + ' + ' +
                      ValImp3 + ' + ' + ValTot + ' + ' + NitOFE + ' + ' +
-                     DocAdq + ' + ' + (ClTec if ClTec else SoftwarePIN) +
-                     ' + ' + TipoAmbie)
+                     DocAdq + ' + ' + SoftwarePIN + ' + ' + TipoAmbie)
     CUFE_CUDE = (NumFac + FecFac + HorFac + ValFac + CodImp1 + ValImp1 +
                  CodImp2 + ValImp2 + CodImp3 + ValImp3 + ValTot + NitOFE +
-                 DocAdq + (ClTec if ClTec else SoftwarePIN) + TipoAmbie)
-    sha384 = hashlib.sha384(CUFE_CUDE.encode("utf-8"))
-    cufe_vr = sha384.hexdigest()
+                 DocAdq + SoftwarePIN + TipoAmbie)
+    CUFE_CUDE = hashlib.sha384(CUFE_CUDE.encode('utf-8'))
 
-    return {'CUFE/CUDEUncoded': uncoded_value, 'CUFE/CUDE': cufe_vr}
+    return {
+        'CUFE/CUDEUncoded': uncoded_value,
+        'CUFE/CUDE': CUFE_CUDE.hexdigest()
+    }
 
 
 # https://stackoverflow.com/questions/38432809/dynamic-xml-template-generation-using-get-template-jinja2
@@ -79,7 +80,7 @@ def get_xml_with_signature(xml_without_signature, signature_policy_url,
     # root = etree.fromstring(response.content)
     # root = etree.tostring(root, encoding='utf-8')
     # parser = etree.XMLParser(encoding='utf-8', remove_blank_text=True)
-    parser = etree.XMLParser(remove_comments=True)
+    parser = etree.XMLParser(remove_blank_text=True, encoding='utf-8')
     root = etree.fromstring(xml_without_signature.encode("utf-8"),
                             parser=parser)
     # https://github.com/etobella/python-xades/blob/master/test/test_xades.py
@@ -144,7 +145,7 @@ def get_xml_with_signature(xml_without_signature, signature_policy_url,
     # https://www.decalage.info/en/python/lxml-c14n
     output = BytesIO()
     root.getroottree().write_c14n(output)  # exclusive=1, with_comments=0
-    root = output.getvalue()
+    root = b64encode(output.getvalue()).decode("utf-8")
 
     return root
 
@@ -170,7 +171,7 @@ def get_xml_soap_values(certificate_file, certificate_password):
     pkcs12 = get_pkcs12(certificate_file, certificate_password)
     cert = pkcs12.get_certificate()
     der = b64encode(crypto.dump_certificate(crypto.FILETYPE_ASN1,
-                                            cert)).decode('utf8')
+                                            cert)).decode('utf-8')
 
     return {
         'Created': Created,

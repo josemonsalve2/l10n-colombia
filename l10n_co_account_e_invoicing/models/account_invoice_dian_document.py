@@ -530,7 +530,7 @@ class AccountInvoiceDianDocument(models.Model):
         zipfile.writestr(self.xml_filename, zipfile_content.getvalue())
         zipfile.close()
 
-        return output.getvalue()
+        return b64decode(output.getvalue())
 
     def action_set_files(self):
         if self.invoice_id.warn_inactive_certificate:
@@ -542,7 +542,7 @@ class AccountInvoiceDianDocument(models.Model):
         xml_file = self._get_xml_file()
 
         if xml_file:
-            self.write({'xml_file': b64encode(xml_file)})
+            self.write({'xml_file': xml_file})
             self.write({'zipped_file': b64encode(self._get_zipped_file())})
         else:
             return xml_file
@@ -630,7 +630,7 @@ class AccountInvoiceDianDocument(models.Model):
 
         xml_soap_values['fileName'] = self.zipped_filename.replace('.zip', '')
         xml_soap_values['contentFile'] = b64encode(
-            self.zipped_file).decode('utf8')
+            self.zipped_file).decode('utf-8')
         xml_soap_values['testSetId'] = self.company_id.test_set_id
 
         return xml_soap_values
@@ -641,7 +641,8 @@ class AccountInvoiceDianDocument(models.Model):
             self.company_id.certificate_password)
 
         xml_soap_values['fileName'] = self.zipped_filename.replace('.zip', '')
-        xml_soap_values['contentFile'] = self.zipped_file
+        xml_soap_values['contentFile'] = b64encode(
+            self.zipped_file).decode('utf-8')
 
         return xml_soap_values
 
@@ -651,7 +652,7 @@ class AccountInvoiceDianDocument(models.Model):
         pdf = self.env['report'].sudo().get_pdf([self.invoice_id.id],
                                                 template.report_name)
 
-        return b64encode(pdf)
+        return b64encode(pdf).decode('utf-8')
 
     @api.multi
     def action_send_mail(self):
@@ -860,7 +861,7 @@ class AccountInvoiceDianDocument(models.Model):
                 if self.company_id.profile_execution_id == '1':
                     self._get_status_response(response, True)
                 else:
-                    root = etree.fromstring(response.text)
+                    root = etree.fromstring(response.text.encode("utf-8"))
 
                     for element in root.iter("{%s}ZipKey" % b):
                         self.write({'zip_key': element.text})
@@ -951,7 +952,8 @@ class AccountInvoiceDianDocument(models.Model):
         zipfile.writestr(self.ar_xml_filename, zipfile_content.getvalue())
         zipfile.close()
         xml_soap_values['fileName'] = self.zipped_filename.replace('.zip', '')
-        xml_soap_values['contentFile'] = b64encode(output.getvalue())
+        xml_soap_values['contentFile'] = b64encode(
+            output.getvalue()).decode('uft-8')
 
         return xml_soap_values
 
