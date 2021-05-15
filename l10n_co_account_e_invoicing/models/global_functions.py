@@ -46,10 +46,11 @@ def get_cufe_cude(NumFac, FecFac, HorFac, ValFac, CodImp1, ValImp1, CodImp2,
                      ValFac + ' + ' + CodImp1 + ' + ' + ValImp1 + ' + ' +
                      CodImp2 + ' + ' + ValImp2 + ' + ' + CodImp3 + ' + ' +
                      ValImp3 + ' + ' + ValTot + ' + ' + NitOFE + ' + ' +
-                     DocAdq + ' + ' + SoftwarePIN + ' + ' + TipoAmbie)
+                     DocAdq + ' + ' + (ClTec if ClTec else SoftwarePIN) +
+                     ' + ' + TipoAmbie)
     CUFE_CUDE = (NumFac + FecFac + HorFac + ValFac + CodImp1 + ValImp1 +
                  CodImp2 + ValImp2 + CodImp3 + ValImp3 + ValTot + NitOFE +
-                 DocAdq + SoftwarePIN + TipoAmbie)
+                 DocAdq + (ClTec if ClTec else SoftwarePIN) + TipoAmbie)
     CUFE_CUDE = hashlib.sha384(CUFE_CUDE.encode('utf-8'))
 
     return {
@@ -186,8 +187,9 @@ def get_xml_soap_with_signature(xml_soap_without_signature, Id,
     wsse = "http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd"
     wsu = "http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"
     X509v3 = "http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-x509-token-profile-1.0#X509v3"
-    parser = etree.XMLParser(remove_comments=True)
-    root = etree.fromstring(xml_soap_without_signature, parser=parser)
+    parser = etree.XMLParser(remove_blank_text=True, encoding='utf-8')
+    root = etree.fromstring(xml_soap_without_signature.encode("utf-8"),
+                            parser=parser)
     signature_id = "{}".format(Id)
     signature = xmlsig.template.create(
         xmlsig.constants.TransformExclC14N,
