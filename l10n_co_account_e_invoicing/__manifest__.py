@@ -55,7 +55,6 @@
         "views/date_range_views.xml",
         "views/ir_sequence_views.xml",
         "views/product_template_views.xml",
-        "views/einvoice_notification_group_views.xml",
         "views/res_company_views.xml",
         "views/res_partner_views.xml",
         "report/account_invoice_mail_template.xml",
