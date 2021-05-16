@@ -11,7 +11,6 @@ from io import BytesIO
 from datetime import datetime, timedelta
 import OpenSSL.crypto as crypto
 from lxml import etree
-from pytz import timezone
 from jinja2 import Environment, FileSystemLoader
 from xades.policy import GenericPolicyId
 from xades import XAdESContext, template

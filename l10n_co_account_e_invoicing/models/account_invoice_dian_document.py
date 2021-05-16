@@ -8,7 +8,7 @@ from dateutil import tz
 import urllib.request
 from io import BytesIO
 from datetime import datetime
-from base64 import b64encode, b64decode, encodestring
+from base64 import b64encode, b64decode
 from zipfile import ZipFile
 import ssl
 from pytz import timezone
