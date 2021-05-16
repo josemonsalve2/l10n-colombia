@@ -103,25 +103,22 @@ class AccountInvoice(models.Model):
                                        default=False)
     delivery_datetime = fields.Datetime(string='Delivery Datetime',
                                         default=False)
-    operation_type = fields.Selection(selection=[
-        ('10', 'Standard *'),
-        ('20', 'Credit note that references an e-invoice'),
-        ('22', 'Credit note without reference to invoices *'),
-        ('30', 'Debit note that references an e-invoice'),
-        ('32', 'Debit note without reference to invoices *')
-    ],
-                                      string='Operation Type',
-                                      default=_default_operation_type)
-    invoice_type_code = fields.Selection(selection=[
-        ('01', 'E-invoice of sale'),
-        ('03', 'E-document of transmission - type 03'),
-        ('04', 'E-invoice of sale - type 04')
-    ],
-                                         string='Invoice Type',
-                                         default=_default_invoice_type_code)
+    operation_type = fields.Selection(
+        [('10', 'Standard *'),
+         ('20', 'Credit note that references an e-invoice'),
+         ('22', 'Credit note without reference to invoices *'),
+         ('30', 'Debit note that references an e-invoice'),
+         ('32', 'Debit note without reference to invoices *')],
+        string='Operation Type',
+        default=_default_operation_type)
+    invoice_type_code = fields.Selection(
+        [('01', 'E-invoice of sale'),
+         ('03', 'E-document of transmission - type 03'),
+         ('04', 'E-invoice of sale - type 04')],
+        string='Invoice Type',
+        default=_default_invoice_type_code)
     send_invoice_to_dian = fields.Selection(
-        selection=[('0', 'Immediately'), ('1', 'After 1 Day'),
-                   ('2', 'After 2 Days')],
+        [('0', 'Immediately'), ('1', 'After 1 Day'), ('2', 'After 2 Days')],
         string='Send Invoice to DIAN?',
         default=_default_send_invoice_to_dian)
     dian_document_ids = fields.One2many(
