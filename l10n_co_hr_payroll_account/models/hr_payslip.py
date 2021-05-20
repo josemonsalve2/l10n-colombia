@@ -65,7 +65,11 @@ class HrPayslip(models.Model):
         help=
         "Indica si se ejecuta una estructura para liquidacion de contratos y vacaciones"
     )
-    # deduction_line_ids = fields.One2many('hr.payslip.deduction.line', 'slip_id', 'Detalle deducciones', readonly=True)
+    deduction_line_ids = fields.One2many(
+        string='Detail of Deductions',
+        comodel_name='hr.payslip.deduction.line',
+        inverse_name='slip_id',
+        readonly=True)
     analytic_ids = fields.One2many(comodel_name='hr.payslip.analytic',
                                    inverse_name='slip_id',
                                    string='Analytical accounts distribution')

@@ -7,12 +7,15 @@ from odoo import fields, models
 
 class HrContractRisk(models.Model):
     _name = 'hr.contract.risk'
-    _description = 'Occupational hazards'
+    _description = 'Professionals Risks'
 
-    code = fields.Char(string='Code', size=10, required=True)
-    name = fields.Char(string='Name', size=100, required=True)
+    code = fields.Char(string='Code', size=10, help='Risk Code', required=True)
+    name = fields.Char(string='Name',
+                       size=100,
+                       help='Risk Name',
+                       required=True)
     percent = fields.Float(string='Percentage',
-                           default=0,
-                           required=True,
-                           help="Percentage of occupational risk")
-    date = fields.Date(string="Effective date")
+                           default=0.00,
+                           help='Percentage of Professional Risk',
+                           required=True)
+    date = fields.Date(string='Effective Date')
