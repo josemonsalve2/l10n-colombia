@@ -8,6 +8,7 @@ from . import hr_contract_settings
 from . import hr_contract_change_wage
 from . import hr_contract_deduction
 from . import hr_contract_risk
+from . import hr_contract_register
 from . import hr_contract_accumulated
 from . import hr_contract_liquidation
 from . import hr_contract_analytic
@@ -23,6 +24,7 @@ from . import hr_payslip_input
 from . import hr_payslip_worked_days
 from . import hr_payslip_analytic
 from . import hr_payslip_line
+from . import hr_payslip_deduction_line
 from . import hr_payslip_details
 from . import hr_rule_input
 from . import hr_payslip_run

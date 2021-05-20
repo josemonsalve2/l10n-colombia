@@ -111,6 +111,10 @@ class HrContract(models.Model):
                                 digits_compute=dp.get_precision('Payroll'))
     date_to = fields.Date(string="Fixed contract termination")
 
+    register_ids = fields.One2many(string='Contribution Registers',
+                                   comodel_name='hr.contract.register',
+                                   inverse_name='contract_id')
+
     @api.model
     def promedio_prima(self, contract_id, payslip_detail, proyectado=False):
         print('########################## promedio_prima')

@@ -14,25 +14,34 @@ class HrContractDeduction(models.Model):
         required=True,
         help="Parameter associated with the salary rule")
 
+    type = fields.Selection(string='Deduction Type',
+                            selection=[('P', 'Company Loan'), ('A', 'Saving'),
+                                       ('S', 'Sure'), ('L', 'Lien'),
+                                       ('E', 'Embargo'), ('R', 'Retention'),
+                                       ('O', 'Other')],
+                            default='O',
+                            required=True)
+
     period = fields.Selection(selection=[('limited', 'Limitado'),
                                          ('indefinite', 'Indefinido')],
                               default='indefinite',
-                              string='Type',
+                              string='Period',
                               required=True)
     amount = fields.Float(
-        string='Share Value',
-        default=0,
+        string='Amount',
         help=
         "Value of the quota or percentage according to the formula of the salary rule",
+        default=0,
         required=True)
 
-    total_deduction = fields.Float(string='Total obligation',
+    total_deduction = fields.Float(string='Total Deduction',
                                    default=0,
-                                   help="Total to discount")
+                                   help="Total to Discount")
     total_accumulated = fields.Float(
         string='Previous accumulated',
         default=0,
         help="Total paid or accumulated of the concept")
+
     total_acumulados = fields.Float(string='Accumulated Odoo',
                                     compute='_compute_saldo',
                                     default=0.0,
@@ -47,6 +56,9 @@ class HrContractDeduction(models.Model):
     date_end = fields.Date(string='Date End',
                            select=True,
                            help="Date End or obligation")
+
+    appears_on_payslip = fields.Boolean(string='Appears on Payslip')
+
     contract_id = fields.Many2one(comodel_name='hr.contract',
                                   string='Contract',
                                   required=True,
