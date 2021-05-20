@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="sale_order_form" model="ir.ui.view">
+            <field name="name">sale.order.form</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <field name="payment_term_id" position="after">
+                    <field name="service_card" required="1"/>
+                    <field name="control_number" required="1"/>
+                    <field name="vehicle_id"/>  
+                    <field name="days"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="sale_order_quotation_tree" model="ir.ui.view">
+            <field name="name">sale.order.tree</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_quotation_tree"/>
+            <field name="arch" type="xml">
+                <field name="partner_id" position="after">
+                    <field name="service_card"/>
+                    <field name="control_number"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="sale_order_tree" model="ir.ui.view">
+            <field name="name">sale.order.tree</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_tree"/>
+            <field name="arch" type="xml">
+                <field name="partner_id" position="after">
+                    <field name="service_card"/>
+                    <field name="control_number"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="sale_order_search" model="ir.ui.view">
+			<field name="name">sale.order.search</field>
+			<field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_sales_order_filter"/>
+			<field name="arch" type="xml">
+                <field name="name" position="replace">
+                    <field name="name" 
+                        string="Sales Order, SC and Control Number"
+                        filter_domain="['|','|','|',('name','ilike',self),('client_order_ref','ilike',self), ('service_card', 'ilike', self), ('control_number', 'ilike', self)]"/>
+                </field>
+			</field>
+		</record>
+    </data>
+</odoo>
