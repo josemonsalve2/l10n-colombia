@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="hr_contract_form" model="ir.ui.view">
+            <field name="name">hr.contract.form</field>
+            <field name="model">hr.contract</field>
+            <field name="inherit_id" ref="hr_contract.hr_contract_view_form"/>
+            <field name="arch" type="xml">
+                <field name="job_id" position="after">                 
+                    <field name="risk_id" required="1"/>
+                </field> 
+                <xpath expr="//page[2]" position="after">
+                    <page string="Contribution Registers" name="register_tab">
+                        <field name="register_ids" nolabel="1" widget="one2many_list">
+                            <tree editable="bottom">
+                                <field name="register_id"/>
+                                <field name="partner_id"/>
+                                <field name="account_debit_id"/>
+                                <field name="account_credit_id"/>
+                                <field name="analytic_account_id"/>
+                            </tree>
+                        </field>
+                    </page>
+                    <page string="Deductions or Periodic Payments" name="deduction_tab">
+                        <field name="deduction_ids" nolabel="1" widget="one2many_list">
+                            <tree editable="bottom">
+                                <field name="input_id"/>
+                                <field name="type"/>
+                                <field name="period"/>
+                                <field name="amount"/>
+                                <field name="total_deduction" attrs="{'readonly': [('period', '=', 'undefined')]}"/>
+                                <field name="total_accumulated"/>
+                                <field name="date"/>
+                                <field name="appears_on_payslip"/>
+                            </tree>
+                        </field>
+                    </page>     
+                </xpath>
+            </field>    
+        </record>
+    </data>
+</odoo>

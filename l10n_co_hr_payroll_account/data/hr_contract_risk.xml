@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record model="hr.contract.risk" id="risk_co_I">
+            <field name="code">I</field>
+            <field name="name">RIESGO I</field>
+            <field name="percent">0.522</field>
+            <field name="date">2018-12-31</field>
+        </record>
+
+        <record model="hr.contract.risk" id="risk_co_II">
+            <field name="code">II</field>
+            <field name="name">RIESGO II</field>
+            <field name="percent">1.044</field>
+            <field name="date">2018-12-31</field>
+        </record>
+
+        <record model="hr.contract.risk" id="risk_co_III">
+            <field name="code">III</field>
+            <field name="name">RIESGO III</field>
+            <field name="percent">2.436</field>
+            <field name="date">2018-12-31</field>
+        </record>
+
+        <record model="hr.contract.risk" id="risk_co_IV">
+            <field name="code">IV</field>
+            <field name="name">RIESGO IV</field>
+            <field name="percent">4.350</field>
+            <field name="date">2018-12-31</field>
+        </record>
+
+        <record model="hr.contract.risk" id="risk_co_V">
+            <field name="code">V</field>
+            <field name="name">RIESGO V</field>
+            <field name="percent">6.960</field>
+            <field name="date">2018-12-31</field>
+        </record>
+    </data>
+</odoo>
