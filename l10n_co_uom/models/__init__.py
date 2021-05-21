@@ -3,5 +3,5 @@
 # Copyright 2021 Alejandro Olano <Github@alejo-code>
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
-from . import uom_uom_code
+from . import product_uom_code
 from . import uom_uom
