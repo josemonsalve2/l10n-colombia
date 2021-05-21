@@ -24,9 +24,7 @@
             <field name="vat" position="attributes">
                 <attribute name="invisible">1</attribute>
             </field>
-            <field name="l10n_co_document_type" position="attributes">
-                <attribute name="invisible">1</attribute>
-            </field>
+            
 
             <field name="vat" position="before">
                 <field name="property_account_position_id" options="{'no_create': True, 'no_open': True}" attrs="{'required': ['|', ('supplier', '=', True), ('customer', '=', True)]}"/>
