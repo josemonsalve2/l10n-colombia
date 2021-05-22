@@ -325,7 +325,9 @@ class AccountInvoiceDianDocument(models.Model):
             'LineCountNumeric':
             len(self.invoice_id.invoice_line_ids),
             'OrderReferenceID':
-            self.invoice_id.name or '',
+            self.invoice_id.name,
+            'ReceiptDocumentReferenceID':
+            self.invoice_id.receipt_document_reference,
             'IndustryClassificationCode':
             supplier.isic_id.code,
             'AccountingSupplierParty':
