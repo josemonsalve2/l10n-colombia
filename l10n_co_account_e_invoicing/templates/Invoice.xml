@@ -82,7 +82,7 @@
 		<cbc:IssueDate>{{OrderReferenceIssueDate}}</cbc:IssueDate-->
 	</cac:OrderReference>
 	{% endif %}
-	<!--TODO 2.0: Se debe diligenciar únicamente cuando la FE se origina a partir de la corrección o
+		<!--TODO 2.0: Se debe diligenciar únicamente cuando la FE se origina a partir de la corrección o
 	ajuste que se da mediante un Nota Crédito, ES POSIBLE PERO NO HAY PROBLEMA SI NO ESTA,
 	odoo esto es poco probable y no esta la relacion directa, desarrollo para cumplir con esto>
 	<cac:BillingReference>
@@ -108,11 +108,14 @@
 		<cbc:ID>8124167214 DA</cbc:ID>
         <cbc:IssueDate>2019-12-12</cbc:IssueDate>
 	</cac:DespatchDocumentReference-->
-	<!--TODO 3.0: opcional, solo interés mercantil, para referenciar uno o más documentos de recepción asociado>
+	<!--TODO 3.0: opcional, solo interés mercantil, para referenciar uno o más documentos de recepción asociado-->
+	{% if ReceiptDocumentReferenceID %}
 	<cac:ReceiptDocumentReference>
-		<cbc:ID>12314129 GR</cbc:ID>
-        <cbc:IssueDate>2019-12-12</cbc:IssueDate>
-	</cac:ReceiptDocumentReference-->
+		<cbc:ID>{{ReceiptDocumentReferenceID}}</cbc:ID>
+		<!--TODO 2.0: No hay un campo validado aun, para la fecha de la orden del cliente>
+		<cbc:IssueDate>{{ReceiptDocumentReferenceDate}}</cbc:IssueDate-->
+	</cac:ReceiptDocumentReference>
+	{% endif %}
 	{% if InvoiceTypeCode == '03' %}
 	<cac:AdditionalDocumentReference>
 		<cbc:ID>{{ID}}</cbc:ID>
@@ -194,7 +197,7 @@
 					{% endif %}
 				</cac:CorporateRegistrationScheme>
 				{% endif %}
-			 				<!--TODO 3.0: Si se va a opera bajo modalidad de Consorcio, entonces este grupo de información
+			 								<!--TODO 3.0: Si se va a opera bajo modalidad de Consorcio, entonces este grupo de información
 				debe ser informada. Se debe completar un grupo de elementos por cada participante del consorcio.>
                 <cac:ShareholderParty>
 					<cbc:PartecipationPercent>10.00</cbc:PartecipationPercent>
@@ -226,7 +229,7 @@
 				{% if AccountingSupplierParty.ElectronicMail %}
 				<cbc:ElectronicMail>{{AccountingSupplierParty.ElectronicMail}}</cbc:ElectronicMail>
 				{% endif %}
-							<!--TODO 2.0: opcional, de momento se manda info de la empresa no se sabe que mandar aca de momento>
+											<!--TODO 2.0: opcional, de momento se manda info de la empresa no se sabe que mandar aca de momento>
                 <cbc:Note></cbc:Note-->
 			</cac:Contact>
 			{% endif %}
@@ -318,7 +321,7 @@
 				{% if AccountingCustomerParty.ElectronicMail %}
 				<cbc:ElectronicMail>{{AccountingCustomerParty.ElectronicMail}}</cbc:ElectronicMail>
 				{% endif %}
-							<!--TODO 2.0: opcional, de momento se manda info de la empresa no se sabe que mandar aca de momento>
+											<!--TODO 2.0: opcional, de momento se manda info de la empresa no se sabe que mandar aca de momento>
 				<cbc:Note></cbc:Note-->
 			</cac:Contact>
 			{% endif %}
@@ -352,7 +355,7 @@
 			</cac:Country>
 		</cac:DeliveryAddress>
 		{% endif %}
-			<!--TODO 3.0, Grupo de datos con información sobre la empresa de transporte, desarrollo futuro>
+					<!--TODO 3.0, Grupo de datos con información sobre la empresa de transporte, desarrollo futuro>
 		<cac:DeliveryParty>
     		<cac:PartyName>
 				<cbc:Name></cbc:Name>
@@ -463,7 +466,7 @@
 		<cbc:Date>{{PaymentExchangeRate.Date}}</cbc:Date>
 	</cac:PaymentExchangeRate>
     {% endif %}
-	<!--TODO 3.0, Utilizado como metodo alternativo para infomar conversiones a otras divisas.>
+		<!--TODO 3.0, Utilizado como metodo alternativo para infomar conversiones a otras divisas.>
 	<cac:PaymentAlternativeExchangeRate>
 		<cbc:SourceCurrencyCode>USD</cbc:SourceCurrencyCode>
 		<cbc:SourceCurrencyBaseRate>1.00</cbc:SourceCurrencyBaseRate>
@@ -542,7 +545,7 @@
 			</cac:AlternativeConditionPrice>
 		</cac:PricingReference>
 		{% endif %}
-			<!--TODO 2.0, puede iterar en el campo ID aumenta segun la cantidad de descuentos o cargos por lineas
+					<!--TODO 2.0, puede iterar en el campo ID aumenta segun la cantidad de descuentos o cargos por lineas
 		ChargeIndicator true seria un cargo-->
 		<cac:AllowanceCharge>
 			<cbc:ID>1</cbc:ID>
@@ -600,11 +603,11 @@
 			{% if InvoiceLine.BrandName %}
 			<cbc:BrandName>{{InvoiceLine.BrandName}}</cbc:BrandName>
 			{% endif %}
-					<!--TODO 2.0, Mandaremos la referencia del fabricante por ahora, hay que definir luego si esto cambia-->
+								<!--TODO 2.0, Mandaremos la referencia del fabricante por ahora, hay que definir luego si esto cambia-->
 			{% if InvoiceLine.ModelName %}
 			<cbc:ModelName>{{InvoiceLine.ModelName}}</cbc:ModelName>
 			{% endif %}
-					<!--TODO 2.0, Grupo de datos de identificación del artículo o servicio de acuerdo con el vendedor>
+								<!--TODO 2.0, Grupo de datos de identificación del artículo o servicio de acuerdo con el vendedor>
 			<cac:SellersItemIdentification>
 				<cbc:ID>AOHV84-225</cbc:ID>
 				<cbc:ExtendedID>AOHV84-225</cbc:ExtendedID>

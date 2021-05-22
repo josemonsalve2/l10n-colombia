@@ -125,6 +125,8 @@ class AccountInvoice(models.Model):
         comodel_name='account.invoice.dian.document',
         inverse_name='invoice_id',
         string='DIAN Documents')
+    receipt_document_reference = fields.Char(
+        string='Merchandise / Service Receipt Document')
 
     @api.multi
     def _compute_sequence_resolution_id(self):
