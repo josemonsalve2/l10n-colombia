@@ -38,6 +38,9 @@
         <field name="operation_type" required="1" attrs="{'invisible': [('type', '!=', 'out_invoice')]}" groups="l10n_co_account_e_invoicing.group_view_operation_type_field"/>
         <field name="invoice_type_code" required="1" attrs="{'invisible': [('type', '!=', 'out_invoice')]}" groups="l10n_co_account_e_invoicing.group_view_invoice_type_field"/>
     </xpath>
+    <xpath expr="//page[@name='other_info']//field[@name='name']" position="after">
+        <field name="receipt_document_reference"/>
+    </xpath>
     <xpath expr="//notebook" position="inside">
         <page name="dian_documents" string="DIAN Documents" groups="l10n_co_account_e_invoicing.group_view_dian_documents">
             <group>
