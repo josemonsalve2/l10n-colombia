@@ -8,7 +8,7 @@
     "category":
     "E-Invoicing",
     "version":
-    "11.0.1.0.0",
+    "12.0.1.0.0",
     "author":
     "EXA Auto Parts Github@exaap, "
     "Alejandro Olano Github@alejo-code, "

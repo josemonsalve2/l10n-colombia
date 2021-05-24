@@ -2,13 +2,15 @@
 # Copyright 2019 Joan Marín <Github@JoanMarin>
 # Copyright 2021 Alejandro Olano <Github@alejo-code>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+
+import pytz
+from dateutil import tz
 import urllib.request
 from io import BytesIO
 from datetime import datetime
 from base64 import b64encode, b64decode
 from zipfile import ZipFile
 import ssl
-import sys
 from pytz import timezone
 from requests import post, exceptions
 from lxml import etree
@@ -53,14 +55,14 @@ class AccountInvoiceDianDocument(models.Model):
         ValFac = self.invoice_id.amount_untaxed
         ValOtroIm = ValImp2 - ValImp3
         ValTolFac = ValFac + ValImp1 + ValOtroIm
-        create_date = datetime.strptime(self.invoice_id.create_date,
+
+        create_date = datetime.strftime(self.invoice_id.create_date,
                                         '%Y-%m-%d %H:%M:%S')
-        create_date = create_date.replace(tzinfo=timezone('UTC'))
-        create_date = create_date.astimezone(timezone('America/Bogota'))
         qr_data = "NumFac: " + (self.invoice_id.number
                                 or _('WITHOUT VALIDATE'))
-        qr_data += "\nFecFac: " + (self.invoice_id.date_invoice or '')
-        qr_data += "\nHorFac: " + create_date.strftime('%H:%M:%S-05:00')
+        qr_data += "\nFecFac: " + (str(self.invoice_id.date_invoice) or '')
+        qr_data += "\nHorFac: " + datetime.strftime(
+            self.invoice_id.create_date, '%H:%M:%S-05:00')
         qr_data += "\nNitFac: " + (
             self.company_id.partner_id.identification_document or '')
         qr_data += "\nDocAdq: " + (
@@ -130,7 +132,9 @@ class AccountInvoiceDianDocument(models.Model):
         msg4 = _(
             'There is no date range corresponding to the date of your invoice.'
         )
-        date_invoice = self.invoice_id.date_invoice
+
+        date_invoice = datetime.strftime(self.invoice_id.date_invoice,
+                                         '%Y-%m-%d %H:%M:%S')
 
         if self.company_id.partner_id.document_type_id:
             if self.company_id.partner_id.document_type_id.code != '31':
@@ -149,7 +153,7 @@ class AccountInvoiceDianDocument(models.Model):
         daterange = self.env['date.range'].search(param)
 
         if (not daterange or daterange.company_id != self.company_id
-                or not daterange.type_id or not daterange.type_id.fiscal_year):
+                or not daterange.type_id or not daterange.type_id.name):
             raise UserError(msg4)
         else:
             # Regla: el consecutivo se iniciará en “00000001” cada primero de enero.
@@ -241,21 +245,13 @@ class AccountInvoiceDianDocument(models.Model):
             QRCodeURL = DIAN['catalogo']
         else:
             QRCodeURL = DIAN['catalogo-hab']
-
-        invoice_datetime = datetime.strptime(
-            self.invoice_id.invoice_datetime,
-            '%Y-%m-%d %H:%M:%S').replace(tzinfo=timezone('UTC'))
-        IssueDate = invoice_datetime.astimezone(
-            timezone('America/Bogota')).strftime('%Y-%m-%d')
-        IssueTime = invoice_datetime.astimezone(
-            timezone('America/Bogota')).strftime('%H:%M:%S-05:00')
-        delivery_datetime = datetime.strptime(
-            self.invoice_id.delivery_datetime,
-            '%Y-%m-%d %H:%M:%S').replace(tzinfo=timezone('UTC'))
-        ActualDeliveryDate = delivery_datetime.astimezone(
-            timezone('America/Bogota')).strftime('%Y-%m-%d')
-        ActualDeliveryTime = delivery_datetime.astimezone(
-            timezone('America/Bogota')).strftime('%H:%M:%S-05:00')
+        invoice_datetime = self.invoice_id.invoice_datetime
+        IssueDate = datetime.strftime(invoice_datetime, '%Y-%m-%d')
+        IssueTime = datetime.strftime(invoice_datetime, '%H:%M:%S-05:00')
+        delivery_datetime = self.invoice_id.delivery_datetime
+        ActualDeliveryDate = datetime.strftime(delivery_datetime, '%Y-%m-%d')
+        ActualDeliveryTime = datetime.strftime(delivery_datetime,
+                                               '%H:%M:%S-05:00')
         ValFac = self.invoice_id.amount_untaxed
         einvoicing_taxes = self.invoice_id._get_einvoicing_taxes()
         ValImp1 = einvoicing_taxes['TaxesTotal']['01']['total']
@@ -519,7 +515,7 @@ class AccountInvoiceDianDocument(models.Model):
 
             if response.getcode() != 200:
                 return False
-        except:
+        except Exception as e:
             return False
 
         xml_with_signature = global_functions.get_xml_with_signature(
@@ -531,10 +527,11 @@ class AccountInvoiceDianDocument(models.Model):
         return xml_with_signature
 
     def _get_zipped_file(self):
-        output = StringIO()
+        output = BytesIO()
         zipfile = ZipFile(output, mode='w')
-        zipfile_content = StringIO()
-        zipfile_content.write(b64decode(self.xml_file))
+        zipfile_content = BytesIO()
+        xml_file = self._get_xml_file()
+        zipfile_content.write(b64decode(xml_file))
         zipfile.writestr(self.xml_filename, zipfile_content.getvalue())
         zipfile.close()
 
@@ -550,8 +547,9 @@ class AccountInvoiceDianDocument(models.Model):
         xml_file = self._get_xml_file()
 
         if xml_file:
-            self.write({'xml_file': b64encode(xml_file)})
-            self.write({'zipped_file': b64encode(self._get_zipped_file())})
+            zipped_file = self._get_zipped_file()
+            self.write({'xml_file': xml_file})
+            self.write({'zipped_file': zipped_file})
         else:
             return xml_file
 
@@ -561,12 +559,13 @@ class AccountInvoiceDianDocument(models.Model):
         ProfileExecutionID = self.company_id.profile_execution_id
         ad_zipped_filename = self.ad_zipped_filename
         ID = ad_zipped_filename.replace('.zip', '')
-
-        issue_datetime = datetime.now().replace(tzinfo=timezone('UTC'))
-        IssueDate = issue_datetime.astimezone(
-            timezone('America/Bogota')).strftime('%Y-%m-%d')
-        IssueTime = issue_datetime.astimezone(
-            timezone('America/Bogota')).strftime('%H:%M:%S-05:00')
+        timezone = pytz.timezone(self.env.user.tz or 'America/Bogota')
+        from_zone = tz.gettz('UTC')
+        to_zone = tz.gettz(timezone.zone)
+        issue_datetime = datetime.now().replace(tzinfo=from_zone)
+        IssueDate = issue_datetime.astimezone(to_zone).strftime('%Y-%m-%d')
+        IssueTime = issue_datetime.astimezone(to_zone).strftime(
+            '%H:%M:%S-05:00')
         ParentDocumentID = self.invoice_id.number
         UUID = self.cufe_cude
         supplier = self.company_id.partner_id
@@ -578,13 +577,11 @@ class AccountInvoiceDianDocument(models.Model):
         else:
             ApplicationResponse = 'NO ApplicationResponse'
 
-        validation_datetime = datetime.strptime(
-            self.validation_datetime,
-            '%Y-%m-%d %H:%M:%S').replace(tzinfo=timezone('UTC'))
-        ValidationDate = validation_datetime.astimezone(
-            timezone('America/Bogota')).strftime('%Y-%m-%d')
-        ValidationTime = validation_datetime.astimezone(
-            timezone('America/Bogota')).strftime('%H:%M:%S-05:00')
+        validation_datetime = self.validation_datetime
+
+        ValidationDate = datetime.strftime(validation_datetime, '%Y-%m-%d')
+        ValidationTime = datetime.strftime(validation_datetime,
+                                           '%H:%M:%S-05:00')
 
         return {
             'ProfileExecutionID': ProfileExecutionID,
@@ -637,7 +634,8 @@ class AccountInvoiceDianDocument(models.Model):
             self.company_id.certificate_password)
 
         xml_soap_values['fileName'] = self.zipped_filename.replace('.zip', '')
-        xml_soap_values['contentFile'] = self.zipped_file
+        xml_soap_values['contentFile'] = b64encode(
+            self.zipped_file).decode('utf-8')
         xml_soap_values['testSetId'] = self.company_id.test_set_id
 
         return xml_soap_values
@@ -648,17 +646,18 @@ class AccountInvoiceDianDocument(models.Model):
             self.company_id.certificate_password)
 
         xml_soap_values['fileName'] = self.zipped_filename.replace('.zip', '')
-        xml_soap_values['contentFile'] = self.zipped_file
+        xml_soap_values['contentFile'] = b64encode(
+            self.zipped_file).decode('utf-8')
 
         return xml_soap_values
 
     def _get_pdf_file(self):
-        template = self.env['ir.actions.report.xml'].browse(
+        template = self.env['ir.actions.report'].browse(
             self.company_id.report_template.id)
-        pdf = self.env['report'].sudo().get_pdf([self.invoice_id.id],
-                                                template.report_name)
-
-        return b64encode(pdf)
+        pdf = self.env.ref('account.account_invoices').sudo().render_qweb_pdf(
+            [self.invoice_id.id])[0]
+        b64_pdf = b64encode(pdf).decode('utf-8')
+        return b64_pdf
 
     @api.multi
     def action_send_mail(self):
@@ -772,10 +771,14 @@ class AccountInvoiceDianDocument(models.Model):
 
         if strings == '':
             for element in root.iter("{%s}Body" % s):
-                strings = etree.tostring(element, pretty_print=True)
+                strings = etree.tostring(element,
+                                         xml_declaration=False,
+                                         encoding='UTF-8').decode('utf-8')
 
             if strings == '':
-                strings = etree.tostring(root, pretty_print=True)
+                strings = etree.tostring(root,
+                                         xml_declaration=False,
+                                         encoding='UTF-8').decode('utf-8')
 
         self.write({
             'get_status_zip_status_code': status_code,
@@ -867,7 +870,7 @@ class AccountInvoiceDianDocument(models.Model):
                 if self.company_id.profile_execution_id == '1':
                     self._get_status_response(response, True)
                 else:
-                    root = etree.fromstring(response.text)
+                    root = etree.fromstring(response.text.encode("utf-8"))
 
                     for element in root.iter("{%s}ZipKey" % b):
                         self.write({'zip_key': element.text})
@@ -923,7 +926,7 @@ class AccountInvoiceDianDocument(models.Model):
                 wsdl,
                 headers={'content-type': 'application/soap+xml;charset=utf-8'},
                 data=etree.tostring(xml_soap_with_signature))
-
+            print(response.text)
             if response.status_code == 200:
                 return self._get_status_response(response, send_mail)
             else:
@@ -948,17 +951,18 @@ class AccountInvoiceDianDocument(models.Model):
         xml_soap_values = global_functions.get_xml_soap_values(
             self.company_id.certificate_file,
             self.company_id.certificate_password)
-        output = StringIO()
+        output = BytesIO()
         zipfile = ZipFile(output, mode='w')
-        zipfile_content = StringIO()
+        zipfile_content = BytesIO()
         zipfile_content.write(b64decode(self.xml_file))
         zipfile.writestr(self.xml_filename, zipfile_content.getvalue())
-        zipfile_content = StringIO()
+        zipfile_content = BytesIO()
         zipfile_content.write(b64decode(self.ar_xml_file))
         zipfile.writestr(self.ar_xml_filename, zipfile_content.getvalue())
         zipfile.close()
         xml_soap_values['fileName'] = self.zipped_filename.replace('.zip', '')
-        xml_soap_values['contentFile'] = b64encode(output.getvalue())
+        xml_soap_values['contentFile'] = b64encode(
+            output.getvalue()).decode('uft-8')
 
         return xml_soap_values
 
