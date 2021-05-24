@@ -44,7 +44,7 @@
     <xpath expr="//notebook" position="inside">
         <page name="dian_documents" string="DIAN Documents" groups="l10n_co_account_e_invoicing.group_view_dian_documents">
             <group>
-                <field name="dian_document_ids" mode="tree" readonly="1">
+                <field name="dian_document_ids" nolabel="1" widget="section_and_note_one2many" mode="tree,kanban">
                     <tree>
                         <button type="object" name="go_to_dian_document" string="DIAN Document"/>
                         <field name="cufe_cude"/>

@@ -2,6 +2,7 @@
 # Copyright 2019 Joan Marín <Github@JoanMarin>
 # Copyright 2021 Alejandro Olano <Github@alejo-code>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+
 from datetime import datetime
 import urllib.request
 from requests import post, exceptions
@@ -58,7 +59,7 @@ class ResCompany(models.Model):
     einvoicing_receives_all_emails = fields.Char(
         string='Email that receives all emails')
     report_template = fields.Many2one(string='Report Template',
-                                      comodel_name='ir.actions.report.xml')
+                                      comodel_name='ir.actions.report')
     notification_group_ids = fields.One2many(
         comodel_name='einvoice.notification.group',
         inverse_name='company_id',
@@ -74,12 +75,12 @@ class ResCompany(models.Model):
             try:
                 for company in self:
                     response = urllib.request.urlopen(
-                        company.signature_policy_url, timeout=2)
+                        vals.get('signature_policy_url'), timeout=2)
 
                     if response.getcode() != 200:
                         raise ValidationError(msg)
-            except:
-                raise ValidationError(msg)
+            except Exception as e:
+                raise ValidationError(msg % e)
 
         rec = super(ResCompany, self).write(vals)
 
@@ -89,8 +90,8 @@ class ResCompany(models.Model):
                     company.certificate_file, company.certificate_password)
                 x509 = pkcs12.get_certificate()
                 date = x509.get_notAfter()
-                date = '{}-{}-{}'.format(date[0:4], date[4:6], date[6:8])
-                company.certificate_date = date
+                company.certificate_date = datetime.strptime(
+                    date.decode("utf-8"), '%Y%m%d%H%M%SZ').date()
 
         return rec
 
@@ -156,10 +157,8 @@ class ResCompany(models.Model):
                 order='zipped_filename asc')
 
             for dian_document in dian_documents:
-                today = datetime.strptime(fields.Date.context_today(self),
-                                          '%Y-%m-%d')
-                date_from = datetime.strptime(
-                    dian_document.invoice_id.date_invoice, '%Y-%m-%d')
+                today = fields.Date.context_today(self)
+                date_from = dian_document.invoice_id.date_invoice
                 days = (today - date_from).days
 
                 if int(dian_document.invoice_id.send_invoice_to_dian) <= days:

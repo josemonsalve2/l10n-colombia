@@ -2,7 +2,7 @@
 <odoo>
 
     <template id="report_invoice_document_with_qr" inherit_id="account.report_invoice_document">
-        <xpath expr="//div[@name='invoice_address']" position="before">
+        <xpath expr="//div[@class='page']" position="before">
             <div class="col-xs-10">
                 <t t-foreach="o.dian_document_ids" t-as="dd">
                     <br/>

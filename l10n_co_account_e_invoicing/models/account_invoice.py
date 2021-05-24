@@ -2,6 +2,9 @@
 # Copyright 2019 Joan Marín <Github@JoanMarin>
 # Copyright 2021 Alejandro Olano <Github@alejo-code>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+
+import pytz
+from dateutil import tz
 from datetime import datetime, timedelta
 from pytz import timezone
 from odoo import api, models, fields, SUPERUSER_ID, _
@@ -69,10 +72,8 @@ class AccountInvoice(models.Model):
                 and self.company_id.certificate_password
                 and self.company_id.certificate_date):
             remaining_days = self.company_id.certificate_remaining_days or 0
-            today = datetime.strptime(fields.Date.context_today(self),
-                                      '%Y-%m-%d')
-            date_to = datetime.strptime(self.company_id.certificate_date,
-                                        '%Y-%m-%d')
+            today = fields.Date.context_today(self)
+            date_to = self.company_id.certificate_date
             days = (date_to - today).days
             warn_inactive_certificate = False
 
@@ -102,25 +103,22 @@ class AccountInvoice(models.Model):
                                        default=False)
     delivery_datetime = fields.Datetime(string='Delivery Datetime',
                                         default=False)
-    operation_type = fields.Selection(selection=[
-        ('10', 'Standard *'),
-        ('20', 'Credit note that references an e-invoice'),
-        ('22', 'Credit note without reference to invoices *'),
-        ('30', 'Debit note that references an e-invoice'),
-        ('32', 'Debit note without reference to invoices *')
-    ],
-                                      string='Operation Type',
-                                      default=_default_operation_type)
-    invoice_type_code = fields.Selection(selection=[
-        ('01', 'E-invoice of sale'),
-        ('03', 'E-document of transmission - type 03'),
-        ('04', 'E-invoice of sale - type 04')
-    ],
-                                         string='Invoice Type',
-                                         default=_default_invoice_type_code)
+    operation_type = fields.Selection(
+        [('10', 'Standard *'),
+         ('20', 'Credit note that references an e-invoice'),
+         ('22', 'Credit note without reference to invoices *'),
+         ('30', 'Debit note that references an e-invoice'),
+         ('32', 'Debit note without reference to invoices *')],
+        string='Operation Type',
+        default=_default_operation_type)
+    invoice_type_code = fields.Selection(
+        [('01', 'E-invoice of sale'),
+         ('03', 'E-document of transmission - type 03'),
+         ('04', 'E-invoice of sale - type 04')],
+        string='Invoice Type',
+        default=_default_invoice_type_code)
     send_invoice_to_dian = fields.Selection(
-        selection=[('0', 'Immediately'), ('1', 'After 1 Day'),
-                   ('2', 'After 2 Days')],
+        [('0', 'Immediately'), ('1', 'After 1 Day'), ('2', 'After 2 Days')],
         string='Send Invoice to DIAN?',
         default=_default_send_invoice_to_dian)
     dian_document_ids = fields.One2many(
@@ -174,20 +172,22 @@ class AccountInvoice(models.Model):
             "The 'delivery date' must be equal or greater per maximum 10 days to "
             "the 'invoice date'.")
         res = super(AccountInvoice, self).invoice_validate()
-
+        timezone = pytz.timezone(self.env.user.tz or 'America/Bogota')
+        from_zone = tz.gettz('UTC')
+        to_zone = tz.gettz(timezone.zone)
         for invoice in self:
             if not invoice.invoice_datetime:
-                invoice.invoice_datetime = datetime.now().replace(
-                    tzinfo=timezone('UTC'))
+                invoice_datetime = datetime.now().replace(tzinfo=from_zone)
+                invoice_datetime = invoice_datetime.astimezone(
+                    to_zone).strftime('%Y-%m-%d %H:%M:%S')
+                invoice.invoice_datetime = invoice_datetime
 
             if (invoice.company_id.einvoicing_enabled
                     and invoice.type in ("out_invoice", "out_refund")):
                 if (invoice.company_id.automatic_delivery_datetime and
                         invoice.company_id.additional_hours_delivery_datetime
                         and not invoice.delivery_datetime):
-                    invoice_datetime = datetime.strptime(
-                        invoice.invoice_datetime,
-                        '%Y-%m-%d %H:%M:%S').replace(tzinfo=timezone('UTC'))
+                    invoice_datetime = invoice.invoice_datetime
                     hours_added = timedelta(hours=invoice.company_id.
                                             additional_hours_delivery_datetime)
                     invoice.delivery_datetime = invoice_datetime + hours_added
@@ -195,14 +195,11 @@ class AccountInvoice(models.Model):
                 if not invoice.delivery_datetime:
                     raise UserError(msg)
 
-                date_invoice = datetime.strptime(invoice.date_invoice,
-                                                 '%Y-%m-%d')
-                delivery_datetime = datetime.strptime(
-                    invoice.delivery_datetime,
-                    '%Y-%m-%d %H:%M:%S').replace(tzinfo=timezone('UTC'))
-                delivery_date = delivery_datetime.astimezone(
-                    timezone('America/Bogota')).strftime('%Y-%m-%d')
-                delivery_date = datetime.strptime(delivery_date, '%Y-%m-%d')
+                date_invoice = invoice.date_invoice
+                delivery_date = datetime.strftime(invoice.delivery_datetime,
+                                                  '%Y-%m-%d')
+                delivery_date = datetime.strptime(delivery_date,
+                                                  '%Y-%m-%d').date()
                 days = (delivery_date - date_invoice).days
 
                 if days < 0 or days > 10:
