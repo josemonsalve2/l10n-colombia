@@ -56,13 +56,13 @@ class AccountInvoiceDianDocument(models.Model):
         ValOtroIm = ValImp2 - ValImp3
         ValTolFac = ValFac + ValImp1 + ValOtroIm
 
-        create_date = datetime.strftime(self.invoice_id.create_date,
-                                        '%Y-%m-%d %H:%M:%S')
+        create_date = datetime.strptime(self.invoice_id.create_date,
+                                        '%Y-%m-%d %H:%M:%S').date()
         qr_data = "NumFac: " + (self.invoice_id.number
                                 or _('WITHOUT VALIDATE'))
         qr_data += "\nFecFac: " + (str(self.invoice_id.date_invoice) or '')
-        qr_data += "\nHorFac: " + datetime.strftime(
-            self.invoice_id.create_date, '%H:%M:%S-05:00')
+        qr_data += "\nHorFac: " + datetime.strftime(create_date,
+                                                    '%H:%M:%S-05:00')
         qr_data += "\nNitFac: " + (
             self.company_id.partner_id.identification_document or '')
         qr_data += "\nDocAdq: " + (
