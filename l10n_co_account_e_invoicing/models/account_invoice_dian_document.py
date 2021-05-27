@@ -133,8 +133,7 @@ class AccountInvoiceDianDocument(models.Model):
             'There is no date range corresponding to the date of your invoice.'
         )
 
-        date_invoice = datetime.strftime(self.invoice_id.date_invoice,
-                                         '%Y-%m-%d %H:%M:%S')
+        date_invoice = self.invoice_id.date_invoice
 
         if self.company_id.partner_id.document_type_id:
             if self.company_id.partner_id.document_type_id.code != '31':
@@ -245,13 +244,22 @@ class AccountInvoiceDianDocument(models.Model):
             QRCodeURL = DIAN['catalogo']
         else:
             QRCodeURL = DIAN['catalogo-hab']
-        invoice_datetime = self.invoice_id.invoice_datetime
-        IssueDate = datetime.strftime(invoice_datetime, '%Y-%m-%d')
-        IssueTime = datetime.strftime(invoice_datetime, '%H:%M:%S-05:00')
-        delivery_datetime = self.invoice_id.delivery_datetime
-        ActualDeliveryDate = datetime.strftime(delivery_datetime, '%Y-%m-%d')
-        ActualDeliveryTime = datetime.strftime(delivery_datetime,
-                                               '%H:%M:%S-05:00')
+        timezone = pytz.timezone(self.env.user.tz or 'America/Bogota')
+        from_zone = tz.gettz('UTC')
+        to_zone = tz.gettz(timezone.zone)
+        invoice_datetime = datetime.strptime(
+            self.invoice_id.invoice_datetime,
+            '%Y-%m-%d %H:%M:%S').replace(tzinfo=timezone)
+        IssueDate = invoice_datetime.astimezone(timezone).strftime('%Y-%m-%d')
+        IssueTime = invoice_datetime.astimezone(timezone).strftime(
+            '%H:%M:%S-05:00')
+        delivery_datetime = datetime.strptime(
+            self.invoice_id.delivery_datetime,
+            '%Y-%m-%d %H:%M:%S').replace(tzinfo=timezone)
+        ActualDeliveryDate = delivery_datetime.astimezone(timezone).strftime(
+            '%Y-%m-%d')
+        ActualDeliveryTime = delivery_datetime.astimezone(timezone).strftime(
+            '%H:%M:%S-05:00')
         ValFac = self.invoice_id.amount_untaxed
         einvoicing_taxes = self.invoice_id._get_einvoicing_taxes()
         ValImp1 = einvoicing_taxes['TaxesTotal']['01']['total']
