@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo >
+    <record id="account.incoterm_CFR" model="account.incoterms">
+        <field name="is_einvoicing">1</field>
+    </record>
+    <record id="account.incoterm_CIF" model="account.incoterms">
+        <field name="is_einvoicing">1</field>
+    </record>
+    <record id="account.incoterm_CIP" model="account.incoterms">
+        <field name="is_einvoicing">1</field>
+    </record>
+    <record id="account.incoterm_CPT" model="account.incoterms">
+        <field name="is_einvoicing">1</field>
+    </record>
+    <record id="account.incoterm_DAP" model="account.incoterms">
+        <field name="is_einvoicing">1</field>
+    </record>
+    <record id="account.incoterm_DAT" model="account.incoterms">
+        <field name="is_einvoicing">1</field>
+    </record>
+    <record id="account.incoterm_DDP" model="account.incoterms">
+        <field name="is_einvoicing">1</field>
+    </record>
+    <record id="account.incoterm_EXW" model="account.incoterms">
+        <field name="is_einvoicing">1</field>
+    </record>
+    <record id="account.incoterm_FAS" model="account.incoterms">
+        <field name="is_einvoicing">1</field>
+    </record>
+    <record id="account.incoterm_FCA" model="account.incoterms">
+        <field name="is_einvoicing">1</field>
+    </record>
+    <record id="account.incoterm_FOB" model="account.incoterms">
+        <field name="is_einvoicing">1</field>
+    </record>
+    <!--TODO 2.0 No estan en el Anexo Tecnico-->
+    <record id="account.incoterm_DAF" model="account.incoterms">
+        <field name="is_einvoicing">0</field>
+    </record>
+    <record id="account.incoterm_DES" model="account.incoterms">
+        <field name="is_einvoicing">0</field>
+    </record>
+    <record id="account.incoterm_DEQ" model="account.incoterms">
+        <field name="is_einvoicing">0</field>
+    </record>
+    <record id="account.incoterm_DDU" model="account.incoterms">
+        <field name="is_einvoicing">0</field>
+    </record>
+</odoo>
