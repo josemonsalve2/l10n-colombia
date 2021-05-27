@@ -196,12 +196,17 @@ class AccountInvoice(models.Model):
 
                 if not invoice.delivery_datetime:
                     raise UserError(msg)
-
-                date_invoice = invoice.date_invoice
-                delivery_date = datetime.strftime(invoice.delivery_datetime,
-                                                  '%Y-%m-%d')
-                delivery_date = datetime.strptime(delivery_date,
-                                                  '%Y-%m-%d').date()
+                timezone = pytz.timezone(self.env.user.tz or 'America/Bogota')
+                from_zone = tz.gettz('UTC')
+                to_zone = tz.gettz(timezone.zone)
+                date_invoice = datetime.strptime(invoice.date_invoice,
+                                                 '%Y-%m-%d')
+                delivery_datetime = datetime.strptime(
+                    invoice.delivery_datetime,
+                    '%Y-%m-%d %H:%M:%S').replace(tzinfo=timezone)
+                delivery_date = delivery_datetime.astimezone(
+                    timezone).strftime('%Y-%m-%d')
+                delivery_date = datetime.strptime(delivery_date, '%Y-%m-%d')
                 days = (delivery_date - date_invoice).days
 
                 if days < 0 or days > 10:
