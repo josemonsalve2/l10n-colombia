@@ -23,7 +23,7 @@
     ],
     "data": [
         "security/ir.model.access.csv",
-        "data/product.uom.code.csv",
+        "data/uom.code.csv",
         "views/uom_uom_views.xml",
     ],
     "installable":
