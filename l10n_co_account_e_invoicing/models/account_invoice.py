@@ -485,7 +485,7 @@ class AccountInvoice(models.Model):
         count = 1
 
         for invoice_line in self.invoice_line_ids:
-            if not invoice_line.uom_id.product_uom_code_id:
+            if not invoice_line.uom_id.uom_code_id:
                 raise UserError(msg1 % invoice_line.uom_id.name)
 
             disc_amount = 0
@@ -513,7 +513,7 @@ class AccountInvoice(models.Model):
 
             invoice_lines[count] = {}
             invoice_lines[count][
-                'unitCode'] = invoice_line.uom_id.product_uom_code_id.code
+                'unitCode'] = invoice_line.uom_id.uom_code_id.code
             invoice_lines[count]['Quantity'] = '{:.2f}'.format(
                 invoice_line.quantity)
             invoice_lines[count][
