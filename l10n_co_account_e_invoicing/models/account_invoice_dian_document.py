@@ -535,7 +535,7 @@ class AccountInvoiceDianDocument(models.Model):
         zipfile.writestr(self.xml_filename, zipfile_content.getvalue())
         zipfile.close()
 
-        return b64encode(output.getvalue())
+        return output.getvalue()
 
     def action_set_files(self):
         if self.invoice_id.warn_inactive_certificate:
