@@ -25,16 +25,24 @@ class ResCompany(models.Model):
         help='Additional hours to invoice date for delivery date',
         digits=(12, 4),
         default=False)
-    send_invoice_to_dian = fields.Selection([('0', 'Immediately'),
-                                             ('1', 'After 1 Day'),
-                                             ('2', 'After 2 Days')],
-                                            string='Send Invoice to DIAN?',
-                                            default='0')
+    send_invoice_to_dian = fields.Selection(
+        selection=[
+            ('0', 'Immediately'),
+            ('1', 'After 1 Day'),
+            ('2', 'After 2 Days')],
+        string='Send Invoice to DIAN?',
+        default='0')
     profile_execution_id = fields.Selection(
-        [('1', 'Production'), ('2', 'Test')],
-        'Destination Environment of Document',
+        selection=[('1', 'Production'), ('2', 'Test')],
+        string='Destination Environment of Document',
         default='2',
         required=True)
+    have_technological_provider = fields.Boolean(
+        string='Do you have a technological provider?')
+    technological_provider_id = fields.Many2one(
+        string='Technological Provider',
+        comodel_name='res.partner')
+    assignment_code = fields.Char(string='Assignment Code', size=3)
     test_set_id = fields.Char(string='Test Set ID')
     software_id = fields.Char(string='Software ID')
     software_pin = fields.Char(string='Software PIN')
@@ -43,28 +51,30 @@ class ResCompany(models.Model):
     certificate_password = fields.Char(string='Certificate Password')
     certificate_date = fields.Date(string='Certificate Date Validity')
     certificate_remaining_days = fields.Integer(
-        string='Certificate Remaining Days', default=False)
-    signature_policy_url = fields.Char(string='Signature Policy URL')
+        string='Certificate Remaining Days',
+        default=False)
+    signature_policy_url = fields.Char(
+        string='Signature Policy URL',
+        default='https://facturaelectronica.dian.gov.co/politicadefirma/v2/politicadefirmav2.pdf')
     signature_policy_description = fields.Char(
-        string='Signature Policy Description')
+        string='Signature Policy Description',
+        default='Política de firma para facturas electrónicas de la República de Colombia.')
     files_path = fields.Char(string='Files Path')
-    einvoicing_email = fields.Char(string='E-Invoice Email, From:',
-                                   help="Enter the e-invoice sender's email.")
+    einvoicing_email = fields.Char(
+        string='E-Invoice Email, From:',
+        help="Enter the e-invoice sender's email.")
     einvoicing_partner_no_email = fields.Char(
         string='Failed Emails, To:',
-        help=
-        'Enter the email where the invoice will be sent when the customer does not have an email.'
-    )
-    einvoicing_receives_all_emails = fields.Char(
-        string='Email that receives all emails')
-    report_template = fields.Many2one(string='Report Template',
-                                      comodel_name='ir.actions.report.xml')
+        help='Enter the email where the invoice will be sent when the customer does not have an email.')
+    einvoicing_receives_all_emails = fields.Char(string='Email that receives all emails')
+    report_template = fields.Many2one(
+        string='Report Template',
+        comodel_name='ir.actions.report.xml')
     notification_group_ids = fields.One2many(
         comodel_name='einvoice.notification.group',
         inverse_name='company_id',
         string='Notification Group')
-    get_numbering_range_response = fields.Text(
-        string='GetNumberingRange Response')
+    get_numbering_range_response = fields.Text(string='GetNumberingRange Response')
 
     @api.multi
     def write(self, vals):
@@ -96,12 +106,12 @@ class ResCompany(models.Model):
     def _get_GetNumberingRange_values(self):
         xml_soap_values = global_functions.get_xml_soap_values(
             self.certificate_file, self.certificate_password)
-
-        xml_soap_values[
-            'accountCode'] = self.partner_id.identification_document
-        xml_soap_values[
-            'accountCodeT'] = self.partner_id.identification_document
+        xml_soap_values['accountCode'] = self.partner_id.identification_document
+        xml_soap_values['accountCodeT'] = self.partner_id.identification_document
         xml_soap_values['softwareCode'] = self.software_id
+
+        if self.have_technological_provider:
+            xml_soap_values['accountCodeT'] = self.technological_provider_id.identification_document
 
         return xml_soap_values
 
@@ -110,13 +120,13 @@ class ResCompany(models.Model):
         msg2 = _("Unknown Error: %s\n.")
         wsdl = 'https://vpfe.dian.gov.co/WcfDianCustomerServices.svc?wsdl'
         s = "http://www.w3.org/2003/05/soap-envelope"
-
         GetNumberingRange_values = self._get_GetNumberingRange_values()
         GetNumberingRange_values['To'] = wsdl.replace('?wsdl', '')
         xml_soap_with_signature = global_functions.get_xml_soap_with_signature(
-            global_functions.get_template_xml(GetNumberingRange_values,
-                                              'GetNumberingRange'),
-            GetNumberingRange_values['Id'], self.certificate_file,
+            global_functions.get_template_xml(
+                GetNumberingRange_values, 'GetNumberingRange'),
+            GetNumberingRange_values['Id'],
+            self.certificate_file,
             self.certificate_password)
 
         try:
@@ -137,8 +147,7 @@ class ResCompany(models.Model):
 
                 self.write({'get_numbering_range_response': response})
             else:
-                raise ValidationError(msg1 %
-                                      (response.status_code, response.reason))
+                raise ValidationError(msg1 % (response.status_code, response.reason))
 
         except exceptions.RequestException as e:
             raise ValidationError(msg2 % (e))
@@ -149,14 +158,12 @@ class ResCompany(models.Model):
     def action_process_dian_documents(self):
         for company in self:
             count = 0
-            dian_documents = self.env['account.invoice.dian.document'].search(
-                [('state', 'in', ('draft', 'sent')),
-                 ('company_id', '=', company.id)],
+            dian_documents = self.env['account.move.dian.document'].search(
+                [('state', 'in', ('draft', 'sent')), ('company_id', '=', company.id)],
                 order='zipped_filename asc')
 
             for dian_document in dian_documents:
-                today = datetime.strptime(fields.Date.context_today(self),
-                                          '%Y-%m-%d')
+                today = datetime.strptime(fields.Date.context_today(self), '%Y-%m-%d')
                 date_from = datetime.strptime(
                     dian_document.invoice_id.date_invoice, '%Y-%m-%d')
                 days = (today - date_from).days
@@ -165,12 +172,12 @@ class ResCompany(models.Model):
                     dian_document.action_process()
                     count += 1
 
-                if dian_document.state != 'done' or count == 10:
+                if count == 10:
                     return True
 
         return True
 
     @api.model
     def cron_process_dian_documents(self):
-        for company in self.search([]):
+        for company in self:
             company.action_process_dian_documents()

@@ -23,8 +23,9 @@ ssl._create_default_https_context = ssl._create_unverified_context
 DIAN = {
     'wsdl-hab': 'https://vpfe-hab.dian.gov.co/WcfDianCustomerServices.svc?wsdl',
     'wsdl': 'https://vpfe.dian.gov.co/WcfDianCustomerServices.svc?wsdl',
-    'catalogo-hab': 'https://catalogo-vpfe-hab.dian.gov.co/Document/FindDocument?documentKey={}&partitionKey={}&emissionDate={}',
-    'catalogo': 'https://catalogo-vpfe.dian.gov.co/Document/FindDocument?documentKey={}&partitionKey={}&emissionDate={}'}
+    'catalogo-hab': 'https://catalogo-vpfe-hab.dian.gov.co/document/searchqr?documentkey={}',
+    'catalogo': 'https://catalogo-vpfe.dian.gov.co/document/searchqr?documentkey={}'
+    }
 
 
 class AccountInvoiceDianDocument(models.Model):
@@ -164,6 +165,9 @@ class AccountInvoiceDianDocument(models.Model):
         nnnnnnnnnn = self.company_id.partner_id.identification_document.zfill(10)
         # El Código “ppp” es 000 para Software Propio
         ppp = '000'
+
+        if self.company_id.have_technological_provider:
+            ppp = self.company_id.assignment_code
         # aa: Dos (2) últimos dígitos año calendario
         aa = date_invoice[2:4]
         # dddddddd: consecutivo del paquete de archivos comprimidos enviados;
@@ -202,7 +206,12 @@ class AccountInvoiceDianDocument(models.Model):
         msg1 = _("'%s' does not have a valid isic code")
         msg2 = _("'%s' does not have a isic code established.")
         msg3 = _("'%s' does not have a identification document established.")
+        provider = self.company_id.partner_id
         supplier = self.company_id.partner_id
+        customer = self.invoice_id.partner_id
+
+        if self.company_id.have_technological_provider:
+            provider = self.company_id.technological_provider_id
 
         if supplier.isic_id:
             if supplier.isic_id.code == '0000':
@@ -215,11 +224,8 @@ class AccountInvoiceDianDocument(models.Model):
         SoftwarePIN = self.company_id.software_pin
         ID = self.invoice_id.number
         software_security_code = global_functions.get_software_security_code(
-            IdSoftware,
-            SoftwarePIN,
-            ID)
+            IdSoftware, SoftwarePIN, ID)
         TipoAmbie = self.company_id.profile_execution_id
-        customer = self.invoice_id.partner_id
         delivery = self.invoice_id.partner_shipping_id
         DocAdq = customer.identification_document
         document_type_code = False
@@ -279,25 +285,22 @@ class AccountInvoiceDianDocument(models.Model):
             ClTec,
             SoftwarePIN,
             TipoAmbie)
-        partition_key = 'co|' + IssueDate.split('-')[2] + '|' + cufe_cude['CUFE/CUDE'][:2]
-        emission_date = IssueDate.replace('-', '')
-        QRCodeURL = QRCodeURL.format(cufe_cude['CUFE/CUDE'], partition_key, emission_date)
-
+        QRCodeURL = QRCodeURL.format(cufe_cude['CUFE/CUDE'])
         self.write({
             'invoice_url': QRCodeURL,
             'cufe_cude_uncoded': cufe_cude['CUFE/CUDEUncoded'],
             'cufe_cude': cufe_cude['CUFE/CUDE'],
-            'software_security_code_uncoded':
-                software_security_code['SoftwareSecurityCodeUncoded'],
-            'software_security_code':
-                software_security_code['SoftwareSecurityCode']})
+            'software_security_code_uncoded': software_security_code['SoftwareSecurityCodeUncoded'],
+            'software_security_code': software_security_code['SoftwareSecurityCode']
+        })
 
         return {
-            'ProviderIDschemeID': supplier.check_digit,
-            'ProviderIDschemeName': supplier.document_type_id.code,
-            'ProviderID': NitOFE,
+            'ProviderIDschemeID': provider.check_digit,
+            'ProviderIDschemeName': provider.document_type_id.code,
+            'ProviderID': provider.identification_document,
             'SoftwareID': IdSoftware,
             'SoftwareSecurityCode': software_security_code['SoftwareSecurityCode'],
+            'NitFac': NitOFE,
             'DocAdq': DocAdq,
             'QRCodeURL': QRCodeURL,
             'ProfileExecutionID': TipoAmbie,
@@ -329,7 +332,8 @@ class AccountInvoiceDianDocument(models.Model):
             'LineExtensionAmount': '{:.2f}'.format(self.invoice_id.amount_untaxed),
             'TaxExclusiveAmount': '{:.2f}'.format(self.invoice_id.amount_untaxed),
             'TaxInclusiveAmount': '{:.2f}'.format(TaxInclusiveAmount),
-            'PayableAmount': '{:.2f}'.format(PayableAmount)}
+            'PayableAmount': '{:.2f}'.format(PayableAmount)
+        }
 
     def _get_invoice_values(self):
         msg1 = _("Your journal: %s, has no a invoice sequence")

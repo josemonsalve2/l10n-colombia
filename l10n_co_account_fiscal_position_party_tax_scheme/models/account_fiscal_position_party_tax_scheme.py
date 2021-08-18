@@ -5,9 +5,9 @@
 from odoo import fields, models
 
 
-class AccountFiscalPositionTaxLevelCode(models.Model):
-    _name = 'account.fiscal.position.tax.level.code'
-    _description = 'Fiscal Responsibilities (TaxLevelCode)'
+class AccountFiscalPositionPartyTaxScheme(models.Model):
+    _name = 'account.fiscal.position.party.tax.scheme'
+    _description = 'Fiscal Responsibilities (PartyTaxScheme)'
 
     name = fields.Char(string='Name')
     code = fields.Char(string='Code')

@@ -125,13 +125,13 @@ class ResPartner(models.Model):
 
         if self.property_account_position_id:
             if (not self.property_account_position_id.tax_level_code_ids
-                    or not self.property_account_position_id.tax_group_type_id
+                    or not self.property_account_position_id.party_tax_scheme_id
                     or not self.property_account_position_id.listname):
                 raise UserError(msg9 % self.name)
 
             tax_level_codes = ''
-            tax_scheme_code = self.property_account_position_id.tax_group_type_id.code
-            tax_scheme_name = self.property_account_position_id.tax_group_type_id.name
+            tax_scheme_code = self.property_account_position_id.party_tax_scheme_id.code
+            tax_scheme_name = self.property_account_position_id.party_tax_scheme_id.name
         else:
             raise UserError(msg10 % self.name)
 
@@ -158,7 +158,7 @@ class ResPartner(models.Model):
 
         if identification_document == '222222222222':
             tax_level_codes = 'R-99-PN'
-            tax_scheme_code = 'ZY'
+            tax_scheme_code = 'ZZ'
             tax_scheme_name = 'No causa'
 
             if self.property_account_position_id.listname != '49':
