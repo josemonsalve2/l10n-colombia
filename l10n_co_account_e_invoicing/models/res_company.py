@@ -156,7 +156,7 @@ class ResCompany(models.Model):
 
     @api.multi
     def action_process_dian_documents(self):
-        for company in self.search([]):
+        for company in self:
             count = 0
             dian_documents = self.env['account.invoice.dian.document'].search(
                 [('state', 'in', ('draft', 'sent')), ('company_id', '=', company.id)],
@@ -179,5 +179,5 @@ class ResCompany(models.Model):
 
     @api.model
     def cron_process_dian_documents(self):
-        for company in self:
+        for company in self.search([]):
             company.action_process_dian_documents()
