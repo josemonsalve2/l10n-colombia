@@ -330,10 +330,9 @@ class AccountInvoiceDianDocument(models.Model):
             'TaxesTotal': einvoicing_taxes['TaxesTotal'],
             'WithholdingTaxesTotal': einvoicing_taxes['WithholdingTaxesTotal'],
             'LineExtensionAmount': '{:.2f}'.format(self.invoice_id.amount_untaxed),
-            'TaxExclusiveAmount': '{:.2f}'.format(self.invoice_id.amount_untaxed),
+            'TaxExclusiveAmount': '{:.2f}'.format(einvoicing_taxes['TaxesTotalBase']),
             'TaxInclusiveAmount': '{:.2f}'.format(TaxInclusiveAmount),
-            'PayableAmount': '{:.2f}'.format(PayableAmount)
-        }
+            'PayableAmount': '{:.2f}'.format(PayableAmount)}
 
     def _get_invoice_values(self):
         msg1 = _("Your journal: %s, has no a invoice sequence")
