@@ -1,6 +1,6 @@
 id,code,name,country_id:id
-res_country_state_co_05,05,Antioquia,base.co
-res_country_state_co_08,08,Atlántico,base.co
+res_country_state_co_05,5,Antioquia,base.co
+res_country_state_co_08,8,Atlántico,base.co
 res_country_state_co_11,11,"Bogotá, D.C.",base.co
 res_country_state_co_13,13,Bolívar,base.co
 res_country_state_co_15,15,Boyacá,base.co
