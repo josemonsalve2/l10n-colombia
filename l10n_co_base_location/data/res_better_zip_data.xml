@@ -3,7 +3,7 @@
 	<data>
 		<record id="CO050001" model="res.better.zip">
 		<field name="name">050001</field>
-		<field name="city">MEDELLÍN</field>
+		<field name="city">Medellín</field>
 		<field name="code">05001</field>
 		<field name="phone_prefix">4</field>
 		<field name="state_id" ref="res_country_state_co_05"/>
@@ -11,7 +11,7 @@
 		</record>
 		<record id="CO050002" model="res.better.zip">
 		<field name="name">050002</field>
-		<field name="city">MEDELLÍN</field>
+		<field name="city">Medellín</field>
 		<field name="code">05001</field>
 		<field name="phone_prefix">4</field>
 		<field name="state_id" ref="res_country_state_co_05"/>
@@ -19,7 +19,7 @@
 		</record>
 		<record id="CO050003" model="res.better.zip">
 		<field name="name">050003</field>
-		<field name="city">MEDELLÍN</field>
+		<field name="city">Medellín</field>
 		<field name="code">05001</field>
 		<field name="phone_prefix">4</field>
 		<field name="state_id" ref="res_country_state_co_05"/>
@@ -27,7 +27,7 @@
 		</record>
 		<record id="CO050004" model="res.better.zip">
 		<field name="name">050004</field>
-		<field name="city">MEDELLÍN</field>
+		<field name="city">Medellín</field>
 		<field name="code">05001</field>
 		<field name="phone_prefix">4</field>
 		<field name="state_id" ref="res_country_state_co_05"/>
@@ -35,7 +35,7 @@
 		</record>
 		<record id="CO050005" model="res.better.zip">
 		<field name="name">050005</field>
-		<field name="city">MEDELLÍN</field>
+		<field name="city">Medellín</field>
 		<field name="code">05001</field>
 		<field name="phone_prefix">4</field>
 		<field name="state_id" ref="res_country_state_co_05"/>
@@ -43,7 +43,7 @@
 		</record>
 		<record id="CO050006" model="res.better.zip">
 		<field name="name">050006</field>
-		<field name="city">MEDELLÍN</field>
+		<field name="city">Medellín</field>
 		<field name="code">05001</field>
 		<field name="phone_prefix">4</field>
 		<field name="state_id" ref="res_country_state_co_05"/>
@@ -51,7 +51,7 @@
 		</record>
 		<record id="CO050007" model="res.better.zip">
 		<field name="name">050007</field>
-		<field name="city">MEDELLÍN</field>
+		<field name="city">Medellín</field>
 		<field name="code">05001</field>
 		<field name="phone_prefix">4</field>
 		<field name="state_id" ref="res_country_state_co_05"/>
@@ -59,7 +59,7 @@
 		</record>
 		<record id="CO050010" model="res.better.zip">
 		<field name="name">050010</field>
-		<field name="city">MEDELLÍN</field>
+		<field name="city">Medellín</field>
 		<field name="code">05001</field>
 		<field name="phone_prefix">4</field>
 		<field name="state_id" ref="res_country_state_co_05"/>
@@ -67,7 +67,7 @@
 		</record>
 		<record id="CO050011" model="res.better.zip">
 		<field name="name">050011</field>
-		<field name="city">MEDELLÍN</field>
+		<field name="city">Medellín</field>
 		<field name="code">05001</field>
 		<field name="phone_prefix">4</field>
 		<field name="state_id" ref="res_country_state_co_05"/>
@@ -75,7 +75,7 @@
 		</record>
 		<record id="CO050012" model="res.better.zip">
 		<field name="name">050012</field>
-		<field name="city">MEDELLÍN</field>
+		<field name="city">Medellín</field>
 		<field name="code">05001</field>
 		<field name="phone_prefix">4</field>
 		<field name="state_id" ref="res_country_state_co_05"/>
@@ -83,7 +83,7 @@
 		</record>
 		<record id="CO050013" model="res.better.zip">
 		<field name="name">050013</field>
-		<field name="city">MEDELLÍN</field>
+		<field name="city">Medellín</field>
 		<field name="code">05001</field>
 		<field name="phone_prefix">4</field>
 		<field name="state_id" ref="res_country_state_co_05"/>
@@ -91,7 +91,7 @@
 		</record>
 		<record id="CO050014" model="res.better.zip">
 		<field name="name">050014</field>
-		<field name="city">MEDELLÍN</field>
+		<field name="city">Medellín</field>
 		<field name="code">05001</field>
 		<field name="phone_prefix">4</field>
 		<field name="state_id" ref="res_country_state_co_05"/>
@@ -99,7 +99,7 @@
 		</record>
 		<record id="CO050015" model="res.better.zip">
 		<field name="name">050015</field>
-		<field name="city">MEDELLÍN</field>
+		<field name="city">Medellín</field>
 		<field name="code">05001</field>
 		<field name="phone_prefix">4</field>
 		<field name="state_id" ref="res_country_state_co_05"/>
@@ -107,7 +107,7 @@
 		</record>
 		<record id="CO050016" model="res.better.zip">
 		<field name="name">050016</field>
-		<field name="city">MEDELLÍN</field>
+		<field name="city">Medellín</field>
 		<field name="code">05001</field>
 		<field name="phone_prefix">4</field>
 		<field name="state_id" ref="res_country_state_co_05"/>
@@ -115,7 +115,7 @@
 		</record>
 		<record id="CO050017" model="res.better.zip">
 		<field name="name">050017</field>
-		<field name="city">MEDELLÍN</field>
+		<field name="city">Medellín</field>
 		<field name="code">05001</field>
 		<field name="phone_prefix">4</field>
 		<field name="state_id" ref="res_country_state_co_05"/>
@@ -123,7 +123,7 @@
 		</record>
 		<record id="CO050018" model="res.better.zip">
 		<field name="name">050018</field>
-		<field name="city">MEDELLÍN</field>
+		<field name="city">Medellín</field>
 		<field name="code">05001</field>
 		<field name="phone_prefix">4</field>
 		<field name="state_id" ref="res_country_state_co_05"/>
@@ -131,7 +131,7 @@
 		</record>
 		<record id="CO050020" model="res.better.zip">
 		<field name="name">050020</field>
-		<field name="city">MEDELLÍN</field>
+		<field name="city">Medellín</field>
 		<field name="code">05001</field>
 		<field name="phone_prefix">4</field>
 		<field name="state_id" ref="res_country_state_co_05"/>
@@ -139,7 +139,7 @@
 		</record>
 		<record id="CO050021" model="res.better.zip">
 		<field name="name">050021</field>
-		<field name="city">MEDELLÍN</field>
+		<field name="city">Medellín</field>
 		<field name="code">05001</field>
 		<field name="phone_prefix">4</field>
 		<field name="state_id" ref="res_country_state_co_05"/>
@@ -147,7 +147,7 @@
 		</record>
 		<record id="CO050022" model="res.better.zip">
 		<field name="name">050022</field>
-		<field name="city">MEDELLÍN</field>
+		<field name="city">Medellín</field>
 		<field name="code">05001</field>
 		<field name="phone_prefix">4</field>
 		<field name="state_id" ref="res_country_state_co_05"/>
@@ -155,7 +155,7 @@
 		</record>
 		<record id="CO050023" model="res.better.zip">
 		<field name="name">050023</field>
-		<field name="city">MEDELLÍN</field>
+		<field name="city">Medellín</field>
 		<field name="code">05001</field>
 		<field name="phone_prefix">4</field>
 		<field name="state_id" ref="res_country_state_co_05"/>
@@ -163,7 +163,7 @@
 		</record>
 		<record id="CO050024" model="res.better.zip">
 		<field name="name">050024</field>
-		<field name="city">MEDELLÍN</field>
+		<field name="city">Medellín</field>
 		<field name="code">05001</field>
 		<field name="phone_prefix">4</field>
 		<field name="state_id" ref="res_country_state_co_05"/>
@@ -171,7 +171,7 @@
 		</record>
 		<record id="CO050025" model="res.better.zip">
 		<field name="name">050025</field>
-		<field name="city">MEDELLÍN</field>
+		<field name="city">Medellín</field>
 		<field name="code">05001</field>
 		<field name="phone_prefix">4</field>
 		<field name="state_id" ref="res_country_state_co_05"/>
@@ -179,7 +179,7 @@
 		</record>
 		<record id="CO050026" model="res.better.zip">
 		<field name="name">050026</field>
-		<field name="city">MEDELLÍN</field>
+		<field name="city">Medellín</field>
 		<field name="code">05001</field>
 		<field name="phone_prefix">4</field>
 		<field name="state_id" ref="res_country_state_co_05"/>
@@ -187,7 +187,7 @@
 		</record>
 		<record id="CO050027" model="res.better.zip">
 		<field name="name">050027</field>
-		<field name="city">MEDELLÍN</field>
+		<field name="city">Medellín</field>
 		<field name="code">05001</field>
 		<field name="phone_prefix">4</field>
 		<field name="state_id" ref="res_country_state_co_05"/>
@@ -195,7 +195,7 @@
 		</record>
 		<record id="CO050028" model="res.better.zip">
 		<field name="name">050028</field>
-		<field name="city">MEDELLÍN</field>
+		<field name="city">Medellín</field>
 		<field name="code">05001</field>
 		<field name="phone_prefix">4</field>
 		<field name="state_id" ref="res_country_state_co_05"/>
@@ -203,7 +203,7 @@
 		</record>
 		<record id="CO050029" model="res.better.zip">
 		<field name="name">050029</field>
-		<field name="city">MEDELLÍN</field>
+		<field name="city">Medellín</field>
 		<field name="code">05001</field>
 		<field name="phone_prefix">4</field>
 		<field name="state_id" ref="res_country_state_co_05"/>
@@ -211,7 +211,7 @@
 		</record>
 		<record id="CO050030" model="res.better.zip">
 		<field name="name">050030</field>
-		<field name="city">MEDELLÍN</field>
+		<field name="city">Medellín</field>
 		<field name="code">05001</field>
 		<field name="phone_prefix">4</field>
 		<field name="state_id" ref="res_country_state_co_05"/>
@@ -219,7 +219,7 @@
 		</record>
 		<record id="CO050031" model="res.better.zip">
 		<field name="name">050031</field>
-		<field name="city">MEDELLÍN</field>
+		<field name="city">Medellín</field>
 		<field name="code">05001</field>
 		<field name="phone_prefix">4</field>
 		<field name="state_id" ref="res_country_state_co_05"/>
@@ -227,7 +227,7 @@
 		</record>
 		<record id="CO050032" model="res.better.zip">
 		<field name="name">050032</field>
-		<field name="city">MEDELLÍN</field>
+		<field name="city">Medellín</field>
 		<field name="code">05001</field>
 		<field name="phone_prefix">4</field>
 		<field name="state_id" ref="res_country_state_co_05"/>
@@ -235,7 +235,7 @@
 		</record>
 		<record id="CO050033" model="res.better.zip">
 		<field name="name">050033</field>
-		<field name="city">MEDELLÍN</field>
+		<field name="city">Medellín</field>
 		<field name="code">05001</field>
 		<field name="phone_prefix">4</field>
 		<field name="state_id" ref="res_country_state_co_05"/>
@@ -243,7 +243,7 @@
 		</record>
 		<record id="CO050034" model="res.better.zip">
 		<field name="name">050034</field>
-		<field name="city">MEDELLÍN</field>
+		<field name="city">Medellín</field>
 		<field name="code">05001</field>
 		<field name="phone_prefix">4</field>
 		<field name="state_id" ref="res_country_state_co_05"/>
@@ -251,7 +251,7 @@
 		</record>
 		<record id="CO050035" model="res.better.zip">
 		<field name="name">050035</field>
-		<field name="city">MEDELLÍN</field>
+		<field name="city">Medellín</field>
 		<field name="code">05001</field>
 		<field name="phone_prefix">4</field>
 		<field name="state_id" ref="res_country_state_co_05"/>
@@ -259,7 +259,7 @@
 		</record>
 		<record id="CO050036" model="res.better.zip">
 		<field name="name">050036</field>
-		<field name="city">MEDELLÍN</field>
+		<field name="city">Medellín</field>
 		<field name="code">05001</field>
 		<field name="phone_prefix">4</field>
 		<field name="state_id" ref="res_country_state_co_05"/>
@@ -267,7 +267,7 @@
 		</record>
 		<record id="CO050037" model="res.better.zip">
 		<field name="name">050037</field>
-		<field name="city">MEDELLÍN</field>
+		<field name="city">Medellín</field>
 		<field name="code">05001</field>
 		<field name="phone_prefix">4</field>
 		<field name="state_id" ref="res_country_state_co_05"/>
@@ -275,7 +275,7 @@
 		</record>
 		<record id="CO050040" model="res.better.zip">
 		<field name="name">050040</field>
-		<field name="city">MEDELLÍN</field>
+		<field name="city">Medellín</field>
 		<field name="code">05001</field>
 		<field name="phone_prefix">4</field>
 		<field name="state_id" ref="res_country_state_co_05"/>
@@ -283,7 +283,7 @@
 		</record>
 		<record id="CO050041" model="res.better.zip">
 		<field name="name">050041</field>
-		<field name="city">MEDELLÍN</field>
+		<field name="city">Medellín</field>
 		<field name="code">05001</field>
 		<field name="phone_prefix">4</field>
 		<field name="state_id" ref="res_country_state_co_05"/>
@@ -291,7 +291,7 @@
 		</record>
 		<record id="CO050042" model="res.better.zip">
 		<field name="name">050042</field>
-		<field name="city">MEDELLÍN</field>
+		<field name="city">Medellín</field>
 		<field name="code">05001</field>
 		<field name="phone_prefix">4</field>
 		<field name="state_id" ref="res_country_state_co_05"/>
@@ -299,7 +299,7 @@
 		</record>
 		<record id="CO050043" model="res.better.zip">
 		<field name="name">050043</field>
-		<field name="city">MEDELLÍN</field>
+		<field name="city">Medellín</field>
 		<field name="code">05001</field>
 		<field name="phone_prefix">4</field>
 		<field name="state_id" ref="res_country_state_co_05"/>
@@ -307,7 +307,7 @@
 		</record>
 		<record id="CO050044" model="res.better.zip">
 		<field name="name">050044</field>
-		<field name="city">MEDELLÍN</field>
+		<field name="city">Medellín</field>
 		<field name="code">05001</field>
 		<field name="phone_prefix">4</field>
 		<field name="state_id" ref="res_country_state_co_05"/>
@@ -315,7 +315,7 @@
 		</record>
 		<record id="CO050047" model="res.better.zip">
 		<field name="name">050047</field>
-		<field name="city">MEDELLÍN</field>
+		<field name="city">Medellín</field>
 		<field name="code">05001</field>
 		<field name="phone_prefix">4</field>
 		<field name="state_id" ref="res_country_state_co_05"/>
@@ -323,7 +323,7 @@
 		</record>
 		<record id="CO050048" model="res.better.zip">
 		<field name="name">050048</field>
-		<field name="city">MEDELLÍN</field>
+		<field name="city">Medellín</field>
 		<field name="code">05001</field>
 		<field name="phone_prefix">4</field>
 		<field name="state_id" ref="res_country_state_co_05"/>
@@ -331,7 +331,7 @@
 		</record>
 		<record id="CO051010" model="res.better.zip">
 		<field name="name">051010</field>
-		<field name="city">SAN PEDRO DE LOS MILAGROS</field>
+		<field name="city">San Pedro De Los Milagros</field>
 		<field name="code">05664</field>
 		<field name="phone_prefix">4</field>
 		<field name="state_id" ref="res_country_state_co_05"/>
@@ -339,7 +339,7 @@
 		</record>
 		<record id="CO051017" model="res.better.zip">
 		<field name="name">051017</field>
-		<field name="city">SAN PEDRO DE LOS MILAGROS</field>
+		<field name="city">San Pedro De Los Milagros</field>
 		<field name="code">05664</field>
 		<field name="phone_prefix">4</field>
 		<field name="state_id" ref="res_country_state_co_05"/>
@@ -347,7 +347,7 @@
 		</record>
 		<record id="CO051020" model="res.better.zip">
 		<field name="name">051020</field>
-		<field name="city">BARBOSA</field>
+		<field name="city">Barbosa</field>
 		<field name="code">05079</field>
 		<field name="phone_prefix">4</field>
 		<field name="state_id" ref="res_country_state_co_05"/>
@@ -355,7 +355,7 @@
 		</record>
 		<record id="CO051027" model="res.better.zip">
 		<field name="name">051027</field>
-		<field name="city">BARBOSA</field>
+		<field name="city">Barbosa</field>
 		<field name="code">05079</field>
 		<field name="phone_prefix">4</field>
 		<field name="state_id" ref="res_country_state_co_05"/>
@@ -363,7 +363,7 @@
 		</record>
 		<record id="CO051028" model="res.better.zip">
 		<field name="name">051028</field>
-		<field name="city">BARBOSA</field>
+		<field name="city">Barbosa</field>
 		<field name="code">05079</field>
 		<field name="phone_prefix">4</field>
 		<field name="state_id" ref="res_country_state_co_05"/>
@@ -371,7 +371,7 @@
 		</record>
 		<record id="CO051030" model="res.better.zip">
 		<field name="name">051030</field>
-		<field name="city">GIRARDOTA</field>
+		<field name="city">Girardota</field>
 		<field name="code">05308</field>
 		<field name="phone_prefix">4</field>
 		<field name="state_id" ref="res_country_state_co_05"/>
@@ -379,7 +379,7 @@
 		</record>
 		<record id="CO051037" model="res.better.zip">
 		<field name="name">051037</field>
-		<field name="city">GIRARDOTA</field>
+		<field name="city">Girardota</field>
 		<field name="code">05308</field>
 		<field name="phone_prefix">4</field>
 		<field name="state_id" ref="res_country_state_co_05"/>
@@ -387,7 +387,7 @@
 		</record>
 		<record id="CO051038" model="res.better.zip">
 		<field name="name">051038</field>
-		<field name="city">GIRARDOTA</field>
+		<field name="city">Girardota</field>
 		<field name="code">05308</field>
 		<field name="phone_prefix">4</field>
 		<field name="state_id" ref="res_country_state_co_05"/>
@@ -395,7 +395,7 @@
 		</record>
 		<record id="CO051040" model="res.better.zip">
 		<field name="name">051040</field>
-		<field name="city">COPACABANA</field>
+		<field name="city">Copacabana</field>
 		<field name="code">05212</field>
 		<field name="phone_prefix">4</field>
 		<field name="state_id" ref="res_country_state_co_05"/>
@@ -403,7 +403,7 @@
 		</record>
 		<record id="CO051047" model="res.better.zip">
 		<field name="name">051047</field>
-		<field name="city">COPACABANA</field>
+		<field name="city">Copacabana</field>
 		<field name="code">05212</field>
 		<field name="phone_prefix">4</field>
 		<field name="state_id" ref="res_country_state_co_05"/>
@@ -411,7 +411,7 @@
 		</record>
 		<record id="CO051048" model="res.better.zip">
 		<field name="name">051048</field>
-		<field name="city">COPACABANA</field>
+		<field name="city">Copacabana</field>
 		<field name="code">05212</field>
 		<field name="phone_prefix">4</field>
 		<field name="state_id" ref="res_country_state_co_05"/>
@@ -419,7 +419,7 @@
 		</record>
 		<record id="CO051050" model="res.better.zip">
 		<field name="name">051050</field>
-		<field name="city">BELLO</field>
+		<field name="city">Bello</field>
 		<field name="code">05088</field>
 		<field name="phone_prefix">4</field>
 		<field name="state_id" ref="res_country_state_co_05"/>
@@ -427,7 +427,7 @@
 		</record>
 		<record id="CO051051" model="res.better.zip">
 		<field name="name">051051</field>
-		<field name="city">BELLO</field>
+		<field name="city">Bello</field>
 		<field name="code">05088</field>
 		<field name="phone_prefix">4</field>
 		<field name="state_id" ref="res_country_state_co_05"/>
@@ -435,7 +435,7 @@
 		</record>
 		<record id="CO051052" model="res.better.zip">
 		<field name="name">051052</field>
-		<field name="city">BELLO</field>
+		<field name="city">Bello</field>
 		<field name="code">05088</field>
 		<field name="phone_prefix">4</field>
 		<field name="state_id" ref="res_country_state_co_05"/>
@@ -443,7 +443,7 @@
 		</record>
 		<record id="CO051053" model="res.better.zip">
 		<field name="name">051053</field>
-		<field name="city">BELLO</field>
+		<field name="city">Bello</field>
 		<field name="code">05088</field>
 		<field name="phone_prefix">4</field>
 		<field name="state_id" ref="res_country_state_co_05"/>
@@ -451,7 +451,7 @@
 		</record>
 		<record id="CO051054" model="res.better.zip">
 		<field name="name">051054</field>
-		<field name="city">BELLO</field>
+		<field name="city">Bello</field>
 		<field name="code">05088</field>
 		<field name="phone_prefix">4</field>
 		<field name="state_id" ref="res_country_state_co_05"/>
@@ -459,7 +459,7 @@
 		</record>
 		<record id="CO051057" model="res.better.zip">
 		<field name="name">051057</field>
-		<field name="city">BELLO</field>
+		<field name="city">Bello</field>
 		<field name="code">05088</field>
 		<field name="phone_prefix">4</field>
 		<field name="state_id" ref="res_country_state_co_05"/>
@@ -467,7 +467,7 @@
 		</record>
 		<record id="CO051058" model="res.better.zip">
 		<field name="name">051058</field>
-		<field name="city">BELLO</field>
+		<field name="city">Bello</field>
 		<field name="code">05088</field>
 		<field name="phone_prefix">4</field>
 		<field name="state_id" ref="res_country_state_co_05"/>
@@ -475,7 +475,7 @@
 		</record>
 		<record id="CO051059" model="res.better.zip">
 		<field name="name">051059</field>
-		<field name="city">BELLO</field>
+		<field name="city">Bello</field>
 		<field name="code">05088</field>
 		<field name="phone_prefix">4</field>
 		<field name="state_id" ref="res_country_state_co_05"/>
@@ -1843,7 +1843,7 @@
 		</record>
 		<record id="CO055040" model="res.better.zip">
 		<field name="name">055040</field>
-		<field name="city">MONTEBELLO</field>
+		<field name="city">MONTEBello</field>
 		<field name="code">05467</field>
 		<field name="phone_prefix">4</field>
 		<field name="state_id" ref="res_country_state_co_05"/>
@@ -1851,7 +1851,7 @@
 		</record>
 		<record id="CO055047" model="res.better.zip">
 		<field name="name">055047</field>
-		<field name="city">MONTEBELLO</field>
+		<field name="city">MONTEBello</field>
 		<field name="code">05467</field>
 		<field name="phone_prefix">4</field>
 		<field name="state_id" ref="res_country_state_co_05"/>
@@ -1859,7 +1859,7 @@
 		</record>
 		<record id="CO055048" model="res.better.zip">
 		<field name="name">055048</field>
-		<field name="city">MONTEBELLO</field>
+		<field name="city">MONTEBello</field>
 		<field name="code">05467</field>
 		<field name="phone_prefix">4</field>
 		<field name="state_id" ref="res_country_state_co_05"/>
@@ -10627,7 +10627,7 @@
 		</record>
 		<record id="CO201001" model="res.better.zip">
 		<field name="name">201001</field>
-		<field name="city">PUEBLO BELLO</field>
+		<field name="city">PUEBLO Bello</field>
 		<field name="code">20570</field>
 		<field name="phone_prefix">5</field>
 		<field name="state_id" ref="res_country_state_co_20"/>
@@ -10635,7 +10635,7 @@
 		</record>
 		<record id="CO201007" model="res.better.zip">
 		<field name="name">201007</field>
-		<field name="city">PUEBLO BELLO</field>
+		<field name="city">PUEBLO Bello</field>
 		<field name="code">20570</field>
 		<field name="phone_prefix">5</field>
 		<field name="state_id" ref="res_country_state_co_20"/>
@@ -10643,7 +10643,7 @@
 		</record>
 		<record id="CO201008" model="res.better.zip">
 		<field name="name">201008</field>
-		<field name="city">PUEBLO BELLO</field>
+		<field name="city">PUEBLO Bello</field>
 		<field name="code">20570</field>
 		<field name="phone_prefix">5</field>
 		<field name="state_id" ref="res_country_state_co_20"/>
@@ -23331,7 +23331,7 @@
 		</record>
 		<record id="CO684511" model="res.better.zip">
 		<field name="name">684511</field>
-		<field name="city">BARBOSA</field>
+		<field name="city">Barbosa</field>
 		<field name="code">68077</field>
 		<field name="phone_prefix">7</field>
 		<field name="state_id" ref="res_country_state_co_68"/>
@@ -23339,7 +23339,7 @@
 		</record>
 		<record id="CO684517" model="res.better.zip">
 		<field name="name">684517</field>
-		<field name="city">BARBOSA</field>
+		<field name="city">Barbosa</field>
 		<field name="code">68077</field>
 		<field name="phone_prefix">7</field>
 		<field name="state_id" ref="res_country_state_co_68"/>
