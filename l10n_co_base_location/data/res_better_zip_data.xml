@@ -3683,7 +3683,7 @@
 		</record>
 		<record id="CO110111" model="res.better.zip">
 		<field name="name">110111</field>
-		<field name="city">BOGOTÁ, D.C.</field>
+		<field name="city">Bogotá, D.C.</field>
 		<field name="code">11001</field>
 		<field name="phone_prefix">1</field>
 		<field name="state_id" ref="res_country_state_co_11"/>
@@ -3691,7 +3691,7 @@
 		</record>
 		<record id="CO110121" model="res.better.zip">
 		<field name="name">110121</field>
-		<field name="city">BOGOTÁ, D.C.</field>
+		<field name="city">Bogotá, D.C.</field>
 		<field name="code">11001</field>
 		<field name="phone_prefix">1</field>
 		<field name="state_id" ref="res_country_state_co_11"/>
@@ -3699,7 +3699,7 @@
 		</record>
 		<record id="CO110131" model="res.better.zip">
 		<field name="name">110131</field>
-		<field name="city">BOGOTÁ, D.C.</field>
+		<field name="city">Bogotá, D.C.</field>
 		<field name="code">11001</field>
 		<field name="phone_prefix">1</field>
 		<field name="state_id" ref="res_country_state_co_11"/>
@@ -3707,7 +3707,7 @@
 		</record>
 		<record id="CO110141" model="res.better.zip">
 		<field name="name">110141</field>
-		<field name="city">BOGOTÁ, D.C.</field>
+		<field name="city">Bogotá, D.C.</field>
 		<field name="code">11001</field>
 		<field name="phone_prefix">1</field>
 		<field name="state_id" ref="res_country_state_co_11"/>
@@ -3715,7 +3715,7 @@
 		</record>
 		<record id="CO110151" model="res.better.zip">
 		<field name="name">110151</field>
-		<field name="city">BOGOTÁ, D.C.</field>
+		<field name="city">Bogotá, D.C.</field>
 		<field name="code">11001</field>
 		<field name="phone_prefix">1</field>
 		<field name="state_id" ref="res_country_state_co_11"/>
@@ -3723,7 +3723,7 @@
 		</record>
 		<record id="CO110211" model="res.better.zip">
 		<field name="name">110211</field>
-		<field name="city">BOGOTÁ, D.C.</field>
+		<field name="city">Bogotá, D.C.</field>
 		<field name="code">11001</field>
 		<field name="phone_prefix">1</field>
 		<field name="state_id" ref="res_country_state_co_11"/>
@@ -3731,7 +3731,7 @@
 		</record>
 		<record id="CO110221" model="res.better.zip">
 		<field name="name">110221</field>
-		<field name="city">BOGOTÁ, D.C.</field>
+		<field name="city">Bogotá, D.C.</field>
 		<field name="code">11001</field>
 		<field name="phone_prefix">1</field>
 		<field name="state_id" ref="res_country_state_co_11"/>
@@ -3739,7 +3739,7 @@
 		</record>
 		<record id="CO110231" model="res.better.zip">
 		<field name="name">110231</field>
-		<field name="city">BOGOTÁ, D.C.</field>
+		<field name="city">Bogotá, D.C.</field>
 		<field name="code">11001</field>
 		<field name="phone_prefix">1</field>
 		<field name="state_id" ref="res_country_state_co_11"/>
@@ -3747,7 +3747,7 @@
 		</record>
 		<record id="CO110311" model="res.better.zip">
 		<field name="name">110311</field>
-		<field name="city">BOGOTÁ, D.C.</field>
+		<field name="city">Bogotá, D.C.</field>
 		<field name="code">11001</field>
 		<field name="phone_prefix">1</field>
 		<field name="state_id" ref="res_country_state_co_11"/>
@@ -3755,7 +3755,7 @@
 		</record>
 		<record id="CO110321" model="res.better.zip">
 		<field name="name">110321</field>
-		<field name="city">BOGOTÁ, D.C.</field>
+		<field name="city">Bogotá, D.C.</field>
 		<field name="code">11001</field>
 		<field name="phone_prefix">1</field>
 		<field name="state_id" ref="res_country_state_co_11"/>
@@ -3763,7 +3763,7 @@
 		</record>
 		<record id="CO110411" model="res.better.zip">
 		<field name="name">110411</field>
-		<field name="city">BOGOTÁ, D.C.</field>
+		<field name="city">Bogotá, D.C.</field>
 		<field name="code">11001</field>
 		<field name="phone_prefix">1</field>
 		<field name="state_id" ref="res_country_state_co_11"/>
@@ -3771,7 +3771,7 @@
 		</record>
 		<record id="CO110421" model="res.better.zip">
 		<field name="name">110421</field>
-		<field name="city">BOGOTÁ, D.C.</field>
+		<field name="city">Bogotá, D.C.</field>
 		<field name="code">11001</field>
 		<field name="phone_prefix">1</field>
 		<field name="state_id" ref="res_country_state_co_11"/>
@@ -3779,7 +3779,7 @@
 		</record>
 		<record id="CO110431" model="res.better.zip">
 		<field name="name">110431</field>
-		<field name="city">BOGOTÁ, D.C.</field>
+		<field name="city">Bogotá, D.C.</field>
 		<field name="code">11001</field>
 		<field name="phone_prefix">1</field>
 		<field name="state_id" ref="res_country_state_co_11"/>
@@ -3787,7 +3787,7 @@
 		</record>
 		<record id="CO110441" model="res.better.zip">
 		<field name="name">110441</field>
-		<field name="city">BOGOTÁ, D.C.</field>
+		<field name="city">Bogotá, D.C.</field>
 		<field name="code">11001</field>
 		<field name="phone_prefix">1</field>
 		<field name="state_id" ref="res_country_state_co_11"/>
@@ -3795,7 +3795,7 @@
 		</record>
 		<record id="CO110511" model="res.better.zip">
 		<field name="name">110511</field>
-		<field name="city">BOGOTÁ, D.C.</field>
+		<field name="city">Bogotá, D.C.</field>
 		<field name="code">11001</field>
 		<field name="phone_prefix">1</field>
 		<field name="state_id" ref="res_country_state_co_11"/>
@@ -3803,7 +3803,7 @@
 		</record>
 		<record id="CO110521" model="res.better.zip">
 		<field name="name">110521</field>
-		<field name="city">BOGOTÁ, D.C.</field>
+		<field name="city">Bogotá, D.C.</field>
 		<field name="code">11001</field>
 		<field name="phone_prefix">1</field>
 		<field name="state_id" ref="res_country_state_co_11"/>
@@ -3811,7 +3811,7 @@
 		</record>
 		<record id="CO110531" model="res.better.zip">
 		<field name="name">110531</field>
-		<field name="city">BOGOTÁ, D.C.</field>
+		<field name="city">Bogotá, D.C.</field>
 		<field name="code">11001</field>
 		<field name="phone_prefix">1</field>
 		<field name="state_id" ref="res_country_state_co_11"/>
@@ -3819,7 +3819,7 @@
 		</record>
 		<record id="CO110541" model="res.better.zip">
 		<field name="name">110541</field>
-		<field name="city">BOGOTÁ, D.C.</field>
+		<field name="city">Bogotá, D.C.</field>
 		<field name="code">11001</field>
 		<field name="phone_prefix">1</field>
 		<field name="state_id" ref="res_country_state_co_11"/>
@@ -3827,7 +3827,7 @@
 		</record>
 		<record id="CO110551" model="res.better.zip">
 		<field name="name">110551</field>
-		<field name="city">BOGOTÁ, D.C.</field>
+		<field name="city">Bogotá, D.C.</field>
 		<field name="code">11001</field>
 		<field name="phone_prefix">1</field>
 		<field name="state_id" ref="res_country_state_co_11"/>
@@ -3835,7 +3835,7 @@
 		</record>
 		<record id="CO110561" model="res.better.zip">
 		<field name="name">110561</field>
-		<field name="city">BOGOTÁ, D.C.</field>
+		<field name="city">Bogotá, D.C.</field>
 		<field name="code">11001</field>
 		<field name="phone_prefix">1</field>
 		<field name="state_id" ref="res_country_state_co_11"/>
@@ -3843,7 +3843,7 @@
 		</record>
 		<record id="CO110571" model="res.better.zip">
 		<field name="name">110571</field>
-		<field name="city">BOGOTÁ, D.C.</field>
+		<field name="city">Bogotá, D.C.</field>
 		<field name="code">11001</field>
 		<field name="phone_prefix">1</field>
 		<field name="state_id" ref="res_country_state_co_11"/>
@@ -3851,7 +3851,7 @@
 		</record>
 		<record id="CO110611" model="res.better.zip">
 		<field name="name">110611</field>
-		<field name="city">BOGOTÁ, D.C.</field>
+		<field name="city">Bogotá, D.C.</field>
 		<field name="code">11001</field>
 		<field name="phone_prefix">1</field>
 		<field name="state_id" ref="res_country_state_co_11"/>
@@ -3859,7 +3859,7 @@
 		</record>
 		<record id="CO110621" model="res.better.zip">
 		<field name="name">110621</field>
-		<field name="city">BOGOTÁ, D.C.</field>
+		<field name="city">Bogotá, D.C.</field>
 		<field name="code">11001</field>
 		<field name="phone_prefix">1</field>
 		<field name="state_id" ref="res_country_state_co_11"/>
@@ -3867,7 +3867,7 @@
 		</record>
 		<record id="CO110711" model="res.better.zip">
 		<field name="name">110711</field>
-		<field name="city">BOGOTÁ, D.C.</field>
+		<field name="city">Bogotá, D.C.</field>
 		<field name="code">11001</field>
 		<field name="phone_prefix">1</field>
 		<field name="state_id" ref="res_country_state_co_11"/>
@@ -3875,7 +3875,7 @@
 		</record>
 		<record id="CO110721" model="res.better.zip">
 		<field name="name">110721</field>
-		<field name="city">BOGOTÁ, D.C.</field>
+		<field name="city">Bogotá, D.C.</field>
 		<field name="code">11001</field>
 		<field name="phone_prefix">1</field>
 		<field name="state_id" ref="res_country_state_co_11"/>
@@ -3883,7 +3883,7 @@
 		</record>
 		<record id="CO110731" model="res.better.zip">
 		<field name="name">110731</field>
-		<field name="city">BOGOTÁ, D.C.</field>
+		<field name="city">Bogotá, D.C.</field>
 		<field name="code">11001</field>
 		<field name="phone_prefix">1</field>
 		<field name="state_id" ref="res_country_state_co_11"/>
@@ -3891,7 +3891,7 @@
 		</record>
 		<record id="CO110741" model="res.better.zip">
 		<field name="name">110741</field>
-		<field name="city">BOGOTÁ, D.C.</field>
+		<field name="city">Bogotá, D.C.</field>
 		<field name="code">11001</field>
 		<field name="phone_prefix">1</field>
 		<field name="state_id" ref="res_country_state_co_11"/>
@@ -3899,7 +3899,7 @@
 		</record>
 		<record id="CO110811" model="res.better.zip">
 		<field name="name">110811</field>
-		<field name="city">BOGOTÁ, D.C.</field>
+		<field name="city">Bogotá, D.C.</field>
 		<field name="code">11001</field>
 		<field name="phone_prefix">1</field>
 		<field name="state_id" ref="res_country_state_co_11"/>
@@ -3907,7 +3907,7 @@
 		</record>
 		<record id="CO110821" model="res.better.zip">
 		<field name="name">110821</field>
-		<field name="city">BOGOTÁ, D.C.</field>
+		<field name="city">Bogotá, D.C.</field>
 		<field name="code">11001</field>
 		<field name="phone_prefix">1</field>
 		<field name="state_id" ref="res_country_state_co_11"/>
@@ -3915,7 +3915,7 @@
 		</record>
 		<record id="CO110831" model="res.better.zip">
 		<field name="name">110831</field>
-		<field name="city">BOGOTÁ, D.C.</field>
+		<field name="city">Bogotá, D.C.</field>
 		<field name="code">11001</field>
 		<field name="phone_prefix">1</field>
 		<field name="state_id" ref="res_country_state_co_11"/>
@@ -3923,7 +3923,7 @@
 		</record>
 		<record id="CO110841" model="res.better.zip">
 		<field name="name">110841</field>
-		<field name="city">BOGOTÁ, D.C.</field>
+		<field name="city">Bogotá, D.C.</field>
 		<field name="code">11001</field>
 		<field name="phone_prefix">1</field>
 		<field name="state_id" ref="res_country_state_co_11"/>
@@ -3931,7 +3931,7 @@
 		</record>
 		<record id="CO110851" model="res.better.zip">
 		<field name="name">110851</field>
-		<field name="city">BOGOTÁ, D.C.</field>
+		<field name="city">Bogotá, D.C.</field>
 		<field name="code">11001</field>
 		<field name="phone_prefix">1</field>
 		<field name="state_id" ref="res_country_state_co_11"/>
@@ -3939,7 +3939,7 @@
 		</record>
 		<record id="CO110861" model="res.better.zip">
 		<field name="name">110861</field>
-		<field name="city">BOGOTÁ, D.C.</field>
+		<field name="city">Bogotá, D.C.</field>
 		<field name="code">11001</field>
 		<field name="phone_prefix">1</field>
 		<field name="state_id" ref="res_country_state_co_11"/>
@@ -3947,7 +3947,7 @@
 		</record>
 		<record id="CO110871" model="res.better.zip">
 		<field name="name">110871</field>
-		<field name="city">BOGOTÁ, D.C.</field>
+		<field name="city">Bogotá, D.C.</field>
 		<field name="code">11001</field>
 		<field name="phone_prefix">1</field>
 		<field name="state_id" ref="res_country_state_co_11"/>
@@ -3955,7 +3955,7 @@
 		</record>
 		<record id="CO110881" model="res.better.zip">
 		<field name="name">110881</field>
-		<field name="city">BOGOTÁ, D.C.</field>
+		<field name="city">Bogotá, D.C.</field>
 		<field name="code">11001</field>
 		<field name="phone_prefix">1</field>
 		<field name="state_id" ref="res_country_state_co_11"/>
@@ -3963,7 +3963,7 @@
 		</record>
 		<record id="CO110911" model="res.better.zip">
 		<field name="name">110911</field>
-		<field name="city">BOGOTÁ, D.C.</field>
+		<field name="city">Bogotá, D.C.</field>
 		<field name="code">11001</field>
 		<field name="phone_prefix">1</field>
 		<field name="state_id" ref="res_country_state_co_11"/>
@@ -3971,7 +3971,7 @@
 		</record>
 		<record id="CO110921" model="res.better.zip">
 		<field name="name">110921</field>
-		<field name="city">BOGOTÁ, D.C.</field>
+		<field name="city">Bogotá, D.C.</field>
 		<field name="code">11001</field>
 		<field name="phone_prefix">1</field>
 		<field name="state_id" ref="res_country_state_co_11"/>
@@ -3979,7 +3979,7 @@
 		</record>
 		<record id="CO110931" model="res.better.zip">
 		<field name="name">110931</field>
-		<field name="city">BOGOTÁ, D.C.</field>
+		<field name="city">Bogotá, D.C.</field>
 		<field name="code">11001</field>
 		<field name="phone_prefix">1</field>
 		<field name="state_id" ref="res_country_state_co_11"/>
@@ -3987,7 +3987,7 @@
 		</record>
 		<record id="CO111011" model="res.better.zip">
 		<field name="name">111011</field>
-		<field name="city">BOGOTÁ, D.C.</field>
+		<field name="city">Bogotá, D.C.</field>
 		<field name="code">11001</field>
 		<field name="phone_prefix">1</field>
 		<field name="state_id" ref="res_country_state_co_11"/>
@@ -3995,7 +3995,7 @@
 		</record>
 		<record id="CO111021" model="res.better.zip">
 		<field name="name">111021</field>
-		<field name="city">BOGOTÁ, D.C.</field>
+		<field name="city">Bogotá, D.C.</field>
 		<field name="code">11001</field>
 		<field name="phone_prefix">1</field>
 		<field name="state_id" ref="res_country_state_co_11"/>
@@ -4003,7 +4003,7 @@
 		</record>
 		<record id="CO111031" model="res.better.zip">
 		<field name="name">111031</field>
-		<field name="city">BOGOTÁ, D.C.</field>
+		<field name="city">Bogotá, D.C.</field>
 		<field name="code">11001</field>
 		<field name="phone_prefix">1</field>
 		<field name="state_id" ref="res_country_state_co_11"/>
@@ -4011,7 +4011,7 @@
 		</record>
 		<record id="CO111041" model="res.better.zip">
 		<field name="name">111041</field>
-		<field name="city">BOGOTÁ, D.C.</field>
+		<field name="city">Bogotá, D.C.</field>
 		<field name="code">11001</field>
 		<field name="phone_prefix">1</field>
 		<field name="state_id" ref="res_country_state_co_11"/>
@@ -4019,7 +4019,7 @@
 		</record>
 		<record id="CO111051" model="res.better.zip">
 		<field name="name">111051</field>
-		<field name="city">BOGOTÁ, D.C.</field>
+		<field name="city">Bogotá, D.C.</field>
 		<field name="code">11001</field>
 		<field name="phone_prefix">1</field>
 		<field name="state_id" ref="res_country_state_co_11"/>
@@ -4027,7 +4027,7 @@
 		</record>
 		<record id="CO111061" model="res.better.zip">
 		<field name="name">111061</field>
-		<field name="city">BOGOTÁ, D.C.</field>
+		<field name="city">Bogotá, D.C.</field>
 		<field name="code">11001</field>
 		<field name="phone_prefix">1</field>
 		<field name="state_id" ref="res_country_state_co_11"/>
@@ -4035,7 +4035,7 @@
 		</record>
 		<record id="CO111071" model="res.better.zip">
 		<field name="name">111071</field>
-		<field name="city">BOGOTÁ, D.C.</field>
+		<field name="city">Bogotá, D.C.</field>
 		<field name="code">11001</field>
 		<field name="phone_prefix">1</field>
 		<field name="state_id" ref="res_country_state_co_11"/>
@@ -4043,7 +4043,7 @@
 		</record>
 		<record id="CO111111" model="res.better.zip">
 		<field name="name">111111</field>
-		<field name="city">BOGOTÁ, D.C.</field>
+		<field name="city">Bogotá, D.C.</field>
 		<field name="code">11001</field>
 		<field name="phone_prefix">1</field>
 		<field name="state_id" ref="res_country_state_co_11"/>
@@ -4051,7 +4051,7 @@
 		</record>
 		<record id="CO111121" model="res.better.zip">
 		<field name="name">111121</field>
-		<field name="city">BOGOTÁ, D.C.</field>
+		<field name="city">Bogotá, D.C.</field>
 		<field name="code">11001</field>
 		<field name="phone_prefix">1</field>
 		<field name="state_id" ref="res_country_state_co_11"/>
@@ -4059,7 +4059,7 @@
 		</record>
 		<record id="CO111131" model="res.better.zip">
 		<field name="name">111131</field>
-		<field name="city">BOGOTÁ, D.C.</field>
+		<field name="city">Bogotá, D.C.</field>
 		<field name="code">11001</field>
 		<field name="phone_prefix">1</field>
 		<field name="state_id" ref="res_country_state_co_11"/>
@@ -4067,7 +4067,7 @@
 		</record>
 		<record id="CO111141" model="res.better.zip">
 		<field name="name">111141</field>
-		<field name="city">BOGOTÁ, D.C.</field>
+		<field name="city">Bogotá, D.C.</field>
 		<field name="code">11001</field>
 		<field name="phone_prefix">1</field>
 		<field name="state_id" ref="res_country_state_co_11"/>
@@ -4075,7 +4075,7 @@
 		</record>
 		<record id="CO111151" model="res.better.zip">
 		<field name="name">111151</field>
-		<field name="city">BOGOTÁ, D.C.</field>
+		<field name="city">Bogotá, D.C.</field>
 		<field name="code">11001</field>
 		<field name="phone_prefix">1</field>
 		<field name="state_id" ref="res_country_state_co_11"/>
@@ -4083,7 +4083,7 @@
 		</record>
 		<record id="CO111156" model="res.better.zip">
 		<field name="name">111156</field>
-		<field name="city">BOGOTÁ, D.C.</field>
+		<field name="city">Bogotá, D.C.</field>
 		<field name="code">11001</field>
 		<field name="phone_prefix">1</field>
 		<field name="state_id" ref="res_country_state_co_11"/>
@@ -4091,7 +4091,7 @@
 		</record>
 		<record id="CO111161" model="res.better.zip">
 		<field name="name">111161</field>
-		<field name="city">BOGOTÁ, D.C.</field>
+		<field name="city">Bogotá, D.C.</field>
 		<field name="code">11001</field>
 		<field name="phone_prefix">1</field>
 		<field name="state_id" ref="res_country_state_co_11"/>
@@ -4099,7 +4099,7 @@
 		</record>
 		<record id="CO111166" model="res.better.zip">
 		<field name="name">111166</field>
-		<field name="city">BOGOTÁ, D.C.</field>
+		<field name="city">Bogotá, D.C.</field>
 		<field name="code">11001</field>
 		<field name="phone_prefix">1</field>
 		<field name="state_id" ref="res_country_state_co_11"/>
@@ -4107,7 +4107,7 @@
 		</record>
 		<record id="CO111171" model="res.better.zip">
 		<field name="name">111171</field>
-		<field name="city">BOGOTÁ, D.C.</field>
+		<field name="city">Bogotá, D.C.</field>
 		<field name="code">11001</field>
 		<field name="phone_prefix">1</field>
 		<field name="state_id" ref="res_country_state_co_11"/>
@@ -4115,7 +4115,7 @@
 		</record>
 		<record id="CO111176" model="res.better.zip">
 		<field name="name">111176</field>
-		<field name="city">BOGOTÁ, D.C.</field>
+		<field name="city">Bogotá, D.C.</field>
 		<field name="code">11001</field>
 		<field name="phone_prefix">1</field>
 		<field name="state_id" ref="res_country_state_co_11"/>
@@ -4123,7 +4123,7 @@
 		</record>
 		<record id="CO111211" model="res.better.zip">
 		<field name="name">111211</field>
-		<field name="city">BOGOTÁ, D.C.</field>
+		<field name="city">Bogotá, D.C.</field>
 		<field name="code">11001</field>
 		<field name="phone_prefix">1</field>
 		<field name="state_id" ref="res_country_state_co_11"/>
@@ -4131,7 +4131,7 @@
 		</record>
 		<record id="CO111221" model="res.better.zip">
 		<field name="name">111221</field>
-		<field name="city">BOGOTÁ, D.C.</field>
+		<field name="city">Bogotá, D.C.</field>
 		<field name="code">11001</field>
 		<field name="phone_prefix">1</field>
 		<field name="state_id" ref="res_country_state_co_11"/>
@@ -4139,7 +4139,7 @@
 		</record>
 		<record id="CO111311" model="res.better.zip">
 		<field name="name">111311</field>
-		<field name="city">BOGOTÁ, D.C.</field>
+		<field name="city">Bogotá, D.C.</field>
 		<field name="code">11001</field>
 		<field name="phone_prefix">1</field>
 		<field name="state_id" ref="res_country_state_co_11"/>
@@ -4147,7 +4147,7 @@
 		</record>
 		<record id="CO111321" model="res.better.zip">
 		<field name="name">111321</field>
-		<field name="city">BOGOTÁ, D.C.</field>
+		<field name="city">Bogotá, D.C.</field>
 		<field name="code">11001</field>
 		<field name="phone_prefix">1</field>
 		<field name="state_id" ref="res_country_state_co_11"/>
@@ -4155,7 +4155,7 @@
 		</record>
 		<record id="CO111411" model="res.better.zip">
 		<field name="name">111411</field>
-		<field name="city">BOGOTÁ, D.C.</field>
+		<field name="city">Bogotá, D.C.</field>
 		<field name="code">11001</field>
 		<field name="phone_prefix">1</field>
 		<field name="state_id" ref="res_country_state_co_11"/>
@@ -4163,7 +4163,7 @@
 		</record>
 		<record id="CO111511" model="res.better.zip">
 		<field name="name">111511</field>
-		<field name="city">BOGOTÁ, D.C.</field>
+		<field name="city">Bogotá, D.C.</field>
 		<field name="code">11001</field>
 		<field name="phone_prefix">1</field>
 		<field name="state_id" ref="res_country_state_co_11"/>
@@ -4171,7 +4171,7 @@
 		</record>
 		<record id="CO111611" model="res.better.zip">
 		<field name="name">111611</field>
-		<field name="city">BOGOTÁ, D.C.</field>
+		<field name="city">Bogotá, D.C.</field>
 		<field name="code">11001</field>
 		<field name="phone_prefix">1</field>
 		<field name="state_id" ref="res_country_state_co_11"/>
@@ -4179,7 +4179,7 @@
 		</record>
 		<record id="CO111621" model="res.better.zip">
 		<field name="name">111621</field>
-		<field name="city">BOGOTÁ, D.C.</field>
+		<field name="city">Bogotá, D.C.</field>
 		<field name="code">11001</field>
 		<field name="phone_prefix">1</field>
 		<field name="state_id" ref="res_country_state_co_11"/>
@@ -4187,7 +4187,7 @@
 		</record>
 		<record id="CO111631" model="res.better.zip">
 		<field name="name">111631</field>
-		<field name="city">BOGOTÁ, D.C.</field>
+		<field name="city">Bogotá, D.C.</field>
 		<field name="code">11001</field>
 		<field name="phone_prefix">1</field>
 		<field name="state_id" ref="res_country_state_co_11"/>
@@ -4195,7 +4195,7 @@
 		</record>
 		<record id="CO111711" model="res.better.zip">
 		<field name="name">111711</field>
-		<field name="city">BOGOTÁ, D.C.</field>
+		<field name="city">Bogotá, D.C.</field>
 		<field name="code">11001</field>
 		<field name="phone_prefix">1</field>
 		<field name="state_id" ref="res_country_state_co_11"/>
@@ -4203,7 +4203,7 @@
 		</record>
 		<record id="CO111811" model="res.better.zip">
 		<field name="name">111811</field>
-		<field name="city">BOGOTÁ, D.C.</field>
+		<field name="city">Bogotá, D.C.</field>
 		<field name="code">11001</field>
 		<field name="phone_prefix">1</field>
 		<field name="state_id" ref="res_country_state_co_11"/>
@@ -4211,7 +4211,7 @@
 		</record>
 		<record id="CO111821" model="res.better.zip">
 		<field name="name">111821</field>
-		<field name="city">BOGOTÁ, D.C.</field>
+		<field name="city">Bogotá, D.C.</field>
 		<field name="code">11001</field>
 		<field name="phone_prefix">1</field>
 		<field name="state_id" ref="res_country_state_co_11"/>
@@ -4219,7 +4219,7 @@
 		</record>
 		<record id="CO111831" model="res.better.zip">
 		<field name="name">111831</field>
-		<field name="city">BOGOTÁ, D.C.</field>
+		<field name="city">Bogotá, D.C.</field>
 		<field name="code">11001</field>
 		<field name="phone_prefix">1</field>
 		<field name="state_id" ref="res_country_state_co_11"/>
@@ -4227,7 +4227,7 @@
 		</record>
 		<record id="CO111841" model="res.better.zip">
 		<field name="name">111841</field>
-		<field name="city">BOGOTÁ, D.C.</field>
+		<field name="city">Bogotá, D.C.</field>
 		<field name="code">11001</field>
 		<field name="phone_prefix">1</field>
 		<field name="state_id" ref="res_country_state_co_11"/>
@@ -4235,7 +4235,7 @@
 		</record>
 		<record id="CO111911" model="res.better.zip">
 		<field name="name">111911</field>
-		<field name="city">BOGOTÁ, D.C.</field>
+		<field name="city">Bogotá, D.C.</field>
 		<field name="code">11001</field>
 		<field name="phone_prefix">1</field>
 		<field name="state_id" ref="res_country_state_co_11"/>
@@ -4243,7 +4243,7 @@
 		</record>
 		<record id="CO111921" model="res.better.zip">
 		<field name="name">111921</field>
-		<field name="city">BOGOTÁ, D.C.</field>
+		<field name="city">Bogotá, D.C.</field>
 		<field name="code">11001</field>
 		<field name="phone_prefix">1</field>
 		<field name="state_id" ref="res_country_state_co_11"/>
@@ -4251,7 +4251,7 @@
 		</record>
 		<record id="CO111931" model="res.better.zip">
 		<field name="name">111931</field>
-		<field name="city">BOGOTÁ, D.C.</field>
+		<field name="city">Bogotá, D.C.</field>
 		<field name="code">11001</field>
 		<field name="phone_prefix">1</field>
 		<field name="state_id" ref="res_country_state_co_11"/>
@@ -4259,7 +4259,7 @@
 		</record>
 		<record id="CO111941" model="res.better.zip">
 		<field name="name">111941</field>
-		<field name="city">BOGOTÁ, D.C.</field>
+		<field name="city">Bogotá, D.C.</field>
 		<field name="code">11001</field>
 		<field name="phone_prefix">1</field>
 		<field name="state_id" ref="res_country_state_co_11"/>
@@ -4267,7 +4267,7 @@
 		</record>
 		<record id="CO111951" model="res.better.zip">
 		<field name="name">111951</field>
-		<field name="city">BOGOTÁ, D.C.</field>
+		<field name="city">Bogotá, D.C.</field>
 		<field name="code">11001</field>
 		<field name="phone_prefix">1</field>
 		<field name="state_id" ref="res_country_state_co_11"/>
@@ -4275,7 +4275,7 @@
 		</record>
 		<record id="CO111961" model="res.better.zip">
 		<field name="name">111961</field>
-		<field name="city">BOGOTÁ, D.C.</field>
+		<field name="city">Bogotá, D.C.</field>
 		<field name="code">11001</field>
 		<field name="phone_prefix">1</field>
 		<field name="state_id" ref="res_country_state_co_11"/>
@@ -4283,7 +4283,7 @@
 		</record>
 		<record id="CO111971" model="res.better.zip">
 		<field name="name">111971</field>
-		<field name="city">BOGOTÁ, D.C.</field>
+		<field name="city">Bogotá, D.C.</field>
 		<field name="code">11001</field>
 		<field name="phone_prefix">1</field>
 		<field name="state_id" ref="res_country_state_co_11"/>
@@ -4291,7 +4291,7 @@
 		</record>
 		<record id="CO111981" model="res.better.zip">
 		<field name="name">111981</field>
-		<field name="city">BOGOTÁ, D.C.</field>
+		<field name="city">Bogotá, D.C.</field>
 		<field name="code">11001</field>
 		<field name="phone_prefix">1</field>
 		<field name="state_id" ref="res_country_state_co_11"/>
@@ -4299,7 +4299,7 @@
 		</record>
 		<record id="CO112011" model="res.better.zip">
 		<field name="name">112011</field>
-		<field name="city">BOGOTÁ, D.C.</field>
+		<field name="city">Bogotá, D.C.</field>
 		<field name="code">11001</field>
 		<field name="phone_prefix">1</field>
 		<field name="state_id" ref="res_country_state_co_11"/>
@@ -4307,7 +4307,7 @@
 		</record>
 		<record id="CO112021" model="res.better.zip">
 		<field name="name">112021</field>
-		<field name="city">BOGOTÁ, D.C.</field>
+		<field name="city">Bogotá, D.C.</field>
 		<field name="code">11001</field>
 		<field name="phone_prefix">1</field>
 		<field name="state_id" ref="res_country_state_co_11"/>
@@ -4315,7 +4315,7 @@
 		</record>
 		<record id="CO112031" model="res.better.zip">
 		<field name="name">112031</field>
-		<field name="city">BOGOTÁ, D.C.</field>
+		<field name="city">Bogotá, D.C.</field>
 		<field name="code">11001</field>
 		<field name="phone_prefix">1</field>
 		<field name="state_id" ref="res_country_state_co_11"/>
@@ -4323,7 +4323,7 @@
 		</record>
 		<record id="CO112041" model="res.better.zip">
 		<field name="name">112041</field>
-		<field name="city">BOGOTÁ, D.C.</field>
+		<field name="city">Bogotá, D.C.</field>
 		<field name="code">11001</field>
 		<field name="phone_prefix">1</field>
 		<field name="state_id" ref="res_country_state_co_11"/>
