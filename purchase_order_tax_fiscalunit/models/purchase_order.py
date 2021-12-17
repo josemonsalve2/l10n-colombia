@@ -106,9 +106,10 @@ class PurchaseOrder(models.Model):
             'There is no date range corresponding to the date of your order')
 
         if self.date_order:
-            date_order = datetime.strptime(self.date_order,
-                                           "%Y-%m-%d %H:%M:%S")
-            date_order = date_order.strftime("%Y-%m-%d")
+            # date_order = datetime.strptime(self.date_order,
+            #                                "%Y-%m-%d %H:%M:%S")
+            # date_order = date_order.strftime("%Y-%m-%d")
+            date_order = self.date_order
             param = [('date_start', '<=', date_order),
                      ('date_end', '>=', date_order)]
         else:
