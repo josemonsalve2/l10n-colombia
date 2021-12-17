@@ -25,8 +25,8 @@
 				<field name="einvoicing_email" attrs="{
 							'invisible': [('is_einvoicing_agent', 'not in', ('yes', 'no_but'))],
 							'required': [('view_einvoicing_email_field', '=', True), ('is_einvoicing_agent', 'in', ('yes', 'no_but'))]}" groups="l10n_co_account_e_invoicing.group_view_einvoicing_email_fields"/>
-			</field>
-		</field> -->
+			</field>-->
+		</field>
 	</record>
 
 </odoo>
