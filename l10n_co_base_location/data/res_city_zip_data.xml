@@ -14791,6 +14791,14 @@
 			<field name="name">942057</field>
 			<field name="city_id" ref="CO942057"/>
 		</record>
+		<record id="CO916057_zip" model="res.city.zip">
+			<field name="name">916057</field>
+			<field name="city_id" ref="CO916057"/>
+		</record>
+		<record id="CO916058_zip" model="res.city.zip">
+			<field name="name">916058</field>
+			<field name="city_id" ref="CO916057"/>
+		</record>
 		<record id="CO943017_zip" model="res.city.zip">
 			<field name="name">943017</field>
 			<field name="city_id" ref="CO943017"/>
