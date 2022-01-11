@@ -22,9 +22,10 @@ class SaleOrder(models.Model):
             rate = 1
 
             if order.currency_id != company_currency:
-                date_order = datetime.strptime(order.date_order,
-                                               "%Y-%m-%d %H:%M:%S")
-                date_order = date_order.strftime("%Y-%m-%d")
+                # date_order = datetime.strptime(order.date_order,
+                #                                "%Y-%m-%d %H:%M:%S")
+                # date_order = date_order.strftime("%Y-%m-%d")
+                date_order = self.date_order
                 currency = order.currency_id.with_context(
                     date=date_order or fields.Date.context_today(order))
                 rate = currency.compute(rate, company_currency)
@@ -117,9 +118,9 @@ class SaleOrder(models.Model):
                      ('date_end', '>=', fields.Date.today())]
 
         daterange = self.env['date.range'].search(param)
-
         if not daterange:
-            raise UserError(msg)
+            pass
+            # raise UserError(msg)
         else:
             fiscalunit = daterange.fiscalunit
 
