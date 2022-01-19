@@ -9,6 +9,7 @@
     "website": "https://github.com/odooloco/l10n-colombia",
     "author": "Juan Camilo Zuluaga Serna Github@camilozuluaga, "
               "Joan Marín Github@JoanMarin",
+    "license": "AGPL-3",
     "category": "Localization",
     "summary": "Este módulo tiene las responsabilidades fiscales identificados "
                "por la DIAN para la localizacion Colombiana",
