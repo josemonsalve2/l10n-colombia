@@ -1,0 +1,176 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* l10n_co_partner_isic
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 10.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-08-12 04:57+0000\n"
+"PO-Revision-Date: 2019-08-12 04:57+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: l10n_co_partner_isic
+#: model:ir.model.fields,field_description:l10n_co_partner_isic.field_res_partner_isic_child_ids
+msgid "Childs Codes"
+msgstr ""
+
+#. module: l10n_co_partner_isic
+#: model:ir.model.fields,field_description:l10n_co_partner_isic.field_res_partner_isic_code
+msgid "Code"
+msgstr ""
+
+#. module: l10n_co_partner_isic
+#: model:ir.ui.view,arch_db:l10n_co_partner_isic.res_partner_isic_form
+msgid "Code notes..."
+msgstr ""
+
+#. module: l10n_co_partner_isic
+#: model:ir.model.fields,field_description:l10n_co_partner_isic.field_res_partner_isic_create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: l10n_co_partner_isic
+#: model:ir.model.fields,field_description:l10n_co_partner_isic.field_res_partner_isic_create_date
+msgid "Created on"
+msgstr ""
+
+#. module: l10n_co_partner_isic
+#: model:ir.model.fields,field_description:l10n_co_partner_isic.field_res_partner_isic_display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: l10n_co_partner_isic
+#: model:ir.ui.view,arch_db:l10n_co_partner_isic.res_partner_isic_tree
+msgid "Economic Activities (ISIC)"
+msgstr ""
+
+#. module: l10n_co_partner_isic
+#: model:ir.model.fields,field_description:l10n_co_partner_isic.field_res_partner_isic_id_13994
+#: model:ir.ui.view,arch_db:l10n_co_partner_isic.res_partner_isic_form
+#: model:ir.ui.view,arch_db:l10n_co_partner_isic.res_partner_isic_search
+msgid "Economic Activity (ISIC)"
+msgstr ""
+
+#. module: l10n_co_partner_isic
+#: model:ir.model.fields,field_description:l10n_co_partner_isic.field_res_partner_isic_id
+msgid "ID"
+msgstr ""
+
+#. module: l10n_co_partner_isic
+#: model:ir.actions.act_window,name:l10n_co_partner_isic.action_res_partner_isic_form
+#: model:ir.ui.menu,name:l10n_co_partner_isic.base_isic_menu
+msgid "ISIC"
+msgstr ""
+
+#. module: l10n_co_partner_isic
+#: model:ir.ui.view,arch_db:l10n_co_partner_isic.res_partner_isic_form
+msgid "ISIC Childs"
+msgstr ""
+
+#. module: l10n_co_partner_isic
+#: model:ir.model,name:l10n_co_partner_isic.model_res_partner_isic
+msgid "ISIC Codes"
+msgstr ""
+
+#. module: l10n_co_partner_isic
+#: model:ir.ui.view,arch_db:l10n_co_partner_isic.res_partner_isic_form
+msgid "ISIC Data"
+msgstr ""
+
+#. module: l10n_co_partner_isic
+#: model:ir.model.fields,help:l10n_co_partner_isic.field_res_partner_isic_name
+msgid "ISIC Name"
+msgstr ""
+
+#. module: l10n_co_partner_isic
+#: model:ir.model.fields,help:l10n_co_partner_isic.field_res_partner_isic_code
+msgid "ISIC code"
+msgstr ""
+
+#. module: l10n_co_partner_isic
+#: model:ir.model.fields,field_description:l10n_co_partner_isic.field_res_partner_isic___last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: l10n_co_partner_isic
+#: model:ir.model.fields,field_description:l10n_co_partner_isic.field_res_partner_isic_write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: l10n_co_partner_isic
+#: model:ir.model.fields,field_description:l10n_co_partner_isic.field_res_partner_isic_write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: l10n_co_partner_isic
+#: model:ir.model.fields,field_description:l10n_co_partner_isic.field_res_partner_isic_name
+msgid "Name"
+msgstr ""
+
+#. module: l10n_co_partner_isic
+#: model:ir.model.fields,field_description:l10n_co_partner_isic.field_res_partner_isic_note
+msgid "Note"
+msgstr ""
+
+#. module: l10n_co_partner_isic
+#: selection:res.partner.isic,type:0
+msgid "Other"
+msgstr ""
+
+#. module: l10n_co_partner_isic
+#: model:ir.model.fields,field_description:l10n_co_partner_isic.field_res_partner_isic_parent_id
+msgid "Parent"
+msgstr ""
+
+#. module: l10n_co_partner_isic
+#: model:ir.model.fields,field_description:l10n_co_partner_isic.field_res_partner_isic_parent_left
+msgid "Parent Left"
+msgstr ""
+
+#. module: l10n_co_partner_isic
+#: model:ir.model.fields,field_description:l10n_co_partner_isic.field_res_partner_isic_parent_right
+msgid "Parent Right"
+msgstr ""
+
+#. module: l10n_co_partner_isic
+#: model:ir.model,name:l10n_co_partner_isic.model_res_partner
+msgid "Partner"
+msgstr ""
+
+#. module: l10n_co_partner_isic
+#: model:ir.ui.view,arch_db:l10n_co_partner_isic.res_partner_isic_form
+msgid "Properties"
+msgstr ""
+
+#. module: l10n_co_partner_isic
+#: model:ir.model.fields,help:l10n_co_partner_isic.field_res_partner_isic_type
+msgid "Registry Type"
+msgstr ""
+
+#. module: l10n_co_partner_isic
+#: code:addons/l10n_co_partner_isic/models/res_partner_isic.py:56
+#: sql_constraint:res.partner.isic:0
+#, python-format
+msgid "The code of ISIC must be unique!"
+msgstr ""
+
+#. module: l10n_co_partner_isic
+#: model:ir.model.fields,field_description:l10n_co_partner_isic.field_res_partner_isic_type
+msgid "Type"
+msgstr ""
+
+#. module: l10n_co_partner_isic
+#: model:ir.model.fields,help:l10n_co_partner_isic.field_res_partner_isic_id_13994
+msgid "Uniform international industrial code (ISIC)"
+msgstr ""
+
+#. module: l10n_co_partner_isic
+#: selection:res.partner.isic,type:0
+msgid "View"
+msgstr ""
