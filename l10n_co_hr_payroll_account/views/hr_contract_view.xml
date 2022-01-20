@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<record id="hr_contract_view_form" model="ir.ui.view">
+		<field name="model">hr.contract</field>
+		<field name="inherit_id" ref="hr_contract.hr_contract_view_form"/>
+		<field name="arch" type="xml">
+			<field name="date_end" position="after">
+				<label for="date_to" />
+				<div>
+					<field name="date_to" class="oe_inline"/>
+				</div>
+			</field>
+			<field name="job_id" position="after">
+				<field name="risk_id"/>
+			</field>
+			<field name="type_id" position="after">
+				<field name="distribute"/>
+				<field name="parcial"/>
+				<field name="pensionary"/>
+				<field name="integral"/>
+			</field>
+			<xpath expr="//group[@name='salary_and_advantages']" position="after">
+				<group string="Salario integral">
+					<field name="factor"/>
+					<field name="condition"/>
+					<field name="compensation"/>
+				</group>
+			</xpath>
+			<page name="information" position="after">
+				<page string="Entities" name="setting_tab">
+					<field name="setting_ids" nolabel="1" widget="one2many_list">
+						<tree string="Entities" editable="bottom">
+							<field name="contrib_id"/>
+							<field name="partner_id"/>
+						</tree>
+					</field>
+				</page>
+				<page string="Deductions or periodic payments" name="deduction_tab">
+					<field name="deduction_ids" nolabel="1" widget="one2many_list">
+						<tree string="Deductions or periodic payments" editable="bottom">
+							<field name="input_id"/>
+							<field name="period"/>
+							<field name="amount"/>
+							<field name="total_deduction"/>
+							<field name="total_accumulated"/>
+							<field name="total_acumulados"/>
+							<field name="current_balance"/>
+							<field name="date"/>
+							<field name="date_end"/>
+						</tree>
+					</field>
+				</page>
+				<page string="Account Analitycs" name="analytic_tab">
+					<field name="analytic_ids" nolabel="1" widget="one2many_list">
+						<tree string="Account Analitycs" editable="bottom">
+							<field name="account_analytic_id" required="1"/>
+							<field name="percent"/>
+						</tree>
+					</field>
+				</page>
+				<page string="liquidation" name="liquidacion_tab">
+					<group col="4">
+						<field name="date_liquidation"/>
+						<field name="date_bunus"/>
+						<field name="date_layoff_fund"/>
+						<field name="date_holidays"/>
+					</group>
+					<group>
+						<button name="calcular_liquidacion" type="object" string="Calcular" class="oe_highlight"/>
+					</group>
+					<group>
+						<field name="liquidation_ids" nolabel="1" widget="one2many_list" readonly="True">
+							<tree string="Simulador">
+								<field name="name"/>
+								<field name="base"/>
+								<field name="since"/>
+								<field name="until"/>
+								<field name="days"/>
+								<field name="amount" sum="Total"/>
+							</tree>
+						</field>
+					</group>
+				</page>
+				<page string="Accumulated" name="acumulados_tab">
+					<group>
+						<field name="accumulated_ids" nolabel="1" widget="one2many_list" readonly="True">
+							<tree string="Accumulated">
+								<field name="date"/>
+								<field name="salary_rule_id"/>
+								<field name="amount"/>
+							</tree>
+						</field>
+					</group>
+				</page>
+				<page string="Salary changes" name="change_wage_tab">
+					<field name="change_wage_ids" nolabel="1" widget="one2many_list">
+						<tree string="Salary changes" editable="bottom">
+							<field name="date_start"/>
+							<field name="wage"/>
+						</tree>
+					</field>
+				</page>
+			</page>
+		</field>
+	</record>
+</odoo>

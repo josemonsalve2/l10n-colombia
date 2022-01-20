@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+	<record id="hr_novedades_filter" model="ir.ui.view">
+		<field name="name">hr.payroll.news.search</field>
+		<field name="model">hr.payroll.news</field>
+		<field name="arch" type="xml">
+			<search string="Search novedades">
+				<field name="input_id" string="Novedad"/>
+				<field name="employee_id"/>
+				<field name="date_from"/>
+				<field name="date_to"/>
+			</search>
+		</field>
+	</record>
+
+	<record model="ir.ui.view" id="hr_payroll_news_view">
+		<field name="model">hr.payroll.news</field>
+		<field name="type">form</field>
+		<field name="arch" type="xml">
+			<form string="Payroll news">
+				<group col="4">
+					<field name="input_id" options="{'no_create': True}"></field>
+					<field name="date_from"></field>
+					<field name="date_to"></field>
+					<field name="employee_id" domain="[('active','=','true')]" options="{'no_create': True}"></field>
+					<field name="value"></field>
+				</group>
+			</form>
+		</field>
+	</record>
+
+	<record model="ir.ui.view" id="hr_payroll_news_view_tree">
+		<field name="model">hr.payroll.news</field>
+		<field name="type">tree</field>
+		<field name="arch" type="xml">
+			<tree string='Payroll news'>
+				<field name="input_id"></field>
+				<field name="date_from"></field>
+				<field name="date_to"></field>
+				<field name="employee_id"></field>
+				<field name="value"></field>
+			</tree>
+		</field>
+	</record>
+
+	<record id="hr_payroll_news_action" model="ir.actions.act_window">
+		<field name="name">Payroll news</field>
+		<field name="res_model">hr.payroll.news</field>
+		<field name="view_type">form</field>
+		<field name="view_mode">tree,form</field>
+	</record>
+	<menuitem id="hr_payroll_news" name="Payroll news" parent="hr_payroll.menu_hr_payroll_root" action="hr_payroll_news_action"/>
+
+</odoo>

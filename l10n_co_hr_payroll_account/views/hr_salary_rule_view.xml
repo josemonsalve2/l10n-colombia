@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+
+    <record model="ir.ui.view" id="hr_salary_rule_form_inherit">
+        <field name="model">hr.salary.rule</field>
+        <field name="inherit_id" ref="hr_payroll_account.hr_salary_rule_form_inherit"/>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <field name="account_debit" position="attributes">
+                <attribute name="options">{'no_create': True}</attribute>
+            </field>
+            <field name="account_credit" position="attributes">
+                <attribute name="options">{'no_create': True}</attribute>
+            </field>
+            <field name="analytic_account_id" position="attributes">
+                <attribute name="options">{'no_create': True}</attribute>
+            </field>
+        </field>
+    </record>
+
+
+    <record id="hr_salary_extra_view_form" model="ir.ui.view">
+        <field name="name">hr.salary.rule.view.form.inherit</field>
+        <field name="model">hr.salary.rule</field>
+        <field name="inherit_id" ref="hr_payroll.hr_salary_rule_form"/>
+        <field name="arch" type="xml">
+            <field name="appears_on_payslip" position="after">
+                <field name="holidays"/>
+                <field name="holidays_final"/>
+                <field name="bonus"/>
+                <field name="layoff_fund"/>
+                <field name="average"/>
+                <field name="type_distri"/>
+                <field name="type" />
+            </field>
+            <field name="register_id" position="after">
+                <field name="register_credit_id"/>
+                <!--field name="account_bank_type"/ -->
+            </field>
+        </field>
+    </record>
+
+    <!-- contribution_register -->
+
+    <record id="hr_contribution_register_inherit_form" model="ir.ui.view">
+        <field name="name">hr.contribution.register.inherit.form</field>
+        <field name="model">hr.contribution.register</field>
+        <field name="inherit_id" ref="hr_payroll.hr_contribution_register_form"/>
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                <field name="partner_id"/>
+            </field>
+        </field>
+    </record>
+
+</odoo>
+

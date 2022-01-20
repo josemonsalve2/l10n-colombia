@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record model="ir.ui.view" id="view_employee_form">
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form"/>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <field name="department_id" position = "attributes">
+                <attribute name="required">1</attribute>
+            </field>
+            <field name="address_home_id" position = "attributes">
+                <attribute name="required">1</attribute>
+            </field>
+            <field name="identification_id" position = "attributes">
+                <attribute name="required">1</attribute>
+            </field>
+            <field name="address_home_id" position = "before">
+                <field name="eps" />
+                <field name="pension"/>
+                <field name="layoff_fund"/>
+            </field>
+        </field>
+    </record>
+</odoo>

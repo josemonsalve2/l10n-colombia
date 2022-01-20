@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+	<record model="ir.ui.view" id="hr_contract_entidades_tree">
+		<field name="model">hr.contract.setting</field>
+		<field name="type">tree</field>
+		<field name="arch" type="xml">
+			<tree string="Entidades" editable="bottom">
+				<field name="contract_id"/>
+				<field name="contrib_id"/>
+				<field name="partner_id"/>
+				<field name="account_debit_id"/>
+				<field name="account_credit_id"/>
+			</tree>
+		</field>
+	</record>
+
+	<record id="hr_contract_entities_action" model="ir.actions.act_window">
+		<field name="name">Related entities</field>
+		<field name="res_model">hr.contract.setting</field>
+		<field name="view_type">form</field>
+		<field name="view_mode">tree</field>
+	</record>
+
+	<menuitem id="hr_menu_contract_detail" parent="hr.menu_hr_root" name="Details" sequence="4" groups="hr.group_hr_manager"/>
+	<menuitem action="hr_contract_entities_action" id="hr_menu_contract_entities" parent="l10n_co_hr_payroll_account.hr_menu_contract_detail" name="Related entities" sequence="4" groups="hr.group_hr_manager"/>
+
+</odoo>

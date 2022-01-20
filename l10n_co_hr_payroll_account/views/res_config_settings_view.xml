@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <record model='ir.ui.view' id='action_account_fiscal_year_form'>
+    <field name='model'>account.fiscal.year</field>
+    <field name='inherit_id' ref='account.action_account_fiscal_year_form'/>
+    <field name='type'>form</field>
+    <field name='arch' type='xml'>
+      <field name="date_to" position="after">
+        <field name="minimum_wage"/>
+        <field name="sub_transport"/>
+        <field name="pension_rate_employer"/>
+        <field name="pension_rate_employee"/>
+        <field name="health_rate_employer"/>
+        <field name="health_rate_employee"/>
+        <field name="health_rate_integral"/>
+        <field name="rate_ccf"/>
+        <field name="rate_sena"/>
+        <field name="rate_icbf"/>
+      </field>
+    </field>
+  </record>
+</odoo>
+

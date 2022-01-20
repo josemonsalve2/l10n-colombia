@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_hr_payslip_form" model="ir.ui.view">
+        <field name="model">hr.payslip</field>
+        <field name="inherit_id" ref="hr_payroll.view_hr_payslip_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='action_payslip_cancel']" position="attributes">
+                <attribute name="states">draft,hr_check,confirm,verify,done</attribute>
+            </xpath>
+            <xpath expr="//button[@name='action_payslip_cancel']" position="after">
+                <button name="process_payment" type="object" string="Generar pago" states="done" class="oe_highlight"/>
+                <button name="process_unlink_payment" type="object" string="Romper conciliación" states="paid" class="oe_highlight"/>
+                <button name="get_xls_file" type="object" string="Descargar detalle" states="draft"/>
+            </xpath>
+            <field name="payslip_run_id" position="after">
+                <field name="journal_voucher_id" attrs="{'invisible':[('state','=','draft')]}" options="{'no_create': True}" domain="[('type', 'in', ['cash', 'bank'])]"/>
+                <field name="payment_id" attrs="{'invisible':[('state','=','draft')]}" readonly="1"/>
+                <field name="move_bank_id" attrs="{'invisible':[('state','=','draft')]}" readonly="1"/>
+            </field>
+            <field name="credit_note" position="after">
+                <group name="properties" colspan="4">
+                    <field name="liquid"/>
+                    <field name="recover"/>
+                </group>
+                <group name="properties" colspan="4">
+                    <field name="type_liquid" attrs="{'invisible':[('liquid','=',False)],'required':[('liquid','&lt;&gt;',False)]}"/>
+                    <field name="struct_id" attrs="{'invisible':[('liquid','=',False)],'required':[('liquid','&lt;&gt;',False)]}"/>
+                    <field name="motive_retirement" attrs="{'invisible':[('liquid','=',False)]}"/>
+                </group>
+            </field>
+            <field name="credit_note" position="after">
+                <group colspan="4">
+                    <field name="date_liquidation" attrs="{'invisible':[('liquid','=',False)],'required':[('liquid','&lt;&gt;',False)]}"/>
+                    <field name="date_bunus" attrs="{'invisible':[('liquid','=',False)],'required':[('liquid','&lt;&gt;',False)]}"/>
+                    <field name="date_layoff_fund" attrs="{'invisible':[('liquid','=',False)],'required':[('liquid','&lt;&gt;',False)]}"/>
+                    <field name="date_holidays" attrs="{'invisible':[('liquid','=',False)],'required':[('liquid','&lt;&gt;',False)]}"/>
+                </group>
+            </field>
+
+            <xpath expr="//notebook[last()]" position="inside">
+                <page string="Detalle cálculos">
+                    <group>
+                        <field name="details_ids" readonly="1" nolabel="1">
+                            <tree string="Detalle">
+                                <field name="salary_rule_id"/>
+                                <field name="date_from"/>
+                                <field name="date_to"/>
+                                <!-- field name="days_total"/ -->
+                                <!-- field name="days_leave"/ -->
+                                <field name="days_neto"/>
+                                <!-- field name="wage_actual" / -->
+                                <field name="wage_total"/>
+                                <field name="wage_average"/>
+                                <field name="variable_total"/>
+                                <field name="variable_average" />
+                                <field name="subsidization_transport"/>
+                                <field name="total_average"/>
+                                <field name="amount"/>
+                            </tree>
+                        </field>
+                    </group>
+                </page>
+            </xpath>
+
+        </field>
+    </record>
+
+</odoo>
