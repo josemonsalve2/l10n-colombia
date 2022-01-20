@@ -14,7 +14,7 @@
                     type='action'
                     string='Debit Note Invoice'
                     attrs="{'invisible': ['|',
-                        ('refund_type', '=', 'debit'),
+                        ('type', '!=', 'out_invoice'),
                         ('state', 'in', ['proforma2', 'proforma', 'cancel', 'draft'])]}" 
                     icon='fa-file'/>
             </xpath>

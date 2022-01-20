@@ -7,6 +7,7 @@
     "version": "10.0.1.0.0",
     "website": "https://github.com/odooloco/l10n-colombia",
     "author": "Joan Marín Github@JoanMarin",
+    "license": "AGPL-3",
     "category": "Localization",
     "summary": "Este módulo tiene los tipos de organización jurídica (Personas) identificados "
                "por la DIAN para la localizacion Colombiana",

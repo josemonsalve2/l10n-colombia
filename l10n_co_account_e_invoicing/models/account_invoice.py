@@ -122,6 +122,8 @@ class AccountInvoice(models.Model):
         comodel_name='account.invoice.dian.document',
         inverse_name='invoice_id',
         string='DIAN Documents')
+    receipt_document_reference = fields.Char(
+        string='Merchandise / Service Receipt Document')
 
     @api.multi
     def _compute_sequence_resolution_id(self):
@@ -329,6 +331,7 @@ class AccountInvoice(models.Model):
         msg3 = _("Your tax: '%s', has negative amount or an amount equal to zero (0), the taxes " +
                  "must have an amount greater than zero (0), contact with your administrator.")
         taxes = {}
+        tax_total_base = 0
         withholding_taxes = {}
 
         for tax in self.tax_line_ids:
@@ -385,6 +388,7 @@ class AccountInvoice(models.Model):
 
                     taxes[tax_code]['total'] += tax_amount
                     taxes[tax_code]['taxes'][tax_percent]['base'] += tax.base
+                    tax_total_base += tax.base
                     taxes[tax_code]['taxes'][tax_percent]['amount'] += tax_amount
 
         if '01' not in taxes:
@@ -414,7 +418,10 @@ class AccountInvoice(models.Model):
             taxes['03']['taxes']['0.00']['base'] = 0
             taxes['03']['taxes']['0.00']['amount'] = 0
 
-        return {'TaxesTotal': taxes, 'WithholdingTaxesTotal': withholding_taxes}
+        return {
+            'TaxesTotal': taxes,
+            'TaxesTotalBase': tax_total_base,
+            'WithholdingTaxesTotal': withholding_taxes}
 
     def _get_invoice_lines(self):
         msg1 = _("Your Unit of Measure: '%s', has no Unit of Measure Code, " +

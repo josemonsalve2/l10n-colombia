@@ -17,8 +17,8 @@ msgstr ""
 
 #. module: l10n_co_account_e_invoicing
 #: model:mail.template,subject:l10n_co_account_e_invoicing.email_template_for_einvoice
-msgid "${object.company_id.name} generated the e-invoice ${object.number}"
-msgstr "${object.company_id.name} generó la factura electrónica ${object.number}"
+msgid "${object.company_id.partner_id.identification_document};${object.company_id.name};${object.number};${object.invoice_type_code};${object.partner_id.name};"
+msgstr "${object.company_id.partner_id.identification_document};${object.company_id.name};${object.number};${object.invoice_type_code};${object.partner_id.name};"
 
 #. module: l10n_co_account_e_invoicing
 #: code:addons/l10n_co_account_e_invoicing/models/res_partner.py:78
@@ -635,6 +635,11 @@ msgstr "¿Correo Enviado?"
 #: model:ir.model.fields,field_description:l10n_co_account_e_invoicing.field_product_template_margin_percentage
 msgid "Margin Percentage"
 msgstr "Porcentaje de Margen"
+
+#. module: l10n_co_account_e_invoicing
+#: model:ir.model.fields,field_description:l10n_co_account_e_invoicing.field_account_invoice_receipt_document_reference
+msgid "Merchandise / Service Receipt Document"
+msgstr "Documento de Recibo de Mercancía / Servicio"
 
 #. module: l10n_co_account_e_invoicing
 #: selection:account.invoice.dian.document,get_status_zip_status_code:0

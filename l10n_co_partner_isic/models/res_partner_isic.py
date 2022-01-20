@@ -40,7 +40,7 @@ class RespartnerIsic(models.Model):
     parent_id = fields.Many2one(
         string = 'Parent',
         comodel_name = 'res.partner.isic',
-        ondelete = 'set null')
+        ondelete='cascade')
     child_ids = fields.One2many(
         string = 'Childs Codes',
         comodel_name = 'res.partner.isic',

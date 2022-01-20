@@ -31,9 +31,9 @@ class AccountInvoiceDebitNote(models.TransientModel):
         string='Reason',
         required=True,
         default=_get_reason)
-    discrepancy_response_code_id   = fields.Many2one(
-		comodel_name='account.invoice.discrepancy.response.code',
-		string='Correction concept for Refund Invoice')
+    discrepancy_response_code_id = fields.Many2one(
+        comodel_name='account.invoice.discrepancy.response.code',
+        string='Correction concept for Refund Invoice')
     filter_debit_note = fields.Selection(
         [('debit', 'Create a draft debit note')],
         default='debit',
@@ -41,7 +41,7 @@ class AccountInvoiceDebitNote(models.TransientModel):
         required=True,
         help='Debit Note base on this type. You can not Modify and Cancel if the invoice is '
              'already reconciled')
-    
+
     @api.multi
     def compute_debit_note(self, mode='debit'):
         msg1 = _('Cannot refund draft/proforma/cancelled invoice.')
