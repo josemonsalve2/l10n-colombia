@@ -70,7 +70,7 @@ class HrContractDeduction(models.Model):
     def _compute_saldo(self):
         for line in self:
             result = 0.0
-            if line.period == 'limited':
+            if line.period == 'limited' and line.date and line.date_end:
                 #             self.env.cr.execute("""select  sum(l.total) as total
                 #                      from hr_payslip_line l
                 #                      inner join hr_payslip p on (p.id = l.slip_id)
