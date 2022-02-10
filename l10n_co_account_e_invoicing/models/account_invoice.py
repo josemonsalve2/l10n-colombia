@@ -367,6 +367,7 @@ class AccountInvoice(models.Model):
             "must have an amount greater than zero (0), contact with your administrator."
         )
         taxes = {}
+        tax_total_base = 0
         withholding_taxes = {}
 
         for tax in self.tax_line_ids:
@@ -423,6 +424,7 @@ class AccountInvoice(models.Model):
                     if tax_percent not in taxes[tax_code]['taxes']:
                         taxes[tax_code]['taxes'][tax_percent] = {}
                         taxes[tax_code]['taxes'][tax_percent]['base'] = 0
+                        tax_total_base += tax.base
                         taxes[tax_code]['taxes'][tax_percent]['amount'] = 0
 
                     taxes[tax_code]['total'] += tax_amount
@@ -459,6 +461,7 @@ class AccountInvoice(models.Model):
 
         return {
             'TaxesTotal': taxes,
+            'TaxesTotalBase': tax_total_base,
             'WithholdingTaxesTotal': withholding_taxes
         }
 

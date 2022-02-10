@@ -359,11 +359,10 @@ class AccountInvoiceDianDocument(models.Model):
             'LineExtensionAmount':
             '{:.2f}'.format(self.invoice_id.amount_untaxed),
             'TaxExclusiveAmount':
-            '{:.2f}'.format(self.invoice_id.amount_untaxed),
+            '{:.2f}'.format(einvoicing_taxes['TaxesTotalBase']),
             'TaxInclusiveAmount':
             '{:.2f}'.format(TaxInclusiveAmount),
-            'PayableAmount':
-            '{:.2f}'.format(PayableAmount)
+            'PayableAmount': '{:.2f}'.format(PayableAmount)
         }
 
     def _get_invoice_values(self):
