@@ -62,29 +62,29 @@ class AccountInvoice(models.Model):
 
     @api.multi
     def _get_warn_certificate(self):
-        warn_remaining_certificate = False
-        warn_inactive_certificate = False
-
-        if self.company_id.einvoicing_enabled:
-            warn_inactive_certificate = True
-
-        if (self.company_id.certificate_file
-                and self.company_id.certificate_password
-                and self.company_id.certificate_date):
-            remaining_days = self.company_id.certificate_remaining_days or 0
-            today = fields.Date.context_today(self)
-            date_to = self.company_id.certificate_date
-            days = (date_to - today).days
+        for inv in self:
+            warn_remaining_certificate = False
             warn_inactive_certificate = False
+            if inv.company_id.einvoicing_enabled:
+                warn_inactive_certificate = True
 
-            if days < remaining_days:
-                if days < 0:
-                    warn_inactive_certificate = True
-                else:
-                    warn_remaining_certificate = True
+            if (inv.company_id.certificate_file
+                    and inv.company_id.certificate_password
+                    and inv.company_id.certificate_date):
+                remaining_days = inv.company_id.certificate_remaining_days or 0
+                today = fields.Date.context_today(inv)
+                date_to = inv.company_id.certificate_date
+                days = (date_to - today).days
+                warn_inactive_certificate = False
 
-        self.warn_inactive_certificate = warn_inactive_certificate
-        self.warn_remaining_certificate = warn_remaining_certificate
+                if days < remaining_days:
+                    if days < 0:
+                        warn_inactive_certificate = True
+                    else:
+                        warn_remaining_certificate = True
+
+            inv.warn_inactive_certificate = warn_inactive_certificate
+            inv.warn_remaining_certificate = warn_remaining_certificate
 
     warn_remaining_certificate = fields.Boolean(
         string="Warn About Remainings?",
