@@ -25,7 +25,9 @@
     ],
     "data": [
         "security/ir.model.access.csv",
+        "data/account_fiscal_position_party_tax_scheme_data.xml",
         "data/account_fiscal_position_tax_level_code_data.xml",
+        "views/account_fiscal_position_party_tax_scheme_views.xml",
         "views/account_fiscal_position_tax_level_code_views.xml",
         "views/account_fiscal_position_views.xml",
     ],

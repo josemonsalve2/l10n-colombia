@@ -26,9 +26,9 @@ DIAN = {
     'wsdl':
     'https://vpfe.dian.gov.co/WcfDianCustomerServices.svc?wsdl',
     'catalogo-hab':
-    'https://catalogo-vpfe-hab.dian.gov.co/Document/FindDocument?documentKey={}&partitionKey={}&emissionDate={}',
+    'https://catalogo-vpfe-hab.dian.gov.co/document/searchqr?documentkey={}',
     'catalogo':
-    'https://catalogo-vpfe.dian.gov.co/Document/FindDocument?documentKey={}&partitionKey={}&emissionDate={}'
+    'https://catalogo-vpfe.dian.gov.co/document/searchqr?documentkey={}'
 }
 
 
@@ -168,6 +168,8 @@ class AccountInvoiceDianDocument(models.Model):
             10)
         # El Código “ppp” es 000 para Software Propio
         ppp = '000'
+        if self.company_id.have_technological_provider:
+            ppp = self.company_id.assignment_code
         # aa: Dos (2) últimos dígitos año calendario
         aa = date_invoice[2:4]
         # dddddddd: consecutivo del paquete de archivos comprimidos enviados;
@@ -211,7 +213,12 @@ class AccountInvoiceDianDocument(models.Model):
         msg1 = _("'%s' does not have a valid isic code")
         msg2 = _("'%s' does not have a isic code established.")
         msg3 = _("'%s' does not have a identification document established.")
+        provider = self.company_id.partner_id
         supplier = self.company_id.partner_id
+        customer = self.invoice_id.partner_id
+
+        if self.company_id.have_technological_provider:
+            provider = self.company_id.technological_provider_id
 
         if supplier.isic_id:
             if supplier.isic_id.code == '0000':
@@ -268,11 +275,7 @@ class AccountInvoiceDianDocument(models.Model):
             '03', str('{:.2f}'.format(ValImp3)),
             str('{:.2f}'.format(TaxInclusiveAmount)), NitOFE, DocAdq, ClTec,
             SoftwarePIN, TipoAmbie)
-        partition_key = 'co|' + IssueDate.split(
-            '-')[2] + '|' + cufe_cude['CUFE/CUDE'][:2]
-        emission_date = IssueDate.replace('-', '')
-        QRCodeURL = QRCodeURL.format(cufe_cude['CUFE/CUDE'], partition_key,
-                                     emission_date)
+        QRCodeURL = QRCodeURL.format(cufe_cude['CUFE/CUDE'])
 
         self.write({
             'invoice_url':
@@ -281,23 +284,19 @@ class AccountInvoiceDianDocument(models.Model):
             cufe_cude['CUFE/CUDEUncoded'],
             'cufe_cude':
             cufe_cude['CUFE/CUDE'],
-            'software_security_code_uncoded':
-            software_security_code['SoftwareSecurityCodeUncoded'],
-            'software_security_code':
-            software_security_code['SoftwareSecurityCode']
+            'software_security_code_uncoded': software_security_code['SoftwareSecurityCodeUncoded'],
+            'software_security_code': software_security_code['SoftwareSecurityCode']
         })
 
         return {
-            'ProviderIDschemeID':
-            supplier.check_digit,
-            'ProviderIDschemeName':
-            supplier.document_type_id.code,
-            'ProviderID':
-            NitOFE,
+            'ProviderIDschemeID': provider.check_digit,
+            'ProviderIDschemeName': provider.document_type_id.code,
+            'ProviderID': provider.identification_document,
             'SoftwareID':
             IdSoftware,
             'SoftwareSecurityCode':
             software_security_code['SoftwareSecurityCode'],
+            'NitFac': NitOFE,
             'DocAdq':
             DocAdq,
             'QRCodeURL':
