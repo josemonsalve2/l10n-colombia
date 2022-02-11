@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-
     <record id="account_fiscal_position_tax_level_code_o_13" model="account.fiscal.position.tax.level.code">
         <field name="name">Gran contribuyente</field>
         <field name="code">O-13</field>
@@ -18,8 +17,7 @@
         <field name="code">O-47</field>
     </record>
     <record id="account_fiscal_position_tax_level_code_r_99_pn" model="account.fiscal.position.tax.level.code">
-        <field name="name">No responsable</field>
+        <field name="name">No aplica - Otros</field>
         <field name="code">R-99-PN</field>
     </record>
-
 </odoo>

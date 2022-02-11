@@ -1,16 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-
     <record id="view_account_position_form" model="ir.ui.view">
         <field name="model">account.fiscal.position</field>
         <field name="inherit_id" ref="account.view_account_position_form"/>
         <field name="arch" type="xml">
             <xpath expr="//field[@name='name']" position="after">
                 <field name="listname" required='1'/>
-                <field name="tax_level_code_ids" widget="many2many_tags" options="{'no_create': True}" required='1'/>
-                <field name="tax_group_type_id" options="{'no_create': True}" required='1'/>
+                <field name="tax_level_code_ids"
+                    widget="many2many_tags"
+                    options="{'no_create': True}"
+                    required='1'/>
+                <field name="party_tax_scheme_id"
+                    options="{'no_create': True}"
+                    required='1'/>
             </xpath>
         </field>
     </record>
-
 </odoo>
