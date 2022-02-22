@@ -197,7 +197,7 @@ class HrPayslip(models.Model):
             if not slip.journal_voucher_id:
                 raise UserError(_('Debe primero ingresar el diario de pago'))
 
-            if not slip.date_pago:
+            if not slip.date_payment:
                 raise UserError(
                     _('Debe primero ingresar la fecha de contabilización del pago'
                       ))
@@ -243,7 +243,7 @@ class HrPayslip(models.Model):
                         name = _('Pago nómina %s') % (slip.employee_id.name)
                         payment = {
                             'payment_type': 'outbound',
-                            'payment_date': slip.date_pago,
+                            'payment_date': slip.date_payment,
                             'partner_type': 'supplier',
                             'partner_id': slip.employee_id.address_home_id.id,
                             'communication': 'Pago nómina ' + slip.number,
