@@ -103,7 +103,7 @@ class HrPayslipRun(models.Model):
         for run in self:
             if not run.journal_voucher_id:
                 raise UserError(_('Debe primero ingresar el diario de pago'))
-            if not run.date_pago:
+            if not run.date_payment:
                 raise UserError(
                     _('Debe primero ingresar la fecha de contabilización del pago'
                       ))
@@ -114,8 +114,8 @@ class HrPayslipRun(models.Model):
                         payslip.write({
                             'journal_voucher_id':
                             run.journal_voucher_id.id,
-                            'date_pago':
-                            run.date_pago
+                            'date_payment':
+                            run.date_payment
                         })
                         payslip.process_payment()
 

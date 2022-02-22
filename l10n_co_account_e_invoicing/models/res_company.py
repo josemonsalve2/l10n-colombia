@@ -26,7 +26,7 @@ class ResCompany(models.Model):
         help='Additional hours to invoice date for delivery date',
         digits=(12, 4),
         default=False)
-     send_invoice_to_dian = fields.Selection(
+    send_invoice_to_dian = fields.Selection(
         selection=[
             ('0', 'Immediately'),
             ('1', 'After 1 Day'),
