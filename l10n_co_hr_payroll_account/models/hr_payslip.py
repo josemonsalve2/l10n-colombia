@@ -211,6 +211,7 @@ class HrPayslip(models.Model):
                       ) % (slip.number))
 
             if slip_line_ids:
+                currency = slip.company_id.currency_id or slip.journal_id.company_id.currency_id
                 for line in slip_line_ids:
 
                     if line.total != 0.0:
@@ -229,11 +230,12 @@ class HrPayslip(models.Model):
                                   ) % (slip.journal_id.name))
 
                         #Busca la causación
+
                         lines = move_obj.search([
                             ('move_id', '=', slip.move_id.id),
                             ('account_id', '=',
                              slip.journal_id.default_credit_account_id.id),
-                            ('credit', '=', line.total)
+                            ('credit', '=', currency.round(line.total))
                         ])
                         if not lines:
                             raise UserError(

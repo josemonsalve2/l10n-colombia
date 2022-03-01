@@ -73,7 +73,7 @@ class ResCompany(models.Model):
     einvoicing_receives_all_emails = fields.Char(string='Email that receives all emails')
     report_template = fields.Many2one(
         string='Report Template',
-        comodel_name='ir.actions.report.xml')
+        comodel_name='ir.actions.report')
     notification_group_ids = fields.One2many(
         comodel_name='einvoice.notification.group',
         inverse_name='company_id',
