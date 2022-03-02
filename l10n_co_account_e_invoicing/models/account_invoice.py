@@ -429,6 +429,7 @@ class AccountInvoice(models.Model):
 
                     taxes[tax_code]['total'] += tax_amount
                     taxes[tax_code]['taxes'][tax_percent]['base'] += tax.base
+                    tax_total_base += tax.base
                     taxes[tax_code]['taxes'][tax_percent][
                         'amount'] += tax_amount
 
