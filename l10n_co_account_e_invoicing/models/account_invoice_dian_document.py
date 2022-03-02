@@ -46,8 +46,7 @@ class AccountInvoiceDianDocument(models.Model):
             'target': 'current'
         }
 
-    @api.multi
-    def _get_qr_code(self):
+    def _get_qr_code_data(self):
         einvoicing_taxes = self.invoice_id._get_einvoicing_taxes()
         ValImp1 = einvoicing_taxes['TaxesTotal']['01']['total']
         ValImp2 = einvoicing_taxes['TaxesTotal']['04']['total']
@@ -80,8 +79,15 @@ class AccountInvoiceDianDocument(models.Model):
             qr_data += "\nCUDE: " + self.cufe_cude
 
         qr_data += "\n\n" + (self.invoice_url or '')
-        self.qr_image = global_functions.get_qr_code(qr_data)
 
+        return qr_data
+
+    @api.multi
+    def _get_qr_code(self):
+        for dian_document_id in self:
+            dian_document_id.qr_image = global_functions.get_qr_image(
+                dian_document_id._get_qr_code_data())        
+        
     state = fields.Selection([('draft', 'Draft'), ('sent', 'Sent'),
                               ('done', 'Done'), ('cancel', 'Cancelled')],
                              string='State',
