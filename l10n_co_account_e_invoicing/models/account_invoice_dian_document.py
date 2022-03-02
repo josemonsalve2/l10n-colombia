@@ -656,11 +656,11 @@ class AccountInvoiceDianDocument(models.Model):
         return xml_soap_values
 
     def _get_pdf_file(self):
-        template = self.env['ir.actions.report'].browse(
+        template_id = self.env['ir.actions.report'].browse(
             self.company_id.report_template.id)
-        pdf = self.env.ref('account.account_invoices').sudo().render_qweb_pdf(
-            [self.invoice_id.id])[0]
+        pdf = template_id._render_qweb_pdf([self.invoice_id.id])[0]
         b64_pdf = b64encode(pdf).decode('utf-8')
+
         return b64_pdf
 
     @api.multi
