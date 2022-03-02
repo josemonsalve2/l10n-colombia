@@ -170,7 +170,7 @@ class ResCompany(models.Model):
                  order='zipped_filename asc')
 
             for dian_document in dian_documents:
-                today = datetime.strptime(fields.Date.context_today(self), '%Y-%m-%d')
+                today = fields.Date.context_today(self)
                 date_from = dian_document.invoice_id.date_invoice
                 days = (today - date_from).days
 
