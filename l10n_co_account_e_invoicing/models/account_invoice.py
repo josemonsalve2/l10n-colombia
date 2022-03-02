@@ -424,7 +424,6 @@ class AccountInvoice(models.Model):
                     if tax_percent not in taxes[tax_code]['taxes']:
                         taxes[tax_code]['taxes'][tax_percent] = {}
                         taxes[tax_code]['taxes'][tax_percent]['base'] = 0
-                        tax_total_base += tax.base
                         taxes[tax_code]['taxes'][tax_percent]['amount'] = 0
 
                     taxes[tax_code]['total'] += tax_amount
