@@ -85,7 +85,7 @@ class AccountInvoiceDianDocument(models.Model):
     @api.multi
     def _get_qr_code(self):
         for dian_document_id in self:
-            dian_document_id.qr_image = global_functions.get_qr_image(
+            dian_document_id.qr_image = global_functions.get_qr_code(
                 dian_document_id._get_qr_code_data())        
         
     state = fields.Selection([('draft', 'Draft'), ('sent', 'Sent'),
