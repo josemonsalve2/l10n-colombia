@@ -574,10 +574,10 @@ class AccountInvoiceDianDocument(models.Model):
         UUID = self.cufe_cude
         supplier = self.company_id.partner_id
         customer = self.invoice_id.partner_id
-        InvoiceCNDN = b64decode(self.xml_file)
+        InvoiceCNDN = b64decode(self.xml_file).decode('utf-8')
 
         if self.ar_xml_file:
-            ApplicationResponse = b64decode(self.ar_xml_file)
+            ApplicationResponse = b64decode(self.ar_xml_file).decode('utf-8')
         else:
             ApplicationResponse = 'NO ApplicationResponse'
 
