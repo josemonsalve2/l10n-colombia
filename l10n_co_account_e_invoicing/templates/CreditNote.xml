@@ -577,6 +577,7 @@
 		{% endfor %}
 		<!--TODO 2.0, puede iterar en el campo ID aumenta segun la cantidad de descuentos o cargos por lineas
 		ChargeIndicator true seria un cargo-->
+        {% if CreditNoteLine.AllowanceChargeBaseAmount != 0.00 %}
 		<cac:AllowanceCharge>
 			<cbc:ID>1</cbc:ID>
 			<cbc:ChargeIndicator>false</cbc:ChargeIndicator>
@@ -585,6 +586,7 @@
 			<cbc:Amount currencyID="{{DocumentCurrencyCode}}">{{CreditNoteLine.AllowanceChargeAmount}}</cbc:Amount>
 			<cbc:BaseAmount currencyID="{{DocumentCurrencyCode}}">{{CreditNoteLine.AllowanceChargeBaseAmount}}</cbc:BaseAmount>
 		</cac:AllowanceCharge>
+        {% endif %}
 		<cac:Item>
 			<cbc:Description>{{CreditNoteLine.ItemDescription}}</cbc:Description>
 			<!--TODO 2.0, Cantidad de unidad de este artículo por empaque>
