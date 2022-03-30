@@ -4,7 +4,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 from datetime import datetime
-import urllib.request
+from urllib import request
 from requests import post, exceptions
 from lxml import etree
 import ssl
@@ -87,7 +87,7 @@ class ResCompany(models.Model):
         if vals.get('signature_policy_url'):
             try:
                 for company in self:
-                    response = urllib.request.urlopen(
+                    response = request.urlopen(
                         vals.get('signature_policy_url'), timeout=2)
 
                     if response.getcode() != 200:
