@@ -85,20 +85,20 @@ class ResCompany(models.Model):
     def write(self, vals):
         msg = _('Invalid URL.\n%s')
 
-        #if vals.get('signature_policy_url'):
-        #    try:
-        #        for company in self:
-        #            response = request.urlopen(
-        #                vals.get('signature_policy_url'), timeout=15)
+        if vals.get('signature_policy_url'):
+            try:
+                for company in self:
+                    response = request.urlopen(
+                        vals.get('signature_policy_url'), timeout=15)
 
-        #            if response.getcode() != '200':
-        #                raise ValidationError(msg % "200")
-        #    except HTTPError as e:
-        #        raise ValidationError(msg % e)
-        #    except URLError as e:
-        #       raise ValidationError(msg % e)
-        #    else:
-        #        raise ValidationError(msg % "No se sabe")
+                    if response.getcode() != '200':
+                        raise ValidationError(msg % "200")
+            except HTTPError as e:
+                raise ValidationError(msg % e)
+            except URLError as e:
+               raise ValidationError(msg % e)
+            else:
+                raise ValidationError(msg % "No se sabe")
 
         rec = super(ResCompany, self).write(vals)
 
