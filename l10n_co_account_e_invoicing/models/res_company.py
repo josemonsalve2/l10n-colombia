@@ -92,7 +92,7 @@ class ResCompany(models.Model):
 
                     if response.getcode() != 200:
                         raise ValidationError(msg)
-            except Exception as e:
+            except exceptions.RequestException as e:
                 raise ValidationError(msg % e)
 
         rec = super(ResCompany, self).write(vals)
