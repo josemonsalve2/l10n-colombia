@@ -83,7 +83,7 @@ class ResCompany(models.Model):
 
     @api.multi
     def write(self, vals):
-        msg = _('Invalid URL.')
+        msg = _('Invalid URL.\n%s')
 
         if vals.get('signature_policy_url'):
             try:
@@ -92,7 +92,7 @@ class ResCompany(models.Model):
                         vals.get('signature_policy_url'), timeout=2)
 
                     if response.getcode() != 200:
-                        raise ValidationError(msg)
+                        raise ValidationError(msg % "200")
             except HTTPError as e:
                 raise ValidationError(msg % e)
             except URLError as e:
