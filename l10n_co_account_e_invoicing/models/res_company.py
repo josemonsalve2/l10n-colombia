@@ -5,6 +5,7 @@
 
 from datetime import datetime
 from urllib import request
+from urllib.error import URLError, HTTPError
 from requests import post, exceptions
 from lxml import etree
 import ssl
@@ -92,8 +93,12 @@ class ResCompany(models.Model):
 
                     if response.getcode() != 200:
                         raise ValidationError(msg)
-            except exceptions.RequestException as e:
+            except HTTPError as e:
                 raise ValidationError(msg % e)
+            except URLError as e:
+                raise ValidationError(msg % e)
+            else:
+                raise ValidationError(msg % "No se sabe")
 
         rec = super(ResCompany, self).write(vals)
 
