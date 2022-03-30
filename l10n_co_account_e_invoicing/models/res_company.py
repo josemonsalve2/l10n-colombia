@@ -89,7 +89,7 @@ class ResCompany(models.Model):
             try:
                 for company in self:
                     response = request.urlopen(
-                        vals.get('signature_policy_url'), timeout=5)
+                        vals.get('signature_policy_url'), timeout=15)
 
                     if response.getcode() != 200:
                         raise ValidationError(msg % "200")
