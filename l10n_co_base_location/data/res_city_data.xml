@@ -3,7 +3,7 @@
     <data noupdate="1">
 
         <record id="CO050001" model="res.city">
-            <field name="name">MEDELLÍN</field>
+            <field name="name">Medellín</field>
             <field name="code">05001</field>
             <field name="phone_prefix">4</field>
             <field name="country_id" ref="base.co"/>
