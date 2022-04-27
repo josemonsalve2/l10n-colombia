@@ -7,7 +7,8 @@
 	xmlns:sts="http://www.dian.gov.co/contratos/facturaelectronica/v1/Structures"
 	xmlns:xades="http://uri.etsi.org/01903/v1.3.2#"
 	xmlns:xades141="http://uri.etsi.org/01903/v1.4.1#"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:oasis:names:specification:ubl:schema:xsd:DebitNote-2    http://docs.oasis-open.org/ubl/os-UBL-2.1/xsd/maindoc/UBL-DebitNote-2.1.xsd">
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="urn:oasis:names:specification:ubl:schema:xsd:DebitNote-2    http://docs.oasis-open.org/ubl/os-UBL-2.1/xsd/maindoc/UBL-DebitNote-2.1.xsd">
 	<ext:UBLExtensions>
 		<ext:UBLExtension>
 			<ext:ExtensionContent>
@@ -36,14 +37,14 @@
 					<sts:QRCode>NumFac: {{ID}}
 						FecFac: {{IssueDate}}
 						HorFac: {{IssueTime}}
-						NitFac: {{NitFac}}
-						DocAdq: {{DocAdq}}
+						NitFac: {{AccountingSupplierParty.CompanyID}}
+						DocAdq: {{AccountingCustomerParty.CompanyID}}
 						ValFac: {{LineExtensionAmount}}
 						ValIva: {{ValIva}}
 						ValOtroIm: {{ValOtroIm}}
 						ValTolFac: {{PayableAmount}}
 						CUDE: {{UUID}}
-						{{QRCodeURL}}</sts:QRCode>
+						URL: {{QRCodeURL}}</sts:QRCode>
 				</sts:DianExtensions>
 			</ext:ExtensionContent>
 		</ext:UBLExtension>
@@ -192,8 +193,8 @@
 								schemeAgencyName="CO, DIAN (Dirección de Impuestos y Aduanas Nacionales)"
 								schemeID=""
 								schemeName=""></cbc:CompanyID>
-						<TODO 2.0: listName el anexo dice que eliminar o valor No aplica,
-						pero para consumidor final dice informar 49>
+							<TODO 2.0: listName el anexo dice que eliminar o valor No aplica,
+							pero para consumidor final dice informar 49>
 							<cbc:TaxLevelCode listName=""></cbc:TaxLevelCode>
 							<cac:TaxScheme>
 								<cbc:ID></cbc:ID>
@@ -377,7 +378,7 @@
 					</cac:AddressLine>
 					<cac:Country>
 						<cbc:IdentificationCode>CO</cbc:IdentificationCode>
-					<TODO 2.0: languageID podria variar, siguiente version revisar esto>
+						<TODO 2.0: languageID podria variar, siguiente version revisar esto>
 						<cbc:Name languageID="es">Colombia</cbc:Name>
 					</cac:Country>
 				</cac:Address>
@@ -388,8 +389,8 @@
 					schemeAgencyName="CO, DIAN (Dirección de Impuestos y Aduanas Nacionales)"
 					schemeID="1"
 					schemeName="31">981223983</cbc:CompanyID>
-			<TODO 2.0: listName el anexo dice que eliminar o valor No aplica,
-			pero para consumidor final dice informar 49>
+				<TODO 2.0: listName el anexo dice que eliminar o valor No aplica,
+				pero para consumidor final dice informar 49>
 				<cbc:TaxLevelCode listName="">O-99</cbc:TaxLevelCode>
 				<cac:RegistrationAddress>
 					<cbc:ID>11001</cbc:ID>
@@ -402,7 +403,7 @@
 					</cac:AddressLine>
 					<cac:Country>
 						<cbc:IdentificationCode>CO</cbc:IdentificationCode>
-					<TODO 2.0: languageID podria variar, siguiente version revisar esto>
+						<TODO 2.0: languageID podria variar, siguiente version revisar esto>
 						<cbc:Name languageID="es">Colombia</cbc:Name>
 					</cac:Country>
 				</cac:RegistrationAddress>
@@ -516,10 +517,9 @@
 	{% for DebitNoteLineID, DebitNoteLine in DebitNoteLines.items() %}
 	<cac:DebitNoteLine>
 		<cbc:ID>{{DebitNoteLineID}}</cbc:ID>
-		<!--TODO 3.0: Obligatorio de informar para el caso de facturas por contratos de servicio tipo AIU.
-		Para el ítem Adminsitración. En este caso la cbc:Note debe empezar por el texto: “Contrato de
-		servicios AIU por concepto de:” El contribuyente debe incluir el objeto del contrato facturado>
-		<cbc:Note>Información Adicional: Texto libre para añadir información adicional al artículo.</cbc:Note-->
+		{% if BillingReference.CustomizationID == '09' %}
+		<cbc:Note>Contrato de servicios AIU por concepto de: {{DebitNoteLine.ItemDescription}}</cbc:Note>
+		{% endif %}
 		<cbc:DebitedQuantity unitCode="{{DebitNoteLine.unitCode}}">{{DebitNoteLine.Quantity}}</cbc:DebitedQuantity>
 		<cbc:LineExtensionAmount currencyID="{{DocumentCurrencyCode}}">{{DebitNoteLine.LineExtensionAmount}}</cbc:LineExtensionAmount>
 		{% if DebitNoteLine.LineExtensionAmount == '0.00' %}
@@ -576,14 +576,16 @@
 		{% endfor %}
 		<!--TODO 2.0, puede iterar en el campo ID aumenta segun la cantidad de descuentos o cargos por lineas
 		ChargeIndicator true seria un cargo-->
+		{% if DebitNoteLine.AllowanceChargeAmount != '0.00' %}
 		<cac:AllowanceCharge>
 			<cbc:ID>1</cbc:ID>
 			<cbc:ChargeIndicator>false</cbc:ChargeIndicator>
-			<cbc:AllowanceChargeReason>Descuento</cbc:AllowanceChargeReason>
+			<cbc:AllowanceChargeReason>Descuento Linea</cbc:AllowanceChargeReason>
 			<cbc:MultiplierFactorNumeric>{{DebitNoteLine.MultiplierFactorNumeric}}</cbc:MultiplierFactorNumeric>
 			<cbc:Amount currencyID="{{DocumentCurrencyCode}}">{{DebitNoteLine.AllowanceChargeAmount}}</cbc:Amount>
 			<cbc:BaseAmount currencyID="{{DocumentCurrencyCode}}">{{DebitNoteLine.AllowanceChargeBaseAmount}}</cbc:BaseAmount>
 		</cac:AllowanceCharge>
+		{% endif %}
 		<cac:Item>
 			<cbc:Description>{{DebitNoteLine.ItemDescription}}</cbc:Description>
 			<!--TODO 2.0, Cantidad de unidad de este artículo por empaque>

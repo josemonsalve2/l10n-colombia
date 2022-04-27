@@ -9,9 +9,11 @@ from odoo import fields, models, _
 class IrSequence(models.Model):
     _inherit = 'ir.sequence'
 
-    dian_type = fields.Selection(selection=[('e-invoicing', _('E-Invoicing')),
-                    ('contingency_checkbook_e-invoicing',_('Contingency Checkbook E-Invoicing')),
-                    ('computer_generated_invoice','Computer Generated Invoice'),
-                    ('paper_invoice', 'Paper Invoice'),
-                    ('pos_invoice', 'POS Invoice')],
-                    string='DIAN Type')
+    dian_type = fields.Selection(
+        selection_add=[
+            ('e-invoicing', _('E-Invoicing')),
+            ('e-credit_note', _('E-Credit Note')),
+            ('e-debit_note', _('E-Debit Note')),
+            ('e-support_document', _('E-Support Document')),
+            ('e-support_document_credit_note', _('E-Support Document Credit Note')),
+            ('contingency_checkbook_e-invoicing', _('Contingency Checkbook E-Invoicing'))])

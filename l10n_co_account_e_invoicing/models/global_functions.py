@@ -23,8 +23,7 @@ from odoo.exceptions import ValidationError
 def get_software_security_code(IdSoftware, Pin, NroDocumentos):
     uncoded_value = (IdSoftware + ' + ' + Pin + ' + ' + NroDocumentos)
     software_security_code = IdSoftware + Pin + NroDocumentos
-    software_security_code = hashlib.sha384(
-        software_security_code.encode('utf-8'))
+    software_security_code = hashlib.sha384(software_security_code.encode('utf-8'))
 
     return {
         'SoftwareSecurityCodeUncoded': uncoded_value,
@@ -32,29 +31,48 @@ def get_software_security_code(IdSoftware, Pin, NroDocumentos):
     }
 
 
-def get_cufe_cude(NumFac, FecFac, HorFac, ValFac, CodImp1, ValImp1, CodImp2,
-                  ValImp2, CodImp3, ValImp3, ValTot, NitOFE, DocAdq, ClTec,
-                  SoftwarePIN, TipoAmbie):
-    # CUFE = SHA-384(NumFac + FecFac + HorFac + ValFac + CodImp1 + ValImp1 +
-    # CodImp2 + ValImp2 + CodImp3 + ValImp3 + ValTot + NitOFE + DocAdq +
-    # ClTec + TipoAmbie)
-    # CUDE = SHA-384(NumFac + FecFac + HorFac + ValFac + CodImp1 + ValImp1 +
-    # CodImp2 + ValImp2 + CodImp3 + ValImp3 + ValTot + NitOFE + DocAdq +
-    # Software-PIN + TipoAmbie)
-    uncoded_value = (NumFac + ' + ' + FecFac + ' + ' + HorFac + ' + ' +
-                     ValFac + ' + ' + CodImp1 + ' + ' + ValImp1 + ' + ' +
-                     CodImp2 + ' + ' + ValImp2 + ' + ' + CodImp3 + ' + ' +
-                     ValImp3 + ' + ' + ValTot + ' + ' + NitOFE + ' + ' +
-                     DocAdq + ' + ' + (ClTec if ClTec else SoftwarePIN) +
-                     ' + ' + TipoAmbie)
-    CUFE_CUDE = (NumFac + FecFac + HorFac + ValFac + CodImp1 + ValImp1 +
-                 CodImp2 + ValImp2 + CodImp3 + ValImp3 + ValTot + NitOFE +
-                 DocAdq + (ClTec if ClTec else SoftwarePIN) + TipoAmbie)
-    CUFE_CUDE = hashlib.sha384(CUFE_CUDE.encode('utf-8'))
+def get_cu(
+        NumFac,
+        FecFac,
+        HorFac,
+        ValFac,
+        CodImp1,
+        ValImp1,
+        CodImp2,
+        ValImp2,
+        CodImp3,
+        ValImp3,
+        ValTot,
+        NitOFE,
+        NumAdq,
+        ClTec,
+        SoftwarePIN,
+        TipoAmbie):
+    # CUFE = SHA-384(NumFac + FecFac + HorFac + ValFac + CodImp1 + ValImp1 + CodImp2 +
+    # ValImp2 + CodImp3 + ValImp3 + ValTot + NitOFE + NumAdq + ClTec + TipoAmbie)
+    # CUDE = SHA-384(NumFac + FecFac + HorFac + ValFac + CodImp1 + ValImp1 + CodImp2 +
+    # ValImp2 + CodImp3 + ValImp3 + ValTot + NitOFE + NumAdq + Software-PIN + TipoAmbie)
+    # CUDS = SHA-384(NumFac + FecFac + HorFac + ValDS + CodImp + ValImp + ValTot +
+    # NitOFE + NumAdq + SoftwarePIN + TipoAmbie)
+    uncoded_OtrosImp = ''
+    OtrosImp = ''
+
+    if CodImp2:
+        uncoded_OtrosImp = (
+            CodImp2 + ' + ' + ValImp2 + ' + ' + CodImp3 + ' + ' + ValImp3 + ' + ')
+        OtrosImp = CodImp2 + ValImp2 + CodImp3 + ValImp3
+
+    uncoded_value = (NumFac + ' + ' + FecFac + ' + ' + HorFac + ' + ' + ValFac + ' + ' +
+                     CodImp1 + ' + ' + ValImp1 + ' + ' + uncoded_OtrosImp +
+                     ValTot + ' + ' + NitOFE + ' + ' + NumAdq + ' + ' +
+                     (ClTec if ClTec else SoftwarePIN) + ' + ' + TipoAmbie)
+    value = (NumFac + FecFac + HorFac + ValFac + CodImp1 + ValImp1 + OtrosImp +
+                 ValTot + NitOFE + NumAdq + (ClTec or SoftwarePIN) + TipoAmbie)
+    value = hashlib.sha384(value.encode('utf-8'))
 
     return {
-        'CUFE/CUDEUncoded': uncoded_value,
-        'CUFE/CUDE': CUFE_CUDE.hexdigest()
+        'CUFE/CUDE/CUDSUncoded': uncoded_value,
+        'CUFE/CUDE/CUDS': value.hexdigest()
     }
 
 

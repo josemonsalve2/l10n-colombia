@@ -21,14 +21,10 @@ from odoo.exceptions import ValidationError, UserError
 ssl._create_default_https_context = ssl._create_unverified_context
 
 DIAN = {
-    'wsdl-hab':
-    'https://vpfe-hab.dian.gov.co/WcfDianCustomerServices.svc?wsdl',
-    'wsdl':
-    'https://vpfe.dian.gov.co/WcfDianCustomerServices.svc?wsdl',
-    'catalogo-hab':
-    'https://catalogo-vpfe-hab.dian.gov.co/document/searchqr?documentkey={}',
-    'catalogo':
-    'https://catalogo-vpfe.dian.gov.co/document/searchqr?documentkey={}'
+    'wsdl-hab': 'https://vpfe-hab.dian.gov.co/WcfDianCustomerServices.svc?wsdl',
+    'wsdl': 'https://vpfe.dian.gov.co/WcfDianCustomerServices.svc?wsdl',
+    'catalogo-hab': 'https://catalogo-vpfe-hab.dian.gov.co/document/searchqr?documentkey={}',
+    'catalogo': 'https://catalogo-vpfe.dian.gov.co/document/searchqr?documentkey={}'
 }
 
 
@@ -47,6 +43,15 @@ class AccountInvoiceDianDocument(models.Model):
         }
 
     def _get_qr_code_data(self):
+        if self.invoice_id.invoice_type_code == '05':
+            supplier = self.invoice_id.partner_id
+            customer = self.company_id.partner_id
+        else:
+            supplier = self.company_id.partner_id
+            customer = self.invoice_id.partner_id
+
+        AccountingSupplierParty = supplier._get_accounting_partner_party_values()
+        AccountingCustomerParty = customer._get_accounting_partner_party_values()
         einvoicing_taxes = self.invoice_id._get_einvoicing_taxes()
         ValImp1 = einvoicing_taxes['TaxesTotal']['01']['total']
         ValImp2 = einvoicing_taxes['TaxesTotal']['04']['total']
@@ -54,31 +59,30 @@ class AccountInvoiceDianDocument(models.Model):
         ValFac = self.invoice_id.amount_untaxed
         ValOtroIm = ValImp2 - ValImp3
         ValTolFac = ValFac + ValImp1 + ValOtroIm
-
-        create_date = datetime.strftime(self.invoice_id.create_date,
-                                        '%Y-%m-%d %H:%M:%S')
-        qr_data = "NumFac: " + (self.invoice_id.number
-                                or _('WITHOUT VALIDATE'))
-        qr_data += "\nFecFac: " + (str(self.invoice_id.date_invoice) or '')
-        qr_data += "\nHorFac: " + datetime.strftime(
-            self.invoice_id.create_date, '%H:%M:%S-05:00')
-        qr_data += "\nNitFac: " + (
-            self.company_id.partner_id.identification_document or '')
-        qr_data += "\nDocAdq: " + (
-            self.invoice_id.partner_id.identification_document or '')
+        create_date = self.invoice_id.create_date
+        qr_data = "NumFac: " + (self.invoice_id.number or _('WITHOUT VALIDATE'))
+        qr_data += "\nFecFac: " + datetime.strftime(create_date, '%Y-%m-%d')
+        qr_data += "\nHorFac: " + datetime.strftime(create_date, '%H:%M:%S-05:00')
+        qr_data += "\nNitFac: " + (AccountingSupplierParty['CompanyID'] or '')
+        qr_data += "\nDocAdq: " + (AccountingCustomerParty['CompanyID'] or '')
         qr_data += "\nValFac: " + '{:.2f}'.format(ValFac)
         qr_data += "\nValIva: " + '{:.2f}'.format(ValImp1)
         qr_data += "\nValOtroIm: " + '{:.2f}'.format(ValOtroIm)
         qr_data += "\nValTolFac: " + '{:.2f}'.format(ValTolFac)
 
-        if (self.invoice_id.type == "out_invoice"
-                and self.invoice_id.invoice_type_code != '03'
-                and self.cufe_cude):
-            qr_data += "\nCUFE: " + self.cufe_cude
-        elif self.cufe_cude:
-            qr_data += "\nCUDE: " + self.cufe_cude
+        if self.cufe_cude:
+            if (self.invoice_id.type == "out_invoice"
+                    and not self.invoice_id.refund_type
+                    and self.invoice_id.invoice_type_code != '03'):
+                qr_data += "\nCUFE: " + self.cufe_cude
+            elif (self.invoice_id.type in ("out_invoice", "out_refund")
+                    and (self.invoice_id.refund_type
+                            or self.invoice_id.invoice_type_code == '03')):
+                qr_data += "\nCUDE: " + self.cufe_cude
+            elif self.invoice_id.type in ("in_invoice", "in_refund"):
+                qr_data += "\nCUDS: " + self.cufe_cude
 
-        qr_data += "\n\n" + (self.invoice_url or '')
+        qr_data += "\n\nURL: " + (self.invoice_url or '')
 
         return qr_data
 
@@ -135,12 +139,9 @@ class AccountInvoiceDianDocument(models.Model):
         msg1 = _("The document type of '%s' is not NIT")
         msg2 = _("'%s' does not have a document type established.")
         msg3 = _("'%s' does not have a identification document established.")
-        msg4 = _(
-            'There is no date range corresponding to the date of your invoice.'
-        )
-
-        date_invoice = datetime.strftime(self.invoice_id.date_invoice,
-                                         '%Y-%m-%d %H:%M:%S')
+        msg4 = _('There is no date range corresponding to the date of your invoice.')
+        date_invoice = datetime.strftime(
+            self.invoice_id.date_invoice, '%Y-%m-%d %H:%M:%S')
 
         if self.company_id.partner_id.document_type_id:
             if self.company_id.partner_id.document_type_id.code != '31':
@@ -166,7 +167,10 @@ class AccountInvoiceDianDocument(models.Model):
             out_invoice_sent = daterange.out_invoice_sent
             out_refund_credit_sent = daterange.out_refund_credit_sent
             out_refund_debit_sent = daterange.out_refund_debit_sent
+            in_invoice_sent = daterange.in_invoice_sent
+            in_refund_sent = daterange.in_refund_sent
             zip_sent = out_invoice_sent + out_refund_credit_sent + out_refund_debit_sent
+            zips_sent = in_invoice_sent + in_refund_sent
 
         # nnnnnnnnnn: NIT del Facturador Electrónico sin DV, de diez (10) dígitos
         # alineados a la derecha y relleno con ceros a la izquierda.
@@ -174,6 +178,7 @@ class AccountInvoiceDianDocument(models.Model):
             10)
         # El Código “ppp” es 000 para Software Propio
         ppp = '000'
+
         if self.company_id.have_technological_provider:
             ppp = self.company_id.assignment_code
         # aa: Dos (2) últimos dígitos año calendario
@@ -182,35 +187,51 @@ class AccountInvoiceDianDocument(models.Model):
         # de ocho (8) dígitos decimales alineados a la derecha y ajustado a la
         # izquierda con ceros; en el rango:
         # 00000001 <= 99999999
+        zdddddddd = str(zip_sent + 1).zfill(8)
+        z_prefix = 'z'
+        ar_prefix = 'ar'
+        ad_prefix = 'ad'
+        refund_type = self.invoice_id.refund_type
 
-        if self.invoice_id.type == 'out_invoice':
-            xml_filename_prefix = 'fv'
+        if self.invoice_id.type == 'out_invoice' and not refund_type:
+            xml_prefix = 'fv'
             daterange.out_invoice_sent += 1
-            dddddddd = str(daterange.out_invoice_sent).zfill(8)
-        elif self.invoice_id.type == 'out_refund' and self.invoice_id.refund_type == 'credit':
-            xml_filename_prefix = 'nc'
+            dddddddd = str(daterange.out_invoice_sent)
+        elif self.invoice_id.type == 'out_refund' and refund_type == 'credit':
+            xml_prefix = 'nc'
             daterange.out_refund_credit_sent += 1
-            dddddddd = str(daterange.out_refund_credit_sent).zfill(8)
-        elif self.invoice_id.type == 'out_refund' and self.invoice_id.refund_type == 'debit':
-            xml_filename_prefix = 'nd'
+            dddddddd = str(daterange.out_refund_credit_sent)
+        elif self.invoice_id.type == 'out_refund' and refund_type == 'debit':
+            xml_prefix = 'nd'
             daterange.out_refund_debit_sent += 1
-            dddddddd = str(daterange.out_refund_debit_sent).zfill(8)
+            dddddddd = str(daterange.out_refund_debit_sent)
+        elif self.invoice_id.type == 'in_invoice':
+            xml_prefix = 'ds'
+            daterange.in_invoice_sent += 1
+            dddddddd = str(daterange.in_invoice_sent)
+            zdddddddd = str(zips_sent + 1).zfill(8)
+            z_prefix = 'zs'
+            ar_prefix = 'ars'
+            ad_prefix = 'ads'
+        elif self.invoice_id.type == 'in_refund':
+            xml_prefix = 'nas'
+            daterange.in_refund_sent += 1
+            dddddddd = str(daterange.in_refund_sent)
+            zdddddddd = str(zips_sent + 1).zfill(8)
+            z_prefix = 'zs'
+            ar_prefix = 'ars'
+            ad_prefix = 'ads'
         else:
             raise ValidationError("ERROR: TODO 2.0")
 
-        zdddddddd = str(zip_sent + 1).zfill(8)
+        dddddddd = dddddddd.zfill(8)
         nnnnnnnnnnpppaadddddddd = nnnnnnnnnn + ppp + aa + dddddddd
         zaradnnnnnnnnnnpppaadddddddd = nnnnnnnnnn + ppp + aa + zdddddddd
-
         self.write({
-            'xml_filename':
-            xml_filename_prefix + nnnnnnnnnnpppaadddddddd + '.xml',
-            'zipped_filename':
-            'z' + zaradnnnnnnnnnnpppaadddddddd + '.zip',
-            'ar_xml_filename':
-            'ar' + zaradnnnnnnnnnnpppaadddddddd + '.xml',
-            'ad_zipped_filename':
-            'ad' + zaradnnnnnnnnnnpppaadddddddd + '.zip'
+            'xml_filename': xml_prefix + nnnnnnnnnnpppaadddddddd + '.xml',
+            'zipped_filename': z_prefix + zaradnnnnnnnnnnpppaadddddddd + '.zip',
+            'ar_xml_filename': ar_prefix  + zaradnnnnnnnnnnpppaadddddddd + '.xml',
+            'ad_zipped_filename': ad_prefix + zaradnnnnnnnnnnpppaadddddddd + '.zip'
         })
 
         return True
@@ -218,53 +239,53 @@ class AccountInvoiceDianDocument(models.Model):
     def _get_xml_values(self, ClTec):
         msg1 = _("'%s' does not have a valid isic code")
         msg2 = _("'%s' does not have a isic code established.")
-        msg3 = _("'%s' does not have a identification document established.")
         provider = self.company_id.partner_id
         supplier = self.company_id.partner_id
         customer = self.invoice_id.partner_id
+        CodImp2 = '04'
+        CodImp3 = '03'
 
-        if self.company_id.have_technological_provider:
-            provider = self.company_id.technological_provider_id
+        if not self.invoice_id.payment_mean_code_id:
+            self.invoice_id.payment_mean_code_id = (
+                self.env['account.payment.mean.code'].search([('code', '=', '1')]).id)
 
         if supplier.isic_id:
             if supplier.isic_id.code == '0000':
                 raise UserError(msg1 % supplier.name)
+
+            IndustryClassificationCode = supplier.isic_id.code
         else:
             raise UserError(msg2 % supplier.name)
 
-        NitOFE = supplier.identification_document
+        if self.company_id.have_technological_provider:
+            provider = self.company_id.technological_provider_id
+
+        if self.invoice_id.invoice_type_code == '05':
+            supplier = self.invoice_id.partner_id
+            customer = self.company_id.partner_id
+            CodImp2 = False
+            CodImp3 = False
+
+        AccountingSupplierParty = supplier._get_accounting_partner_party_values()
+        AccountingCustomerParty = customer._get_accounting_partner_party_values()
         IdSoftware = self.company_id.software_id
         SoftwarePIN = self.company_id.software_pin
         ID = self.invoice_id.number
         software_security_code = global_functions.get_software_security_code(
             IdSoftware, SoftwarePIN, ID)
         TipoAmbie = self.company_id.profile_execution_id
-        customer = self.invoice_id.partner_id
-        delivery = self.invoice_id.partner_shipping_id
-        DocAdq = customer.identification_document
-        document_type_code = False
-
-        if customer.document_type_id:
-            document_type_code = customer.document_type_id.code
-
-        if document_type_code not in ('11', '12', '13', '21', '22', '31', '41',
-                                      '42', '50', '91'):
-            if customer.person_type == '2':
-                DocAdq = '222222222222'
-            else:
-                raise UserError(msg3 % customer.name)
 
         if TipoAmbie == '1':
             QRCodeURL = DIAN['catalogo']
         else:
             QRCodeURL = DIAN['catalogo-hab']
+
         invoice_datetime = self.invoice_id.invoice_datetime
         IssueDate = datetime.strftime(invoice_datetime, '%Y-%m-%d')
         IssueTime = datetime.strftime(invoice_datetime, '%H:%M:%S-05:00')
         delivery_datetime = self.invoice_id.delivery_datetime
         ActualDeliveryDate = datetime.strftime(delivery_datetime, '%Y-%m-%d')
-        ActualDeliveryTime = datetime.strftime(delivery_datetime,
-                                               '%H:%M:%S-05:00')
+        ActualDeliveryTime = datetime.strftime(delivery_datetime, '%H:%M:%S-05:00')
         ValFac = self.invoice_id.amount_untaxed
         einvoicing_taxes = self.invoice_id._get_einvoicing_taxes()
         ValImp1 = einvoicing_taxes['TaxesTotal']['01']['total']
@@ -275,21 +296,28 @@ class AccountInvoiceDianDocument(models.Model):
         # El valor a pagar puede verse afectado, por anticipos, y descuentos y
         # cargos a nivel de factura
         PayableAmount = TaxInclusiveAmount
-        cufe_cude = global_functions.get_cufe_cude(
-            ID, IssueDate, IssueTime, str('{:.2f}'.format(ValFac)), '01',
-            str('{:.2f}'.format(ValImp1)), '04', str('{:.2f}'.format(ValImp2)),
-            '03', str('{:.2f}'.format(ValImp3)),
-            str('{:.2f}'.format(TaxInclusiveAmount)), NitOFE, DocAdq, ClTec,
-            SoftwarePIN, TipoAmbie)
-        QRCodeURL = QRCodeURL.format(cufe_cude['CUFE/CUDE'])
-
+        cu = global_functions.get_cu(
+            ID,
+            IssueDate,
+            IssueTime,
+            str('{:.2f}'.format(ValFac)),
+            '01',
+            str('{:.2f}'.format(ValImp1)),
+            CodImp2,
+            str('{:.2f}'.format(ValImp2)),
+            CodImp3,
+            str('{:.2f}'.format(ValImp3)),
+            str('{:.2f}'.format(TaxInclusiveAmount)),
+            AccountingSupplierParty['CompanyID'],
+            AccountingCustomerParty['CompanyID'],
+            ClTec,
+            SoftwarePIN,
+            TipoAmbie)
+        QRCodeURL = QRCodeURL.format(cu['CUFE/CUDE/CUDS'])
         self.write({
-            'invoice_url':
-            QRCodeURL,
-            'cufe_cude_uncoded':
-            cufe_cude['CUFE/CUDEUncoded'],
-            'cufe_cude':
-            cufe_cude['CUFE/CUDE'],
+            'invoice_url': QRCodeURL,
+            'cufe_cude_uncoded': cu['CUFE/CUDE/CUDSUncoded'],
+            'cufe_cude': cu['CUFE/CUDE/CUDS'],
             'software_security_code_uncoded': software_security_code['SoftwareSecurityCodeUncoded'],
             'software_security_code': software_security_code['SoftwareSecurityCode']
         })
@@ -298,96 +326,60 @@ class AccountInvoiceDianDocument(models.Model):
             'ProviderIDschemeID': provider.check_digit,
             'ProviderIDschemeName': provider.document_type_id.code,
             'ProviderID': provider.identification_document,
-            'SoftwareID':
-            IdSoftware,
-            'SoftwareSecurityCode':
-            software_security_code['SoftwareSecurityCode'],
-            'NitFac': NitOFE,
-            'DocAdq':
-            DocAdq,
-            'QRCodeURL':
-            QRCodeURL,
-            'ProfileExecutionID':
-            TipoAmbie,
-            'ID':
-            ID,
-            'UUID':
-            cufe_cude['CUFE/CUDE'],
-            'IssueDate':
-            IssueDate,
-            'IssueTime':
-            IssueTime,
-            'ValIva':
-            '{:.2f}'.format(ValImp1),
-            'ValOtroIm':
-            '{:.2f}'.format(ValOtroIm),
-            'DueDate':
-            self.invoice_id.date_due,
-            'Note':
-            self.invoice_id.comment or '',
-            'DocumentCurrencyCode':
-            self.invoice_id.currency_id.name,
-            'LineCountNumeric':
-            len(self.invoice_id.invoice_line_ids),
-            'OrderReferenceID':
-            self.invoice_id.name,
-            'ReceiptDocumentReferenceID':
-            self.invoice_id.receipt_document_reference,
-            'IndustryClassificationCode':
-            supplier.isic_id.code,
-            'AccountingSupplierParty':
-            supplier._get_accounting_partner_party_values(),
-            'AccountingCustomerParty':
-            customer._get_accounting_partner_party_values(),
-            'ActualDeliveryDate':
-            ActualDeliveryDate,
-            'ActualDeliveryTime':
-            ActualDeliveryTime,
-            'Delivery':
-            delivery._get_delivery_values(),
+            'SoftwareID': IdSoftware,
+            'SoftwareSecurityCode': software_security_code['SoftwareSecurityCode'],
+            'QRCodeURL': QRCodeURL,
+            'ProfileExecutionID': TipoAmbie,
+            'ID': ID,
+            'UUID': cu['CUFE/CUDE/CUDS'],
+            'IssueDate': IssueDate,
+            'IssueTime': IssueTime,
+            'ValIva': '{:.2f}'.format(ValImp1),
+            'ValOtroIm': '{:.2f}'.format(ValOtroIm),
+            'DueDate': self.invoice_id.date_due,
+            'Note': self.invoice_id.comment or '',
+            'DocumentCurrencyCode': self.invoice_id.currency_id.name,
+            'LineCountNumeric': len(self.invoice_id.invoice_line_ids),
+            'OrderReferenceID': self.invoice_id.name,
+            'ReceiptDocumentReferenceID': self.invoice_id.receipt_document_reference,
+            'IndustryClassificationCode': IndustryClassificationCode,
+            'AccountingSupplierParty': AccountingSupplierParty,
+            'AccountingCustomerParty': AccountingCustomerParty,
+            'ActualDeliveryDate': ActualDeliveryDate,
+            'ActualDeliveryTime': ActualDeliveryTime,
             'DeliveryTerms': {
                 'LossRiskResponsibilityCode': False,
                 'LossRisk': False
             },
-            'PaymentMeansID':
-            self.invoice_id.payment_mean_id.code,
-            'PaymentMeansCode':
-            self.invoice_id.payment_mean_code_id.code,
-            'PaymentDueDate':
-            self.invoice_id.date_due,
-            'PaymentExchangeRate':
-            self.invoice_id._get_payment_exchange_rate(),
-            'TaxesTotal':
-            einvoicing_taxes['TaxesTotal'],
-            'WithholdingTaxesTotal':
-            einvoicing_taxes['WithholdingTaxesTotal'],
-            'LineExtensionAmount':
-            '{:.2f}'.format(self.invoice_id.amount_untaxed),
-            'TaxExclusiveAmount':
-            '{:.2f}'.format(einvoicing_taxes['TaxesTotalBase']),
-            'TaxInclusiveAmount':
-            '{:.2f}'.format(TaxInclusiveAmount),
+            'PaymentMeansID': self.invoice_id.payment_mean_id.code,
+            'PaymentMeansCode': self.invoice_id.payment_mean_code_id.code,
+            'PaymentDueDate': self.invoice_id.date_due,
+            'PaymentExchangeRate': self.invoice_id._get_payment_exchange_rate(),
+            'TaxesTotal': einvoicing_taxes['TaxesTotal'],
+            'WithholdingTaxesTotal': einvoicing_taxes['WithholdingTaxesTotal'],
+            'LineExtensionAmount': '{:.2f}'.format(self.invoice_id.amount_untaxed),
+            'TaxExclusiveAmount': '{:.2f}'.format(einvoicing_taxes['TaxesTotalBase']),
+            'TaxInclusiveAmount': '{:.2f}'.format(TaxInclusiveAmount),
             'PayableAmount': '{:.2f}'.format(PayableAmount)
         }
 
     def _get_invoice_values(self):
         msg1 = _("Your journal: %s, has no a invoice sequence")
-        msg2 = _("Your active dian resolution has no technical key, "
-                 "contact with your administrator.")
-        msg3 = _(
-            "Your journal: %s, has no a invoice sequence with type equal to E-Invoicing"
-        )
-        msg4 = _(
-            "Your journal: %s, has no a invoice sequence with type equal to "
-            "Contingency Checkbook E-Invoicing")
+        msg2 = _("Your active dian resolution has no technical key, contact with your "
+                 "administrator.")
+        msg3 = _("Your journal: %s, has no a invoice sequence with type equal to "
+                 "E-Invoicing")
+        msg4 = _("Your journal: %s, has no a invoice sequence with type equal to "
+                 "Contingency Checkbook E-Invoicing")
         msg5 = _("The invoice type selected is not valid to this invoice.")
-        sequence = self.invoice_id.journal_id.sequence_id
+        sequence_id = self.invoice_id.journal_id.sequence_id
         ClTec = False
 
-        if not sequence:
+        if not sequence_id:
             raise UserError(msg1 % self.invoice_id.journal_id.name)
 
         active_dian_resolution = self.invoice_id._get_active_dian_resolution()
+        delivery = self.invoice_id.partner_shipping_id
 
         if self.invoice_id.invoice_type_code in ('01', '02'):
             ClTec = active_dian_resolution['technical_key']
@@ -396,45 +388,57 @@ class AccountInvoiceDianDocument(models.Model):
                 raise UserError(msg2)
 
         if self.invoice_id.invoice_type_code != '03':
-            if sequence.dian_type != 'e-invoicing':
+            if sequence_id.dian_type != 'e-invoicing':
                 raise UserError(msg3 % self.invoice_id.journal_id.name)
         else:
-            if sequence.dian_type != 'contingency_checkbook_e-invoicing':
+            if sequence_id.dian_type != 'contingency_checkbook_e-invoicing':
                 raise UserError(msg4 % self.invoice_id.journal_id.name)
 
-        if self.invoice_id.operation_type not in ('10', '11'):
+        if self.invoice_id.operation_type not in ('09', '10', '11'):
             raise UserError(msg5)
 
         xml_values = self._get_xml_values(ClTec)
         xml_values['InvoiceControl'] = active_dian_resolution
-        # Punto 6.1.5.1. Documento Invoice – Factura electrónica del anexo tecnico version 1.7
-        # 10 Estandar *
+        # Punto 13.1.5.1. Documento Invoice – Factura electrónica
+        # Anexo tecnico version 1.8
+        # 10 Estándar
         # 09 AIU
         # 11 Mandatos
+        # 12 Transporte
+        # 13 Cambiario
         xml_values['CustomizationID'] = self.invoice_id.operation_type
-        # Punto 6.1.3. Tipo de Documento: cbc:InvoiceTypeCode y cbc:CreditnoteTypeCode
-        # del anexo tecnico version 1.7
-        # 01 Factura electrónica de venta
-        # 02 Factura electrónica de venta - exportación
-        # 03 Documento electrónico de transmisión - tipo 03
-        # 04 Factura electrónica de Venta - tipo 04
+        # Punto 13.1.3. Tipo de Documento: cbc:InvoiceTypeCode y cbc:CreditnoteTypeCode
+        # Anexo tecnico version 1.8
+        # 01 Factura electrónica de Venta
+        # 02 Factura electrónica de venta ‐exportación 
+        # 03 Instrumento electrónico de transmisión – tipo 03
+        # 04 Factura electrónica de Venta ‐ tipo 04
         xml_values['InvoiceTypeCode'] = self.invoice_id.invoice_type_code
+        xml_values['Delivery'] = delivery._get_delivery_values()
         xml_values['InvoiceLines'] = self.invoice_id._get_invoice_lines()
 
         return xml_values
 
     def _get_credit_note_values(self):
-        msg = _("Your journal: %s, has no a credit note sequence")
+        msg1 = _("Your journal: %s, has no a credit note sequence")
+        msg2 = _("Your journal: %s, has no a invoice sequence with type equal to "
+                 "E-Credit Note")
+        sequence_id = self.invoice_id.journal_id.refund_sequence_id
+        sequence_id = sequence_id or self.invoice_id.journal_id.sequence_id
 
-        if not self.invoice_id.journal_id.refund_sequence_id:
-            raise UserError(msg % self.invoice_id.journal_id.name)
+        if not sequence_id:
+            raise UserError(msg1 % self.invoice_id.journal_id.name)
+
+        if sequence_id.dian_type != 'e-credit_note':
+            raise UserError(msg2 % self.invoice_id.journal_id.name)
 
         xml_values = self._get_xml_values(False)
         billing_reference = self.invoice_id._get_billing_reference()
-        # Punto 6.1.5.2. Documento CreditNote – Nota Crédito del anexo tecnico version 1.7
+        delivery = self.invoice_id.partner_shipping_id
+        # Punto 13.1.5.2. Documento CreditNote – Nota Crédito
+        # Anexo tecnico version 1.8
         # 20 Nota Crédito que referencia una factura electrónica.
-        # 22 Nota Crédito sin referencia a facturas*.
-        # 23 Nota Crédito para facturación electrónica V1 (Decreto 2242).
+        # 22 Nota Crédito sin referencia a facturas.
         if billing_reference:
             xml_values['CustomizationID'] = '20'
             self.invoice_id.operation_type = '20'
@@ -448,32 +452,41 @@ class AccountInvoiceDianDocument(models.Model):
                 'CustomizationID': False
             }
         # TODO 2.0: Exclusivo en referencias a documentos (elementos DocumentReference)
-        # Punto 6.1.3. Tipo de Documento: cbc:InvoiceTypeCode y cbc:CreditnoteTypeCode
-        # del anexo tecnico version 1.7
+        # Punto 13.1.3. Tipo de Documento: cbc:InvoiceTypeCode y cbc:CreditnoteTypeCode
+        # Anexo tecnico version 1.8
         # 91 Nota Crédito
         xml_values['CreditNoteTypeCode'] = '91'
         xml_values['BillingReference'] = billing_reference
         xml_values['DiscrepancyReferenceID'] = billing_reference['ID']
-        xml_values[
-            'DiscrepancyResponseCode'] = self.invoice_id.discrepancy_response_code_id.code
-        xml_values[
-            'DiscrepancyDescription'] = self.invoice_id.discrepancy_response_code_id.name
+        xml_values['DiscrepancyResponseCode'] = (
+            self.invoice_id.discrepancy_response_code_id.code)
+        xml_values['DiscrepancyDescription'] = (
+            self.invoice_id.discrepancy_response_code_id.name)
+        xml_values['Delivery'] = delivery._get_delivery_values()
         xml_values['CreditNoteLines'] = self.invoice_id._get_invoice_lines()
 
         return xml_values
 
     def _get_debit_note_values(self):
-        msg = _("Your journal: %s, has no a credit note sequence")
+        msg1 = _("Your journal: %s, has no a debit note sequence")
+        msg2 = _("Your journal: %s, has no a invoice sequence with type equal to "
+                 "E-Debit Note")
+        sequence_id = self.invoice_id.journal_id.debit_note_sequence_id
+        sequence_id = sequence_id or self.invoice_id.journal_id.sequence_id
 
-        if not self.invoice_id.journal_id.refund_sequence_id:
-            raise UserError(msg % self.invoice_id.journal_id.name)
+        if not sequence_id:
+            raise UserError(msg1 % self.invoice_id.journal_id.name)
+
+        if sequence_id.dian_type != 'e-debit_note':
+            raise UserError(msg2 % self.invoice_id.journal_id.name)
 
         xml_values = self._get_xml_values(False)
         billing_reference = self.invoice_id._get_billing_reference()
-        # Punto 6.1.5.3. Documento DebitNote – Nota Débito del anexo tecnico version 1.7
+        delivery = self.invoice_id.partner_shipping_id
+        # Punto 13.1.5.3. Documento DebitNote – Nota Débito
+        # Anexo tecnico version 1.8
         # 30 Nota Débito que referencia una factura electrónica.
-        # 32 Nota Débito sin referencia a facturas*.
-        # 33 Nota Débito para facturación electrónica V1 (Decreto 2242).
+        # 32 Nota Débito sin referencia a facturas.
         if billing_reference:
             xml_values['CustomizationID'] = '30'
             self.invoice_id.operation_type = '30'
@@ -487,31 +500,127 @@ class AccountInvoiceDianDocument(models.Model):
                 'CustomizationID': False
             }
         # TODO 2.0: Exclusivo en referencias a documentos (elementos DocumentReference)
-        # Punto 6.1.3. Tipo de Documento: cbc:InvoiceTypeCode y cbc:CreditnoteTypeCode
-        # del anexo tecnico version 1.7
+        # Punto 13.1.3. Tipo de Documento: cbc:InvoiceTypeCode y cbc:CreditnoteTypeCode
+        # Anexo tecnico version 1.8
         # 92 Nota Débito
         # TODO 2.0: DebitNoteTypeCode no existe en DebitNote
         # xml_values['DebitNoteTypeCode'] = '92'
         xml_values['BillingReference'] = billing_reference
         xml_values['DiscrepancyReferenceID'] = billing_reference['ID']
-        xml_values[
-            'DiscrepancyResponseCode'] = self.invoice_id.discrepancy_response_code_id.code
-        xml_values[
-            'DiscrepancyDescription'] = self.invoice_id.discrepancy_response_code_id.name
+        xml_values['DiscrepancyResponseCode'] = (
+            self.invoice_id.discrepancy_response_code_id.code)
+        xml_values['DiscrepancyDescription'] = (
+            self.invoice_id.discrepancy_response_code_id.name)
+        xml_values['Delivery'] = delivery._get_delivery_values()
         xml_values['DebitNoteLines'] = self.invoice_id._get_invoice_lines()
 
         return xml_values
 
+    def _get_support_document_values(self):
+        msg1 = _("Your journal: %s, has no a invoice sequence")
+        msg2 = _("Your journal: %s, has no a invoice sequence with type equal to "
+                 "E-Support Document")
+        sequence_id = self.invoice_id.journal_id.sequence_id
+
+        if not sequence_id:
+            raise UserError(msg1 % self.invoice_id.journal_id.name)
+
+        if sequence_id.dian_type != 'e-support_document':
+            raise UserError(msg2 % self.invoice_id.journal_id.name)
+
+        active_dian_resolution = self.invoice_id._get_active_dian_resolution()
+        xml_values = self._get_xml_values(False)
+        xml_values['InvoiceControl'] = active_dian_resolution
+        # Punto 16.1.4.1 Procedencia de Vendedor - Anexo tecnico DS version 1.1
+        # 10 Residente
+        # 11 No Residente
+        customization_id = '11'
+        dv = False
+
+        if self.invoice_id.partner_id.document_type_id.code in ('11', '12', '13', '31'):
+            customization_id = '10'
+            dv = self.invoice_id.partner_id._compute_check_digit()
+
+        xml_values['DV'] = dv
+        xml_values['CustomizationID'] = customization_id
+        # Punto 16.1.3 Tipo de Documento - Anexo tecnico DS version 1.1
+        # 05 Documento soporte en adquisiciones efectuadas a sujetos no obligados a
+        # expedir factura o documento equivalente
+        xml_values['InvoiceTypeCode'] = self.invoice_id.invoice_type_code
+        xml_values['InvoiceLines'] = self.invoice_id._get_invoice_lines()
+
+        return xml_values
+
+    def _get_support_document_credit_note_values(self):
+        msg1 = _("Your journal: %s, has no a credit note sequence")
+        msg2 = _("Your journal: %s, has no a invoice sequence with type equal to "
+                 "E-Support Document Credit Note")
+        sequence_id = self.invoice_id.journal_id.refund_sequence_id
+        sequence_id = sequence_id or self.invoice_id.journal_id.sequence_id
+
+        if not sequence_id:
+            raise UserError(msg1 % self.invoice_id.journal_id.name)
+
+        if sequence_id.dian_type != 'e-support_document_credit_note':
+            raise UserError(msg2 % self.invoice_id.journal_id.name)
+
+        xml_values = self._get_xml_values(False)
+        billing_reference = self.invoice_id._get_billing_reference()
+        # Punto 16.1.4.1 Procedencia de Vendedor - Anexo tecnico DS version 1.1
+        # 10 Residente
+        # 11 No Residente
+        customization_id = '11'
+        dv = False
+
+        if self.invoice_id.partner_id.document_type_id.code in ('11', '12', '13', '31'):
+            customization_id = '10'
+            dv = self.invoice_id.partner_id._compute_check_digit()
+
+        xml_values['DV'] = dv
+        xml_values['CustomizationID'] = customization_id
+
+        if not billing_reference:
+            billing_reference = {
+                'ID': False,
+                'UUID': False,
+                'IssueDate': False,
+                'CustomizationID': False
+            }
+        # TODO 2.0: Exclusivo en referencias a documentos (elementos DocumentReference)
+        # Punto 16.1.3 Tipo de Documento - Anexo tecnico DS version 1.1
+        # 95 Nota de ajuste al documento soporte en adquisiciones efectuadas a sujetos
+        # no obligados a expedir factura o documento equivalente
+        xml_values['CreditNoteTypeCode'] = '95'
+        xml_values['BillingReference'] = billing_reference
+        xml_values['DiscrepancyReferenceID'] = billing_reference['ID']
+        xml_values['DiscrepancyResponseCode'] = (
+            self.invoice_id.discrepancy_response_code_id.code)
+        xml_values['DiscrepancyDescription'] = (
+            self.invoice_id.discrepancy_response_code_id.name)
+        xml_values['CreditNoteLines'] = self.invoice_id._get_invoice_lines()
+
+        return xml_values
+
     def _get_xml_file(self):
-        if self.invoice_id.type == "out_invoice":
+        refund_type = self.invoice_id.refund_type
+
+        if self.invoice_id.type == "out_invoice" and not refund_type:
             xml_without_signature = global_functions.get_template_xml(
                 self._get_invoice_values(), 'Invoice')
-        elif self.invoice_id.type == "out_refund" and self.invoice_id.refund_type == "credit":
+        elif self.invoice_id.type == "out_refund" and refund_type == "credit":
             xml_without_signature = global_functions.get_template_xml(
                 self._get_credit_note_values(), 'CreditNote')
-        elif self.invoice_id.type == "out_refund" and self.invoice_id.refund_type == "debit":
+        elif self.invoice_id.type == "out_refund" and refund_type == "debit":
             xml_without_signature = global_functions.get_template_xml(
                 self._get_debit_note_values(), 'DebitNote')
+        elif self.invoice_id.type == 'in_invoice':
+            xml_without_signature = global_functions.get_template_xml(
+                self._get_support_document_values(), 'InvoiceDS')
+        elif self.invoice_id.type == 'in_refund':
+            xml_without_signature = global_functions.get_template_xml(
+                self._get_support_document_credit_note_values(), 'CreditNoteDS')
+        else:
+            raise ValidationError("ERROR: TODO 2.0")
 
         try:
             response = urllib.request.urlopen(
