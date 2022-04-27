@@ -51,14 +51,14 @@
 					<sts:QRCode>NumFac: {{ID}}
 						FecFac: {{IssueDate}}
 						HorFac: {{IssueTime}}
-						NitFac: {{NitFac}}
-						DocAdq: {{DocAdq}}
+						NitFac: {{AccountingSupplierParty.CompanyID}}
+						DocAdq: {{AccountingCustomerParty.CompanyID}}
 						ValFac: {{LineExtensionAmount}}
 						ValIva: {{ValIva}}
 						ValOtroIm: {{ValOtroIm}}
 						ValTolFac: {{PayableAmount}}
 						CU{% if InvoiceTypeCode != '03' %}F{% else %}D{% endif %}E: {{UUID}}
-						{{QRCodeURL}}</sts:QRCode>
+						URL: {{QRCodeURL}}</sts:QRCode>
 				</sts:DianExtensions>
 			</ext:ExtensionContent>
 		</ext:UBLExtension>
@@ -226,8 +226,8 @@
 								schemeAgencyName="CO, DIAN (Dirección de Impuestos y Aduanas Nacionales)"
 								schemeID=""
 								schemeName=""></cbc:CompanyID>
-						<TODO 2.0: listName el anexo dice que eliminar o valor No aplica,
-						pero para consumidor final dice informar 49>
+							<TODO 2.0: listName el anexo dice que eliminar o valor No aplica,
+							pero para consumidor final dice informar 49>
 							<cbc:TaxLevelCode listName=""></cbc:TaxLevelCode>
 							<cac:TaxScheme>
 								<cbc:ID></cbc:ID>
@@ -400,7 +400,7 @@
 					</cac:AddressLine>
 					<cac:Country>
 						<cbc:IdentificationCode>CO</cbc:IdentificationCode>
-					<TODO 2.0: languageID podria variar, siguiente version revisar esto>
+						<TODO 2.0: languageID podria variar, siguiente version revisar esto>
 						<cbc:Name languageID="es">Colombia</cbc:Name>
 					</cac:Country>
 				</cac:Address>
@@ -411,7 +411,7 @@
 					schemeAgencyName="CO, DIAN (Dirección de Impuestos y Aduanas Nacionales)"
 					schemeID="1"
 					schemeName="31">981223983</cbc:CompanyID>
-			<TODO 2.0: listName el anexo dice que eliminar o valor No aplica,
+				<TODO 2.0: listName el anexo dice que eliminar o valor No aplica,
 				pero para consumidor final dice informar 49>
 				<cbc:TaxLevelCode listName="">O-99</cbc:TaxLevelCode>
 				<cac:RegistrationAddress>
@@ -425,7 +425,7 @@
 					</cac:AddressLine>
 					<cac:Country>
 						<cbc:IdentificationCode>CO</cbc:IdentificationCode>
-					<TODO 2.0: languageID podria variar, siguiente version revisar esto>
+						<TODO 2.0: languageID podria variar, siguiente version revisar esto>
 						<cbc:Name languageID="es">Colombia</cbc:Name>
 					</cac:Country>
 				</cac:RegistrationAddress>
@@ -569,10 +569,9 @@
 	{% for InvoiceLineID, InvoiceLine in InvoiceLines.items() %}
 	<cac:InvoiceLine>
 		<cbc:ID>{{InvoiceLineID}}</cbc:ID>
-		<!--TODO 3.0: Obligatorio de informar para el caso de facturas por contratos de servicio tipo AIU.
-		Para el ítem Adminsitración. En este caso la cbc:Note debe empezar por el texto: “Contrato de
-		servicios AIU por concepto de:” El contribuyente debe incluir el objeto del contrato facturado-->
-		<!--cbc:Note>Información Adicional: Texto libre para añadir información adicional al artículo.</cbc:Note-->
+		{% if CustomizationID == '09' %}
+		<cbc:Note>Contrato de servicios AIU por concepto de: {{InvoiceLine.ItemDescription}}</cbc:Note>
+		{% endif %}
 		<cbc:InvoicedQuantity unitCode="{{InvoiceLine.unitCode}}">{{InvoiceLine.Quantity}}</cbc:InvoicedQuantity>
 		<cbc:LineExtensionAmount currencyID="{{DocumentCurrencyCode}}">{{InvoiceLine.LineExtensionAmount}}</cbc:LineExtensionAmount>
 		{% if InvoiceLine.LineExtensionAmount == '0.00' %}
@@ -585,14 +584,16 @@
 		{% endif %}
 		<!--TODO 2.0, puede iterar en el campo ID aumenta segun la cantidad de descuentos o cargos por lineas
 		ChargeIndicator true seria un cargo-->
+		{% if InvoiceLine.AllowanceChargeAmount != '0.00' %}
 		<cac:AllowanceCharge>
 			<cbc:ID>1</cbc:ID>
 			<cbc:ChargeIndicator>false</cbc:ChargeIndicator>
-			<cbc:AllowanceChargeReason>Descuento</cbc:AllowanceChargeReason>
+			<cbc:AllowanceChargeReason>Descuento Linea</cbc:AllowanceChargeReason>
 			<cbc:MultiplierFactorNumeric>{{InvoiceLine.MultiplierFactorNumeric}}</cbc:MultiplierFactorNumeric>
 			<cbc:Amount currencyID="{{DocumentCurrencyCode}}">{{InvoiceLine.AllowanceChargeAmount}}</cbc:Amount>
 			<cbc:BaseAmount currencyID="{{DocumentCurrencyCode}}">{{InvoiceLine.AllowanceChargeBaseAmount}}</cbc:BaseAmount>
 		</cac:AllowanceCharge>
+		{% endif %}
 		<!--TODO 1.0, revisar que impuestos se deben y no informar?-->
 		{% for TaxTotalID, TaxTotal in InvoiceLine.TaxesTotal.items() %}
 		{% if TaxTotal.total != 0 %}

@@ -7,18 +7,21 @@ import re
 from odoo import api, models, fields, _
 from odoo.exceptions import UserError, ValidationError
 
+DOCUMENT_TYPE_CODES = ['11', '12', '13', '21', '22', '31', '41', '42', '47', '50', '91']
+
 
 class ResPartner(models.Model):
     _inherit = "res.partner"
 
     send_zip_code = fields.Boolean(string='Send Zip Code?')
-    is_einvoicing_agent = fields.Selection(selection=[('yes', 'Yes'),
-                                                      ('no_but',
-                                                       'No, but has email'),
-                                                      ('no', 'No'),
-                                                      ('unknown', 'Unknown')],
-                                           string='Is an E-Invoicing Agent?',
-                                           default=False)
+    is_einvoicing_agent = fields.Selection(
+        selection=[
+            ('yes', 'Yes'),
+            ('no_but', 'No, but has email'),
+            ('no', 'No'),
+            ('unknown', 'Unknown')],
+        string='Is an E-Invoicing Agent?',
+        default=False)
     einvoicing_email = fields.Char(string='E-Invoicing Email')
     view_einvoicing_email_field = fields.Boolean(
         string="View 'E-Invoicing Email' Fields",
@@ -84,9 +87,8 @@ class ResPartner(models.Model):
         msg4 = _("'%s' does not have a country established.")
         msg5 = _("'%s' does not have a verification digit established.")
         msg6 = _("'%s' does not have a DIAN document type established.")
-        msg7 = _(
-            "The document type of '%s' does not seem to correspond with the person type."
-        )
+        msg7 = _("The document type of '%s' does not seem to correspond with the "
+                 "person type.")
         msg8 = _("'%s' does not have a identification document established.")
         msg9 = _("'%s' does not have a fiscal position correctly configured.")
         msg10 = _("'%s' does not have a fiscal position established.")
@@ -116,8 +118,7 @@ class ResPartner(models.Model):
 
             # Punto 6.2.1. Documento de identificación (Tipo de Identificador Fiscal):
             # cbc:CompanyID.@schemeName; sts:ProviderID.@schemeName del anexo técnico version 1.7
-            if document_type_code not in ('11', '12', '13', '21', '22', '31',
-                                          '41', '42', '50', '91'):
+            if document_type_code not in DOCUMENT_TYPE_CODES:
                 if self.person_type == '1':
                     raise UserError(msg6 % self.name)
                 else:
@@ -180,8 +181,8 @@ class ResPartner(models.Model):
             'AdditionalAccountID': self.person_type,
             'PartyName': self.commercial_name,
             'Name': name,
-            'AddressID': self.zip_id.code or '',
-            'AddressCityName': self.zip_id.name or '',
+            'AddressID': self.zip_id.city_id.code or '',
+            'AddressCityName': (self.zip_id.city_id.name or '').title(),
             'AddressPostalZone': zip_code,
             'AddressCountrySubentity': self.state_id.name or '',
             'AddressCountrySubentityCode': self.state_id.code or '',
@@ -221,8 +222,8 @@ class ResPartner(models.Model):
                 zip_code = self.zip_id.name
 
         return {
-            'AddressID': self.zip_id.code or '',
-            'AddressCityName': self.zip_id.name or '',
+            'AddressID': self.zip_id.city_id.code or '',
+            'AddressCityName': (self.zip_id.city_id.name or '').title(),
             'AddressPostalZone': zip_code,
             'AddressCountrySubentity': self.state_id.name or '',
             'AddressCountrySubentityCode': self.state_id.code or '',

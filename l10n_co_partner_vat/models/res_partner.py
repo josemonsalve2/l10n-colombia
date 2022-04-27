@@ -112,3 +112,26 @@ class ResPartner(models.Model):
             return str(vat)[vat_len - 1] == str(11 - (sum % 11))
         else:
             return str(vat)[vat_len - 1] == str(sum % 11)
+
+    def _compute_check_digit(self):
+        prime = [3, 7, 13, 17, 19, 23, 29, 37, 41, 43, 47, 53, 59, 67, 71]
+
+        if not self.identification_document:
+            return False
+
+        check_digit = 0
+        identification_document = self.identification_document.strip()
+
+        for i, character in enumerate(identification_document[::-1]):
+            try:
+                digit = int(character)
+            except:
+                return False
+
+            check_digit += digit * prime[i]
+
+        check_digit %= 11
+        check_digit = check_digit if check_digit >= 0 else 0
+        check_digit = (11 - check_digit) if check_digit >= 2 else check_digit
+
+        return check_digit

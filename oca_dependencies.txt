@@ -1,1 +1,5 @@
 partner-contact
+product-attribute
+account-invoicing
+account-financial-tools
+server-ux
