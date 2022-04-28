@@ -42,7 +42,7 @@ class AccountInvoiceDianDocument(models.Model):
             'target': 'current'
         }
 
-    def _get_qr_code_data(self):
+    def _get_qr_data(self):
         if self.invoice_id.invoice_type_code == '05':
             supplier = self.invoice_id.partner_id
             customer = self.company_id.partner_id
@@ -87,16 +87,20 @@ class AccountInvoiceDianDocument(models.Model):
         return qr_data
 
     @api.multi
-    def _get_qr_code(self):
+    def _compute_qr_image(self):
         for dian_document_id in self:
-            dian_document_id.qr_image = global_functions.get_qr_code(
-                dian_document_id._get_qr_code_data())        
-        
-    state = fields.Selection([('draft', 'Draft'), ('sent', 'Sent'),
-                              ('done', 'Done'), ('cancel', 'Cancelled')],
-                             string='State',
-                             readonly=True,
-                             default='draft')
+            dian_document_id.qr_image = global_functions.get_qr_image(
+                dian_document_id._get_qr_data())        
+
+    state = fields.Selection(
+        selection=[
+            ('draft', 'Draft'),
+            ('sent', 'Sent'),
+            ('done', 'Done'),
+            ('cancel', 'Cancelled')],
+        string='State',
+        readonly=True,
+        default='draft')
     invoice_id = fields.Many2one('account.invoice', string='Invoice')
     company_id = fields.Many2one('res.company', string='Company')
     invoice_url = fields.Char(string='Invoice Url')
@@ -115,21 +119,21 @@ class AccountInvoiceDianDocument(models.Model):
     zipped_file = fields.Binary(string='Zipped File')
     ar_xml_filename = fields.Char(string='ApplicationResponse XML Filename')
     ar_xml_file = fields.Binary(string='ApplicationResponse XML File')
-    validation_datetime = fields.Datetime(string='Validation Datetime',
-                                          default=False)
+    validation_datetime = fields.Datetime(string='Validation Datetime', default=False)
     ad_zipped_filename = fields.Char(string='AttachedDocument Zipped Filename')
     ad_zipped_file = fields.Binary(string='AttachedDocument Zipped File')
     mail_sent = fields.Boolean(string='Mail Sent?')
     zip_key = fields.Char(string='ZipKey')
     get_status_zip_status_code = fields.Selection(
-        [('00', 'Processed Correctly'), ('66', 'NSU not found'),
-         ('90', 'TrackId not found'),
-         ('99', 'Validations contain errors in mandatory fields'),
-         ('other', 'Other')],
+        selection=[
+            ('00', 'Processed Correctly'), ('66', 'NSU not found'),
+            ('90', 'TrackId not found'),
+            ('99', 'Validations contain errors in mandatory fields'),
+            ('other', 'Other')],
         string='Status Code',
         default=False)
     get_status_zip_response = fields.Text(string='Response')
-    qr_image = fields.Binary("QR Code", compute='_get_qr_code')
+    qr_image = fields.Binary("QR Code", compute='_compute_qr_image')
     dian_document_line_ids = fields.One2many(
         comodel_name='account.invoice.dian.document.line',
         inverse_name='dian_document_id',
@@ -622,17 +626,10 @@ class AccountInvoiceDianDocument(models.Model):
         else:
             raise ValidationError("ERROR: TODO 2.0")
 
-        try:
-            response = urllib.request.urlopen(
-                self.company_id.signature_policy_url, timeout=2)
-
-            if response.getcode() != 200:
-                return False
-        except Exception as e:
-            return False
-
         xml_with_signature = global_functions.get_xml_with_signature(
-            xml_without_signature, self.company_id.signature_policy_url,
+            xml_without_signature,
+            self.company_id.signature_policy_url,
+            self.company_id.signature_policy_file,
             self.company_id.signature_policy_description,
             self.company_id.certificate_file,
             self.company_id.certificate_password)
@@ -712,8 +709,8 @@ class AccountInvoiceDianDocument(models.Model):
         }
 
     def _get_ad_xml_file(self):
-        return global_functions.get_template_xml(self._get_ad_xml_values(),
-                                                 'AttachedDocument')
+        return global_functions.get_template_xml(
+            self._get_ad_xml_values(), 'AttachedDocument')
 
     def _get_ad_zipped_file(self):
         ad_zipped_filename = self.ad_zipped_filename
@@ -721,12 +718,11 @@ class AccountInvoiceDianDocument(models.Model):
         output = BytesIO()
         zipfile = ZipFile(output, mode='w')
         zipfile_content = BytesIO()
-        zipfile_content.write(self._get_ad_xml_file().encode("utf-8"))
+        zipfile_content.write(self._get_ad_xml_file())
         zipfile.writestr(ad_xml_filename, zipfile_content.getvalue())
         zipfile_content = BytesIO()
         zipfile_content.write(b64decode(self._get_pdf_file()))
-        zipfile.writestr(self.invoice_id.number + '.pdf',
-                         zipfile_content.getvalue())
+        zipfile.writestr(self.invoice_id.number + '.pdf', zipfile_content.getvalue())
         zipfile.close()
 
         return b64encode(output.getvalue())
@@ -747,8 +743,7 @@ class AccountInvoiceDianDocument(models.Model):
             self.company_id.certificate_password)
 
         xml_soap_values['fileName'] = self.zipped_filename.replace('.zip', '')
-        xml_soap_values['contentFile'] = b64encode(
-            self.zipped_file).decode('utf-8')
+        xml_soap_values['contentFile'] = b64encode(self.zipped_file).decode('utf-8')
         xml_soap_values['testSetId'] = self.company_id.test_set_id
 
         return xml_soap_values
@@ -759,8 +754,7 @@ class AccountInvoiceDianDocument(models.Model):
             self.company_id.certificate_password)
 
         xml_soap_values['fileName'] = self.zipped_filename.replace('.zip', '')
-        xml_soap_values['contentFile'] = b64encode(
-            self.zipped_file).decode('utf-8')
+        xml_soap_values['contentFile'] = b64encode(self.zipped_file).decode('utf-8')
 
         return xml_soap_values
 
@@ -918,9 +912,9 @@ class AccountInvoiceDianDocument(models.Model):
         GetStatusZip_values = self._get_GetStatusZip_values()
         GetStatusZip_values['To'] = wsdl.replace('?wsdl', '')
         xml_soap_with_signature = global_functions.get_xml_soap_with_signature(
-            global_functions.get_template_xml(GetStatusZip_values,
-                                              'GetStatusZip'),
-            GetStatusZip_values['Id'], self.company_id.certificate_file,
+            global_functions.get_template_xml(GetStatusZip_values, 'GetStatusZip'),
+            GetStatusZip_values['Id'],
+            self.company_id.certificate_file,
             self.company_id.certificate_password)
 
         response = post(
@@ -957,16 +951,16 @@ class AccountInvoiceDianDocument(models.Model):
             SendBillAsync_values = self._get_SendBillAsync_values()
             SendBillAsync_values['To'] = wsdl.replace('?wsdl', '')
             xml_soap_with_signature = global_functions.get_xml_soap_with_signature(
-                global_functions.get_template_xml(SendBillAsync_values,
-                                                  'SendBillSync'),
-                SendBillAsync_values['Id'], self.company_id.certificate_file,
+                global_functions.get_template_xml(SendBillAsync_values, 'SendBillSync'),
+                SendBillAsync_values['Id'],
+                self.company_id.certificate_file,
                 self.company_id.certificate_password)
         else:
             SendTestSetAsync_values = self._get_SendTestSetAsync_values()
             SendTestSetAsync_values['To'] = wsdl.replace('?wsdl', '')
             xml_soap_with_signature = global_functions.get_xml_soap_with_signature(
-                global_functions.get_template_xml(SendTestSetAsync_values,
-                                                  'SendTestSetAsync'),
+                global_functions.get_template_xml(
+                    SendTestSetAsync_values, 'SendTestSetAsync'),
                 SendTestSetAsync_values['Id'],
                 self.company_id.certificate_file,
                 self.company_id.certificate_password)
@@ -1031,7 +1025,8 @@ class AccountInvoiceDianDocument(models.Model):
         GetStatus_values['To'] = wsdl.replace('?wsdl', '')
         xml_soap_with_signature = global_functions.get_xml_soap_with_signature(
             global_functions.get_template_xml(GetStatus_values, 'GetStatus'),
-            GetStatus_values['Id'], self.company_id.certificate_file,
+            GetStatus_values['Id'],
+            self.company_id.certificate_file,
             self.company_id.certificate_password)
 
         try:
@@ -1040,11 +1035,11 @@ class AccountInvoiceDianDocument(models.Model):
                 headers={'content-type': 'application/soap+xml;charset=utf-8'},
                 data=etree.tostring(xml_soap_with_signature))
             print(response.text)
+
             if response.status_code == 200:
                 return self._get_status_response(response, send_mail)
             else:
-                raise ValidationError(msg1 %
-                                      (response.status_code, response.reason))
+                raise ValidationError(msg1 % (response.status_code, response.reason))
         except exceptions.RequestException as e:
             raise ValidationError(msg2 % (e))
 
@@ -1090,8 +1085,8 @@ class AccountInvoiceDianDocument(models.Model):
         )
         SendBillAttachmentAsync_values['To'] = wsdl.replace('?wsdl', '')
         xml_soap_with_signature = global_functions.get_xml_soap_with_signature(
-            global_functions.get_template_xml(SendBillAttachmentAsync_values,
-                                              'SendBillAttachmentAsync'),
+            global_functions.get_template_xml(
+                SendBillAttachmentAsync_values, 'SendBillAttachmentAsync'),
             SendBillAttachmentAsync_values['Id'],
             self.company_id.certificate_file,
             self.company_id.certificate_password)
