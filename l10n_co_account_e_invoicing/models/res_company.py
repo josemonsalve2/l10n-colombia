@@ -4,7 +4,6 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 from datetime import datetime
-from urllib import request
 from urllib.error import URLError, HTTPError
 from requests import post, exceptions
 from lxml import etree
@@ -28,10 +27,7 @@ class ResCompany(models.Model):
         digits=(12, 4),
         default=False)
     send_invoice_to_dian = fields.Selection(
-        selection=[
-            ('0', 'Immediately'),
-            ('1', 'After 1 Day'),
-            ('2', 'After 2 Days')],
+        selection=[('0', 'Immediately'), ('1', 'After 1 Day'), ('2', 'After 2 Days')],
         string='Send Invoice to DIAN?',
         default='0')
     profile_execution_id = fields.Selection(
@@ -55,12 +51,13 @@ class ResCompany(models.Model):
     certificate_remaining_days = fields.Integer(
         string='Certificate Remaining Days',
         default=False)
+    certificate_remaining_days = fields.Integer(
+        string='Certificate Remaining Days', default=False)
     signature_policy_url = fields.Char(
         string='Signature Policy URL',
         default='https://facturaelectronica.dian.gov.co/politicadefirma/v2/politicadefirmav2.pdf')
-    certificate_remaining_days = fields.Integer(
-        string='Certificate Remaining Days', default=False)
-    signature_policy_url = fields.Char(string='Signature Policy URL')
+    signature_policy_filename = fields.Char(string='Signature Policy Filename')
+    signature_policy_file = fields.Binary(string='Signature Policy File')
     signature_policy_description = fields.Char(
         string='Signature Policy Description',
         default='Política de firma para facturas electrónicas de la República de Colombia.')
@@ -83,23 +80,6 @@ class ResCompany(models.Model):
 
     @api.multi
     def write(self, vals):
-        msg = _('Invalid URL.\n%s')
-
-        #if vals.get('signature_policy_url'):
-        #    try:
-        #        for company in self:
-        #            response = request.urlopen(
-        #                vals.get('signature_policy_url'), timeout=15)
-
-        #            if response.getcode() != '200':
-        #                raise ValidationError(msg % "200")
-        #    except HTTPError as e:
-        #        raise ValidationError(msg % e)
-        #    except URLError as e:
-        #       raise ValidationError(msg % e)
-        #    else:
-        #        raise ValidationError(msg % "No se sabe")
-
         rec = super(ResCompany, self).write(vals)
 
         if vals.get('certificate_file') or vals.get('certificate_password'):
@@ -135,7 +115,7 @@ class ResCompany(models.Model):
         GetNumberingRange_values = self._get_GetNumberingRange_values()
         GetNumberingRange_values['To'] = wsdl.replace('?wsdl', '')
         xml_soap_with_signature = global_functions.get_xml_soap_with_signature(
-             global_functions.get_template_xml(
+            global_functions.get_template_xml(
                 GetNumberingRange_values, 'GetNumberingRange'),
             GetNumberingRange_values['Id'],
             self.certificate_file,

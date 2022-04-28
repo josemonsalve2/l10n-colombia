@@ -77,6 +77,11 @@
                             <group>
                                 <field name="signature_policy_url"
                                     attrs="{'required': [('einvoicing_enabled', '=', True)]}"/>
+                                <field name="signature_policy_filename" invisible="1"/>
+                                <field name="signature_policy_file"
+                                    widget="binary"
+                                    filename="signature_policy_filename"
+                                    attrs="{'required': [('einvoicing_enabled', '=', True)]}"/>
                                 <field name="signature_policy_description"
                                     attrs="{'required': [('einvoicing_enabled', '=', True)]}"/>
                             </group>
