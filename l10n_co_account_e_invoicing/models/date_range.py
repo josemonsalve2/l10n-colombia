@@ -15,3 +15,5 @@ class DateRange(models.Model):
     in_invoice_sent = fields.Integer(string='Support Documents Sent', default=0)
     in_refund_sent = fields.Integer(
         string='Support Document Credit Notes Sent', default=0)
+    application_response_sent = fields.Integer(
+        string='ApplicationResponses Sent', default=0)

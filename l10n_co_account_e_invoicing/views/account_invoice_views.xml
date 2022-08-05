@@ -60,7 +60,21 @@
                     attrs="{'invisible': [('sequence_resolution_id', '=', False)]}"
                     groups="l10n_co_account_e_invoicing.group_view_dian_documents">
                     <group>
-                        <field name="dian_document_ids" nolabel="1" widget="section_and_note_one2many" mode="tree,kanban">
+                        <group>
+                            <label for="dian_document_state"/>
+                            <div>
+                                <field name="dian_document_state"/>
+                                <button name="action_ApplicationResponse_034"
+                                    string="Tacit Acceptance"
+                                    type="object"
+                                    class="oe_stat_button"
+                                    icon="fa-check"
+                                    attrs="{'invisible': [('dian_document_state', '!=', 'as_receipt')]}"/>
+                            </div>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="dian_document_ids" widget="section_and_note_one2many" mode="tree,kanban">
                             <tree>
                                 <button type="object" name="go_to_dian_document" string="DIAN Document"/>
                                 <field name="cufe_cude"/>
@@ -124,15 +138,59 @@
             <xpath expr="//notebook" position="inside">
                 <page name="dian_documents"
                     string="DIAN Documents"
-                    attrs="{'invisible': [('sequence_resolution_id', '=', False)]}"
+                    attrs="{'invisible': [('sequence_resolution_id', '=', False), ('type', '=', 'in_refund')]}"
                     groups="l10n_co_account_e_invoicing.group_view_dian_documents">
+                    <group attrs="{'invisible': [('sequence_resolution_id', '!=', False)]}">
+                        <group>
+                            <field name="supplier_uuid" attrs="{'invisible': [('reference', '=', False)]}"/>
+                        </group>
+                    </group>
+                    <group attrs="{'invisible': [('sequence_resolution_id', '!=', False)]}">
+                        <group>
+                            <label for="dian_document_state"/>
+                            <div>
+                                <field name="dian_document_state" readonly="1"/>
+                                <button name="action_ApplicationResponse_030"
+                                    string="E-invoice Receipt"
+                                    type="object"
+                                    class="oe_stat_button"
+                                    icon="fa-check"
+                                    attrs="{'invisible': ['|', ('supplier_uuid', '=', False), ('dian_document_state', '!=', False)]}"/>
+                                <button name="action_ApplicationResponse_031"
+                                    string="E-invoice Claim"
+                                    type="object"
+                                    class="oe_stat_button"
+                                    icon="fa-times"
+                                    attrs="{'invisible': [('dian_document_state', '!=', 'as_receipt')]}"/>
+                                <button name="action_ApplicationResponse_032"
+                                    string="Assets and/or Services Receipt"
+                                    type="object"
+                                    class="oe_stat_button"
+                                    icon="fa-check"
+                                    attrs="{'invisible': [('dian_document_state', '!=', 'e-invocie_receipt')]}"/>
+                                <button name="action_ApplicationResponse_033"
+                                    string="Express Acceptance"
+                                    type="object"
+                                    class="oe_stat_button"
+                                    icon="fa-check"
+                                    attrs="{'invisible': [('dian_document_state', '!=', 'as_receipt')]}"/>
+                            </div>
+                        </group>
+                        <group>
+                            <field name="dian_claim"
+                                attrs="{
+                                    'invisible': [('dian_document_state', 'not in', ('as_receipt', 'e-invocie_claim'))],
+                                    'readonly': [('dian_document_state', '=', 'e-invocie_claim')]}"/>
+                        </group>
+                    </group>
                     <group>
-                        <field name="dian_document_ids" nolabel="1" widget="section_and_note_one2many" mode="tree,kanban">
+                        <field name="dian_document_ids" widget="section_and_note_one2many" mode="tree,kanban">
                             <tree>
                                 <button type="object" name="go_to_dian_document" string="DIAN Document"/>
                                 <field name="cufe_cude"/>
                                 <field name="create_date"/>
                                 <field name="zipped_filename"/>
+                                <field name="application_response_type"/>
                                 <field name="state"/>
                             </tree>
                         </field>

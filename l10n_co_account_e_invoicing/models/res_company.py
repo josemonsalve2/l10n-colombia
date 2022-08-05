@@ -152,7 +152,8 @@ class ResCompany(models.Model):
             count = 0
             dian_documents = self.env['account.invoice.dian.document'].search(
                 [('state', 'in', ('draft', 'sent')), ('company_id', '=', company.id)],
-                 order='zipped_filename asc')
+                order='zipped_filename asc'
+            )
 
             for dian_document in dian_documents:
                 today = fields.Date.context_today(self)
@@ -170,5 +171,32 @@ class ResCompany(models.Model):
 
     @api.model
     def cron_process_dian_documents(self):
-        for company in self.search([]):
-            company.action_process_dian_documents()
+        for company_id in self.search([]):
+            company_id.action_process_dian_documents()
+
+    @api.multi
+    def action_dian_document_send_emails(self):
+        for company in self:
+            count = 0
+            dian_documents = self.env['account.invoice.dian.document'].search(
+                [
+                    ('state', '=', 'done'),
+                    ('company_id', '=', company.id),
+                    ('mail_sent', '=', False)
+                ],
+                order='zipped_filename asc'
+            )
+
+            for dian_document in dian_documents:
+                dian_document.action_send_email()
+                count += 1
+
+                if count == 10:
+                    return True
+
+        return True
+
+    @api.model
+    def cron_dian_document_send_emails(self):
+        for company_id in self.search([]):
+            company_id.action_dian_document_send_emails()

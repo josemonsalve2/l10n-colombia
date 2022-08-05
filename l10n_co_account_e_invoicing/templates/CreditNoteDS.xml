@@ -117,7 +117,7 @@
 				</cac:Address>
 			</cac:PhysicalLocation>
 			<cac:PartyTaxScheme>
-				<cbc:RegistrationName>{{AccountingSupplierParty.Name}}</cbc:RegistrationName>
+				<cbc:RegistrationName>{{AccountingSupplierParty.RegistrationName}}</cbc:RegistrationName>
 				<cbc:CompanyID schemeAgencyID="195"
 					schemeAgencyName="CO, DIAN (Dirección de Impuestos y Aduanas Nacionales)"
 					{% if DV %}schemeID="{{DV}}"{% endif %}
@@ -136,7 +136,7 @@
 		<cbc:AdditionalAccountID>{{AccountingCustomerParty.AdditionalAccountID}}</cbc:AdditionalAccountID>
 		<cac:Party>
 			<cac:PartyTaxScheme>
-				<cbc:RegistrationName>{{AccountingCustomerParty.Name}}</cbc:RegistrationName>
+				<cbc:RegistrationName>{{AccountingCustomerParty.RegistrationName}}</cbc:RegistrationName>
 				<cbc:CompanyID schemeAgencyID="195"
 					schemeAgencyName="CO, DIAN (Dirección de Impuestos y Aduanas Nacionales)"
 					{% if AccountingCustomerParty.CompanyIDschemeName == '31' %}schemeID="{{AccountingCustomerParty.CompanyIDschemeID}}"{% endif %}

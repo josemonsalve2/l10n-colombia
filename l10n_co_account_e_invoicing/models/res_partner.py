@@ -180,7 +180,7 @@ class ResPartner(models.Model):
         return {
             'AdditionalAccountID': self.person_type,
             'PartyName': self.commercial_name,
-            'Name': name,
+            'RegistrationName': name,
             'AddressID': self.zip_id.city_id.code or '',
             'AddressCityName': (self.zip_id.city_id.name or '').title(),
             'AddressPostalZone': zip_code,
@@ -223,7 +223,7 @@ class ResPartner(models.Model):
 
         return {
             'AddressID': self.zip_id.city_id.code or '',
-            'AddressCityName': (self.zip_id.city_id.name or '').title(),
+            'AddressCityName': (self.zip_id.city_id.name or '').upper(),
             'AddressPostalZone': zip_code,
             'AddressCountrySubentity': self.state_id.name or '',
             'AddressCountrySubentityCode': self.state_id.code or '',
