@@ -169,7 +169,7 @@
 				</cac:Address>
 			</cac:PhysicalLocation>
 			<cac:PartyTaxScheme>
-				<cbc:RegistrationName>{{AccountingSupplierParty.Name}}</cbc:RegistrationName>
+				<cbc:RegistrationName>{{AccountingSupplierParty.RegistrationName}}</cbc:RegistrationName>
 				<cbc:CompanyID schemeAgencyID="195"
 					schemeAgencyName="CO, DIAN (Dirección de Impuestos y Aduanas Nacionales)"
 					schemeID="{{AccountingSupplierParty.CompanyIDschemeID}}"
@@ -200,7 +200,7 @@
 				</cac:TaxScheme>
 			</cac:PartyTaxScheme>
 			<cac:PartyLegalEntity>
-				<cbc:RegistrationName>{{AccountingSupplierParty.Name}}</cbc:RegistrationName>
+				<cbc:RegistrationName>{{AccountingSupplierParty.RegistrationName}}</cbc:RegistrationName>
 				<cbc:CompanyID schemeAgencyID="195"
 					schemeAgencyName="CO, DIAN (Dirección de Impuestos y Aduanas Nacionales)"
 					schemeID="{{AccountingSupplierParty.CompanyIDschemeID}}"
@@ -290,7 +290,7 @@
 			</cac:PhysicalLocation>
 			{% endif %}
 			<cac:PartyTaxScheme>
-				<cbc:RegistrationName>{{AccountingCustomerParty.Name}}</cbc:RegistrationName>
+				<cbc:RegistrationName>{{AccountingCustomerParty.RegistrationName}}</cbc:RegistrationName>
 				<cbc:CompanyID schemeAgencyID="195"
 					schemeAgencyName="CO, DIAN (Dirección de Impuestos y Aduanas Nacionales)"
 					{% if AccountingCustomerParty.CompanyIDschemeName == '31' %}schemeID="{{AccountingCustomerParty.CompanyIDschemeID}}"{% endif %}
@@ -322,7 +322,7 @@
 				</cac:TaxScheme>
 			</cac:PartyTaxScheme>
 			<cac:PartyLegalEntity>
-				<cbc:RegistrationName>{{AccountingCustomerParty.Name}}</cbc:RegistrationName>
+				<cbc:RegistrationName>{{AccountingCustomerParty.RegistrationName}}</cbc:RegistrationName>
 				<cbc:CompanyID schemeAgencyID="195"
 					schemeAgencyName="CO, DIAN (Dirección de Impuestos y Aduanas Nacionales)"
 					{% if AccountingCustomerParty.CompanyIDschemeName == '31' %}schemeID="{{AccountingCustomerParty.CompanyIDschemeID}}"{% endif %}

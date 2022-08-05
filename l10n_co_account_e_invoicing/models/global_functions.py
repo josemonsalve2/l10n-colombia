@@ -19,7 +19,7 @@ from odoo import _
 from odoo.exceptions import ValidationError
 
 
-def get_software_security_code(IdSoftware, Pin, NroDocumentos):
+def get_SoftwareSecurityCode(IdSoftware, Pin, NroDocumentos):
     uncoded_value = (IdSoftware + ' + ' + Pin + ' + ' + NroDocumentos)
     software_security_code = IdSoftware + Pin + NroDocumentos
     software_security_code = hashlib.sha384(software_security_code.encode('utf-8'))
@@ -30,7 +30,7 @@ def get_software_security_code(IdSoftware, Pin, NroDocumentos):
     }
 
 
-def get_cu(
+def get_UUID(
         NumFac,
         FecFac,
         HorFac,
@@ -74,6 +74,29 @@ def get_cu(
         'CUFE/CUDE/CUDS': value.hexdigest()
     }
 
+def get_ApplicationResponseUUID(
+        Num_DE,
+        Fec_Emi,
+        Hor_Emi,
+        NitFE,
+        DocAdq,
+        ResponseCode,
+        ID,
+        DocumentTypeCode,
+        SoftwarePIN):
+    # CUDE = SHA-384(Num_DE + Fec_Emi + Hor_Emi + NitFE + DocAdq + ResponseCode + ID +
+    # DocumentTypeCode + Software-PIN)
+    uncoded_value = (Num_DE + ' + ' + Fec_Emi + ' + ' + Hor_Emi + ' + ' +
+                     NitFE + ' + ' + DocAdq + ' + ' + ResponseCode + ' + ' +
+                     ID + ' + ' + DocumentTypeCode + ' + ' + SoftwarePIN)
+    value = (Num_DE + Fec_Emi + Hor_Emi + NitFE + DocAdq + ResponseCode + ID +
+             DocumentTypeCode + SoftwarePIN)
+    value = hashlib.sha384(value.encode('utf-8'))
+
+    return {
+        'CUDEUncoded': uncoded_value,
+        'CUDE': value.hexdigest()
+    }
 
 # https://stackoverflow.com/questions/38432809/dynamic-xml-template-generation-using-get-template-jinja2
 def get_template_xml(values, template_name):

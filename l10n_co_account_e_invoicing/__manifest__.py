@@ -3,22 +3,15 @@
 # Copyright 2021 Alejandro Olano <Github@alejo-code>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 {
-    "name":
-    "Colombian Account E-Invoicing",
-    "category":
-    "E-Invoicing",
-    "version":
-    "12.0.1.0.0",
-    "author":
-    "EXA Auto Parts Github@exaap, "
-    "Alejandro Olano Github@alejo-code, "
-    "Joan Marín Github@JoanMarin",
-    "website":
-    "https://github.com/exaap/l10n-colombia",
-    "license":
-    "AGPL-3",
-    "summary":
-    "Colombian Account E-Invoicing",
+    "name": "Colombian Account E-Invoicing",
+    "category": "E-Invoicing",
+    "version": "12.0.1.0.0",
+    "author": "EXA Auto Parts Github@exaap, "
+              "Joan Marín Github@JoanMarin, "
+              "Alejandro Olano Github@alejo-code",
+    "website": "https://github.com/exaap/l10n-colombia",
+    "license": "AGPL-3",
+    "summary": "Colombian Account E-Invoicing",
     "depends": [
         "l10n_co_account_fiscal_position_party_tax_scheme",
         "l10n_co_account_invoice_discrepancy_response",
@@ -44,11 +37,11 @@
         ],
     },
     "data": [
-        'security/ir.model.access.csv',
         'data/ir_module_category_data.xml',
         'data/res_groups_data.xml',
         'data/product_scheme_data.xml',
         'data/ir_cron_data.xml',
+        'security/ir.model.access.csv',
         "views/account_invoice_views.xml",
         "views/account_invoice_dian_document_views.xml",
         "views/account_tax_group_views.xml",
@@ -60,6 +53,5 @@
         "report/account_invoice_mail_template.xml",
         "report/account_invoice_report_template.xml",
     ],
-    "installable":
-    True,
+    "installable": True,
 }

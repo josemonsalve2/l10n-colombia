@@ -23,22 +23,46 @@
                 <header>
                     <field name="state" widget="statusbar" statusbar_visible="draft,sent,done,cancel"/>
                     <button name="action_set_files" string="Set Files" type="object" states="draft,sent" class="btn-primary"/>
-                    <button name="action_send_zipped_file" string="Send Zipped File" type="object" class="btn-primary" attrs="{'invisible': ['|', '|',
+                    <button name="action_send_zipped_file"
+                        string="Send Zipped File"
+                        type="object"
+                        class="btn-primary"
+                        attrs="{'invisible': ['|', '|',
                                 ('xml_file', '=', False),
                                 ('zipped_file', '=', False),
                                 ('state', 'in', ('done', 'cancel'))]}"/>
-                    <button name="action_GetStatusZip" string="GetStatusZip" type="object" class="btn-primary" attrs="{'invisible': [('zip_key', '=', False)]}"/>
-                    <button name="action_GetStatus_without_send_mail" string="GetStatus" type="object" class="btn-primary" attrs="{'invisible': ['|', '|', '|',
+                    <button name="action_GetStatusZip"
+                        string="GetStatusZip"
+                        type="object"
+                        class="btn-primary"
+                        attrs="{'invisible': [('zip_key', '=', False)]}"/>
+                    <button name="action_GetStatus_without_send_email"
+                        string="GetStatus without Send E-Mail"
+                        type="object"
+                        class="btn-primary"
+                        attrs="{'invisible': ['|', '|', '|',
                                 ('cufe_cude', '=', False),
                                 ('xml_file', '=', False),
                                 ('zipped_file', '=', False),
                                 ('state', 'in', ('cancel'))]}"/>
-                    <button name="action_set_ad_zipped_file" string="Set AttachedDocument Zipped File" type="object" class="btn-primary" attrs="{'invisible': [('ar_xml_file', '=', False)]}"/>
-                    <button name="action_process" string="Process" type="object" class="btn-primary" attrs="{'invisible': ['|', '|',
+                    <button name="action_set_ad_zipped_file"
+                        string="Set AttachedDocument Zipped File"
+                        type="object"
+                        class="btn-primary"
+                        attrs="{'invisible': [('ar_xml_file', '=', False)]}"/>
+                    <button name="action_process"
+                        string="Process"
+                        type="object"
+                        class="btn-primary"
+                        attrs="{'invisible': ['|', '|',
                                 ('xml_file', '=', False),
                                 ('zipped_file', '=', False),
                                 ('state', 'in', ('done', 'cancel'))]}"/>
-                    <button name="action_send_mail" string="Send Mail" type="object" class="btn-primary" attrs="{'invisible': ['|', ('ar_xml_file', '=', False), ('mail_sent', '=', True)]}"/>
+                    <button name="action_send_email"
+                        string="Send E-Mail"
+                        type="object"
+                        class="btn-primary"
+                        attrs="{'invisible': ['|', ('ar_xml_file', '=', False), ('mail_sent', '=', True)]}"/>
                 </header>
                 <sheet>
                     <group>
@@ -71,7 +95,7 @@
                             <field name="qr_image" widget="image" style="width: 200px; height: 200px;" nolabel="1"/>
                         </group>
                     </group>
-                    <group string="GetStatusZip">
+                    <group string="GetStatus">
                         <field name="get_status_zip_status_code" readonly="1"/>
                         <field name="get_status_zip_response" readonly="1"/>
                     </group>

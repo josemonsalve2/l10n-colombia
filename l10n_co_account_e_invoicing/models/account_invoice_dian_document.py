@@ -20,11 +20,24 @@ from odoo.exceptions import ValidationError, UserError
 
 ssl._create_default_https_context = ssl._create_unverified_context
 
-DIAN = {
+DIAN_URL = {
     'wsdl-hab': 'https://vpfe-hab.dian.gov.co/WcfDianCustomerServices.svc?wsdl',
     'wsdl': 'https://vpfe.dian.gov.co/WcfDianCustomerServices.svc?wsdl',
     'catalogo-hab': 'https://catalogo-vpfe-hab.dian.gov.co/document/searchqr?documentkey={}',
     'catalogo': 'https://catalogo-vpfe.dian.gov.co/document/searchqr?documentkey={}'
+}
+APPLICATION_RESPONSE = {
+    '030': 'Acuse de recibo de Factura Electrónica de Venta',
+    '031': 'Reclamo de la Factura Electrónica de Venta',
+    '032': 'Recibo del bien y/o prestación del servicio',
+    '033': 'Aceptación expresa',
+    '034': 'Aceptación Tácita'
+}
+DIAN_CLAIM = {
+    '01': 'Documento con inconsistencias',
+    '02': 'Mercancía no entregada totalmente',
+    '03': 'Mercancía no entregada parcialmente',
+    '04': 'Servicio no prestado'
 }
 
 
@@ -97,12 +110,24 @@ class AccountInvoiceDianDocument(models.Model):
             ('draft', 'Draft'),
             ('sent', 'Sent'),
             ('done', 'Done'),
-            ('cancel', 'Cancelled')],
+            ('cancel', 'Cancelled')
+        ],
         string='State',
         readonly=True,
         default='draft')
-    invoice_id = fields.Many2one('account.invoice', string='Invoice')
     company_id = fields.Many2one('res.company', string='Company')
+    invoice_id = fields.Many2one('account.invoice', string='Invoice')
+    issue_datetime = fields.Datetime(string='Issue Datetime', default=False)
+    application_response_type = fields.Selection(
+        selection=[
+            ('030', 'Acuse de recibo de Factura Electrónica de Venta'),
+            ('031', 'Reclamo de la Factura Electrónica de Venta'),
+            ('032', 'Recibo del bien y/o prestación del servicio'),
+            ('033', 'Aceptación expresa'),
+            ('034', 'Aceptación Tácita')
+        ],
+        string='ApplicationResponse Type',
+        default=False)
     invoice_url = fields.Char(string='Invoice Url')
     cufe_cude_uncoded = fields.Char(string='CUFE/CUDE Uncoded')
     cufe_cude = fields.Char(string='CUFE/CUDE')
@@ -126,10 +151,12 @@ class AccountInvoiceDianDocument(models.Model):
     zip_key = fields.Char(string='ZipKey')
     get_status_zip_status_code = fields.Selection(
         selection=[
-            ('00', 'Processed Correctly'), ('66', 'NSU not found'),
+            ('00', 'Processed Correctly'),
+            ('66', 'NSU not found'),
             ('90', 'TrackId not found'),
             ('99', 'Validations contain errors in mandatory fields'),
-            ('other', 'Other')],
+            ('other', 'Other')
+        ],
         string='Status Code',
         default=False)
     get_status_zip_response = fields.Text(string='Response')
@@ -145,7 +172,8 @@ class AccountInvoiceDianDocument(models.Model):
         msg3 = _("'%s' does not have a identification document established.")
         msg4 = _('There is no date range corresponding to the date of your invoice.')
         date_invoice = datetime.strftime(
-            self.invoice_id.date_invoice, '%Y-%m-%d %H:%M:%S')
+            self.invoice_id.date_invoice, '%Y-%m-%d %H:%M:%S'
+        )
 
         if self.company_id.partner_id.document_type_id:
             if self.company_id.partner_id.document_type_id.code != '31':
@@ -159,9 +187,9 @@ class AccountInvoiceDianDocument(models.Model):
         if not date_invoice:
             date_invoice = fields.Date.today()
 
-        param = [('date_start', '<=', date_invoice),
-                 ('date_end', '>=', date_invoice)]
-        daterange = self.env['date.range'].search(param)
+        daterange = self.env['date.range'].search(
+            [('date_start', '<=', date_invoice), ('date_end', '>=', date_invoice)]
+        )
 
         if (not daterange or daterange.company_id != self.company_id
                 or not daterange.type_id or not daterange.type_id.name):
@@ -173,13 +201,14 @@ class AccountInvoiceDianDocument(models.Model):
             out_refund_debit_sent = daterange.out_refund_debit_sent
             in_invoice_sent = daterange.in_invoice_sent
             in_refund_sent = daterange.in_refund_sent
-            zip_sent = out_invoice_sent + out_refund_credit_sent + out_refund_debit_sent
-            zips_sent = in_invoice_sent + in_refund_sent
+            application_response_sent = daterange.application_response_sent
+            zip_out_sent = out_invoice_sent + out_refund_credit_sent + out_refund_debit_sent
+            zip_in_sent = in_invoice_sent + in_refund_sent
+            zip_ar_sent = application_response_sent
 
         # nnnnnnnnnn: NIT del Facturador Electrónico sin DV, de diez (10) dígitos
         # alineados a la derecha y relleno con ceros a la izquierda.
-        nnnnnnnnnn = self.company_id.partner_id.identification_document.zfill(
-            10)
+        nnnnnnnnnn = self.company_id.partner_id.identification_document.zfill(10)
         # El Código “ppp” es 000 para Software Propio
         ppp = '000'
 
@@ -191,7 +220,7 @@ class AccountInvoiceDianDocument(models.Model):
         # de ocho (8) dígitos decimales alineados a la derecha y ajustado a la
         # izquierda con ceros; en el rango:
         # 00000001 <= 99999999
-        zdddddddd = str(zip_sent + 1).zfill(8)
+        zdddddddd = str(zip_out_sent + 1).zfill(8)
         z_prefix = 'z'
         ar_prefix = 'ar'
         ad_prefix = 'ad'
@@ -209,11 +238,19 @@ class AccountInvoiceDianDocument(models.Model):
             xml_prefix = 'nd'
             daterange.out_refund_debit_sent += 1
             dddddddd = str(daterange.out_refund_debit_sent)
+        elif self.invoice_id.supplier_uuid:
+            xml_prefix = 'ar'
+            daterange.application_response_sent += 1
+            dddddddd = str(daterange.application_response_sent)
+            zdddddddd = str(zip_ar_sent + 1).zfill(8)
+            z_prefix = 'zar'
+            ar_prefix = 'arar'
+            ad_prefix = 'adar'
         elif self.invoice_id.type == 'in_invoice':
             xml_prefix = 'ds'
             daterange.in_invoice_sent += 1
             dddddddd = str(daterange.in_invoice_sent)
-            zdddddddd = str(zips_sent + 1).zfill(8)
+            zdddddddd = str(zip_in_sent + 1).zfill(8)
             z_prefix = 'zs'
             ar_prefix = 'ars'
             ad_prefix = 'ads'
@@ -221,7 +258,7 @@ class AccountInvoiceDianDocument(models.Model):
             xml_prefix = 'nas'
             daterange.in_refund_sent += 1
             dddddddd = str(daterange.in_refund_sent)
-            zdddddddd = str(zips_sent + 1).zfill(8)
+            zdddddddd = str(zip_in_sent + 1).zfill(8)
             z_prefix = 'zs'
             ar_prefix = 'ars'
             ad_prefix = 'ads'
@@ -275,14 +312,14 @@ class AccountInvoiceDianDocument(models.Model):
         IdSoftware = self.company_id.software_id
         SoftwarePIN = self.company_id.software_pin
         ID = self.invoice_id.number
-        software_security_code = global_functions.get_software_security_code(
+        SoftwareSecurityCode = global_functions.get_SoftwareSecurityCode(
             IdSoftware, SoftwarePIN, ID)
-        TipoAmbie = self.company_id.profile_execution_id
+        ProfileExecutionID = self.company_id.profile_execution_id
 
-        if TipoAmbie == '1':
-            QRCodeURL = DIAN['catalogo']
+        if ProfileExecutionID == '1':
+            QRCodeURL = DIAN_URL['catalogo']
         else:
-            QRCodeURL = DIAN['catalogo-hab']
+            QRCodeURL = DIAN_URL['catalogo-hab']
 
         invoice_datetime = self.invoice_id.invoice_datetime
         IssueDate = datetime.strftime(invoice_datetime, '%Y-%m-%d')
@@ -300,7 +337,7 @@ class AccountInvoiceDianDocument(models.Model):
         # El valor a pagar puede verse afectado, por anticipos, y descuentos y
         # cargos a nivel de factura
         PayableAmount = TaxInclusiveAmount
-        cu = global_functions.get_cu(
+        UUID = global_functions.get_UUID(
             ID,
             IssueDate,
             IssueTime,
@@ -316,14 +353,14 @@ class AccountInvoiceDianDocument(models.Model):
             AccountingCustomerParty['CompanyID'],
             ClTec,
             SoftwarePIN,
-            TipoAmbie)
-        QRCodeURL = QRCodeURL.format(cu['CUFE/CUDE/CUDS'])
+            ProfileExecutionID)
+        QRCodeURL = QRCodeURL.format(UUID['CUFE/CUDE/CUDS'])
         self.write({
             'invoice_url': QRCodeURL,
-            'cufe_cude_uncoded': cu['CUFE/CUDE/CUDSUncoded'],
-            'cufe_cude': cu['CUFE/CUDE/CUDS'],
-            'software_security_code_uncoded': software_security_code['SoftwareSecurityCodeUncoded'],
-            'software_security_code': software_security_code['SoftwareSecurityCode']
+            'cufe_cude_uncoded': UUID['CUFE/CUDE/CUDSUncoded'],
+            'cufe_cude': UUID['CUFE/CUDE/CUDS'],
+            'software_security_code_uncoded': SoftwareSecurityCode['SoftwareSecurityCodeUncoded'],
+            'software_security_code': SoftwareSecurityCode['SoftwareSecurityCode']
         })
 
         return {
@@ -331,11 +368,11 @@ class AccountInvoiceDianDocument(models.Model):
             'ProviderIDschemeName': provider.document_type_id.code,
             'ProviderID': provider.identification_document,
             'SoftwareID': IdSoftware,
-            'SoftwareSecurityCode': software_security_code['SoftwareSecurityCode'],
+            'SoftwareSecurityCode': SoftwareSecurityCode['SoftwareSecurityCode'],
             'QRCodeURL': QRCodeURL,
-            'ProfileExecutionID': TipoAmbie,
+            'ProfileExecutionID': ProfileExecutionID,
             'ID': ID,
-            'UUID': cu['CUFE/CUDE/CUDS'],
+            'UUID': UUID['CUFE/CUDE/CUDS'],
             'IssueDate': IssueDate,
             'IssueTime': IssueTime,
             'ValIva': '{:.2f}'.format(ValImp1),
@@ -520,6 +557,109 @@ class AccountInvoiceDianDocument(models.Model):
 
         return xml_values
 
+    def _get_application_response_values(self):
+        provider = self.company_id.partner_id
+        sender = self.company_id.partner_id
+        receiver = self.invoice_id.partner_id
+
+        if self.company_id.have_technological_provider:
+            provider = self.company_id.technological_provider_id
+
+        SoftwareProvider = {
+            'ProviderIDschemeID': provider.check_digit,
+            'ProviderIDschemeName': provider.document_type_id.code,
+            'ProviderID': provider.identification_document,
+            'SoftwareID': self.company_id.software_id
+        }
+        SoftwarePIN = self.company_id.software_pin
+        ResponseCode = self.application_response_type
+        DocumentReference = {
+            'ID': self.invoice_id.reference,
+            'UUID': self.invoice_id.supplier_uuid,
+            'DocumentTypeCode': '01'
+        }
+
+        if ResponseCode == '030':
+            ID = 'ARFE' + DocumentReference['ID']
+        elif ResponseCode == '031':
+            ID = 'RFE' + DocumentReference['ID']
+        elif ResponseCode == '032':
+            ID = 'ARBS' + DocumentReference['ID']
+        elif ResponseCode == '033':
+            ID = 'AE' + DocumentReference['ID']
+        elif ResponseCode == '034':
+            ID = 'AT' + DocumentReference['ID']
+
+        SoftwareSecurityCode = global_functions.get_SoftwareSecurityCode(
+            SoftwareProvider['SoftwareID'], SoftwarePIN, ID)
+        ProfileExecutionID = self.company_id.profile_execution_id
+
+        if ProfileExecutionID == '1':
+            QRCodeURL = DIAN_URL['catalogo']
+        else:
+            QRCodeURL = DIAN_URL['catalogo-hab']
+
+        QRCodeURL = QRCodeURL.format(DocumentReference['UUID'])
+        issue_datetime = self.issue_datetime
+        IssueDate = datetime.strftime(issue_datetime, '%Y-%m-%d')
+        IssueTime = datetime.strftime(issue_datetime, '%H:%M:%S-05:00')
+        SenderParty = sender._get_accounting_partner_party_values()
+        ReceiverParty = receiver._get_accounting_partner_party_values()
+        UUID = global_functions.get_ApplicationResponseUUID(
+            ID,
+            IssueDate,
+            IssueTime,
+            SenderParty['CompanyID'],
+            ReceiverParty['CompanyID'],
+            ResponseCode,
+            DocumentReference['ID'],
+            DocumentReference['DocumentTypeCode'],
+            SoftwarePIN)
+        ResponseCodename = False
+        ResponseCodeListID = False
+
+        if self.invoice_id.dian_claim:
+            ResponseCodename = DIAN_CLAIM[self.invoice_id.dian_claim]
+            ResponseCodeListID = self.invoice_id.dian_claim
+
+        self.write({
+            'invoice_url': QRCodeURL,
+            'cufe_cude_uncoded': UUID['CUDEUncoded'],
+            'cufe_cude': UUID['CUDE'],
+            'software_security_code_uncoded': SoftwareSecurityCode['SoftwareSecurityCodeUncoded'],
+            'software_security_code': SoftwareSecurityCode['SoftwareSecurityCode']
+        })
+
+        return {
+            'SoftwareProvider': SoftwareProvider,
+            'SoftwareSecurityCode': SoftwareSecurityCode['SoftwareSecurityCode'],
+            'QRCode': QRCodeURL,
+            'ProfileExecutionID': ProfileExecutionID,
+            'ID': ID,
+            'UUID': UUID['CUDE'],
+            'IssueDate': IssueDate,
+            'IssueTime': IssueTime,
+            'Note': False,
+            'SenderParty': SenderParty,
+            'ReceiverParty': ReceiverParty,
+            'Response': {
+                'ResponseCodename': ResponseCodename,
+                'ResponseCodeListID': ResponseCodeListID,
+                'ResponseCode': ResponseCode,
+                'Description': APPLICATION_RESPONSE[ResponseCode],
+            },
+            'DocumentReference': DocumentReference,
+            'IssuerParty': {
+                'IDschemeID': self.create_uid.partner_id.check_digit,
+                'IDschemeName': self.create_uid.partner_id.document_type_id.code,
+                'ID': self.create_uid.partner_id.identification_document,
+                'FirstName': self.create_uid.partner_id.firstname,
+                'FamilyName': self.create_uid.partner_id.lastname,
+                'JobTitle': False,
+                'OrganizationDepartment': False
+            }
+        }
+
     def _get_support_document_values(self):
         msg1 = _("Your journal: %s, has no a invoice sequence")
         msg2 = _("Your journal: %s, has no a invoice sequence with type equal to "
@@ -543,7 +683,7 @@ class AccountInvoiceDianDocument(models.Model):
 
         if self.invoice_id.partner_id.document_type_id.code in ('11', '12', '13', '31'):
             customization_id = '10'
-            dv = self.invoice_id.partner_id._compute_check_digit()
+            dv = str(self.invoice_id.partner_id._compute_check_digit())
 
         xml_values['DV'] = dv
         xml_values['CustomizationID'] = customization_id
@@ -578,7 +718,7 @@ class AccountInvoiceDianDocument(models.Model):
 
         if self.invoice_id.partner_id.document_type_id.code in ('11', '12', '13', '31'):
             customization_id = '10'
-            dv = self.invoice_id.partner_id._compute_check_digit()
+            dv = str(self.invoice_id.partner_id._compute_check_digit())
 
         xml_values['DV'] = dv
         xml_values['CustomizationID'] = customization_id
@@ -610,19 +750,28 @@ class AccountInvoiceDianDocument(models.Model):
 
         if self.invoice_id.type == "out_invoice" and not refund_type:
             xml_without_signature = global_functions.get_template_xml(
-                self._get_invoice_values(), 'Invoice')
+                self._get_invoice_values(), 'Invoice'
+            )
         elif self.invoice_id.type == "out_refund" and refund_type == "credit":
             xml_without_signature = global_functions.get_template_xml(
-                self._get_credit_note_values(), 'CreditNote')
+                self._get_credit_note_values(), 'CreditNote'
+            )
         elif self.invoice_id.type == "out_refund" and refund_type == "debit":
             xml_without_signature = global_functions.get_template_xml(
-                self._get_debit_note_values(), 'DebitNote')
+                self._get_debit_note_values(), 'DebitNote'
+            )
+        elif self.invoice_id.supplier_uuid:
+            xml_without_signature = global_functions.get_template_xml(
+                self._get_application_response_values(), 'ApplicationResponse'
+            )
         elif self.invoice_id.type == 'in_invoice':
             xml_without_signature = global_functions.get_template_xml(
-                self._get_support_document_values(), 'InvoiceDS')
+                self._get_support_document_values(), 'InvoiceDS'
+            )
         elif self.invoice_id.type == 'in_refund':
             xml_without_signature = global_functions.get_template_xml(
-                self._get_support_document_credit_note_values(), 'CreditNoteDS')
+                self._get_support_document_credit_note_values(), 'CreditNoteDS'
+            )
         else:
             raise ValidationError("ERROR: TODO 2.0")
 
@@ -646,6 +795,34 @@ class AccountInvoiceDianDocument(models.Model):
         zipfile.close()
 
         return output.getvalue()
+
+    def _get_dian_document_mail_subject(self):
+        if self.application_response_type:
+            ResponseCode = self.application_response_type
+            DocumentReferenceID = self.invoice_id.reference
+
+            if ResponseCode == '030':
+                prefix = 'ARFE'
+            elif ResponseCode == '031':
+                prefix = 'RFE'
+            elif ResponseCode == '032':
+                prefix = 'ARBS'
+            elif ResponseCode == '033':
+                prefix = 'AE'
+            elif ResponseCode == '034':
+                prefix = 'AT'
+
+            return ('Evento;' + DocumentReferenceID + ';' +
+                self.company_id.partner_id.identification_document + ';' +
+                self.company_id.name + ';' + prefix + DocumentReferenceID + ';' +
+                ResponseCode + ';'
+            )
+        else:
+            return (self.company_id.partner_id.identification_document + ';' +
+                self.company_id.name + ';' + self.invoice_id.number + ';' +
+                self.invoice_id.invoice_type_code + ';' +
+                self.invoice_id.partner_id.name + ';'
+            )
 
     def action_set_files(self):
         if self.invoice_id.warn_inactive_certificate:
@@ -674,13 +851,38 @@ class AccountInvoiceDianDocument(models.Model):
         to_zone = tz.gettz(timezone.zone)
         issue_datetime = datetime.now().replace(tzinfo=from_zone)
         IssueDate = issue_datetime.astimezone(to_zone).strftime('%Y-%m-%d')
-        IssueTime = issue_datetime.astimezone(to_zone).strftime(
-            '%H:%M:%S-05:00')
-        ParentDocumentID = self.invoice_id.number
+        IssueTime = issue_datetime.astimezone(to_zone).strftime('%H:%M:%S-05:00')
+        DocumentReferenceID = ''
+
+        if self.invoice_id.type == "out_invoice":
+            UUIDschemeName = 'CUFE'
+        elif self.invoice_id.type in ['in_invoice', 'in_refund']:
+            UUIDschemeName = 'CUDS'
+        else:
+            UUIDschemeName = 'CUDE'
+
+        if self.invoice_id.supplier_uuid:
+            ParentDocumentID = self.invoice_id.reference
+            UUIDschemeName = 'CUDE'
+
+            if self.application_response_type == '030':
+                DocumentReferenceID = 'ARFE'
+            elif self.application_response_type == '031':
+                DocumentReferenceID = 'RFE'
+            elif self.application_response_type == '032':
+                DocumentReferenceID = 'ARBS'
+            elif self.application_response_type == '033':
+                DocumentReferenceID = 'AE'
+            elif self.application_response_type == '034':
+                DocumentReferenceID = 'AT'
+        else:
+            ParentDocumentID = self.invoice_id.number
+
         UUID = self.cufe_cude
-        supplier = self.company_id.partner_id
-        customer = self.invoice_id.partner_id
-        InvoiceCNDN = b64decode(self.xml_file).decode('utf-8')
+        sender = self.company_id.partner_id
+        receiver = self.invoice_id.partner_id
+        Attachment = b64decode(self.xml_file).decode('utf-8')
+        DocumentReferenceID += ParentDocumentID
 
         if self.ar_xml_file:
             ApplicationResponse = b64decode(self.ar_xml_file).decode('utf-8')
@@ -688,10 +890,8 @@ class AccountInvoiceDianDocument(models.Model):
             ApplicationResponse = 'NO ApplicationResponse'
 
         validation_datetime = self.validation_datetime
-
         ValidationDate = datetime.strftime(validation_datetime, '%Y-%m-%d')
-        ValidationTime = datetime.strftime(validation_datetime,
-                                           '%H:%M:%S-05:00')
+        ValidationTime = datetime.strftime(validation_datetime, '%H:%M:%S-05:00')
 
         return {
             'ProfileExecutionID': ProfileExecutionID,
@@ -699,13 +899,18 @@ class AccountInvoiceDianDocument(models.Model):
             'IssueDate': IssueDate,
             'IssueTime': IssueTime,
             'ParentDocumentID': ParentDocumentID,
-            'SenderParty': supplier._get_accounting_partner_party_values(),
-            'ReceiverParty': customer._get_accounting_partner_party_values(),
-            'InvoiceCNDN': InvoiceCNDN,
-            'UUID': UUID,
-            'ApplicationResponse': ApplicationResponse,
-            'ValidationDate': ValidationDate,
-            'ValidationTime': ValidationTime
+            'SenderParty': sender._get_accounting_partner_party_values(),
+            'ReceiverParty': receiver._get_accounting_partner_party_values(),
+            'Attachment': Attachment,
+            'DocumentReference': {
+                'ID': DocumentReferenceID,
+                'UUIDschemeName': UUIDschemeName,
+                'UUID': UUID,
+                'IssueDate': ValidationDate,
+                'Attachment': ApplicationResponse,
+                'ValidationDate': ValidationDate,
+                'ValidationTime': ValidationTime
+            }
         }
 
     def _get_ad_xml_file(self):
@@ -720,9 +925,12 @@ class AccountInvoiceDianDocument(models.Model):
         zipfile_content = BytesIO()
         zipfile_content.write(self._get_ad_xml_file())
         zipfile.writestr(ad_xml_filename, zipfile_content.getvalue())
-        zipfile_content = BytesIO()
-        zipfile_content.write(b64decode(self._get_pdf_file()))
-        zipfile.writestr(self.invoice_id.number + '.pdf', zipfile_content.getvalue())
+
+        if not self.invoice_id.supplier_uuid:
+            zipfile_content = BytesIO()
+            zipfile_content.write(b64decode(self._get_pdf_file()))
+            zipfile.writestr(self.invoice_id.number + '.pdf', zipfile_content.getvalue())
+
         zipfile.close()
 
         return b64encode(output.getvalue())
@@ -739,20 +947,18 @@ class AccountInvoiceDianDocument(models.Model):
 
     def _get_SendTestSetAsync_values(self):
         xml_soap_values = global_functions.get_xml_soap_values(
-            self.company_id.certificate_file,
-            self.company_id.certificate_password)
-
+            self.company_id.certificate_file, self.company_id.certificate_password
+        )
         xml_soap_values['fileName'] = self.zipped_filename.replace('.zip', '')
         xml_soap_values['contentFile'] = b64encode(self.zipped_file).decode('utf-8')
         xml_soap_values['testSetId'] = self.company_id.test_set_id
 
         return xml_soap_values
 
-    def _get_SendBillAsync_values(self):
+    def _get_SendBillSync_values(self):
         xml_soap_values = global_functions.get_xml_soap_values(
-            self.company_id.certificate_file,
-            self.company_id.certificate_password)
-
+            self.company_id.certificate_file, self.company_id.certificate_password
+        )
         xml_soap_values['fileName'] = self.zipped_filename.replace('.zip', '')
         xml_soap_values['contentFile'] = b64encode(self.zipped_file).decode('utf-8')
 
@@ -760,15 +966,19 @@ class AccountInvoiceDianDocument(models.Model):
 
     def _get_pdf_file(self):
         template_id = self.env['ir.actions.report'].browse(
-            self.company_id.report_template.id)
+            self.company_id.report_template.id
+        )
         pdf = template_id.render_qweb_pdf([self.invoice_id.id])[0]
         b64_pdf = b64encode(pdf).decode('utf-8')
 
         return b64_pdf
 
     @api.multi
-    def action_send_mail(self):
+    def action_send_email(self):
         msg = _("Your invoice has not been validated")
+        self.invoice_id.write({
+            'dian_document_mail_subject': self._get_dian_document_mail_subject()
+        })
         template_id = self.env.ref(
             'l10n_co_account_e_invoicing.email_template_for_einvoice').id
         template = self.env['mail.template'].browse(template_id)
@@ -777,12 +987,9 @@ class AccountInvoiceDianDocument(models.Model):
             raise UserError(msg)
 
         attachment = self.env['ir.attachment'].create({
-            'name':
-            self.ad_zipped_filename,
-            'datas_fname':
-            self.ad_zipped_filename,
-            'datas':
-            self.ad_zipped_file
+            'name': self.ad_zipped_filename,
+            'datas_fname': self.ad_zipped_filename,
+            'datas': self.ad_zipped_file
         })
         template.attachment_ids = [(6, 0, [(attachment.id)])]
         template.send_mail(self.invoice_id.id, force_send=True)
@@ -827,7 +1034,7 @@ class AccountInvoiceDianDocument(models.Model):
 
         return True
 
-    def _get_status_response(self, response, send_mail):
+    def _get_status_response(self, response, send_email):
         b = "http://schemas.datacontract.org/2004/07/DianResponse"
         c = "http://schemas.microsoft.com/2003/10/Serialization/Arrays"
         s = "http://www.w3.org/2003/05/soap-envelope"
@@ -838,13 +1045,34 @@ class AccountInvoiceDianDocument(models.Model):
 
         for element in root.iter("{%s}StatusCode" % b):
             if element.text in ('0', '00', '66', '90', '99'):
-                if element.text == '00':
+                if self.invoice_id.supplier_uuid:
+                    if element.text == '00':
+                        self.write({'state': 'done'})
+
+                        if self.application_response_type == '030':
+                            dian_document_state = 'e-invocie_receipt'
+                        elif self.application_response_type == '031':
+                            dian_document_state = 'e-invocie_claim'
+                        elif self.application_response_type == '032':
+                            dian_document_state = 'as_receipt'
+                        elif self.application_response_type == '033':
+                            dian_document_state = 'express_acceptance'
+                        elif self.application_response_type == '034':
+                            dian_document_state = 'tacit_acceptance'
+
+                        self.invoice_id.write(
+                            {'dian_document_state': dian_document_state}
+                        )
+                elif element.text == '00':
                     self.write({'state': 'done'})
+                    self.invoice_id.write({'dian_document_state': 'dian_acceptance'})
+                elif element.text == '99':
+                    self.invoice_id.write({'dian_document_state': 'dian_rejection'})
 
                 status_code = element.text
 
         if status_code == '0':
-            return self._get_GetStatus(send_mail)
+            return self._get_GetStatus(send_email)
 
         if status_code == '00':
             for element in root.iter("{%s}StatusMessage" % b):
@@ -852,20 +1080,18 @@ class AccountInvoiceDianDocument(models.Model):
 
             for element in root.iter("{%s}XmlBase64Bytes" % b):
                 self.write({
-                    'ar_xml_file':
-                    element.text,
-                    'validation_datetime':
-                    datetime.now().replace(tzinfo=timezone('UTC'))
+                    'ar_xml_file': element.text,
+                    'validation_datetime': datetime.now().replace(tzinfo=timezone('UTC'))
                 })
 
             self.action_set_ad_zipped_file()
 
-            if not self.mail_sent and send_mail:
-                self.action_send_mail()
+            if not self.mail_sent and send_email:
+                self.action_send_email()
 
             to_return = True
         else:
-            if send_mail:
+            if send_email:
                 self.send_failure_email()
 
             to_return = False
@@ -904,10 +1130,10 @@ class AccountInvoiceDianDocument(models.Model):
         return xml_soap_values
 
     def action_GetStatusZip(self):
-        wsdl = DIAN['wsdl-hab']
+        wsdl = DIAN_URL['wsdl-hab']
 
         if self.company_id.profile_execution_id == '1':
-            wsdl = DIAN['wsdl']
+            wsdl = DIAN_URL['wsdl']
 
         GetStatusZip_values = self._get_GetStatusZip_values()
         GetStatusZip_values['To'] = wsdl.replace('?wsdl', '')
@@ -929,7 +1155,7 @@ class AccountInvoiceDianDocument(models.Model):
 
         return True
 
-    def action_send_zipped_file(self):
+    def action_SendBillSync_SendTestSetAsync(self):
         if self._get_GetStatus(False):
             return True
 
@@ -944,15 +1170,15 @@ class AccountInvoiceDianDocument(models.Model):
             "and change the Invoice Type to 'E-document of transmission - type 03'."
         )
         b = "http://schemas.datacontract.org/2004/07/UploadDocumentResponse"
-        wsdl = DIAN['wsdl-hab']
+        wsdl = DIAN_URL['wsdl-hab']
 
         if self.company_id.profile_execution_id == '1':
-            wsdl = DIAN['wsdl']
-            SendBillAsync_values = self._get_SendBillAsync_values()
-            SendBillAsync_values['To'] = wsdl.replace('?wsdl', '')
+            wsdl = DIAN_URL['wsdl']
+            SendBillSync_values = self._get_SendBillSync_values()
+            SendBillSync_values['To'] = wsdl.replace('?wsdl', '')
             xml_soap_with_signature = global_functions.get_xml_soap_with_signature(
-                global_functions.get_template_xml(SendBillAsync_values, 'SendBillSync'),
-                SendBillAsync_values['Id'],
+                global_functions.get_template_xml(SendBillSync_values, 'SendBillSync'),
+                SendBillSync_values['Id'],
                 self.company_id.certificate_file,
                 self.company_id.certificate_password)
         else:
@@ -982,24 +1208,85 @@ class AccountInvoiceDianDocument(models.Model):
                     for element in root.iter("{%s}ZipKey" % b):
                         self.write({'zip_key': element.text})
                         self.action_GetStatusZip()
-            elif response.status_code in (500, 503, 507):
-                dian_document_line_obj = self.env[
-                    'account.invoice.dian.document.line']
-                dian_document_line_obj.create({
-                    'dian_document_id':
-                    self.id,
-                    'send_async_status_code':
-                    response.status_code,
-                    'send_async_reason':
-                    response.reason,
-                    'send_async_response':
-                    response.text
+            elif response.status_code in (403, 500, 503, 507, 508):
+                self.env['account.invoice.dian.document.line'].create({
+                    'dian_document_id': self.id,
+                    'send_async_status_code': response.status_code,
+                    'send_async_reason': response.reason,
+                    'send_async_response': response.text
                 })
             else:
-                raise ValidationError(msg1 %
-                                      (response.status_code, response.reason))
+                raise ValidationError(msg1 % (response.status_code, response.reason))
         except exceptions.RequestException as e:
             raise ValidationError(msg2 % (e))
+
+        return True
+
+    def _get_SendEventUpdateStatus_values(self):
+        xml_soap_values = global_functions.get_xml_soap_values(
+            self.company_id.certificate_file,
+            self.company_id.certificate_password)
+        xml_soap_values['contentFile'] = b64encode(self.zipped_file).decode('utf-8')
+
+        return xml_soap_values
+
+    def action_SendEventUpdateStatus(self):
+        msg1 = _(
+            "Unknown Error,\nStatus Code: %s,\nReason: %s,\n\nContact with your "
+            "administrator."
+        )
+        msg2 = _( "Unknown Error: %s\n\nContact with your administrator.")
+        b = "http://schemas.datacontract.org/2004/07/DianResponse"
+        wsdl = DIAN_URL['wsdl-hab']
+
+        if self.company_id.profile_execution_id == '1':
+            wsdl = DIAN_URL['wsdl']
+
+        SendEventUpdateStatus_values = self._get_SendEventUpdateStatus_values()
+        SendEventUpdateStatus_values['To'] = wsdl.replace('?wsdl', '')
+        xml_soap_with_signature = global_functions.get_xml_soap_with_signature(
+            global_functions.get_template_xml(
+                SendEventUpdateStatus_values, 'SendEventUpdateStatus'
+            ),
+            SendEventUpdateStatus_values['Id'],
+            self.company_id.certificate_file,
+            self.company_id.certificate_password)
+
+        try:
+            response = post(
+                url=wsdl,
+                headers={
+                    'Content-Type': 'application/soap+xml',
+                    'accept': '*/*',
+                    'accept-encoding': 'gzip, deflate',
+                    'action': 'http://wcf.dian.colombia/IWcfDianCustomerServices/SendEventUpdateStatus'
+                },
+                data=etree.tostring(xml_soap_with_signature)
+            )
+
+            if response.status_code == 200:
+                self.write({'state': 'sent'})
+                self._get_status_response(response, False)
+            elif response.status_code in (403, 500, 503, 507, 508):
+                self.env['account.invoice.dian.document.line'].create({
+                    'dian_document_id': self.id,
+                    'send_async_status_code': response.status_code,
+                    'send_async_reason': response.reason,
+                    'send_async_response': response.text
+                })
+            else:
+                raise ValidationError(msg1 % (response.status_code, response.reason))
+        except exceptions.RequestException as e:
+            raise ValidationError(msg2 % (e))
+
+        return True
+
+    def action_send_zipped_file(self):
+        if self.action_set_files():
+            if self.invoice_id.supplier_uuid:
+                self.action_SendEventUpdateStatus()
+            else:
+                self.action_SendBillSync_SendTestSetAsync()
 
         return True
 
@@ -1012,14 +1299,14 @@ class AccountInvoiceDianDocument(models.Model):
 
         return xml_soap_values
 
-    def _get_GetStatus(self, send_mail):
+    def _get_GetStatus(self, send_email):
         msg1 = _("Unknown Error,\nStatus Code: %s,\nReason: %s"
                  "\n\nContact with your administrator.")
         msg2 = _("Unknown Error: %s\n\nContact with your administrator.")
-        wsdl = DIAN['wsdl-hab']
+        wsdl = DIAN_URL['wsdl-hab']
 
         if self.company_id.profile_execution_id == '1':
-            wsdl = DIAN['wsdl']
+            wsdl = DIAN_URL['wsdl']
 
         GetStatus_values = self._get_GetStatus_values()
         GetStatus_values['To'] = wsdl.replace('?wsdl', '')
@@ -1031,19 +1318,24 @@ class AccountInvoiceDianDocument(models.Model):
 
         try:
             response = post(
-                wsdl,
-                headers={'content-type': 'application/soap+xml;charset=utf-8'},
-                data=etree.tostring(xml_soap_with_signature))
-            print(response.text)
+                url=wsdl,
+                headers={
+                    'Content-Type': 'application/soap+xml',
+                    'accept': '*/*',
+                    'accept-encoding': 'gzip, deflate',
+                    'action': 'http://wcf.dian.colombia/IWcfDianCustomerServices/GetStatus'
+                },
+                data=etree.tostring(xml_soap_with_signature)
+            )
 
             if response.status_code == 200:
-                return self._get_status_response(response, send_mail)
+                return self._get_status_response(response, send_email)
             else:
                 raise ValidationError(msg1 % (response.status_code, response.reason))
         except exceptions.RequestException as e:
             raise ValidationError(msg2 % (e))
 
-    def action_GetStatus_without_send_mail(self):
+    def action_GetStatus_without_send_email(self):
         return self._get_GetStatus(False)
 
     def action_process(self):
@@ -1076,13 +1368,12 @@ class AccountInvoiceDianDocument(models.Model):
 
     def action_SendBillAttachmentAsync(self):
         b = "http://schemas.datacontract.org/2004/07/UploadDocumentResponse"
-        wsdl = DIAN['wsdl-hab']
+        wsdl = DIAN_URL['wsdl-hab']
 
         if self.company_id.profile_execution_id == '1':
-            wsdl = DIAN['wsdl']
+            wsdl = DIAN_URL['wsdl']
 
-        SendBillAttachmentAsync_values = self._get_SendBillAttachmentAsync_values(
-        )
+        SendBillAttachmentAsync_values = self._get_SendBillAttachmentAsync_values()
         SendBillAttachmentAsync_values['To'] = wsdl.replace('?wsdl', '')
         xml_soap_with_signature = global_functions.get_xml_soap_with_signature(
             global_functions.get_template_xml(
