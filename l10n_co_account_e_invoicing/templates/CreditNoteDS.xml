@@ -276,7 +276,8 @@
 			<!--TODO 2.0, Grupo de datos de identificación del artículo o servicio de acuerdo con un estándar-->
 			<!--OPCIONAL schemeName="Estándar de adopción del contribuyente" schemeAgencyID="" schemeAgencyName=""-->
 			<cac:StandardItemIdentification>
-				<cbc:ID schemeID="999">{{CreditNoteLine.StandardItemIdentification}}</cbc:ID>
+				<cbc:ID schemeID="999"
+					schemeName="Estándar de adopción del contribuyente">{{CreditNoteLine.StandardItemIdentification}}</cbc:ID>
 			</cac:StandardItemIdentification>
 		</cac:Item>
 		<cac:Price>
