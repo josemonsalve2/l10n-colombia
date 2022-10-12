@@ -255,7 +255,7 @@
 			<!--TODO 2.0, puede haber hasta 3 descripciones-->
 			<cbc:Description>{{CreditNoteLine.ItemDescription}}</cbc:Description>
 			<!--TODO 2.0, Cantidad de unidad de este artículo por empaque>
-			<cbc:PackSizeNumeric>{{InvoiceLine.PackSizeNumeric}}</cbc:PackSizeNumeric-->
+			<cbc:PackSizeNumeric>{{CreditNoteLine.PackSizeNumeric}}</cbc:PackSizeNumeric-->
 			<!--TODO 2.0, puede haber hasta 3 marcas-->
 			{% if CreditNoteLine.BrandName %}
 			<cbc:BrandName>{{CreditNoteLine.BrandName}}</cbc:BrandName>
