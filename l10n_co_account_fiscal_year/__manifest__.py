@@ -4,7 +4,7 @@
     "name": "Fiscal Year",
     "version": "12.0",
     "author": "EXA Auto Parts Github@exaap, Alejandro Olano Github@alejo-code",
-    "category": 'Accounting & Finance',
+    "category": "Accounting & Finance",
     "depends": ["account_fiscal_year"],
-    "data": ["views/account_fiscal_year_view.xml"]
+    "data": ["views/account_fiscal_year_view.xml"],
 }
