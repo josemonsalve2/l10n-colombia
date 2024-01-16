@@ -5,7 +5,7 @@
         <field name="active" eval="False"/>
         <field name="user_id" ref="base.user_root"/>
         <field name="interval_number">1</field>
-        <field name="nextcall" eval="(DateTime.today()).strftime('%Y-%m-%d 06:00:00')" />
+        <field name="nextcall" eval="(DateTime.today()).strftime('%Y-%m-%d 06:00:00')"/>
         <field name="interval_type">days</field>
         <field name="numbercall">-1</field>
         <field name="model_id" ref="model_res_company"/>
@@ -17,7 +17,7 @@
         <field name="active" eval="False"/>
         <field name="user_id" ref="base.user_root"/>
         <field name="interval_number">1</field>
-        <field name="nextcall" eval="(DateTime.today()).strftime('%Y-%m-%d 06:10:00')" />
+        <field name="nextcall" eval="(DateTime.today()).strftime('%Y-%m-%d 06:10:00')"/>
         <field name="interval_type">days</field>
         <field name="numbercall">-1</field>
         <field name="model_id" ref="model_res_company"/>
