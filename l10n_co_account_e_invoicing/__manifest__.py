@@ -5,7 +5,7 @@
     "name": "Colombian Account E-Invoicing",
     "category": "E-Invoicing",
     "version": "12.0.1.0.0",
-    "author": "EXA Auto Parts Github@exaap, Joan Marín Github@JoanMarin"
+    "author": "EXA Auto Parts Github@exaap, Joan Marín Github@JoanMarin",
     "website": "https://github.com/exaap/l10n-colombia",
     "license": "AGPL-3",
     "summary": "Colombian Account E-Invoicing",
