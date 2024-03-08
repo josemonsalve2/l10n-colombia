@@ -5,7 +5,7 @@
 
 # Colombian localization
 
-write me
+*To do.
 
 
 
