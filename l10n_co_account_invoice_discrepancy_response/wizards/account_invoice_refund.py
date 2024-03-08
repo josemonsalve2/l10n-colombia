@@ -132,7 +132,10 @@ class AccountInvoiceRefund(models.TransientModel):
 
         if xml_id:
             result = self.env.ref('account.%s' % (xml_id)).read()[0]
-            invoice_domain = safe_eval(result['domain'])
+            if result.get('domain'):
+                invoice_domain = safe_eval(result['domain'])
+            else:
+                invoice_domain = []
             invoice_domain.append(('id', 'in', created_inv))
             result['domain'] = invoice_domain
 

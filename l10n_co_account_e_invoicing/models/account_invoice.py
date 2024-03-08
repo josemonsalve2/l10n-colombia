@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 # Copyright 2019 Joan Marín <Github@JoanMarin>
-# Copyright 2021 Alejandro Olano <Github@alejo-code>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 import pytz
@@ -10,268 +9,241 @@ from pytz import timezone
 from odoo import api, models, fields, SUPERUSER_ID, _
 from odoo.exceptions import UserError
 
+DIAN_TYPES = (
+    "e-invoicing",
+    "e-credit_note",
+    "e-debit_note",
+    "e-support_document",
+    "e-support_document_credit_note",
+)
+
 
 class AccountInvoice(models.Model):
     _inherit = "account.invoice"
 
     @api.model
+    def _default_send_invoice_to_dian(self):
+        return self.env.user.company_id.send_invoice_to_dian or "0"
+
+    @api.model
     def _default_operation_type(self):
-        user = self.env['res.users'].search([('id', '=', self.env.user.id)])
+        user = self.env["res.users"].search([("id", "=", self.env.user.id)])
         view_operation_type_field = False
 
-        if (user.has_group(
-                'l10n_co_account_e_invoicing.group_view_operation_type_field')
-                and self.env.user.id != SUPERUSER_ID):
+        if (
+            user.has_group(
+                "l10n_co_account_e_invoicing.group_view_operation_type_field"
+            )
+            and self.env.user.id != SUPERUSER_ID
+        ):
             view_operation_type_field = True
 
-        if 'type' in self._context.keys():
-            if self._context[
-                    'type'] == 'out_invoice' and not view_operation_type_field:
-                return '10'
+        if "type" in self._context.keys():
+            if self._context["type"] == "out_invoice" and not view_operation_type_field:
+                return "10"
+            elif self._context["type"] == "in_invoice":
+                return "10"
             else:
                 return False
         elif not view_operation_type_field:
-            return '10'
+            return "10"
         else:
             return False
 
     @api.model
     def _default_invoice_type_code(self):
-        user = self.env['res.users'].search([('id', '=', self.env.user.id)])
+        user = self.env["res.users"].search([("id", "=", self.env.user.id)])
         view_invoice_type_field = False
 
-        if (user.has_group(
-                'l10n_co_account_e_invoicing.group_view_invoice_type_field')
-                and self.env.user.id != SUPERUSER_ID):
+        if (
+            user.has_group("l10n_co_account_e_invoicing.group_view_invoice_type_field")
+            and self.env.user.id != SUPERUSER_ID
+        ):
             view_invoice_type_field = True
 
-        if 'type' in self._context.keys():
-            if self._context[
-                    'type'] == 'out_invoice' and not view_invoice_type_field:
-                return '01'
+        if "type" in self._context.keys():
+            if self._context["type"] == "out_invoice" and not view_invoice_type_field:
+                return "01"
+            elif self._context["type"] == "in_invoice":
+                return "05"
             else:
                 return False
         elif not view_invoice_type_field:
-            return '01'
+            return "01"
         else:
             return False
 
-    @api.model
-    def _default_send_invoice_to_dian(self):
-        return self.env.user.company_id.send_invoice_to_dian or '0'
-
     @api.multi
-    def _get_warn_certificate(self):
-        warn_remaining_certificate = False
-        warn_inactive_certificate = False
-
-        if self.company_id.einvoicing_enabled:
-            warn_inactive_certificate = True
-
-        if (self.company_id.certificate_file
-                and self.company_id.certificate_password
-                and self.company_id.certificate_date):
-            remaining_days = self.company_id.certificate_remaining_days or 0
-            today = fields.Date.context_today(self)
-            date_to = self.company_id.certificate_date
-            days = (date_to - today).days
+    def _compute_warn_certificate(self):
+        for inv in self:
+            warn_remaining_certificate = False
             warn_inactive_certificate = False
+            if inv.company_id.einvoicing_enabled:
+                warn_inactive_certificate = True
 
-            if days < remaining_days:
-                if days < 0:
-                    warn_inactive_certificate = True
-                else:
-                    warn_remaining_certificate = True
+            if (
+                inv.company_id.certificate_file
+                and inv.company_id.certificate_password
+                and inv.company_id.certificate_date
+            ):
+                remaining_days = inv.company_id.certificate_remaining_days or 0
+                today = fields.Date.context_today(inv)
+                date_to = inv.company_id.certificate_date
+                days = (date_to - today).days
+                warn_inactive_certificate = False
 
-        self.warn_inactive_certificate = warn_inactive_certificate
-        self.warn_remaining_certificate = warn_remaining_certificate
+                if days < remaining_days:
+                    if days < 0:
+                        warn_inactive_certificate = True
+                    else:
+                        warn_remaining_certificate = True
 
-    warn_remaining_certificate = fields.Boolean(
-        string="Warn About Remainings?",
-        compute="_get_warn_certificate",
-        store=False)
-    warn_inactive_certificate = fields.Boolean(
-        string="Warn About Inactive Certificate?",
-        compute="_get_warn_certificate",
-        store=False)
-    sequence_resolution_id = fields.Many2one(
-        comodel_name='ir.sequence.date_range',
-        string='Sequence Resolution',
-        compute='_compute_sequence_resolution_id',
-        store=False)
-    invoice_datetime = fields.Datetime(string='Invoice Datetime',
-                                       default=False)
-    delivery_datetime = fields.Datetime(string='Delivery Datetime',
-                                        default=False)
-    operation_type = fields.Selection(
-        [('10', 'Standard *'),
-         ('20', 'Credit note that references an e-invoice'),
-         ('22', 'Credit note without reference to invoices *'),
-         ('30', 'Debit note that references an e-invoice'),
-         ('32', 'Debit note without reference to invoices *')],
-        string='Operation Type',
-        default=_default_operation_type)
-    invoice_type_code = fields.Selection(
-        [('01', 'E-invoice of sale'),
-         ('03', 'E-document of transmission - type 03'),
-         ('04', 'E-invoice of sale - type 04')],
-        string='Invoice Type',
-        default=_default_invoice_type_code)
-    send_invoice_to_dian = fields.Selection(
-        [('0', 'Immediately'), ('1', 'After 1 Day'), ('2', 'After 2 Days')],
-        string='Send Invoice to DIAN?',
-        default=_default_send_invoice_to_dian)
-    dian_document_ids = fields.One2many(
-        comodel_name='account.invoice.dian.document',
-        inverse_name='invoice_id',
-        string='DIAN Documents')
-    receipt_document_reference = fields.Char(
-        string='Merchandise / Service Receipt Document')
+            inv.warn_inactive_certificate = warn_inactive_certificate
+            inv.warn_remaining_certificate = warn_remaining_certificate
 
     @api.multi
     def _compute_sequence_resolution_id(self):
-        for invoice in self:
+        for invoice_id in self:
             sequence_resolution = False
+            sequence_id = invoice_id.journal_id.sequence_id
 
-            if invoice.type == "out_invoice":
-                sequence_resolution_ids = self.env[
-                    'ir.sequence.date_range'].search([
-                        ('sequence_id', '=', invoice.journal_id.sequence_id.id)
-                    ])
+            if sequence_id.dian_type in ("e-invoicing", "e-support_document"):
+                sequence_resolution = self.env["ir.sequence.date_range"].search(
+                    [
+                        ("sequence_id", "=", sequence_id.id),
+                        ("active_resolution", "=", True),
+                    ]
+                )
+
+                sequence_resolution_ids = self.env["ir.sequence.date_range"].search(
+                    [("sequence_id", "=", sequence_id.id)]
+                )
 
                 for sequence_resolution_id in sequence_resolution_ids:
-                    move_name = invoice.move_name or ''
-                    number = move_name.replace(
-                        sequence_resolution_id.prefix or '', '')
+                    move_name = invoice_id.move_name or ""
+                    number = move_name.replace(sequence_resolution_id.prefix or "", "")
 
-                    if (number.isnumeric() and
-                            sequence_resolution_id.number_from <= int(number)
-                            and
-                            int(number) <= sequence_resolution_id.number_to):
+                    if (
+                        number.isnumeric()
+                        and sequence_resolution_id.number_from <= int(number)
+                        and int(number) <= sequence_resolution_id.number_to
+                    ):
                         sequence_resolution = sequence_resolution_id
 
-            invoice.sequence_resolution_id = sequence_resolution
+            invoice_id.sequence_resolution_id = sequence_resolution
+
+    warn_remaining_certificate = fields.Boolean(
+        string="Warn About Remainings?",
+        compute="_compute_warn_certificate",
+        store=False,
+    )
+    warn_inactive_certificate = fields.Boolean(
+        string="Warn About Inactive Certificate?",
+        compute="_compute_warn_certificate",
+        store=False,
+    )
+    sequence_resolution_id = fields.Many2one(
+        comodel_name="ir.sequence.date_range",
+        string="Sequence Resolution",
+        compute="_compute_sequence_resolution_id",
+        store=False,
+    )
+    invoice_datetime = fields.Datetime(string="Invoice Datetime", copy=False)
+    delivery_datetime = fields.Datetime(string="Delivery Datetime", copy=False)
+    send_invoice_to_dian = fields.Selection(
+        selection=[("0", "Immediately"), ("1", "After 1 Day"), ("2", "After 2 Days")],
+        string="Send Invoice to DIAN?",
+        default=_default_send_invoice_to_dian,
+        copy=False,
+    )
+    operation_type = fields.Selection(
+        selection=[
+            ("09", "AIU"),
+            ("10", "Standard"),
+            ("20", "Credit note that references an e-invoice"),
+            ("22", "Credit note without reference to invoices"),
+            ("30", "Debit note that references an e-invoice"),
+            ("32", "Debit note without reference to invoices"),
+        ],
+        string="Operation Type",
+        default=_default_operation_type,
+        copy=False,
+    )
+    invoice_type_code = fields.Selection(
+        selection=[
+            ("01", "E-invoice of sale"),
+            ("03", "E-document of transmission - type 03"),
+            ("04", "E-invoice of sale - type 04"),
+            ("05", "E-Support Document"),
+        ],
+        string="Invoice Type",
+        default=_default_invoice_type_code,
+        copy=False,
+    )
+    receipt_document_reference = fields.Char(
+        string="Merchandise / Service Receipt Document", copy=False
+    )
+    dian_document_state = fields.Selection(
+        selection=[
+            ("dian_acceptance", "DIAN Acceptance"),
+            ("dian_rejection", "DIAN Rejection"),
+            ("e-invocie_receipt", "E-invoice Receipt"),
+            ("as_receipt", "Assets and/or Services Receipt"),
+            ("e-invocie_claim", "E-invoice Claim"),
+            ("express_acceptance", "Express Acceptance"),
+            ("tacit_acceptance", "Tacit Acceptance"),
+        ],
+        string="DIAN Document State",
+        copy=False,
+    )
+    dian_document_mail_subject = fields.Char(string="Mail Subject", copy=False)
+    supplier_uuid = fields.Char(string="Supplier CUFE", size=96)
+    dian_claim = fields.Selection(
+        selection=[
+            ("01", "Documento con inconsistencias"),
+            ("02", "Mercancía no entregada totalmente"),
+            ("03", "Mercancía no entregada parcialmente"),
+            ("04", "Servicio no prestado"),
+        ],
+        string="DIAN Claim",
+    )
+    dian_document_ids = fields.One2many(
+        comodel_name="account.invoice.dian.document",
+        inverse_name="invoice_id",
+        string="DIAN Documents",
+    )
+
+    _sql_constraints = [
+        (
+            "supplier_uuid_unique",
+            "unique(supplier_uuid)",
+            _("The Supplier CUFE must be unique"),
+        )
+    ]
 
     @api.multi
     def update(self, values):
         res = super(AccountInvoice, self).update(values)
 
         for invoice in self:
-            if invoice.type == 'out_refund' and values.get(
-                    'refund_type') == "credit":
-                invoice.operation_type = '20'
-            elif invoice.type == 'out_refund' and values.get(
-                    'refund_type') == "debit":
-                invoice.operation_type = '30'
-
-        return res
-
-    @api.multi
-    def invoice_validate(self):
-        msg = _(
-            "The 'delivery date' must be equal or greater per maximum 10 days to "
-            "the 'invoice date'.")
-        res = super(AccountInvoice, self).invoice_validate()
-        timezone = pytz.timezone(self.env.user.tz or 'America/Bogota')
-        from_zone = tz.gettz('UTC')
-        to_zone = tz.gettz(timezone.zone)
-        for invoice in self:
-            if not invoice.invoice_datetime:
-                invoice_datetime = datetime.now().replace(tzinfo=from_zone)
-                invoice_datetime = invoice_datetime.astimezone(
-                    to_zone).strftime('%Y-%m-%d %H:%M:%S')
-                invoice.invoice_datetime = invoice_datetime
-
-            if (invoice.company_id.einvoicing_enabled
-                    and invoice.type in ("out_invoice", "out_refund")):
-                if (invoice.company_id.automatic_delivery_datetime and
-                        invoice.company_id.additional_hours_delivery_datetime
-                        and not invoice.delivery_datetime):
-                    invoice_datetime = invoice.invoice_datetime
-                    hours_added = timedelta(hours=invoice.company_id.
-                                            additional_hours_delivery_datetime)
-                    invoice.delivery_datetime = invoice_datetime + hours_added
-
-                if not invoice.delivery_datetime:
-                    raise UserError(msg)
-
-                date_invoice = invoice.date_invoice
-                delivery_date = datetime.strftime(invoice.delivery_datetime,
-                                                  '%Y-%m-%d')
-                delivery_date = datetime.strptime(delivery_date,
-                                                  '%Y-%m-%d').date()
-                days = (delivery_date - date_invoice).days
-
-                if days < 0 or days > 10:
-                    raise UserError(msg)
-
-                invoice.set_invoice_lines_price_reference()
-                xml_filename = False
-                zipped_filename = False
-                ar_xml_filename = False
-                ad_zipped_filename = False
-
-                for dian_document in invoice.dian_document_ids:
-                    xml_filename = dian_document.xml_filename
-                    zipped_filename = dian_document.zipped_filename
-                    ar_xml_filename = dian_document.ar_xml_filename
-                    ad_zipped_filename = dian_document.ad_zipped_filename
-                    break
-
-                dian_document_obj = self.env['account.invoice.dian.document']
-                dian_document = dian_document_obj.create({
-                    'invoice_id':
-                    invoice.id,
-                    'company_id':
-                    invoice.company_id.id,
-                    'xml_filename':
-                    xml_filename,
-                    'zipped_filename':
-                    zipped_filename,
-                    'ar_xml_filename':
-                    ar_xml_filename,
-                    'ad_zipped_filename':
-                    ad_zipped_filename
-                })
-                set_files = dian_document.action_set_files()
-
-                if invoice.send_invoice_to_dian == '0':
-                    if set_files:
-                        if invoice.invoice_type_code in ('01', '02'):
-                            dian_document.action_send_zipped_file()
-                        elif invoice.invoice_type_code == '04':
-                            dian_document.action_send_mail()
-                    else:
-                        dian_document.send_failure_email()
-
-        return res
-
-    @api.multi
-    def action_cancel(self):
-        msg = _(
-            'You cannot cancel a invoice sent to the DIAN and that was approved.'
-        )
-        res = super(AccountInvoice, self).action_cancel()
-
-        for invoice in self:
-            for dian_document in invoice.dian_document_ids:
-                if dian_document.state == 'done':
-                    raise UserError(msg)
-                else:
-                    dian_document.state = 'cancel'
+            if invoice.type == "out_refund" and values.get("refund_type") == "credit":
+                invoice.operation_type = "20"
+            elif invoice.type == "out_refund" and values.get("refund_type") == "debit":
+                invoice.operation_type = "30"
 
         return res
 
     def _get_active_dian_resolution(self):
         msg = _(
-            "You do not have an active dian resolution, contact with your administrator."
+            "You do not have an active dian resolution, contact with your "
+            "administrator."
         )
         resolution_number = False
 
         if self.sequence_resolution_id:
             resolution_number = self.sequence_resolution_id.resolution_number
             date_from = self.sequence_resolution_id.date_from
-            date_to = self.sequence_resolution_id.date_to
+            date_to = self.sequence_resolution_id.date_to_resolution
             prefix = self.sequence_resolution_id.prefix
             number_from = self.sequence_resolution_id.number_from
             number_to = self.sequence_resolution_id.number_to
@@ -281,57 +253,62 @@ class AccountInvoice(models.Model):
             raise UserError(msg)
 
         return {
-            'InvoiceAuthorization': resolution_number,
-            'StartDate': date_from,
-            'EndDate': date_to,
-            'Prefix': prefix,
-            'From': number_from,
-            'To': number_to,
-            'technical_key': technical_key
+            "InvoiceAuthorization": resolution_number,
+            "StartDate": date_from,
+            "EndDate": date_to,
+            "Prefix": prefix,
+            "From": number_from,
+            "To": number_to,
+            "technical_key": technical_key,
         }
 
     def _get_billing_reference(self):
         msg1 = _(
-            "You can not make a refund invoice of an invoice with state different to "
-            "'Open' or 'Paid'.")
+            "You can not make a refund invoice of an invoice with state different "
+            "to 'Open' or 'Paid'."
+        )
         msg2 = _(
-            "You can not make a refund invoice of an invoice with DIAN documents with "
-            "state 'Draft', 'Sent' or 'Cancelled'.")
+            "You can not make a refund invoice of an invoice with DIAN documents "
+            "with state 'Draft', 'Sent' or 'Cancelled'."
+        )
         billing_reference = {}
 
         if self.refund_invoice_id:
-            if self.refund_invoice_id.state not in ('open', 'paid'):
+            if self.refund_invoice_id.state not in ("open", "paid"):
                 raise UserError(msg1)
 
-            if self.refund_invoice_id.state in ('open', 'paid'):
+            if self.refund_invoice_id.state in ("open", "paid"):
                 dian_document_state_done = False
                 dian_document_state_cancel = False
                 dian_document_state_sent = False
                 dian_document_state_draft = False
 
                 for dian_document in self.refund_invoice_id.dian_document_ids:
-                    if dian_document.state == 'done':
+                    if dian_document.state == "done":
                         dian_document_state_done = True
-                        billing_reference['ID'] = self.refund_invoice_id.number
-                        billing_reference['UUID'] = dian_document.cufe_cude
+                        billing_reference["ID"] = self.refund_invoice_id.number
+                        billing_reference["UUID"] = dian_document.cufe_cude
                         billing_reference[
-                            'IssueDate'] = self.refund_invoice_id.date_invoice
+                            "IssueDate"
+                        ] = self.refund_invoice_id.date_invoice
                         billing_reference[
-                            'CustomizationID'] = self.refund_invoice_id.operation_type
+                            "CustomizationID"
+                        ] = self.refund_invoice_id.operation_type
 
-                    if dian_document.state == 'cancel':
+                    if dian_document.state == "cancel":
                         dian_document_state_cancel = True
 
-                    if dian_document.state == 'draft':
+                    if dian_document.state == "draft":
                         dian_document_state_draft = True
 
-                    if dian_document.state == 'sent':
+                    if dian_document.state == "sent":
                         dian_document_state_sent = True
 
-                if ((not dian_document_state_done
-                     and dian_document_state_cancel)
-                        or dian_document_state_draft
-                        or dian_document_state_sent):
+                if (
+                    (not dian_document_state_done and dian_document_state_cancel)
+                    or dian_document_state_draft
+                    or dian_document_state_sent
+                ):
                     raise UserError(msg2)
 
         return billing_reference
@@ -339,34 +316,36 @@ class AccountInvoice(models.Model):
     def _get_payment_exchange_rate(self):
         company_currency = self.company_id.currency_id
         rate = 1
-        date = self._get_currency_rate_date() or fields.Date.context_today(
-            self)
+        date = self._get_currency_rate_date() or fields.Date.context_today(self)
 
         if self.currency_id != company_currency:
             currency = self.currency_id.with_context(date=date)
             rate = currency.compute(rate, company_currency)
 
         return {
-            'SourceCurrencyCode': self.currency_id.name,
-            'TargetCurrencyCode': company_currency.name,
-            'CalculationRate': rate,
-            'Date': date
+            "SourceCurrencyCode": self.currency_id.name,
+            "TargetCurrencyCode": company_currency.name,
+            "CalculationRate": rate,
+            "Date": date,
         }
 
     def _get_einvoicing_taxes(self):
-        msg1 = _("Your tax: '%s', has no e-invoicing tax group type, " +
-                 "contact with your administrator.")
+        msg1 = _(
+            "Your tax: '%s', has no e-invoicing tax group type, contact with your "
+            "administrator."
+        )
         msg2 = _(
-            "Your withholding tax: '%s', has amount equal to zero (0), the withholding taxes "
-            +
-            "must have amount different to zero (0), contact with your administrator."
+            "Your withholding tax: '%s', has amount equal to zero (0), the "
+            "withholding taxes must have amount different to zero (0), contact "
+            "with your administrator."
         )
         msg3 = _(
-            "Your tax: '%s', has negative amount or an amount equal to zero (0), the taxes "
-            +
-            "must have an amount greater than zero (0), contact with your administrator."
+            "Your tax: '%s', has negative amount or an amount equal to zero (0), "
+            "the taxes must have an amount greater than zero (0), contact with "
+            "your administrator."
         )
         taxes = {}
+        tax_total_base = 0
         withholding_taxes = {}
 
         for tax in self.tax_line_ids:
@@ -377,38 +356,38 @@ class AccountInvoice(models.Model):
                 tax_code = tax.tax_id.tax_group_id.tax_group_type_id.code
                 tax_name = tax.tax_id.tax_group_id.tax_group_type_id.name
                 tax_type = tax.tax_id.tax_group_id.tax_group_type_id.type
-                tax_percent = '{:.2f}'.format(tax.tax_id.amount)
+                tax_percent = "{:.2f}".format(tax.tax_id.amount)
                 tax_amount = tax.amount
 
-                if tax_type == 'withholding_tax' and tax.tax_id.amount == 0:
+                if tax_type == "withholding_tax" and tax.tax_id.amount == 0:
                     raise UserError(msg2 % tax.name)
 
-                if tax_type == 'tax' and tax.tax_id.amount <= 0:
+                if tax_type == "tax" and tax.tax_id.amount <= 0:
                     raise UserError(msg3 % tax.name)
 
                 if tax_amount != (tax.base * tax.tax_id.amount / 100):
-                    tax_amount = (tax.base * tax.tax_id.amount / 100)
+                    tax_amount = tax.base * tax.tax_id.amount / 100
 
-                if tax_type == 'withholding_tax' and tax.tax_id.amount > 0:
+                if tax_type == "withholding_tax" and tax.tax_id.amount > 0:
                     if tax_code not in withholding_taxes:
                         withholding_taxes[tax_code] = {}
-                        withholding_taxes[tax_code]['total'] = 0
-                        withholding_taxes[tax_code]['name'] = tax_name
-                        withholding_taxes[tax_code]['taxes'] = {}
+                        withholding_taxes[tax_code]["total"] = 0
+                        withholding_taxes[tax_code]["name"] = tax_name
+                        withholding_taxes[tax_code]["taxes"] = {}
 
-                    if tax_percent not in withholding_taxes[tax_code]['taxes']:
-                        withholding_taxes[tax_code]['taxes'][tax_percent] = {}
-                        withholding_taxes[tax_code]['taxes'][tax_percent][
-                            'base'] = 0
-                        withholding_taxes[tax_code]['taxes'][tax_percent][
-                            'amount'] = 0
+                    if tax_percent not in withholding_taxes[tax_code]["taxes"]:
+                        withholding_taxes[tax_code]["taxes"][tax_percent] = {}
+                        withholding_taxes[tax_code]["taxes"][tax_percent]["base"] = 0
+                        withholding_taxes[tax_code]["taxes"][tax_percent]["amount"] = 0
 
-                    withholding_taxes[tax_code]['total'] += tax_amount * (-1)
-                    withholding_taxes[tax_code]['taxes'][tax_percent][
-                        'base'] += tax.base
-                    withholding_taxes[tax_code]['taxes'][tax_percent][
-                        'amount'] += tax_amount * (-1)
-                elif tax_type == 'withholding_tax' and tax.tax_id.amount < 0:
+                    withholding_taxes[tax_code]["total"] += tax_amount * (-1)
+                    withholding_taxes[tax_code]["taxes"][tax_percent][
+                        "base"
+                    ] += tax.base
+                    withholding_taxes[tax_code]["taxes"][tax_percent][
+                        "amount"
+                    ] += tax_amount * (-1)
+                elif tax_type == "withholding_tax" and tax.tax_id.amount < 0:
                     # TODO 3.0 Las retenciones se recomienda no enviarlas a la DIAN
                     # Solo las positivas que indicarian una autorretencion, Si la DIAN
                     # pide que se envien las retenciones, seria quitar o comentar este if
@@ -416,71 +395,77 @@ class AccountInvoice(models.Model):
                 else:
                     if tax_code not in taxes:
                         taxes[tax_code] = {}
-                        taxes[tax_code]['total'] = 0
-                        taxes[tax_code]['name'] = tax_name
-                        taxes[tax_code]['taxes'] = {}
+                        taxes[tax_code]["total"] = 0
+                        taxes[tax_code]["name"] = tax_name
+                        taxes[tax_code]["taxes"] = {}
 
-                    if tax_percent not in taxes[tax_code]['taxes']:
-                        taxes[tax_code]['taxes'][tax_percent] = {}
-                        taxes[tax_code]['taxes'][tax_percent]['base'] = 0
-                        taxes[tax_code]['taxes'][tax_percent]['amount'] = 0
+                    if tax_percent not in taxes[tax_code]["taxes"]:
+                        taxes[tax_code]["taxes"][tax_percent] = {}
+                        taxes[tax_code]["taxes"][tax_percent]["base"] = 0
+                        taxes[tax_code]["taxes"][tax_percent]["amount"] = 0
 
-                    taxes[tax_code]['total'] += tax_amount
-                    taxes[tax_code]['taxes'][tax_percent]['base'] += tax.base
-                    taxes[tax_code]['taxes'][tax_percent][
-                        'amount'] += tax_amount
+                    taxes[tax_code]["total"] += tax_amount
+                    taxes[tax_code]["taxes"][tax_percent]["base"] += tax.base
+                    tax_total_base += tax.base
+                    taxes[tax_code]["taxes"][tax_percent]["amount"] += tax_amount
 
-        if '01' not in taxes:
-            taxes['01'] = {}
-            taxes['01']['total'] = 0
-            taxes['01']['name'] = 'IVA'
-            taxes['01']['taxes'] = {}
-            taxes['01']['taxes']['0.00'] = {}
-            taxes['01']['taxes']['0.00']['base'] = 0
-            taxes['01']['taxes']['0.00']['amount'] = 0
+        if "01" not in taxes:
+            taxes["01"] = {}
+            taxes["01"]["total"] = 0
+            taxes["01"]["name"] = "IVA"
+            taxes["01"]["taxes"] = {}
+            taxes["01"]["taxes"]["0.00"] = {}
+            taxes["01"]["taxes"]["0.00"]["base"] = 0
+            taxes["01"]["taxes"]["0.00"]["amount"] = 0
 
-        if '04' not in taxes:
-            taxes['04'] = {}
-            taxes['04']['total'] = 0
-            taxes['04']['name'] = 'ICA'
-            taxes['04']['taxes'] = {}
-            taxes['04']['taxes']['0.00'] = {}
-            taxes['04']['taxes']['0.00']['base'] = 0
-            taxes['04']['taxes']['0.00']['amount'] = 0
+        if "04" not in taxes:
+            taxes["04"] = {}
+            taxes["04"]["total"] = 0
+            taxes["04"]["name"] = "ICA"
+            taxes["04"]["taxes"] = {}
+            taxes["04"]["taxes"]["0.00"] = {}
+            taxes["04"]["taxes"]["0.00"]["base"] = 0
+            taxes["04"]["taxes"]["0.00"]["amount"] = 0
 
-        if '03' not in taxes:
-            taxes['03'] = {}
-            taxes['03']['total'] = 0
-            taxes['03']['name'] = 'INC'
-            taxes['03']['taxes'] = {}
-            taxes['03']['taxes']['0.00'] = {}
-            taxes['03']['taxes']['0.00']['base'] = 0
-            taxes['03']['taxes']['0.00']['amount'] = 0
+        if "03" not in taxes:
+            taxes["03"] = {}
+            taxes["03"]["total"] = 0
+            taxes["03"]["name"] = "INC"
+            taxes["03"]["taxes"] = {}
+            taxes["03"]["taxes"]["0.00"] = {}
+            taxes["03"]["taxes"]["0.00"]["base"] = 0
+            taxes["03"]["taxes"]["0.00"]["amount"] = 0
 
         return {
-            'TaxesTotal': taxes,
-            'WithholdingTaxesTotal': withholding_taxes
+            "TaxesTotal": taxes,
+            "TaxesTotalBase": tax_total_base,
+            "WithholdingTaxesTotal": withholding_taxes,
         }
 
     def _get_invoice_lines(self):
-        msg1 = _("Your Unit of Measure: '%s', has no Unit of Measure Code, " +
-                 "contact with your administrator.")
+        msg1 = _(
+            "Your Unit of Measure: '%s', has no Unit of Measure Code, contact "
+            "with your administrator."
+        )
         msg2 = _("The invoice line %s has no reference")
-        msg3 = _("Your product: '%s', has no reference price, " +
-                 "contact with your administrator.")
-        msg4 = _("Your tax: '%s', has no e-invoicing tax group type, " +
-                 "contact with your administrator.")
+        msg3 = _(
+            "Your product: '%s', has no reference price, contact with your "
+            "administrator."
+        )
+        msg4 = _(
+            "Your tax: '%s', has no e-invoicing tax group type, contact with your "
+            "administrator."
+        )
         msg5 = _(
-            "Your withholding tax: '%s', has amount equal to zero (0), the withholding taxes "
-            +
-            "must have amount different to zero (0), contact with your administrator."
+            "Your withholding tax: '%s', has amount equal to zero (0), the "
+            "withholding taxes must have amount different to zero (0), contact "
+            "with your administrator."
         )
         msg6 = _(
-            "Your tax: '%s', has negative amount or an amount equal to zero (0), the taxes "
-            +
-            "must have an amount greater than zero (0), contact with your administrator."
+            "Your tax: '%s', has negative amount or an amount equal to zero (0), "
+            "the taxes must have an amount greater than zero (0), contact with "
+            "your administrator."
         )
-
         invoice_lines = {}
         count = 1
 
@@ -505,35 +490,36 @@ class AccountInvoice(models.Model):
             if invoice_line.price_subtotal <= 0 and invoice_line.reference_price <= 0:
                 raise UserError(msg3 % invoice_line.product_id.default_code)
 
-            if self.invoice_type_code == '02':
+            if self.invoice_type_code == "02":
                 if invoice_line.product_id.product_brand_id:
                     brand_name = invoice_line.product_id.product_brand_id.name
 
                 model_name = invoice_line.product_id.manufacturer_pref
 
             invoice_lines[count] = {}
+            invoice_lines[count]["unitCode"] = invoice_line.uom_id.uom_code_id.code
+            invoice_lines[count]["Quantity"] = "{:.2f}".format(invoice_line.quantity)
+            invoice_lines[count]["PricingReferencePriceAmount"] = "{:.2f}".format(
+                invoice_line.reference_price
+            )
+            invoice_lines[count]["LineExtensionAmount"] = "{:.2f}".format(
+                invoice_line.price_subtotal
+            )
+            invoice_lines[count]["MultiplierFactorNumeric"] = "{:.2f}".format(
+                invoice_line.discount
+            )
+            invoice_lines[count]["AllowanceChargeAmount"] = "{:.2f}".format(disc_amount)
+            invoice_lines[count]["AllowanceChargeBaseAmount"] = "{:.2f}".format(
+                total_wo_disc
+            )
+            invoice_lines[count]["TaxesTotal"] = {}
+            invoice_lines[count]["WithholdingTaxesTotal"] = {}
             invoice_lines[count][
-                'unitCode'] = invoice_line.uom_id.uom_code_id.code
-            invoice_lines[count]['Quantity'] = '{:.2f}'.format(
-                invoice_line.quantity)
-            invoice_lines[count][
-                'PricingReferencePriceAmount'] = '{:.2f}'.format(
-                    invoice_line.reference_price)
-            invoice_lines[count]['LineExtensionAmount'] = '{:.2f}'.format(
-                invoice_line.price_subtotal)
-            invoice_lines[count]['MultiplierFactorNumeric'] = '{:.2f}'.format(
-                invoice_line.discount)
-            invoice_lines[count]['AllowanceChargeAmount'] = '{:.2f}'.format(
-                disc_amount)
-            invoice_lines[count][
-                'AllowanceChargeBaseAmount'] = '{:.2f}'.format(total_wo_disc)
-            invoice_lines[count]['TaxesTotal'] = {}
-            invoice_lines[count]['WithholdingTaxesTotal'] = {}
-            invoice_lines[count][
-                'StandardItemIdentification'] = invoice_line.product_id.default_code
+                "StandardItemIdentification"
+            ] = invoice_line.product_id.default_code
 
             for tax in invoice_line.invoice_line_tax_ids:
-                if tax.amount_type == 'group':
+                if tax.amount_type == "group":
                     tax_ids = tax.children_tax_ids
                 else:
                     tax_ids = tax
@@ -545,69 +531,76 @@ class AccountInvoice(models.Model):
 
                         tax_type = tax_id.tax_group_id.tax_group_type_id.type
 
-                        if tax_type == 'withholding_tax' and tax_id.amount == 0:
+                        if tax_type == "withholding_tax" and tax_id.amount == 0:
                             raise UserError(msg5 % tax_id.name)
 
-                        if tax_type == 'tax' and tax_id.amount <= 0:
+                        if tax_type == "tax" and tax_id.amount <= 0:
                             raise UserError(msg6 % tax_id.name)
 
-                        if tax_type == 'withholding_tax' and tax_id.amount > 0:
-                            invoice_lines[count]['WithholdingTaxesTotal'] = (
-                                invoice_line._get_invoice_lines_taxes(
-                                    tax_id, tax_id.amount, invoice_lines[count]
-                                    ['WithholdingTaxesTotal']))
-                        elif tax_type == 'withholding_tax' and tax_id.amount < 0:
+                        if tax_type == "withholding_tax" and tax_id.amount > 0:
+                            invoice_lines[count][
+                                "WithholdingTaxesTotal"
+                            ] = invoice_line._get_invoice_lines_taxes(
+                                tax_id,
+                                tax_id.amount,
+                                invoice_lines[count]["WithholdingTaxesTotal"],
+                            )
+                        elif tax_type == "withholding_tax" and tax_id.amount < 0:
                             # TODO 3.0 Las retenciones se recomienda no enviarlas a la DIAN.
                             # Solo la parte positiva que indicaria una autoretencion, Si la DIAN
                             # pide que se envie la parte negativa, seria quitar o comentar este if
                             pass
                         else:
-                            invoice_lines[count]['TaxesTotal'] = (
-                                invoice_line._get_invoice_lines_taxes(
-                                    tax_id, tax_id.amount,
-                                    invoice_lines[count]['TaxesTotal']))
+                            invoice_lines[count][
+                                "TaxesTotal"
+                            ] = invoice_line._get_invoice_lines_taxes(
+                                tax_id,
+                                tax_id.amount,
+                                invoice_lines[count]["TaxesTotal"],
+                            )
 
-            if '01' not in invoice_lines[count]['TaxesTotal']:
-                invoice_lines[count]['TaxesTotal']['01'] = {}
-                invoice_lines[count]['TaxesTotal']['01']['total'] = 0
-                invoice_lines[count]['TaxesTotal']['01']['name'] = 'IVA'
-                invoice_lines[count]['TaxesTotal']['01']['taxes'] = {}
-                invoice_lines[count]['TaxesTotal']['01']['taxes']['0.00'] = {}
-                invoice_lines[count]['TaxesTotal']['01']['taxes']['0.00'][
-                    'base'] = invoice_line.price_subtotal
-                invoice_lines[count]['TaxesTotal']['01']['taxes']['0.00'][
-                    'amount'] = 0
+            if "01" not in invoice_lines[count]["TaxesTotal"]:
+                invoice_lines[count]["TaxesTotal"]["01"] = {}
+                invoice_lines[count]["TaxesTotal"]["01"]["total"] = 0
+                invoice_lines[count]["TaxesTotal"]["01"]["name"] = "IVA"
+                invoice_lines[count]["TaxesTotal"]["01"]["taxes"] = {}
+                invoice_lines[count]["TaxesTotal"]["01"]["taxes"]["0.00"] = {}
+                invoice_lines[count]["TaxesTotal"]["01"]["taxes"]["0.00"][
+                    "base"
+                ] = invoice_line.price_subtotal
+                invoice_lines[count]["TaxesTotal"]["01"]["taxes"]["0.00"]["amount"] = 0
 
-            if '04' not in invoice_lines[count]['TaxesTotal']:
-                invoice_lines[count]['TaxesTotal']['04'] = {}
-                invoice_lines[count]['TaxesTotal']['04']['total'] = 0
-                invoice_lines[count]['TaxesTotal']['04']['name'] = 'ICA'
-                invoice_lines[count]['TaxesTotal']['04']['taxes'] = {}
-                invoice_lines[count]['TaxesTotal']['04']['taxes']['0.00'] = {}
-                invoice_lines[count]['TaxesTotal']['04']['taxes']['0.00'][
-                    'base'] = invoice_line.price_subtotal
-                invoice_lines[count]['TaxesTotal']['04']['taxes']['0.00'][
-                    'amount'] = 0
+            if "04" not in invoice_lines[count]["TaxesTotal"]:
+                invoice_lines[count]["TaxesTotal"]["04"] = {}
+                invoice_lines[count]["TaxesTotal"]["04"]["total"] = 0
+                invoice_lines[count]["TaxesTotal"]["04"]["name"] = "ICA"
+                invoice_lines[count]["TaxesTotal"]["04"]["taxes"] = {}
+                invoice_lines[count]["TaxesTotal"]["04"]["taxes"]["0.00"] = {}
+                invoice_lines[count]["TaxesTotal"]["04"]["taxes"]["0.00"][
+                    "base"
+                ] = invoice_line.price_subtotal
+                invoice_lines[count]["TaxesTotal"]["04"]["taxes"]["0.00"]["amount"] = 0
 
-            if '03' not in invoice_lines[count]['TaxesTotal']:
-                invoice_lines[count]['TaxesTotal']['03'] = {}
-                invoice_lines[count]['TaxesTotal']['03']['total'] = 0
-                invoice_lines[count]['TaxesTotal']['03']['name'] = 'INC'
-                invoice_lines[count]['TaxesTotal']['03']['taxes'] = {}
-                invoice_lines[count]['TaxesTotal']['03']['taxes']['0.00'] = {}
-                invoice_lines[count]['TaxesTotal']['03']['taxes']['0.00'][
-                    'base'] = invoice_line.price_subtotal
-                invoice_lines[count]['TaxesTotal']['03']['taxes']['0.00'][
-                    'amount'] = 0
+            if "03" not in invoice_lines[count]["TaxesTotal"]:
+                invoice_lines[count]["TaxesTotal"]["03"] = {}
+                invoice_lines[count]["TaxesTotal"]["03"]["total"] = 0
+                invoice_lines[count]["TaxesTotal"]["03"]["name"] = "INC"
+                invoice_lines[count]["TaxesTotal"]["03"]["taxes"] = {}
+                invoice_lines[count]["TaxesTotal"]["03"]["taxes"]["0.00"] = {}
+                invoice_lines[count]["TaxesTotal"]["03"]["taxes"]["0.00"][
+                    "base"
+                ] = invoice_line.price_subtotal
+                invoice_lines[count]["TaxesTotal"]["03"]["taxes"]["0.00"]["amount"] = 0
 
-            invoice_lines[count]['BrandName'] = brand_name
-            invoice_lines[count]['ModelName'] = model_name
-            invoice_lines[count]['ItemDescription'] = invoice_line.name
-            invoice_lines[count]['InformationContentProviderParty'] = (
-                invoice_line._get_information_content_provider_party_values())
-            invoice_lines[count]['PriceAmount'] = '{:.2f}'.format(
-                invoice_line.price_unit)
-
+            invoice_lines[count]["BrandName"] = brand_name
+            invoice_lines[count]["ModelName"] = model_name
+            invoice_lines[count]["ItemDescription"] = invoice_line.name
+            invoice_lines[count][
+                "InformationContentProviderParty"
+            ] = invoice_line._get_information_content_provider_party_values()
+            invoice_lines[count]["PriceAmount"] = "{:.2f}".format(
+                invoice_line.price_unit
+            )
             count += 1
 
         return invoice_lines
@@ -625,9 +618,195 @@ class AccountInvoice(models.Model):
             else:
                 reference_price = 0
 
-            invoice_line.write({
-                'cost_price': invoice_line.product_id.standard_price,
-                'reference_price': reference_price
-            })
+            invoice_line.write(
+                {
+                    "cost_price": invoice_line.product_id.standard_price,
+                    "reference_price": reference_price,
+                }
+            )
+
+        return True
+
+    def set_dian_document(self):
+        msg = _(
+            "The 'delivery date' must be equal or greater per maximum 10 days to "
+            "the 'invoice date'."
+        )
+        timezone = pytz.timezone(self.env.user.tz or "America/Bogota")
+        from_zone = tz.gettz("UTC")
+        to_zone = tz.gettz(timezone.zone)
+
+        for invoice in self:
+            if not invoice.company_id.einvoicing_enabled:
+                return True
+
+            if invoice.journal_id.sequence_id.dian_type not in DIAN_TYPES:
+                return True
+
+            if invoice.dian_document_ids.filtered(lambda d: d.state != "cancel"):
+                return True
+
+            if not invoice.invoice_datetime:
+                invoice_datetime = datetime.now().replace(tzinfo=from_zone)
+                invoice_datetime = invoice_datetime.astimezone(to_zone).strftime(
+                    "%Y-%m-%d %H:%M:%S"
+                )
+                invoice.invoice_datetime = invoice_datetime
+
+            if (
+                invoice.company_id.automatic_delivery_datetime
+                and invoice.company_id.additional_hours_delivery_datetime
+                and not invoice.delivery_datetime
+            ):
+                invoice_datetime = invoice.invoice_datetime
+                hours_added = timedelta(
+                    hours=invoice.company_id.additional_hours_delivery_datetime
+                )
+                invoice.delivery_datetime = invoice_datetime + hours_added
+
+            if not invoice.delivery_datetime:
+                raise UserError(msg)
+
+            date_invoice = invoice.date_invoice
+            delivery_date = datetime.strftime(invoice.delivery_datetime, "%Y-%m-%d")
+            delivery_date = datetime.strptime(delivery_date, "%Y-%m-%d").date()
+            days = (delivery_date - date_invoice).days
+
+            if days < 0 or days > 10:
+                raise UserError(msg)
+
+            invoice.set_invoice_lines_price_reference()
+            xml_filename = False
+            zipped_filename = False
+            ar_xml_filename = False
+            ad_zipped_filename = False
+
+            for dian_document in invoice.dian_document_ids:
+                xml_filename = dian_document.xml_filename
+                zipped_filename = dian_document.zipped_filename
+                ar_xml_filename = dian_document.ar_xml_filename
+                ad_zipped_filename = dian_document.ad_zipped_filename
+                break
+
+            dian_document_obj = self.env["account.invoice.dian.document"]
+            dian_document = dian_document_obj.create(
+                {
+                    "invoice_id": invoice.id,
+                    "company_id": invoice.company_id.id,
+                    "xml_filename": xml_filename,
+                    "zipped_filename": zipped_filename,
+                    "ar_xml_filename": ar_xml_filename,
+                    "ad_zipped_filename": ad_zipped_filename,
+                }
+            )
+            set_files = dian_document.action_set_files()
+
+            if invoice.send_invoice_to_dian == "0":
+                if set_files:
+                    if invoice.invoice_type_code in ("01", "02"):
+                        dian_document.action_send_zipped_file()
+                    elif invoice.invoice_type_code == "04":
+                        dian_document.action_send_email()
+                else:
+                    dian_document.send_failure_email()
+
+        return True
+
+    @api.multi
+    def invoice_validate(self):
+        res = super(AccountInvoice, self).invoice_validate()
+
+        for invoice_id in self:
+            if invoice_id.sequence_resolution_id:
+                invoice_id.set_dian_document()
+            elif invoice_id.supplier_uuid:
+                invoice_id.action_ApplicationResponse_030()
+
+        return res
+
+    @api.multi
+    def action_cancel(self):
+        msg = _("You cannot cancel a invoice sent to the DIAN and that was approved.")
+        res = super(AccountInvoice, self).action_cancel()
+
+        for invoice in self:
+            for dian_document in invoice.dian_document_ids:
+                if dian_document.state == "done":
+                    raise UserError(msg)
+                else:
+                    dian_document.state = "cancel"
+
+        return res
+
+    def set_dian_document_ApplicationResponse(self, application_response_type):
+        timezone = pytz.timezone(self.env.user.tz or "America/Bogota")
+        from_zone = tz.gettz("UTC")
+        to_zone = tz.gettz(timezone.zone)
+
+        for invoice_id in self:
+            if not invoice_id.company_id.einvoicing_enabled:
+                return True
+
+            dian_document_id = invoice_id.dian_document_ids.filtered(
+                lambda d: d.state != "done"
+                and d.application_response_type == application_response_type
+            )
+
+            issue_datetime = datetime.now().replace(tzinfo=from_zone)
+            issue_datetime = issue_datetime.astimezone(to_zone).strftime(
+                "%Y-%m-%d %H:%M:%S"
+            )
+
+            if not dian_document_id:
+                dian_document_id = self.env["account.invoice.dian.document"].create(
+                    {
+                        "company_id": invoice_id.company_id.id,
+                        "invoice_id": invoice_id.id,
+                        "issue_datetime": issue_datetime,
+                        "application_response_type": application_response_type,
+                    }
+                )
+
+            set_files = dian_document_id.action_set_files()
+
+            if set_files:
+                dian_document_id.action_send_zipped_file()
+            else:
+                dian_document_id.send_failure_email()
+
+        return True
+
+    @api.multi
+    def action_ApplicationResponse_030(self):
+        for invoice_id in self:
+            invoice_id.set_dian_document_ApplicationResponse("030")
+
+        return True
+
+    @api.multi
+    def action_ApplicationResponse_031(self):
+        for invoice_id in self:
+            invoice_id.set_dian_document_ApplicationResponse("031")
+
+        return True
+
+    @api.multi
+    def action_ApplicationResponse_032(self):
+        for invoice_id in self:
+            invoice_id.set_dian_document_ApplicationResponse("032")
+
+        return True
+
+    @api.multi
+    def action_ApplicationResponse_033(self):
+        for invoice_id in self:
+            invoice_id.set_dian_document_ApplicationResponse("033")
+
+        return True
+
+    @api.multi
+    def action_ApplicationResponse_034(self):
+        for invoice_id in self:
+            invoice_id.set_dian_document_ApplicationResponse("034")
 
         return True

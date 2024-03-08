@@ -3,9 +3,9 @@
 [![Coverage Status](https://coveralls.io/repos/OCA/l10n-columbia/badge.svg?branch=12.0&service=github)](https://coveralls.io/github/OCA/l10n-columbia?branch=12.0)
 [![Code Climate](https://codeclimate.com/github/OCA/l10n-columbia/badges/gpa.svg)](https://codeclimate.com/github/OCA/l10n-columbia)
 
-# Columbia localisation
+# Colombian localization
 
-write me
+*To do.
 
 
 

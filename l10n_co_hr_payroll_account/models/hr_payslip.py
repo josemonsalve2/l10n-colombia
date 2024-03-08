@@ -197,7 +197,7 @@ class HrPayslip(models.Model):
             if not slip.journal_voucher_id:
                 raise UserError(_('Debe primero ingresar el diario de pago'))
 
-            if not slip.date_pago:
+            if not slip.date_payment:
                 raise UserError(
                     _('Debe primero ingresar la fecha de contabilización del pago'
                       ))
@@ -211,6 +211,7 @@ class HrPayslip(models.Model):
                       ) % (slip.number))
 
             if slip_line_ids:
+                currency = slip.company_id.currency_id or slip.journal_id.company_id.currency_id
                 for line in slip_line_ids:
 
                     if line.total != 0.0:
@@ -229,11 +230,12 @@ class HrPayslip(models.Model):
                                   ) % (slip.journal_id.name))
 
                         #Busca la causación
+
                         lines = move_obj.search([
                             ('move_id', '=', slip.move_id.id),
                             ('account_id', '=',
                              slip.journal_id.default_credit_account_id.id),
-                            ('credit', '=', line.total)
+                            ('credit', '=', currency.round(line.total))
                         ])
                         if not lines:
                             raise UserError(
@@ -243,7 +245,7 @@ class HrPayslip(models.Model):
                         name = _('Pago nómina %s') % (slip.employee_id.name)
                         payment = {
                             'payment_type': 'outbound',
-                            'payment_date': slip.date_pago,
+                            'payment_date': slip.date_payment,
                             'partner_type': 'supplier',
                             'partner_id': slip.employee_id.address_home_id.id,
                             'communication': 'Pago nómina ' + slip.number,

@@ -119,8 +119,7 @@ class SaleOrder(models.Model):
 
         daterange = self.env['date.range'].search(param)
         if not daterange:
-            pass
-            # raise UserError(msg)
+            raise UserError(msg)
         else:
             fiscalunit = daterange.fiscalunit
 

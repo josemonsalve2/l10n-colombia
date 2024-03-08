@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <record id="res_partner_doc_type_RC" model="res.partner.document.type">
-        <field name="name">Registro Civil de Nacimiento</field>
+        <field name="name">Registro civil</field>
         <field name="code">11</field>
     </record>
     <record id="res_partner_doc_type_TI" model="res.partner.document.type">
-        <field name="name">Tarjeta de Identidad</field>
+        <field name="name">Tarjeta de identidad</field>
         <field name="code">12</field>
     </record>
     <record id="res_partner_doc_type_CC" model="res.partner.document.type">
-        <field name="name">Cédula de Ciudadanía</field>
+        <field name="name">Cédula de ciudadanía</field>
         <field name="code">13</field>
     </record>
     <record id="res_partner_doc_type_TEXTRAN" model="res.partner.document.type">
-        <field name="name">Tarjeta de Extranjería</field>
+        <field name="name">Tarjeta de extranjería</field>
         <field name="code">21</field>
     </record>
     <record id="res_partner_doc_type_CEXTRAN" model="res.partner.document.type">
-        <field name="name">Cédula de Extranjería</field>
+        <field name="name">Cédula de extranjería</field>
         <field name="code">22</field>
     </record>
     <record id="res_partner_doc_type_NIT" model="res.partner.document.type">
@@ -30,7 +30,7 @@
         <field name="code">41</field>
     </record>
     <record id="res_partner_doc_type_IDEXTRAN" model="res.partner.document.type">
-        <field name="name">Documento de Identificación Extranjero</field>
+        <field name="name">Documento de identificación extranjero</field>
         <field name="code">42</field>
     </record>
     <record id="res_partner_doc_type_NOIDEXTRAN" model="res.partner.document.type">
@@ -38,8 +38,12 @@
         <field name="code">43</field>
         <field name="checking_required" eval="True"/>
     </record>
+    <record id="res_partner_doc_type_PEP" model="res.partner.document.type">
+        <field name="name">PEP</field>
+        <field name="code">47</field>
+    </record>
     <record id="res_partner_doc_type_NITEXTRAN" model="res.partner.document.type">
-        <field name="name">NIT de Otro País</field>
+        <field name="name">NIT de otro país</field>
         <field name="code">50</field>
     </record>
     <record id="res_partner_doc_type_NUIP" model="res.partner.document.type">

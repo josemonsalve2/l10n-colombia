@@ -9,7 +9,7 @@
 	xmlns:xades141="http://uri.etsi.org/01903/v1.4.1#">
 	<cbc:UBLVersionID>UBL 2.1</cbc:UBLVersionID>
 	<cbc:CustomizationID>Documentos adjuntos</cbc:CustomizationID>
-	<cbc:ProfileID>DIAN 2.1</cbc:ProfileID>
+	<cbc:ProfileID>Factura Electrónica de Venta</cbc:ProfileID>
 	<cbc:ProfileExecutionID>{{ProfileExecutionID}}</cbc:ProfileExecutionID>
 	<cbc:ID>{{ID}}</cbc:ID>
 	<cbc:IssueDate>{{IssueDate}}</cbc:IssueDate>
@@ -18,8 +18,12 @@
 	<cbc:ParentDocumentID>{{ParentDocumentID}}</cbc:ParentDocumentID>
 	<cac:SenderParty>
 		<cac:PartyTaxScheme>
-			<cbc:RegistrationName>{{SenderParty.Name}}</cbc:RegistrationName>
-			<cbc:CompanyID schemeAgencyID="195" schemeID="{{SenderParty.CompanyIDschemeID}}" schemeName="{{SenderParty.CompanyIDschemeName}}">{{SenderParty.CompanyID}}</cbc:CompanyID>
+			<cbc:RegistrationName>{{SenderParty.RegistrationName}}</cbc:RegistrationName>
+			<cbc:CompanyID schemeAgencyID="195"
+				{% if SenderParty.CompanyIDschemeID %}
+				schemeID="{{SenderParty.CompanyIDschemeID}}"
+				{% endif %}
+				schemeName="{{SenderParty.CompanyIDschemeName}}">{{SenderParty.CompanyID}}</cbc:CompanyID>
 			<cbc:TaxLevelCode listName="{{SenderParty.listName}}">{{SenderParty.TaxLevelCode}}</cbc:TaxLevelCode>
 			<cac:TaxScheme>
 				<cbc:ID>{{SenderParty.TaxSchemeID}}</cbc:ID>
@@ -29,8 +33,12 @@
 	</cac:SenderParty>
 	<cac:ReceiverParty>
 		<cac:PartyTaxScheme>
-			<cbc:RegistrationName>{{ReceiverParty.Name}}</cbc:RegistrationName>
-			<cbc:CompanyID schemeAgencyID="195" schemeID="{{ReceiverParty.CompanyIDschemeID}}" schemeName="{{ReceiverParty.CompanyIDschemeName}}">{{ReceiverParty.CompanyID}}</cbc:CompanyID>
+			<cbc:RegistrationName>{{ReceiverParty.RegistrationName}}</cbc:RegistrationName>
+			<cbc:CompanyID schemeAgencyID="195"
+				{% if ReceiverParty.CompanyIDschemeID %}
+				schemeID="{{ReceiverParty.CompanyIDschemeID}}"
+				{% endif %}
+				schemeName="{{ReceiverParty.CompanyIDschemeName}}">{{ReceiverParty.CompanyID}}</cbc:CompanyID>
 			<cbc:TaxLevelCode listName="{{ReceiverParty.listName}}">{{ReceiverParty.TaxLevelCode}}</cbc:TaxLevelCode>
 			<cac:TaxScheme>
 				<cbc:ID>{{ReceiverParty.TaxSchemeID}}</cbc:ID>
@@ -42,28 +50,28 @@
 		<cac:ExternalReference>
 			<cbc:MimeCode>text/xml</cbc:MimeCode>
 			<cbc:EncodingCode>UTF-8</cbc:EncodingCode>
-			<cbc:Description><![CDATA[{{InvoiceCNDN}}]]></cbc:Description>
+			<cbc:Description><![CDATA[{{Attachment}}]]></cbc:Description>
 		</cac:ExternalReference>
 	</cac:Attachment>
 	<cac:ParentDocumentLineReference>
 		<cbc:LineID>1</cbc:LineID>
 		<cac:DocumentReference>
-			<cbc:ID>{{ParentDocumentID}}</cbc:ID>
-			<cbc:UUID schemeName="CUFE-SHA384">{{UUID}}</cbc:UUID>
-			<cbc:IssueDate>{{ValidationDate}}</cbc:IssueDate>
+			<cbc:ID>{{DocumentReference.ID}}</cbc:ID>
+			<cbc:UUID schemeName="{{DocumentReference.UUIDschemeName}}-SHA384">{{DocumentReference.UUID}}</cbc:UUID>
+			<cbc:IssueDate>{{DocumentReference.IssueDate}}</cbc:IssueDate>
 			<cbc:DocumentType>ApplicationResponse</cbc:DocumentType>
 			<cac:Attachment>
 				<cac:ExternalReference>
 					<cbc:MimeCode>text/xml</cbc:MimeCode>
 					<cbc:EncodingCode>UTF-8</cbc:EncodingCode>
-					<cbc:Description><![CDATA[{{ApplicationResponse}}]]></cbc:Description>
+					<cbc:Description><![CDATA[{{DocumentReference.Attachment}}]]></cbc:Description>
 				</cac:ExternalReference>
 			</cac:Attachment>
 			<cac:ResultOfVerification>
 				<cbc:ValidatorID>Unidad Especial Dirección de Impuestos y Aduanas Nacionales</cbc:ValidatorID>
 				<cbc:ValidationResultCode>02</cbc:ValidationResultCode>
-				<cbc:ValidationDate>{{ValidationDate}}</cbc:ValidationDate>
-				<cbc:ValidationTime>{{ValidationTime}}</cbc:ValidationTime>
+				<cbc:ValidationDate>{{DocumentReference.ValidationDate}}</cbc:ValidationDate>
+				<cbc:ValidationTime>{{DocumentReference.ValidationTime}}</cbc:ValidationTime>
 			</cac:ResultOfVerification>
 		</cac:DocumentReference>
 	</cac:ParentDocumentLineReference>

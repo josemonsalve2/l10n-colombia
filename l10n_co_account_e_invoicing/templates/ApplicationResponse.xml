@@ -1,0 +1,130 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<ApplicationResponse xmlns="urn:oasis:names:specification:ubl:schema:xsd:ApplicationResponse-2"
+	xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2"
+	xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2"
+	xmlns:ds="http://www.w3.org/2000/09/xmldsig#"
+	xmlns:ext="urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2"
+	xmlns:sts="dian:gov:co:facturaelectronica:Structures-2-1"
+	xmlns:xades="http://uri.etsi.org/01903/v1.3.2#"
+	xmlns:xades141="http://uri.etsi.org/01903/v1.4.1#"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="urn:oasis:names:specification:ubl:schema:xsd:ApplicationResponse-2 http://docs.oasis-open.org/ubl/os-UBL-2.1/xsd/maindoc/UBL-ApplicationResponse-2.1.xsd">
+	<ext:UBLExtensions>
+		<ext:UBLExtension>
+			<ext:ExtensionContent>
+				<sts:DianExtensions>
+					<sts:InvoiceSource>
+						<cbc:IdentificationCode listAgencyID="6"
+							listAgencyName="United Nations Economic Commission for Europe"
+							listSchemeURI="urn:oasis:names:specification:ubl:codelist:gc:CountryIdentificationCode-2.1">CO</cbc:IdentificationCode>
+					</sts:InvoiceSource>
+					<sts:SoftwareProvider>
+						<sts:ProviderID schemeID="{{SoftwareProvider.ProviderIDschemeID}}"
+							schemeName="{{SoftwareProvider.ProviderIDschemeName}}"
+							schemeAgencyID="195"
+							schemeAgencyName="CO, DIAN (Dirección de Impuestos y Aduanas Nacionales)">{{SoftwareProvider.ProviderID}}</sts:ProviderID>
+						<sts:SoftwareID schemeAgencyID="195"
+							schemeAgencyName="CO, DIAN (Dirección de Impuestos y Aduanas Nacionales)">{{SoftwareProvider.SoftwareID}}</sts:SoftwareID>
+					</sts:SoftwareProvider>
+					<sts:SoftwareSecurityCode schemeAgencyID="195"
+						schemeAgencyName="CO, DIAN (Dirección de Impuestos y Aduanas Nacionales)">{{SoftwareSecurityCode}}</sts:SoftwareSecurityCode>
+					<sts:AuthorizationProvider>
+						<sts:AuthorizationProviderID schemeID="4"
+							schemeName="31"
+							schemeAgencyID="195"
+							schemeAgencyName="CO, DIAN (Dirección de Impuestos y Aduanas Nacionales)">800197268</sts:AuthorizationProviderID>
+					</sts:AuthorizationProvider>
+					<sts:QRCode>{{QRCode}}</sts:QRCode>
+				</sts:DianExtensions>
+			</ext:ExtensionContent>
+		</ext:UBLExtension>
+		<ext:UBLExtension>
+			<ext:ExtensionContent></ext:ExtensionContent>
+		</ext:UBLExtension>
+	</ext:UBLExtensions>
+	<cbc:UBLVersionID>UBL 2.1</cbc:UBLVersionID>
+	<cbc:CustomizationID>1</cbc:CustomizationID>
+	<cbc:ProfileID>DIAN 2.1: ApplicationResponse de la Factura Electrónica de Venta</cbc:ProfileID>			   
+	<cbc:ProfileExecutionID>{{ProfileExecutionID}}</cbc:ProfileExecutionID>
+	<cbc:ID>{{ID}}</cbc:ID>
+	<cbc:UUID schemeID="{{ProfileExecutionID}}" schemeName="CUDE-SHA384">{{UUID}}</cbc:UUID>
+	<cbc:IssueDate>{{IssueDate}}</cbc:IssueDate>
+	<cbc:IssueTime>{{IssueTime}}</cbc:IssueTime>
+	{% if Note %}
+	<cbc:Note>{{Note}}</cbc:Note>
+	{% endif %}
+	{% if Response.ResponseCode in ['034'] %}
+	<cbc:Note>Manifiesto bajo la gravedad de juramento que transcurridos 3 días hábiles contados
+		desde la creación del Recibo de bienes y servicios {{ID}} con CUDE {{UUID}}, el adquirente
+		{{ReceiverParty.RegistrationName}} identificado con NIT {{ReceiverParty.CompanyID}}
+		no manifestó expresamente la aceptación o rechazo de la referida factura, ni reclamó en contra de su contenido.</cbc:Note>
+	{% endif %}
+	<cac:SenderParty>
+		<cac:PartyTaxScheme>
+			<cbc:RegistrationName>{{SenderParty.RegistrationName}}</cbc:RegistrationName>
+			<cbc:CompanyID schemeAgencyID="195"
+				schemeAgencyName="CO, DIAN (Dirección de Impuestos y Aduanas Nacionales)"
+				{% if SenderParty.CompanyIDschemeID %}
+				schemeID="{{SenderParty.CompanyIDschemeID}}"
+				{% endif %}
+				schemeName="{{SenderParty.CompanyIDschemeName}}"
+				schemeVersionID="{{SenderParty.AdditionalAccountID}}">{{SenderParty.CompanyID}}</cbc:CompanyID>
+			<cac:TaxScheme>
+				<cbc:ID>{{SenderParty.TaxSchemeID}}</cbc:ID>
+				<cbc:Name>{{SenderParty.TaxSchemeName}}</cbc:Name>
+			</cac:TaxScheme>
+		</cac:PartyTaxScheme>
+	</cac:SenderParty>
+	<cac:ReceiverParty>
+		<cac:PartyTaxScheme>
+			<cbc:RegistrationName>{{ReceiverParty.RegistrationName}}</cbc:RegistrationName>
+			<cbc:CompanyID schemeAgencyID="195"
+				schemeAgencyName="CO, DIAN (Dirección de Impuestos y Aduanas Nacionales)"
+				{% if ReceiverParty.CompanyIDschemeID %}
+				schemeID="{{ReceiverParty.CompanyIDschemeID}}"
+				{% endif %}
+				schemeName="{{ReceiverParty.CompanyIDschemeName}}"
+				schemeVersionID="{{ReceiverParty.AdditionalAccountID}}">{{ReceiverParty.CompanyID}}</cbc:CompanyID>
+			<cac:TaxScheme>
+				<cbc:ID>{{ReceiverParty.TaxSchemeID}}</cbc:ID>
+				<cbc:Name>{{ReceiverParty.TaxSchemeName}}</cbc:Name>
+			</cac:TaxScheme>
+		</cac:PartyTaxScheme>
+	</cac:ReceiverParty>
+	<cac:DocumentResponse>
+		<cac:Response>
+			{% if Response.ResponseCode in ['030', '032', '033', '034'] %}
+			<cbc:ResponseCode>{{Response.ResponseCode}}</cbc:ResponseCode>
+			{% endif %}
+			{% if Response.ResponseCode in ['031'] %}
+			<cbc:ResponseCode name="{{Response.ResponseCodename}}"
+				listID="{{Response.ResponseCodeListID}}">{{Response.ResponseCode}}</cbc:ResponseCode>
+			{% endif %}
+			<cbc:Description>{{Response.Description}}</cbc:Description>
+		</cac:Response>
+		<cac:DocumentReference>
+			<cbc:ID>{{DocumentReference.ID}}</cbc:ID>
+			<cbc:UUID schemeName="CUFE-SHA384">{{DocumentReference.UUID}}</cbc:UUID>
+			<cbc:DocumentTypeCode>{{DocumentReference.DocumentTypeCode}}</cbc:DocumentTypeCode>
+		</cac:DocumentReference>
+		{% if Response.ResponseCode in ['030', '032'] %}
+		<cac:IssuerParty>
+			<cac:Person>
+				<cbc:ID
+					{% if IssuerParty.IDschemeID %}
+					schemeID="{{IssuerParty.IDschemeID}}"
+					{% endif %}
+					schemeName="{{IssuerParty.IDschemeName}}">{{IssuerParty.ID}}</cbc:ID>
+				<cbc:FirstName>{{IssuerParty.FirstName}}</cbc:FirstName>
+				<cbc:FamilyName>{{IssuerParty.FamilyName}}</cbc:FamilyName>
+				{% if IssuerParty.JobTitle %}
+				<cbc:JobTitle>{{IssuerParty.JobTitle}}</cbc:JobTitle>
+				{% endif %}
+				{% if IssuerParty.OrganizationDepartment %}
+				<cbc:OrganizationDepartment>{{IssuerParty.OrganizationDepartment}}</cbc:OrganizationDepartment>
+				{% endif %}
+			</cac:Person>
+		</cac:IssuerParty>
+		{% endif %}
+	</cac:DocumentResponse>
+</ApplicationResponse>

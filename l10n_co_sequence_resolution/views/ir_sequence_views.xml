@@ -6,7 +6,8 @@
         <field name="arch" type="xml">
             <field name="use_date_range" position="after">
                 <field name="use_dian_control"/>
-                <field name="dian_type" attrs="{'invisible': [('use_dian_control', '!=', True)], 'required': [('use_dian_control', '=', True)]}"/>
+                <field name="dian_type" attrs="{'required': [('use_dian_control', '=', True)]}"/>
+                <field name="description"/>
             </field>
 
             <field name="implementation" position="attributes">
@@ -44,8 +45,9 @@
             </field>
 
             <field name="date_to" position="after">
-                <field name="number_from"  attrs="{'required': [('use_dian_control', '=', True)]}"/>
-                <field name="number_to"  attrs="{'required': [('use_dian_control', '=', True)]}"/>
+                <field name="date_to_resolution" attrs="{'required': [('use_dian_control', '=', True)]}"/>
+                <field name="number_from" attrs="{'required': [('use_dian_control', '=', True)]}"/>
+                <field name="number_to" attrs="{'required': [('use_dian_control', '=', True)]}"/>
                 <field name="active_resolution" readonly="1"/>
             </field>
         </field>

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-
     <record id="view_date_range_tree" model="ir.ui.view">
         <field name="model">date.range</field>
         <field name="inherit_id" ref="date_range.view_date_range_tree"/>
@@ -9,8 +8,9 @@
                 <field name="out_invoice_sent"/>
                 <field name="out_refund_credit_sent"/>
                 <field name="out_refund_debit_sent"/>
+                <field name="in_invoice_sent"/>
+                <field name="in_refund_sent"/>
             </field>
         </field>
     </record>
-
 </odoo>

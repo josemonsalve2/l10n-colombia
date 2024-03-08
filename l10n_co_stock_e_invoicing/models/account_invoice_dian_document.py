@@ -18,13 +18,13 @@ class AccountInvoiceDianDocument(models.Model):
         res = super(AccountInvoiceDianDocument, self)._get_xml_values(ClTec)
 
         if self.invoice_id.invoice_type_code == '02':
-            if not self.invoice_id.incoterms_id and not self.invoice_id.incoterms_id.is_einvoicing:
+            if not self.invoice_id.incoterm_id and not self.invoice_id.incoterm_id.is_einvoicing:
                 raise UserError(msg1)
             else:
                 res['DeliveryTerms'] = {
                     'LossRiskResponsibilityCode':
-                    self.invoice_id.incoterms_id.code,
-                    'LossRisk': self.invoice_id.incoterms_id.name
+                    self.invoice_id.incoterm_id.code,
+                    'LossRisk': self.invoice_id.incoterm_id.name
                 }
 
             for invoice_line in self.invoice_id.invoice_line_ids:

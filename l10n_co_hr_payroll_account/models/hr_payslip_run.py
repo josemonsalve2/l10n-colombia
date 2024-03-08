@@ -84,13 +84,13 @@ class HrPayslipRun(models.Model):
                     #actualiza los datos de liquidación si aplica
 
                     vals = {
-                        'liquida': run.liquida,
-                        'tipo_liquida': run.tipo_liquida,
+                        'liquid': run.liquid,
+                        'type_liquid': run.type_liquid,
                         'struct_liquida_id': run.struct_id.id,
-                        'date_liquidacion': run.date_liquidacion,
-                        'date_prima': run.date_prima,
-                        'date_cesantias': run.date_cesantias,
-                        'date_vacaciones': run.date_vacaciones,
+                        'date_liquidation': run.date_liquidation,
+                        'date_bunus': run.date_bunus,
+                        'date_layoff_fund': run.date_layoff_fund,
+                        'date_holidays': run.date_holidays,
                     }
                     payslip.write(vals)
                     payslip.compute_sheet()
@@ -103,7 +103,7 @@ class HrPayslipRun(models.Model):
         for run in self:
             if not run.journal_voucher_id:
                 raise UserError(_('Debe primero ingresar el diario de pago'))
-            if not run.date_pago:
+            if not run.date_payment:
                 raise UserError(
                     _('Debe primero ingresar la fecha de contabilización del pago'
                       ))
@@ -114,8 +114,8 @@ class HrPayslipRun(models.Model):
                         payslip.write({
                             'journal_voucher_id':
                             run.journal_voucher_id.id,
-                            'date_pago':
-                            run.date_pago
+                            'date_payment':
+                            run.date_payment
                         })
                         payslip.process_payment()
 

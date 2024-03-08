@@ -3,7 +3,7 @@
     <data noupdate="1">
 
         <record id="CO050001" model="res.city">
-            <field name="name">MEDELLÍN</field>
+            <field name="name">Medellín</field>
             <field name="code">05001</field>
             <field name="phone_prefix">4</field>
             <field name="country_id" ref="base.co"/>
@@ -7140,7 +7140,7 @@
             <field name="code">76001</field>
             <field name="phone_prefix">8</field>
             <field name="country_id" ref="base.co"/>
-            <field name="state_id" ref="res_country_state_co_73"/>
+            <field name="state_id" ref="res_country_state_co_76"/>
         </record>
         <record id="CO760501" model="res.city">
             <field name="name">YUMBO</field>

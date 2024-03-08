@@ -22,6 +22,7 @@
                 <group name="properties" colspan="4">
                     <field name="liquid"/>
                     <field name="recover"/>
+                    <field name="date_payment"/>
                 </group>
                 <group name="properties" colspan="4">
                     <field name="type_liquid" attrs="{'invisible':[('liquid','=',False)],'required':[('liquid','&lt;&gt;',False)]}"/>
