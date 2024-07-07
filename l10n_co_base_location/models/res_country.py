@@ -1,0 +1,43 @@
+# -*- coding: utf-8 -*-
+# Copyright 2018 Joan Marín <Github@JoanMarin>
+# Copyright 2018 Guillermo Montoya <Github@guillermm>
+# Copyright 2021 Alejandro Olano <Github@alejo-code>
+# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+
+from odoo import models, fields, api
+
+
+class ResCountry(models.Model):
+    _inherit = "res.country"
+
+    code_dian_num = fields.Char(string="Code DIAN")
+
+    def name_get(self):
+        res = []
+        for record in self:
+            name = "%s [%s]" % (record.name or "", record.code or "")
+            res.append((record.id, name))
+
+        return res
+
+    @api.model
+    def name_search(self, name, args=None, operator="ilike", limit=100):
+        if not args:
+            args = []
+
+        if name:
+            state = self.search(
+                [
+                    "|",
+                    "|",
+                    ("code_dian_num", operator, name),
+                    ("name", operator, name),
+                    ("code", operator, name),
+                ]
+                + args,
+                limit=limit,
+            )
+        else:
+            state = self.search([], limit=100)
+
+        return state.name_get()
