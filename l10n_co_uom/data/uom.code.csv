@@ -1,0 +1,1094 @@
+id,code,name
+uom_code_04,04,spray pequeño
+uom_code_05,05,levantar
+uom_code_08,08,Lote calor
+uom_code_10,10,grupo
+uom_code_11,11,equipar
+uom_code_13,13,ración
+uom_code_14,14,Disparo
+uom_code_15,15,palo
+uom_code_16,16,tambor de ciento quince kg
+uom_code_17,17,tambor de cien libras
+uom_code_18,18,tambor de cincuenta y cinco galones (US)
+uom_code_19,19,camión cisterna
+uom_code_20,20,contenedor de veinte pies
+uom_code_21,21,contenedor de cuarenta pies
+uom_code_22,22,decilitro por gramo
+uom_code_23,23,gramo por centímetro cúbico
+uom_code_24,24,libra teórica
+uom_code_25,25,gramo por centímetro cuadrado
+uom_code_26,26,tonelada real
+uom_code_27,27,tonelada teórica
+uom_code_28,28,kilogramo por metro cuadrado
+uom_code_29,29,libra por mil pies cuadrados
+uom_code_30,30,Día de potencia del caballo por tonelada métrica seca al aire.
+uom_code_31,31,coger peso
+uom_code_32,32,kilogramo por aire seco tonelada métrica
+uom_code_33,33,kilopascales metros cuadrados por gramo
+uom_code_34,34,kilopascales por milímetro
+uom_code_35,35,mililitros por centímetro cuadrado segundo
+uom_code_36,36,pies cúbicos por minuto por pie cuadrado
+uom_code_37,37,onza por pie cuadrado
+uom_code_38,38,"onzas por pie cuadrado por 0,01 pulgadas"
+uom_code_40,40,mililitro por segundo
+uom_code_41,41,mililitro por minuto
+uom_code_43,43,bolsa súper a granel
+uom_code_44,44,bolsa a granel de quinientos kg
+uom_code_45,45,bolsa a granel de trescientos kg
+uom_code_46,46,bolsa a granel de cincuenta libras
+uom_code_47,47,bolsa de cincuenta libras
+uom_code_48,48,carga de automóviles a granel
+uom_code_53,53,kilogramos teóricos
+uom_code_54,54,tonelada teórica
+uom_code_56,56,sitas
+uom_code_57,57,malla
+uom_code_58,58,kilogramo neto
+uom_code_59,59,parte por millón
+uom_code_60,60,porcentaje de peso
+uom_code_61,61,parte por billón (US)
+uom_code_62,62,porcentaje por 1000 horas
+uom_code_63,63,tasa de fracaso en el tiempo
+uom_code_64,64,"libra por pulgada cuadrada, calibre"
+uom_code_66,66,Oersted
+uom_code_69,69,prueba de escala específica
+uom_code_71,71,voltio amperio por libra
+uom_code_72,72,vatio por libra
+uom_code_73,73,amperio tum por centímetro
+uom_code_74,74,milipascal
+uom_code_76,76,gauss
+uom_code_77,77,mili pulgadas
+uom_code_78,78,kilogauss
+uom_code_80,80,libras por pulgada cuadrada absoluta
+uom_code_81,81,Enrique
+uom_code_84,84,kilopound por pulgada cuadrada
+uom_code_85,85,fuerza libra pie
+uom_code_87,87,libra por pie cúbico
+uom_code_89,89,equilibrio
+uom_code_90,90,Saybold segundo universal
+uom_code_91,91,alimenta
+uom_code_92,92,calorías por centímetro cúbico
+uom_code_93,93,calorías por gramo
+uom_code_94,94,unidad
+uom_code_95,95,veinte mil galones (US) de carros
+uom_code_96,96,diez mil galones (US) de carros
+uom_code_97,97,tambor de diez kg
+uom_code_98,98,tambor de quince kg
+uom_code_1a,1A,milla de coche
+uom_code_1b,1B,recuento de coches
+uom_code_1c,1C,recuento de locomotoras
+uom_code_1d,1D,recuento de cabos
+uom_code_1e,1E,carro vacio
+uom_code_1f,1F,millas de tren
+uom_code_1g,1G,uso de combustible galón (US)
+uom_code_1h,1H,milla del caboose
+uom_code_1i,1I,tipo de interés fijo
+uom_code_1j,1J,tonelada milla
+uom_code_1k,1K,milla locomotora
+uom_code_1l,1L,recuento total de coches
+uom_code_1m,1M,milla de coche total
+uom_code_1x,1X,cuarto de milla
+uom_code_2a,2A,radianes por segundo
+uom_code_2b,2B,radianes por segundo al cuadrado
+uom_code_2c,2C,Röntgen
+uom_code_2i,2I,Unidad térmica británica por hora.
+uom_code_2j,2J,centímetro cúbico por segundo
+uom_code_2k,2K,pie cúbico por hora
+uom_code_2l,2L,pie cúbico por minuto
+uom_code_2m,2M,centímetro por segundo
+uom_code_2n,2N,decibel
+uom_code_2p,2P,kilobyte
+uom_code_2q,2Q,kilobecquerel
+uom_code_2r,2R,kilocurie
+uom_code_2u,2U,megagramo
+uom_code_2v,2V,megagramo por hora
+uom_code_2w,2W,compartimiento
+uom_code_2x,2X,metro por minuto
+uom_code_2y,2Y,milliröntgen
+uom_code_2z,2Z,milivoltios
+uom_code_3b,3B,megajulio
+uom_code_3c,3C,manmonth
+uom_code_3e,3E,libra por libra de producto
+uom_code_3g,3G,libra por pieza de producto
+uom_code_3h,3H,kilogramo por kilogramo de producto
+uom_code_3i,3I,kilogramo por pieza de producto
+uom_code_4a,4A,bobina
+uom_code_4b,4B,gorra
+uom_code_4c,4C,centistokes
+uom_code_4e,4E,paquete de veinte
+uom_code_4g,4G,microlitro
+uom_code_4h,4H,micrometro
+uom_code_4k,4K,miliamperio
+uom_code_4l,4L,megabyte
+uom_code_4m,4M,miligramo por hora
+uom_code_4n,4N,megabecquerel
+uom_code_4o,4O,microfarad
+uom_code_4p,4P,newton por metro
+uom_code_4q,4Q,onza pulgada
+uom_code_4r,4R,pie onza
+uom_code_4t,4T,picofarad
+uom_code_4u,4U,libra por hora
+uom_code_4w,4W,tonelada (US) por hora
+uom_code_4x,4X,kilolitro por hora
+uom_code_5a,5A,barril por minuto
+uom_code_5b,5B,lote
+uom_code_5c,5C,galón (US) por mil
+uom_code_5e,5E,MMSCF / día
+uom_code_5f,5F,libras por mil
+uom_code_5g,5G,bomba
+uom_code_5h,5H,escenario
+uom_code_5i,5I,pie cúbico estándar
+uom_code_5j,5J,potencia hidráulica de caballos
+uom_code_5k,5K,contar por minuto
+uom_code_5p,5P,nivel sismico
+uom_code_5q,5Q,nfor sismica
+uom_code_a1,A1,15 calorías C
+uom_code_a10,A10,amperio metro cuadrado por joule segundo
+uom_code_a11,A11,Ã ¥ ngström
+uom_code_a12,A12,unidad astronómica
+uom_code_a13,A13,attojoule
+uom_code_a14,A14,granero
+uom_code_a15,A15,granero por electrón voltio
+uom_code_a16,A16,granero por voltio de electrones esteradiano
+uom_code_a17,A17,granero por sterdian
+uom_code_a18,A18,becquerel por kilogramo
+uom_code_a19,A19,becquerel por metro cúbico
+uom_code_a2,A2,amperio por centímetro
+uom_code_a20,A20,Unidad térmica británica por segundo pie cuadrado grado Rankin
+uom_code_a21,A21,Unidad térmica británica por libra grado Rankin
+uom_code_a22,A22,Unidad térmica británica por segundo pie grado Rankin
+uom_code_a23,A23,Unidad térmica británica por hora pie cuadrado grado Rankin
+uom_code_a24,A24,candela por metro cuadrado
+uom_code_a25,A25,cheval vapeur
+uom_code_a26,A26,medidor de culombio
+uom_code_a27,A27,medidor de culombio al cuadrado por voltio
+uom_code_a28,A28,Coulomb por centímetro cúbico
+uom_code_a29,A29,Coulomb por metro cúbico
+uom_code_a3,A3,amperio por milímetro
+uom_code_a30,A30,Coulomb por milímetro cúbico
+uom_code_a31,A31,Coulomb por kilogramo segundo
+uom_code_a32,A32,Coulomb por mol
+uom_code_a33,A33,Coulomb por centímetro cuadrado
+uom_code_a34,A34,Coulomb por metro cuadrado
+uom_code_a35,A35,Coulomb por milímetro cuadrado
+uom_code_a36,A36,centímetro cúbico por mol
+uom_code_a37,A37,nformaci cúbico por mol
+uom_code_a38,A38,metro cúbico por coulomb
+uom_code_a39,A39,metro cúbico por kilogramo
+uom_code_a4,A4,amperio por centímetro cuadrado
+uom_code_a40,A40,metro cúbico por mol
+uom_code_a41,A41,amperio por metro cuadrado
+uom_code_a42,A42,curie por kilogramo
+uom_code_a43,A43,tonelaje de peso muerto
+uom_code_a44,A44,decalitro
+uom_code_a45,A45,decámetro
+uom_code_a47,A47,decitex
+uom_code_a48,A48,grado Rankin
+uom_code_a49,A49,negador
+uom_code_a5,A5,amperio metro cuadrado
+uom_code_a50,A50,dyn segundo por centímetro cúbico
+uom_code_a51,A51,dina segundo por centímetro
+uom_code_a52,A52,dina segundo por centímetro al quinto
+uom_code_a53,A53,electronvolt
+uom_code_a54,A54,electronvoltio por metro
+uom_code_a55,A55,metro electronvolt cuadrado
+uom_code_a56,A56,electronvoltio de metro cuadrado por kilogramo
+uom_code_a57,A57,ergio
+uom_code_a58,A58,erg por centímetro
+uom_code_a6,A6,amperio por metro cuadrado kelvin al cuadrado
+uom_code_a60,A60,erg por centímetro cúbico
+uom_code_a61,A61,erg por gramo
+uom_code_a62,A62,erg por gramo de segundo
+uom_code_a63,A63,erg por segundo
+uom_code_a64,A64,erg por segundo centímetro cuadrado
+uom_code_a65,A65,erg por centímetro cuadrado segundo
+uom_code_a66,A66,erg centímetro cuadrado
+uom_code_a67,A67,ergímetro cuadrado por gramo
+uom_code_a68,A68,exajulio
+uom_code_a69,A69,faradio por metro
+uom_code_a7,A7,amperio por milímetro cuadrado
+uom_code_a70,A70,femtojoule
+uom_code_a71,A71,femtometro
+uom_code_a73,A73,pie por segundo al cuadrado
+uom_code_a74,A74,pie-fuerza de la libra por segundo
+uom_code_a75,A75,tonelada de carga
+uom_code_a76,A76,galón
+uom_code_a77,A77,Unidad de desplazamiento CGS gaussiana
+uom_code_a78,A78,Unidad gaussiana CGS de corriente eléctrica.
+uom_code_a79,A79,Unidad Gaussian CGS de carga eléctrica.
+uom_code_a8,A8,amperio segundo
+uom_code_a80,A80,Unidad Gaussian CGS de intensidad de campo eléctrico.
+uom_code_a81,A81,Unidad Gaussian CGS de polarización eléctrica.
+uom_code_a82,A82,Unidad Gaussian CGS de potencial eléctrico.
+uom_code_a83,A83,Unidad Gaussiana CGS de magnetización.
+uom_code_a84,A84,gigacoulomb por metro cúbico
+uom_code_a85,A85,Gigaelectronvolt
+uom_code_a86,A86,gigahercios
+uom_code_a87,A87,gigaohm
+uom_code_a88,A88,medidor de gigaohm
+uom_code_a89,A89,gigapascal
+uom_code_a9,A9,tarifa
+uom_code_a90,A90,gigavatios
+uom_code_a91,A91,gon
+uom_code_a93,A93,gramo por metro cúbico
+uom_code_a94,A94,gramo por mol
+uom_code_a95,A95,gris
+uom_code_a96,A96,gris por segundo
+uom_code_a97,A97,hectopascal
+uom_code_a98,A98,Henry por metro
+uom_code_aa,AA,bola
+uom_code_ab,AB,paquete a granel
+uom_code_acr,ACR,acre
+uom_code_ad,AD,byte
+uom_code_ae,AE,amperio por metro
+uom_code_ah,AH,minuto adicional
+uom_code_ai,AI,minuto promedio por llamada
+uom_code_aj,AJ,policía
+uom_code_ak,AK,braza
+uom_code_al,AL,nfor de acceso
+uom_code_am,AM,ampolla
+uom_code_amh,AMH,hora amperio
+uom_code_amp,AMP,amperio
+uom_code_ana,ANA,año
+uom_code_ap,AP,solo libra de aluminio
+uom_code_apz,APZ,onza troy o onza de boticarios
+uom_code_aq,AQ,Unidad de factor antihemofílico (AHF)
+uom_code_ar,AR,supositorio
+uom_code_son,SON,son
+uom_code_como,COMO,surtido
+uom_code_asm,ASM,fuerza alcohólica en masa
+uom_code_asu,ASU,fuerza alcohólica por volumen
+uom_code_atm,ATM,ambiente estándar
+uom_code_att,ATT,ambiente técnico
+uom_code_av,AV,cápsula
+uom_code_aw,AW,vial lleno de polvo
+uom_code_si,SÍ,montaje
+uom_code_az,AZ,Unidad térmica británica por libra
+uom_code_b0,B0,Btu por pie cúbico
+uom_code_b1,B1,barril (US) por día
+uom_code_b11,B11,julios por kilogramo kelvin
+uom_code_b12,B12,julios por metro
+uom_code_b13,B13,julios por metro cuadrado
+uom_code_b14,B14,julios por metro a la cuarta potencia
+uom_code_b15,B15,julios por mol
+uom_code_b16,B16,julios por mol kelvin
+uom_code_b18,B18,joule segundo
+uom_code_b2,B2,litera
+uom_code_b20,B20,joule metro cuadrado por kilogramo
+uom_code_b21,B21,kelvin por vatio
+uom_code_b22,B22,Kiloampere
+uom_code_b23,B23,kiloampere por metro cuadrado
+uom_code_b24,B24,kiloampere por metro
+uom_code_b25,B25,kilobecquerel por kilogramo
+uom_code_b26,B26,kilocoulomb
+uom_code_b27,B27,kilocoulomb por metro cúbico
+uom_code_b28,B28,kilocoulomb por metro cuadrado
+uom_code_b29,B29,kiloelectronvolt
+uom_code_b3,B3,libra de bateo
+uom_code_b31,B31,kilogramo metro por segundo
+uom_code_b32,B32,kilogramo metro cuadrado
+uom_code_b33,B33,kilogramo metro cuadrado por segundo
+uom_code_b34,B34,kilogramo por decímetro cúbico
+uom_code_b35,B35,kilogramo por litro
+uom_code_b36,B36,caloría termoquímica por gramo
+uom_code_b37,B37,kilogramo de fuerza
+uom_code_b38,B38,metro de fuerza de kilogramo
+uom_code_b39,B39,metro de fuerza de kilogramo por segundo
+uom_code_b4,B4,"barril, imperial"
+uom_code_b40,B40,kilogramo de fuerza por metro cuadrado
+uom_code_b41,B41,kilojoule per kelvin
+uom_code_b42,B42,kilojoule por kilogramo
+uom_code_b43,B43,kilojoule por kilogramo kelvin
+uom_code_b44,B44,kilojoule por mol
+uom_code_b45,B45,kilomol
+uom_code_b46,B46,kilomol por metro cúbico
+uom_code_b47,B47,Kilonewton
+uom_code_b48,B48,medidor de kilonewton
+uom_code_b49,B49,kiloohm
+uom_code_b5,B5,palanquilla
+uom_code_b50,B50,medidor de kiloohm
+uom_code_b51,B51,kilopond
+uom_code_b52,B52,kilosegundo
+uom_code_b53,B53,kilosiemens
+uom_code_b54,B54,kilosiemens por metro
+uom_code_b55,B55,kilovoltios por metro
+uom_code_b56,B56,kiloveber por metro
+uom_code_b57,B57,año luz
+uom_code_b58,B58,litro por mol
+uom_code_b59,B59,hora lumen
+uom_code_b6,B6,bollo
+uom_code_b60,B60,lumen por metro cuadrado
+uom_code_b61,B61,lumen por vatio
+uom_code_b62,B62,lumen segundo
+uom_code_b63,B63,hora de lux
+uom_code_b64,B64,lux segundo
+uom_code_b65,B65,Maxwell
+uom_code_b66,B66,megaamperios por metro cuadrado
+uom_code_b67,B67,megabecquerel por kilogramo
+uom_code_b69,B69,megacoulomb por metro cúbico
+uom_code_b7,B7,ciclo
+uom_code_b70,B70,megacoulomb por metro cuadrado
+uom_code_b71,B71,megaelectronvolt
+uom_code_b72,B72,megagramo por metro cúbico
+uom_code_b73,B73,meganewton
+uom_code_b74,B74,medidor de meganewton
+uom_code_b75,B75,megaohm
+uom_code_b76,B76,metro megaohm
+uom_code_b77,B77,megasiemens por metro
+uom_code_b78,B78,megavoltio
+uom_code_b79,B79,megavolt por metro
+uom_code_b8,B8,julios por metro cúbico
+uom_code_b81,B81,metro recíproco cuadrado recíproco segundo
+uom_code_b83,B83,metro a la cuarta potencia
+uom_code_b84,B84,microamperios
+uom_code_b85,B85,microbar
+uom_code_b86,B86,microcoulomb
+uom_code_b87,B87,microcoulomb por metro cúbico
+uom_code_b88,B88,microcoulomb por metro cuadrado
+uom_code_b89,B89,microfarada por metro
+uom_code_b9,B9,batt
+uom_code_b90,B90,microhenry
+uom_code_b91,B91,microhenry por metro
+uom_code_b92,B92,micronewton
+uom_code_b93,B93,medidor de micronewton
+uom_code_b94,B94,microohm
+uom_code_b95,B95,medidor de microohmios
+uom_code_b96,B96,micropascal
+uom_code_b97,B97,microradiano
+uom_code_b98,B98,microsegundo
+uom_code_b99,B99,microsiemens
+uom_code_bar,BAR,bar
+uom_code_bb,BB,caja base
+uom_code_bd,BD,tablero
+uom_code_ser,SER,haz
+uom_code_bft,BFT,pie de tabla
+uom_code_bg,BG,bolso
+uom_code_bh,BH,cepillo
+uom_code_bhp,BHP,potencia al freno
+uom_code_bil,BIL,trillón de dólares
+uom_code_bj,BJ,cangilón
+uom_code_bk,BK,cesta
+uom_code_bl,BL,bala
+uom_code_bld,BLD,barril seco
+uom_code_bll,BLL,"barril (EE. UU.) (petróleo, etc.)"
+uom_code_bo,BO,botella
+uom_code_bp,BP,cien pies de tabla
+uom_code_bql,BQL,becquerel
+uom_code_br,BR,bar
+uom_code_bt,BT,tornillo
+uom_code_btu,BTU,Unidad Térmica Británica
+uom_code_bua,BUA,bushel (EE. UU.)
+uom_code_bui,BUI,bushel (Reino Unido)
+uom_code_bw,BW,peso base
+uom_code_bx,BX,caja
+uom_code_bz,BZ,millones de BTUs
+uom_code_c0,C0,llamada
+uom_code_c1,C1,producto compuesto libra (peso total)
+uom_code_c10,C10,millifarad
+uom_code_c11,C11,miligal
+uom_code_c12,C12,miligramo por metro
+uom_code_c13,C13,miligray
+uom_code_c14,C14,milihenry
+uom_code_c15,C15,milijoule
+uom_code_c16,C16,milímetro por segundo
+uom_code_c17,C17,milímetro cuadrado por segundo
+uom_code_c18,C18,milimol
+uom_code_c19,C19,mol por kilogramo
+uom_code_c2,C2,carset
+uom_code_c20,C20,millinewton
+uom_code_c22,C22,millinewton por metro
+uom_code_c23,C23,medidor de miliohm
+uom_code_c24,C24,segundo milipascal
+uom_code_c25,C25,miliradian
+uom_code_c26,C26,milisegundo
+uom_code_c27,C27,milisiemens
+uom_code_c28,C28,milisievert
+uom_code_c29,C29,millitesla
+uom_code_c3,C3,microvoltios por metro
+uom_code_c30,C30,milivoltios por metro
+uom_code_c31,C31,milivatios
+uom_code_c32,C32,milivatios por metro cuadrado
+uom_code_c33,C33,milliweber
+uom_code_c34,C34,Topo
+uom_code_c35,C35,mol por decímetro cúbico
+uom_code_c36,C36,mol por metro cúbico
+uom_code_c38,C38,mol por litro
+uom_code_c39,C39,Nanoampere
+uom_code_c4,C4,partido de carga
+uom_code_c40,C40,nanocoulomb
+uom_code_c41,C41,nanofarad
+uom_code_c42,C42,nanofarad por metro
+uom_code_c43,C43,nanohenry
+uom_code_c44,C44,nanohenry por metro
+uom_code_c45,C45,nanometro
+uom_code_c46,C46,medidor de nanoohm
+uom_code_c47,C47,nanosegundo
+uom_code_c48,C48,nanotesla
+uom_code_c49,C49,nanovatio
+uom_code_c5,C5,costo
+uom_code_c50,C50,neper
+uom_code_c51,C51,neper por segundo
+uom_code_c52,C52,picometro
+uom_code_c53,C53,metro de newton segundo
+uom_code_c54,C54,newton metro cuadrado kilogramo cuadrado
+uom_code_c55,C55,newton por metro cuadrado
+uom_code_c56,C56,newton por milímetro cuadrado
+uom_code_c57,C57,newton segundo
+uom_code_c58,C58,newton segundo por metro
+uom_code_c59,C59,octava
+uom_code_c6,C6,célula
+uom_code_c60,C60,ohm centímetro
+uom_code_c61,C61,ohm metro
+uom_code_c62,C62,uno
+uom_code_c63,C63,parsec
+uom_code_c64,C64,pascal por kelvin
+uom_code_c65,C65,segundo pascal
+uom_code_c66,C66,segundo pascal por metro cúbico
+uom_code_c67,C67,segundo pascal por metro
+uom_code_c68,C68,petajoule
+uom_code_c69,C69,telefono
+uom_code_c7,C7,centipoise
+uom_code_c70,C70,picoampere
+uom_code_c71,C71,picocoulomb
+uom_code_c72,C72,picofarad por metro
+uom_code_c73,C73,picohenry
+uom_code_c75,C75,picowatt
+uom_code_c76,C76,picowatt por metro cuadrado
+uom_code_c77,C77,medidor de libras
+uom_code_c78,C78,fuerza de libra
+uom_code_c8,C8,Millicoulomb por kilogramo
+uom_code_c80,C80,rad
+uom_code_c81,C81,radián
+uom_code_c82,C82,medidor de radianes al cuadrado por mol
+uom_code_c83,C83,medidor de radianes al cuadrado por kilogramo
+uom_code_c84,C84,radian por metro
+uom_code_c85,C85,â € ngstr recíproco “m
+uom_code_c86,C86,metro cúbico recíproco
+uom_code_c87,C87,metro cúbico recíproco por segundo
+uom_code_c88,C88,voltios de electrones recíprocos por metro cúbico
+uom_code_c89,C89,Henry Recíproco
+uom_code_c9,C9,grupo de bobina
+uom_code_c90,C90,Joule recíproco por metro cúbico
+uom_code_c91,C91,kelvin recíproco o kelvin al poder menos uno
+uom_code_c92,C92,medidor recíproco
+uom_code_c93,C93,metro cuadrado recíproco
+uom_code_c94,C94,minuto recíproco
+uom_code_c95,C95,mole recíproco
+uom_code_c96,C96,Pascal recíproco o pascal a la potencia menos uno.
+uom_code_c97,C97,segundo recíproco
+uom_code_c98,C98,segundo recíproco por metro cúbico
+uom_code_c99,C99,segundo recíproco por metro cuadrado
+uom_code_ca,CA,Caja
+uom_code_cct,CCT,Capacidad de carga en toneladas métricas.
+uom_code_cdl,CDL,candela
+uom_code_cel,CEL,grado Celsius
+uom_code_cen,CEN,cien
+uom_code_cg,CG,tarjeta
+uom_code_cgm,CGM,centigramo
+uom_code_ch,CH,envase
+uom_code_cj,CJ,cono
+uom_code_ck,CK,conector
+uom_code_ckg,CKG,Coulomb por kilogramo
+uom_code_cl,CL,bobina
+uom_code_clf,CLF,cientos de licencia
+uom_code_clt,CLT,centilitro
+uom_code_cmk,CMK,centímetro cuadrado
+uom_code_cmq,CMQ,centímetro cúbico
+uom_code_cmt,CMT,centímetro
+uom_code_cnp,CNP,paquete de cien
+uom_code_cnt,CNT,Cental (Reino Unido)
+uom_code_co,CO,garrafón
+uom_code_cou,COU,culombio
+uom_code_cq,CQ,cartucho
+uom_code_cr,CR,caja
+uom_code_cs,CS,caso
+uom_code_ct,CT,caja de cartón
+uom_code_ctm,CTM,quilate métrico
+uom_code_cu,CU,vaso
+uom_code_cur,CUR,curie
+uom_code_cv,CV,cubrir
+uom_code_cwa,CWA,cien libras (quintales) / cien pesos (US)
+uom_code_cwi,CWI,cien pesos (Reino Unido)
+uom_code_cy,CY,cilindro
+uom_code_cz,CZ,combo
+uom_code_d1,D1,segundo recíproco por esteradiano
+uom_code_d10,D10,siemens por metro
+uom_code_d12,D12,siemens metro cuadrado por mol
+uom_code_d13,D13,sievert
+uom_code_d14,D14,mil yardas lineales
+uom_code_d15,D15,sone
+uom_code_d16,D16,centímetro cuadrado por ergio
+uom_code_d17,D17,centímetro cuadrado por erg esterlina
+uom_code_d18,D18,metro kelvin
+uom_code_d19,D19,kelvin metro cuadrado por vatio
+uom_code_d2,D2,segundo recíproco por metros cuadrados esteradianos
+uom_code_d20,D20,metro cuadrado por julio
+uom_code_d21,D21,metro cuadrado por kilogramo
+uom_code_d22,D22,metro cuadrado por mol
+uom_code_d23,D23,pluma gramo (proteína)
+uom_code_d24,D24,metro cuadrado por esterilizador
+uom_code_d25,D25,metro cuadrado por julios esteradianos
+uom_code_d26,D26,metro cuadrado por voltio segundo
+uom_code_d27,D27,esteradiano
+uom_code_d28,D28,sifón
+uom_code_d29,D29,terahercios
+uom_code_d30,D30,terajulio
+uom_code_d31,D31,teravatio
+uom_code_d32,D32,hora de teravatio
+uom_code_d33,D33,tesla
+uom_code_d34,D34,Texas
+uom_code_d35,D35,caloría termoquímica
+uom_code_d37,D37,caloría termoquímica por gramo kelvin
+uom_code_d38,D38,calorías termoquímicas por segundo centímetro kelvin
+uom_code_d39,D39,calorías termoquímicas por segundo centímetro cuadrado kelvin
+uom_code_d40,D40,mil litros
+uom_code_d41,D41,tonelada por metro cúbico
+uom_code_d42,D42,año tropical
+uom_code_d43,D43,unidad de masa atómica unificada
+uom_code_d44,D44,var
+uom_code_d45,D45,voltios al cuadrado por kelvin al cuadrado
+uom_code_d46,D46,voltio – amperio
+uom_code_d47,D47,voltio por centímetro
+uom_code_d48,D48,voltio por kelvin
+uom_code_d49,D49,milivoltios por kelvin
+uom_code_d5,D5,kilogramo por centímetro cuadrado
+uom_code_d50,D50,voltios por metro
+uom_code_d51,D51,voltios por milímetro
+uom_code_d52,D52,vatios por kelvin
+uom_code_d53,D53,vatios por metro kelvin
+uom_code_d54,D54,vatios por metro cuadrado
+uom_code_d55,D55,vatios por metro cuadrado kelvin
+uom_code_d56,D56,vatios por metro cuadrado de kelvin a la cuarta potencia
+uom_code_d57,D57,vatios por steradian
+uom_code_d58,D58,vatios por metro cuadrado esterlino
+uom_code_d59,D59,weber por metro
+uom_code_d6,D6,röntgen por segundo
+uom_code_d60,D60,weber por milímetro
+uom_code_d61,D61,minuto
+uom_code_d62,D62,segundo
+uom_code_d63,D63,libro
+uom_code_d64,D64,bloquear
+uom_code_d65,D65,redondo
+uom_code_d66,D66,casete
+uom_code_d67,D67,dólar por hora
+uom_code_d69,D69,pulgada a la cuarta potencia
+uom_code_d7,D7,Sandwich
+uom_code_d70,D70,Tabla Internacional (IT) caloría
+uom_code_d71,D71,Tabla Internacional (IT) calorías por segundo centímetro kelvin
+uom_code_d72,D72,Tabla Internacional (IT) calorías por segundo centímetro cuadrado kelvin
+uom_code_d73,D73,joule metro cuadrado
+uom_code_d74,D74,kilogramo por mol
+uom_code_d75,D75,Tabla Internacional (IT) calorías por gramo
+uom_code_d76,D76,Tabla Internacional (IT) calorías por gramo kelvin
+uom_code_d77,D77,megacoulomb
+uom_code_d79,D79,haz
+uom_code_d8,D8,puntaje de drenaje
+uom_code_d80,D80,microwatt
+uom_code_d81,D81,microtesla
+uom_code_d82,D82,microvoltio
+uom_code_d83,D83,medidor de millinewton
+uom_code_d85,D85,microwatt por metro cuadrado
+uom_code_d86,D86,Millicoulomb
+uom_code_d87,D87,milimol por kilogramo
+uom_code_d88,D88,millicoulomb por metro cúbico
+uom_code_d89,D89,millicoulomb por metro cuadrado
+uom_code_d9,D9,dina por centímetro cuadrado
+uom_code_d90,D90,metro cúbico (neto)
+uom_code_d91,D91,movimiento rápido del ojo
+uom_code_d92,D92,banda
+uom_code_d93,D93,segundo por metro cúbico
+uom_code_d94,D94,segundo por metro cúbico radianes
+uom_code_d95,D95,julios por gramo
+uom_code_d96,D96,libra bruta
+uom_code_d97,D97,carga de palet / unidad
+uom_code_d98,D98,libra de masa
+uom_code_d99,D99,manga
+uom_code_daa,DAA,despreciar
+uom_code_dad,DAD,diez dias
+uom_code_day,DAY,día
+uom_code_db,DB,libra seca
+uom_code_dc,DC,disco
+uom_code_dd,DD,la licenciatura
+uom_code_de,DE,acuerdo
+uom_code_dec,DEC,década
+uom_code_dg,DG,decigramo
+uom_code_di,DI,dispensador
+uom_code_dj,DJ,decagramo
+uom_code_dlt,DLT,decilitro
+uom_code_dmk,DMK,nformaci cuadrado
+uom_code_dmq,DMQ,decímetro cúbico
+uom_code_dmt,DMT,decímetro
+uom_code_dn,DN,medidor de decinewton
+uom_code_dpc,DPC,docena pieza
+uom_code_dpr,DPR,docena par
+uom_code_dpt,DPT,tonelaje de desplazamiento
+uom_code_dq,DQ,registro de datos
+uom_code_dr,DR,tambor
+uom_code_dra,DRA,dram (US)
+uom_code_dri,DRI,dram (Reino Unido)
+uom_code_drl,DRL,docena rollo
+uom_code_drm,DRM,dracma (Reino Unido)
+uom_code_ds,DS,monitor
+uom_code_dt,DT,tonelada seca
+uom_code_dtn,DTN,Decitonne
+uom_code_du,DU,dina
+uom_code_dwt,DWT,pennyweight
+uom_code_dx,DX,dina por centímetro
+uom_code_dy,DY,libro de directorio
+uom_code_dzn,DZN,docena
+uom_code_dzp,DZP,paquete de doce
+uom_code_e2,E2,cinturón
+uom_code_e3,E3,remolque
+uom_code_e4,E4,kilogramo bruto
+uom_code_e5,E5,tonelada métrica larga
+uom_code_ea,EA,cada
+uom_code_eb,EB,casilla de correo electrónico
+uom_code_ce,CE,cada uno por mes
+uom_code_ep,EP,paquete de once
+uom_code_eq,EQ,galón equivalente
+uom_code_ev,EV,sobre
+uom_code_f1,F1,mil pies cúbicos por día
+uom_code_f9,F9,Fibra por centímetro cúbico de aire
+uom_code_fah,FAH,grado Fahrenheit
+uom_code_far,FAR,faradio
+uom_code_fb,FB,campo
+uom_code_fc,FC,mil pies cúbicos
+uom_code_fd,FD,millón de partículas por pie cúbico
+uom_code_fe,FE,pie de pista
+uom_code_ff,FF,cien metros cúbicos
+uom_code_fg,FG,parche transdérmico
+uom_code_fh,FH,micromol
+uom_code_fl,FL,tonelada en escamas
+uom_code_fm,FM,millones de pies cúbicos
+uom_code_fot,FOT,pie
+uom_code_fp,FP,libra por pie cuadrado
+uom_code_fr,FR,pie por minuto
+uom_code_fs,FS,pie por segundo
+uom_code_ftk,FTK,pie cuadrado
+uom_code_ftq,FTQ,pie cubico
+uom_code_g2,G2,US galones por minuto
+uom_code_g3,G3,Galon imperial por minuto
+uom_code_g7,G7,hoja de microficha
+uom_code_gb,GB,galón (US) por día
+uom_code_gbq,GBQ,gigabecquerel
+uom_code_gc,GC,gramo por 100 gramo
+uom_code_gd,GD,barril bruto
+uom_code_ge,GE,libra por galón (US)
+uom_code_gf,GF,gramo por metro (gramo por 100 centímetros)
+uom_code_gfi,GFI,gramo de isótopo fisionable
+uom_code_ggr,GGR,gramo
+uom_code_gh,GH,medio galón (EE. UU.)
+uom_code_gia,GIA,branquias
+uom_code_gii,GII,Gill (Reino Unido)
+uom_code_gj,GJ,gramo por mililitro
+uom_code_gk,G K,gramo por kilogramo
+uom_code_gl,GL,gramo por litro
+uom_code_gld,GLD,galón seco (EE. UU.)
+uom_code_gli,GLI,galón (Reino Unido)
+uom_code_gll,GLL,galón
+uom_code_gm,GM,gramo por metro cuadrado
+uom_code_gn,GN,galón bruto
+uom_code_go,GO,miligramos por metro cuadrado
+uom_code_gp,GP,miligramo por metro cúbico
+uom_code_gq,GQ,microgramos por metro cúbico
+uom_code_grm,GRM,gramo
+uom_code_grn,GRN,grano
+uom_code_gro,GRO,bruto
+uom_code_grt,GRT,tonelada de registro bruto
+uom_code_gt,GT,tonelada bruta
+uom_code_gv,GV,gigajoule
+uom_code_gw,GW,galón por mil pies cúbicos
+uom_code_gwh,GWH,hora de gigavatios
+uom_code_gy,GY,patio bruto
+uom_code_gz,GZ,sistema de medición
+uom_code_h1,H1,media página – electrónica
+uom_code_h2,H2,medio litro
+uom_code_ha,HA,madeja
+uom_code_har,HAR,hectárea
+uom_code_hba,HBA,hectobar
+uom_code_hbx,HBX,cien cajas
+uom_code_hc,HC,cien cuentas
+uom_code_hd,HD,media docena
+uom_code_el,ÉL,centésima de quilate
+uom_code_hf,HF,cien pies
+uom_code_hgm,HGM,hectogramo
+uom_code_hh,HH,cien pies cúbicos
+uom_code_hi,HI,cien hojas
+uom_code_hiu,HIU,cien unidades internacionales
+uom_code_hj,HJ,caballo métrico
+uom_code_hk,HK,cien kilogramos
+uom_code_hl,HL,cien pies (lineales)
+uom_code_hlt,HLT,hectolitro
+uom_code_hm,HM,milla por hora
+uom_code_hmq,HMQ,millones de metros cúbicos
+uom_code_hmt,HMT,hectómetro
+uom_code_hn,HN,milímetro convencional de mercurio
+uom_code_ho,HO,cien onzas troy
+uom_code_hp,HP,milímetro convencional de agua
+uom_code_hpa,HPA,hectolitro de alcohol puro
+uom_code_hs,HS,cien pies cuadrados
+uom_code_ht,HT,media hora
+uom_code_htz,HTZ,hertz
+uom_code_hur,HUR,hora
+uom_code_hy,HY,cien yardas
+uom_code_ia,IA,pulgada libra
+uom_code_ic,IC,contar por pulgada
+uom_code_ie,IE,persona
+uom_code_if,IF,pulgadas de agua
+uom_code_ii,II,columna pulgada
+uom_code_il,IL,pulgada por minuto
+uom_code_im,IM,impresión
+uom_code_inh,INH,pulgada
+uom_code_ink,INK,pulgada cuadrada
+uom_code_inq,INQ,pulgada en cubos
+uom_code_ip,IP,póliza de seguros
+uom_code_it,IT,conteo por centímetro
+uom_code_iu,IU,pulgada por segundo (velocidad lineal)
+uom_code_iv,IV,pulgada por segundo al cuadrado (aceleración)
+uom_code_j2,J2,julios por kilogramo
+uom_code_jb,JB,jumbo
+uom_code_je,JE,joule por kelvin
+uom_code_jg,JG,jarra
+uom_code_jk,JK,megajulio por kilogramo
+uom_code_jm,JM,megajulio por metro cúbico
+uom_code_jo,JO,articulación
+uom_code_jou,JOU,joule
+uom_code_jr,JR,tarro
+uom_code_k1,K1,demanda de kilovatios
+uom_code_k2,K2,kilovoltios amperios reactivos de demanda
+uom_code_k3,K3,kilovoltio amperio hora reactiva
+uom_code_k5,K5,amperios kilovoltios (reactivos)
+uom_code_k6,K6,kilolitro
+uom_code_ka,KA,pastel
+uom_code_kb,KB,kilocharacter
+uom_code_kba,KBA,kilobar
+uom_code_kd,KD,kilogramo decimal
+uom_code_kel,KEL,kelvin
+uom_code_kf,KF,kilopacket
+uom_code_kg,KG,barrilete
+uom_code_kgm,KGM,kilogramo
+uom_code_kgs,KGS,kilogramo por segundo
+uom_code_khz,KHZ,kilohercio
+uom_code_ki,KI,Kilogramo por milímetro de ancho
+uom_code_kj,KJ,kilosegmento
+uom_code_kjo,KJO,kilojoule
+uom_code_kl,KL,kilogramo por metro
+uom_code_kmh,KMH,kilómetro por hora
+uom_code_kmk,KMK,kilometro cuadrado
+uom_code_kmq,KMQ,kilogramo por metro cúbico
+uom_code_kni,KNI,kilogramo de nitrógeno
+uom_code_kns,KNS,kilogramo de sustancia nombrada
+uom_code_knt,KNT,nudo
+uom_code_ko,KO,Milliequivalencia de potasa cáustica por gramo de producto.
+uom_code_kpa,KPA,kilopascal
+uom_code_kph,KPH,kilogramo de hidróxido de potasio (potasa cáustica)
+uom_code_kpo,KPO,kilogramo de óxido de potasio
+uom_code_kpp,KPP,kilogramo de pentóxido de fósforo (anhídrido fosfórico)
+uom_code_kr,KR,KilorÃ¶ntgen
+uom_code_ks,KS,mil libras por pulgada cuadrada
+uom_code_ksd,KSD,kilogramo de sustancia 90% seca
+uom_code_ksh,KSH,kilogramo de hidróxido de sodio (soda cáustica)
+uom_code_kt,KT,equipo
+uom_code_ktm,KTM,kilómetro
+uom_code_ktn,KTN,kilotonne
+uom_code_kur,KUR,kilogramo de uranio
+uom_code_kva,KVA,kilovoltio – ampere
+uom_code_kvr,KVR,kilovar
+uom_code_kvt,KVT,kilovoltio
+uom_code_kw,KW,kilogramos por milímetro
+uom_code_kwh,KWH,kilovatios hora
+uom_code_kwt,KWT,kilovatio
+uom_code_kx,KX,mililitro por kilogramo
+uom_code_l2,L2,litro por minuto
+uom_code_la,LA,libra por pulgada cúbica
+uom_code_lbr,LBR,libra
+uom_code_lbt,LBT,libra troy
+uom_code_lc,LC,centímetro lineal
+uom_code_ld,LD,litro por día
+uom_code_le,LE,lite
+uom_code_lef,LEF,hoja
+uom_code_lf,LF,pie lineal
+uom_code_lh,LH,hora de trabajo
+uom_code_li,LI,pulgada lineal
+uom_code_lj,LJ,spray grande
+uom_code_lk,LK,enlazar
+uom_code_lm,LM,metro lineal
+uom_code_ln,LN,longitud
+uom_code_lo,LO,mucho
+uom_code_lp,LP,libra liquida
+uom_code_lpa,LPA,litro de alcohol puro
+uom_code_lr,LR,capa
+uom_code_ls,LS,Suma global
+uom_code_ltn,LTN,ton (Reino Unido) o longton (EE. UU.)
+uom_code_ltr,LTR,litro
+uom_code_lum,LUM,lumen
+uom_code_lux,LUX,lux
+uom_code_lx,LX,yarda lineal por libra
+uom_code_ly,LY,yarda lineal
+uom_code_m0,M0,cinta magnética
+uom_code_m1,M1,miligramos por litro
+uom_code_m4,M4,valor monetario
+uom_code_m5,M5,microcurie
+uom_code_m7,M7,micropulgada
+uom_code_m9,M9,millones de Btu por 1000 pies cúbicos
+uom_code_ma,MA,máquina por unidad
+uom_code_mal,MAL,mega litro
+uom_code_mam,MAM,megametro
+uom_code_maw,MAW,megavatio
+uom_code_mbe,MBE,mil equivalentes de ladrillo estándar
+uom_code_mbf,MBF,mil pies de tabla
+uom_code_mbr,MBR,milibar
+uom_code_mc,MC,microgramo
+uom_code_mcu,MCU,milicurie
+uom_code_md,MD,aire seco tonelada métrica
+uom_code_mf,MF,miligramo por pie cuadrado por lado
+uom_code_mg,MG,miligramo
+uom_code_mhz,MHZ,megahercio
+uom_code_mik,MIK,milla cuadrada
+uom_code_mil,MIL,mil
+uom_code_min,MIN,minuto
+uom_code_mio,MIO,millón
+uom_code_miu,MIU,millones de unidades internacionales
+uom_code_mk,MK,miligramo por pulgada cuadrada
+uom_code_mld,MLD,mil millones
+uom_code_mlt,MLT,mililitro
+uom_code_mmk,MMK,milímetro cuadrado
+uom_code_mmq,MMQ,milímetro cúbico
+uom_code_mmt,MMT,milímetro
+uom_code_lun,LUN,mes
+uom_code_mpa,MPA,megapascal
+uom_code_mq,MQ,mil metros
+uom_code_mqh,MQH,metro cúbico por hora
+uom_code_mqs,MQS,metro cúbico por segundo
+uom_code_msk,MSK,metro por segundo al cuadrado
+uom_code_mt,MT,estera
+uom_code_mtk,MTK,metro cuadrado
+uom_code_mtq,MTQ,Metro cúbico
+uom_code_mtr,MTR,metro
+uom_code_mts,MTS,metro por segundo
+uom_code_mv,MV,numero de mults
+uom_code_mva,MVA,megavolt – ampere
+uom_code_mwh,MWH,megavatios hora (1000 kW.h)
+uom_code_n1,N1,calorías de la pluma
+uom_code_n2,N2,número de líneas
+uom_code_n3,N3,punto de impresión
+uom_code_na,NA,miligramo por kilogramo
+uom_code_nar,NAR,número de artículos
+uom_code_nb,NB,barcaza
+uom_code_nbb,NBB,número de bobinas
+uom_code_nc,NC,coche
+uom_code_ncl,NCL,número de celdas
+uom_code_nd,ND,barril neto
+uom_code_ne,NE,litro neto
+uom_code_new,NEW,newton
+uom_code_nf,NF,mensaje
+uom_code_ng,NG,galón neto (nosotros)
+uom_code_nh,NH,hora del mensaje
+uom_code_ni,NI,galón imperial neto
+uom_code_niu,NIU,número de unidades internacionales
+uom_code_nj,NJ,número de pantallas
+uom_code_nl,NL,carga
+uom_code_mni,MNI,milla nautica
+uom_code_nmp,NMP,número de paquetes
+uom_code_nn,NN,entrenar
+uom_code_npl,NPL,número de parcelas
+uom_code_npr,NPR,numero de pares
+uom_code_tnp,TNP,numero de partes
+uom_code_nq,NQ,mho
+uom_code_nr,NR,micromho
+uom_code_nrl,NRL,número de rollos
+uom_code_nt,NT,tonelada neta
+uom_code_ntt,NTT,registro neto de toneladas
+uom_code_nu,NU,medidor de newton
+uom_code_nv,NV,vehículo
+uom_code_nx,NX,parte por mil
+uom_code_ny,NY,libra por aire seco tonelada métrica
+uom_code_oa,OA,panel
+uom_code_ohm,OHM,ohm
+uom_code_en,EN,onza por yarda cuadrada
+uom_code_onz,ONZ,onza
+uom_code_op,OP,Dos paquetes
+uom_code_ot,OT,hora extra
+uom_code_onz,ONZ,onza av
+uom_code_oza,OZA,onza líquida (US)
+uom_code_ozi,OZI,onza líquida (Reino Unido)
+uom_code_p0,P0,pagina – electronica
+uom_code_p1,P1,por ciento
+uom_code_p2,P2,libra por pie
+uom_code_p3,P3,paquete de tres
+uom_code_p4,P4,paquete de cuatro
+uom_code_p5,P5,paquete de cinco
+uom_code_p6,P6,paquete de seis
+uom_code_p7,P7,paquete de siete
+uom_code_p8,P8,paquete de ocho
+uom_code_p9,P9,paquete de nueve
+uom_code_pa,PA,paquete
+uom_code_pal,PAL,pascal
+uom_code_pb,PB,par de pulgadas
+uom_code_pd,PD,almohadilla
+uom_code_pe,PE,equivalente en libras
+uom_code_pf,PF,palet (ascensor)
+uom_code_pg,PG,plato
+uom_code_pgl,PGL,galón de prueba
+uom_code_pi,Pi,tono
+uom_code_pk,PK,paquete
+uom_code_pl,PL,cubo
+uom_code_pm,PM,porcentaje de libra
+uom_code_pn,PN,libra neta
+uom_code_po,PO,libra por pulgada de longitud
+uom_code_pq,PQ,página por pulgada
+uom_code_pr,PR,par
+uom_code_pd,PD,fuerza de libra por pulgada cuadrada
+uom_code_pt,PT,pinta
+uom_code_ptd,PTD,pinta seca
+uom_code_pti,PTI,pinta (Reino Unido)
+uom_code_ptl,PTL,pinta liquida (US)
+uom_code_pu,PU,bandeja / paquete de bandeja
+uom_code_pv,PV,media pinta (US)
+uom_code_pw,PW,libra por pulgada de ancho
+uom_code_py,PY,Peck Dry (US)
+uom_code_pz,PZ,Peck Dry (Reino Unido)
+uom_code_q3,Q3,comida
+uom_code_qa,QA,página – facsímil
+uom_code_qan,QAN,cuarto (de un año)
+uom_code_qb,QB,página – copia impresa
+uom_code_qd,QD,cuarto de docena
+uom_code_qh,QH,un cuarto de hora
+uom_code_qk,QK,cuarto de kilogramo
+uom_code_qr,QR,mano de papel
+uom_code_qt,QT,cuarto de galón (US)
+uom_code_qtd,QTD,cuarto seco (EE. UU.)
+uom_code_qti,QTI,cuarto de galón (Reino Unido)
+uom_code_qtl,QTL,cuarto líquido (US)
+uom_code_qtr,QTR,cuarto (UK)
+uom_code_r1,R1,pica
+uom_code_r4,R4,caloría
+uom_code_r9,R9,mil metros cúbicos
+uom_code_ra,RA,estante
+uom_code_rd,RD,barra
+uom_code_rg,RG,anillo
+uom_code_rh,RH,hora de funcionamiento o de funcionamiento
+uom_code_rk,RK,medida métrica rollo
+uom_code_rl,RL,carrete
+uom_code_rm,RM,resma
+uom_code_rn,RN,medida métrica de resma
+uom_code_ro,RO,rodar
+uom_code_rp,RP,libra por resma
+uom_code_rpm,RPM,revoluciones por minuto
+uom_code_rps,RPS,revoluciones por segundo
+uom_code_rs,RS,Reiniciar
+uom_code_rt,RT,ingreso tonelada milla
+uom_code_ru,RU,correr
+uom_code_s3,S3,pie cuadrado por segundo
+uom_code_s4,S4,metro cuadrado por segundo
+uom_code_s5,S5,sesenta cuartos de pulgada
+uom_code_s6,S6,sesión
+uom_code_s7,S7,unidad de almacenamiento
+uom_code_s8,S8,unidad de publicidad estándar
+uom_code_sa,SA,saco
+uom_code_san,SAN,medio año (6 meses)
+uom_code_ocs,OCS,Puntuación
+uom_code_scr,SCR,escrúpulo
+uom_code_sd,SD,libra solida
+uom_code_se,SE,sección
+uom_code_sec,SEC,segundo
+uom_code_set,SET,conjunto
+uom_code_sg,SG,segmento
+uom_code_sht,SHT,tonelada de envío
+uom_code_sie,SIE,siemens
+uom_code_sk,SK,camión cisterna dividido
+uom_code_sl,SL,hoja de deslizamiento
+uom_code_smi,SMI,milla (milla estatutaria)
+uom_code_sn,SN,varilla cuadrada
+uom_code_so,SO,carrete
+uom_code_sp,SP,paquete de estante
+uom_code_sq,SQ,cuadrado
+uom_code_sr,SR,tira
+uom_code_ss,SS,hoja métrica medida
+uom_code_sst,SST,corto estándar (7200 partidos)
+uom_code_st,ST,hoja
+uom_code_its,ITS,piedra (Reino Unido)
+uom_code_stn,STN,tonelada (US) o tonelada corta (UK / US)
+uom_code_sv,SV,patinar
+uom_code_so,SO,madeja
+uom_code_sx,SX,envío
+uom_code_t0,T0,Línea de telecomunicaciones en servicio.
+uom_code_t1,T1,mil libras brutas
+uom_code_t3,T3,mil piezas
+uom_code_t4,T4,bolsa de mil
+uom_code_t5,T5,caja de mil
+uom_code_t6,T6,mil galones (US)
+uom_code_t7,T7,mil impresiones
+uom_code_t8,T8,mil pulgadas lineales
+uom_code_ta,TA,décimo pie cúbico
+uom_code_tah,TAH,Kiloampere hora (mil amperios hora)
+uom_code_tc,TC,camion
+uom_code_td,TD,termia
+uom_code_te,TE,totalizador
+uom_code_tf,TF,diez metros cuadrados
+uom_code_ti,TI,mil pulgadas cuadradas
+uom_code_tj,TJ,mil centímetros cuadrados
+uom_code_tk,TK,"tanque, rectangular"
+uom_code_tl,TL,mil pies (lineales)
+uom_code_tn,TN,estaño
+uom_code_tne,TNE,tonelada (tonelada métrica)
+uom_code_tp,TP,paquete de diez
+uom_code_tpr,TPR,diez pares
+uom_code_tq,TQ,mil pies
+uom_code_tqd,TQD,mil metros cúbicos por día
+uom_code_tr,TR,diez pies cuadrados
+uom_code_trl,TRL,trillón (EUR)
+uom_code_ts,TS,mil pies cuadrados
+uom_code_tsd,TSD,tonelada de sustancia 90% seca
+uom_code_tsh,TSH,tonelada de vapor por hora
+uom_code_tt,TT,mil metros lineales
+uom_code_tu,TU,tubo
+uom_code_tv,TV,mil kilogramos
+uom_code_tw,TW,mil hojas
+uom_code_ty,TY,"tanque, cilíndrico"
+uom_code_u1,U1,tratamiento
+uom_code_u2,U2,tableta
+uom_code_ua,UA,torr
+uom_code_ub,UB,Línea de telecomunicaciones en servicio promedio.
+uom_code_uc,UC,puerto de telecomunicaciones
+uom_code_ud,UD,décimo minuto
+uom_code_ue,UE,décima hora
+uom_code_uf,UF,uso por línea de telecomunicación promedio
+uom_code_uh,UH,diez mil yardas
+uom_code_um,UM,millones de unidades
+uom_code_va,VA,voltio amperio por kilogramo
+uom_code_vi,VI,frasco
+uom_code_vlt,VLT,voltio
+uom_code_vq,VQ,abultar
+uom_code_vs,VS,visitar
+uom_code_w2,W2,kilo mojado
+uom_code_w4,W4,dos semanas
+uom_code_wa,WA,vatio por kilogramo
+uom_code_wb,WB,libra mojada
+uom_code_wcd,WCD,cable
+uom_code_we,WE,tonelada mojada
+uom_code_web,WEB,weber
+uom_code_wee,WEE,semana
+uom_code_wg,WG,galon de vino
+uom_code_wh,WH,rueda
+uom_code_whr,WHR,vatios hora
+uom_code_wi,WI,peso por pulgada cuadrada
+uom_code_wm,WM,mes de trabajo
+uom_code_wr,WR,envolver
+uom_code_wsd,WSD,estándar
+uom_code_wtt,WTT,vatio
+uom_code_ww,WW,mililitro de agua
+uom_code_x1,X1,cadena
+uom_code_ydk,YDK,yarda cuadrada
+uom_code_ydq,YDQ,Yarda cúbica
+uom_code_yl,YL,cien yardas lineales
+uom_code_yrd,YRD,yarda
+uom_code_yt,YT,diez yardas
+uom_code_z1,Z1,van de elevación
+uom_code_z2,Z2,pecho
+uom_code_z3,Z3,barril
+uom_code_z4,Z4,pipa
+uom_code_z5,Z5,arrastrar
+uom_code_z6,Z6,punto de conferencia
+uom_code_z8,Z8,línea de noticias de ágata
+uom_code_zp,ZP,página
+uom_code_zz,ZZ,mutuamente definido
