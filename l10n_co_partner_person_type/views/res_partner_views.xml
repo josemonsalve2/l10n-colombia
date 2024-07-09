@@ -9,9 +9,8 @@
             </xpath>
             <xpath expr="//field[@name='company_type']" position="before">
                 <h3>
-                    <field name="person_type" placeholder="- Person Type" attrs="{
-                        'invisible': [('type', '!=', 'contact'), ('parent_id', '!=', False)],
-                        'required': [('parent_id', '=', False)]}" style="width: 80%%"/>
+                    <field name="person_type" placeholder="- Person Type" invisible="type != 'contact' and parent_id"
+                        required="not parent_id" style="width: 80%%"/>
                 </h3>
             </xpath>
             <xpath expr="//field[@name='property_account_position_id']" position="attributes">

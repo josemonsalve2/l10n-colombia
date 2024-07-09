@@ -11,7 +11,7 @@
     "category": "Localization",
     "summary": "Este módulo tiene los tipos de organización jurídica (Personas) identificados "
     "por la DIAN para la localizacion Colombiana",
-    "depends": ["partner_other_names", "account"],
+    "depends": ["account"],
     "data": [
         "views/res_partner_views.xml",
         "views/account_fiscal_position_views.xml",
