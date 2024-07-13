@@ -5,8 +5,8 @@
         <field name="inherit_id" ref="account.view_move_form"/>
         <field name="arch" type="xml">
             <xpath expr="//field[@name='partner_bank_id']" position="after">
-                <field name="payment_method_id" options="{'no_create': True}" required="invoice_date"/>
-                <field name="payment_method_code_id" options="{'no_create': True}" required="1"/>
+                <field name="payment_method_id" options="{'no_create': True}" required="invoice_date and move_type in ('out_invoice', 'out_refund')" invisible="move_type not in ('out_invoice', 'out_refund')"/>
+                <field name="payment_method_code_id" options="{'no_create': True}" required="move_type in ('out_invoice', 'out_refund')" invisible="move_type not in ('out_invoice', 'out_refund')"/>
             </xpath>
         </field>
     </record>

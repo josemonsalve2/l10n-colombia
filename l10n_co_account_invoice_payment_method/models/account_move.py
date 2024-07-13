@@ -22,16 +22,19 @@ class AccountInvoice(models.Model):
         copy=False,
     )
 
-    @api.onchange("payment_term_id")
+    @api.onchange("invoice_payment_term_id")
     def _onchange_payment_term(self):
         payment_term_obj = self.env["ir.model.data"]
         payment_method_code_obj = self.env["account.payment.method.dian.code"]
-        id_payment_term = payment_term_obj.get_object_reference(
-            "account", "account_payment_term_immediate"
+        id_payment_term = payment_term_obj._xmlid_lookup(
+            "account.account_payment_term_immediate"
         )[1]
         payment_term_id = self.env["account.payment.term"].browse(id_payment_term)
 
-        if self.payment_term_id and self.payment_term_id != payment_term_id:
+        if (
+            self.invoice_payment_term_id
+            and self.invoice_payment_term_id != payment_term_id
+        ):
             self.payment_method_code_id = payment_method_code_obj.search(
                 [("code", "=", "1")]
             ).id
@@ -61,15 +64,15 @@ class AccountInvoice(models.Model):
         if not self.invoice_date:
             payment_method_id = False
         elif self.invoice_date == self.invoice_date_due:
-            id_payment_method = payment_method_obj.get_object_reference(
-                "l10n_co_account_invoice_payment_method", "account_payment_method_1"
+            id_payment_method = payment_method_obj._xmlid_lookup(
+                "l10n_co_account_invoice_payment_method.account_payment_method_1"
             )[1]
             payment_method_id = self.env["account.payment.method.dian"].browse(
                 id_payment_method
             )
         else:
-            id_payment_method = payment_method_obj.get_object_reference(
-                "l10n_co_account_invoice_payment_method", "account_payment_method_2"
+            id_payment_method = payment_method_obj._xmlid_lookup(
+                "l10n_co_account_invoice_payment_method.account_payment_method_2"
             )[1]
             payment_method_id = self.env["account.payment.method.dian"].browse(
                 id_payment_method
