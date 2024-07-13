@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_account_payment_method_dian_manager,account.payment.method.dian.manager,model_account_payment_method_dian,account.group_account_manager,1,1,1,1
+access_account_payment_method_dian_users,account.payment.method.dian.users,model_account_payment_method_dian,,1,0,0,0
+access_account_payment_method_dian_code_manager,account.payment.method.dian.code.manager,model_account_payment_method_dian_code,account.group_account_manager,1,1,1,1
+access_account_payment_method_dian_code_users,account.payment.method.dian.code.users,model_account_payment_method_dian_code,,1,0,0,0
