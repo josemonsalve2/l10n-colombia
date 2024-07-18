@@ -7,10 +7,11 @@ from openupgradelib import openupgrade
 @openupgrade.migrate()
 def migrate(env, version):
     openupgrade.rename_columns(
-        env.cr, {
-            'product_uom': [
-                ('product_uom_code_id', 'uom_code_id'),
+        env.cr,
+        {
+            "product_uom": [
+                ("product_uom_code_id", "uom_code_id"),
             ]
-        }
+        },
     )
-    openupgrade.remove_tables_fks(env.cr, ['product_uom_code'])
+    openupgrade.remove_tables_fks(env.cr, ["product_uom_code"])
