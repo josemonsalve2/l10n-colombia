@@ -4,7 +4,7 @@
 
 {
     "name": "Colombian Unit of Measure Codes",
-    "version": "12.0.1.0.0",
+    "version": "17.0.1.0.0",
     "website": "https://github.com/OCA/l10n-colombia",
     "author": "EXA Auto Parts Github@exaap, "
     "Alejandro Olano Github@alejo-code ,"

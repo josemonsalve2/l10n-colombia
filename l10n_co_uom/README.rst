@@ -8,11 +8,11 @@ Colombian Unit of Measure Codes
 
 Este módulo tiene los códigos de unidad de medida identificados
 por la DIAN para la localizacion Colombiana, informacion obtenida del anexo
-tecnico para facturacion electronica version 1.7, punto 6.3.5.1.
+tecnico para facturacion electronica version 1.9, punto 13.3.6
 
 This module has the unit of measure codes identified by the
 DIAN for the Colombian localization, information obtained from the technical
-annex for e-invoicing version 1.7, point 6.3.5.1.
+annex for e-invoicing version 1.9, section 13.3.6.
 
 Credits
 =======
@@ -22,3 +22,4 @@ Contributors
 
 * Alejandro Olano https://github.com/alejo-code
 * Joan Marín <https://github.com/JoanMarin>
+* Jose M Monsalve Diaz <https://github.com/josemonsalve2>
