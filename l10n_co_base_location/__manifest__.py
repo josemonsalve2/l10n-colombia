@@ -6,7 +6,7 @@
 {
     "name": "Location management (aka Better ZIP) - Colombian Data",
     "summary": "Colombian Data ZIP/Cities, States and Countries",
-    "version": "12.0.1.0.0",
+    "version": "17.0.1.0.0",
     "license": "AGPL-3",
     "website": "https://github.com/OCA/l10n-colombia",
     "author": "EXA Auto Parts Github@exaap, "

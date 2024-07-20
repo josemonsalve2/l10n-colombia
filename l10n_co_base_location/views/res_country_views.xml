@@ -6,7 +6,7 @@
 		<field name="inherit_id" ref="base.view_country_tree" />
 		<field name="arch" type="xml">
 			<field name='code' position="after">
-				<field name="code_dian" />
+				<field name="code_dian_num" />
 			</field>
 		</field>
 	</record>
@@ -16,7 +16,7 @@
 		<field name="inherit_id" ref="base.view_country_form" />
 		<field name="arch" type="xml">
 			<field name='code' position="before">
-				<field name="code_dian" />
+				<field name="code_dian_num" />
 			</field>
 		</field>
 	</record>

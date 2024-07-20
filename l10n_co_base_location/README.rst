@@ -6,7 +6,7 @@
 Colombian Geographical Localization
 ===================================
 
-Punto 6.4. Códigos Geográficos del anexo tecnico version 1.7
+Punto 6.4. Códigos Geográficos del anexo tecnico version 1.9
 - Phone Prefix in States
 - Dian Code of Countries
 - Data Colombian States
@@ -21,5 +21,5 @@ Contributors
 * Alejandro Olano <https://github.com/alejo-code>
 * Joan Marín <https://github.com/JoanMarin>
 * Guillermo Montoya <https://github.com/guillermm>
-
+* Jose M Monsalve Diaz <https://github.com/josemonsalve2>
 

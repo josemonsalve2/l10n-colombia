@@ -9,7 +9,7 @@ from odoo import api, fields, models
 class ResCountry(models.Model):
     _inherit = "res.country"
 
-    code_dian = fields.Char(string="Code DIAN")
+    code_dian_num = fields.Char(string="Code DIAN")
 
     def name_get(self):
         res = []
@@ -29,7 +29,7 @@ class ResCountry(models.Model):
                 [
                     "|",
                     "|",
-                    ("code_dian", operator, name),
+                    ("code_dian_num", operator, name),
                     ("name", operator, name),
                     ("code", operator, name),
                 ]

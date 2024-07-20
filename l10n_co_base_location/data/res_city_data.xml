@@ -3,7 +3,7 @@
     <data noupdate="1">
 
         <record id="CO050001" model="res.city">
-            <field name="name">Medellín</field>
+            <field name="name">MEDELLÍN</field>
             <field name="code">05001</field>
             <field name="phone_prefix">4</field>
             <field name="country_id" ref="base.co" />
@@ -122,7 +122,7 @@
             <field name="state_id" ref="res_country_state_co_05" />
         </record>
         <record id="CO051850" model="res.city">
-            <field name="name">DON MATÍAS</field>
+            <field name="name">DONMATÍAS</field>
             <field name="code">05237</field>
             <field name="phone_prefix">4</field>
             <field name="country_id" ref="base.co" />
@@ -675,7 +675,7 @@
             <field name="state_id" ref="res_country_state_co_05" />
         </record>
         <record id="CO056440" model="res.city">
-            <field name="name">PUEBLO RICO</field>
+            <field name="name">PUEBLORRICO</field>
             <field name="code">05576</field>
             <field name="phone_prefix">4</field>
             <field name="country_id" ref="base.co" />
@@ -780,7 +780,7 @@
             <field name="state_id" ref="res_country_state_co_05" />
         </record>
         <record id="CO057060" model="res.city">
-            <field name="name">CAÑAS GORDAS</field>
+            <field name="name">CAÑASGORDAS</field>
             <field name="code">05138</field>
             <field name="phone_prefix">4</field>
             <field name="country_id" ref="base.co" />
@@ -872,7 +872,7 @@
         </record>
         <record id="CO057870" model="res.city">
             <field name="name">NECOCLÍ</field>
-            <field name="code">05837</field>
+            <field name="code">05490</field>
             <field name="phone_prefix">4</field>
             <field name="country_id" ref="base.co" />
             <field name="state_id" ref="res_country_state_co_05" />
@@ -1670,7 +1670,7 @@
         </record>
         <record id="CO152080" model="res.city">
             <field name="name">BUSBANZÁ</field>
-            <field name="code">15215</field>
+            <field name="code">15114</field>
             <field name="phone_prefix">8</field>
             <field name="country_id" ref="base.co" />
             <field name="state_id" ref="res_country_state_co_15" />
@@ -2823,6 +2823,13 @@
             <field name="country_id" ref="base.co" />
             <field name="state_id" ref="res_country_state_co_19" />
         </record>
+        <record id="CO196060" model="res.city">
+            <field name="name">GUACHENÉ</field>
+            <field name="code">19300</field>
+            <field name="phone_prefix">2</field>
+            <field name="country_id" ref="base.co" />
+            <field name="state_id" ref="res_country_state_co_19" />
+        </record>
         <record id="CO200001" model="res.city">
             <field name="name">VALLEDUPAR</field>
             <field name="code">20001</field>
@@ -3196,7 +3203,7 @@
         </record>
         <record id="CO235020" model="res.city">
             <field name="name">LOS CÓRDOBAS</field>
-            <field name="code">23574</field>
+            <field name="code">23419</field>
             <field name="phone_prefix">4</field>
             <field name="country_id" ref="base.co" />
             <field name="state_id" ref="res_country_state_co_23" />
@@ -4127,7 +4134,7 @@
         </record>
         <record id="CO274010" model="res.city">
             <field name="name">ISTMINA</field>
-            <field name="code">27660</field>
+            <field name="code">27361</field>
             <field name="phone_prefix">4</field>
             <field name="country_id" ref="base.co" />
             <field name="state_id" ref="res_country_state_co_27" />
@@ -5023,7 +5030,7 @@
         </record>
         <record id="CO520001" model="res.city">
             <field name="name">PASTO</field>
-            <field name="code">50318</field>
+            <field name="code">52001</field>
             <field name="phone_prefix">2</field>
             <field name="country_id" ref="base.co" />
             <field name="state_id" ref="res_country_state_co_52" />
@@ -7913,7 +7920,7 @@
             <field name="state_id" ref="res_country_state_co_97" />
         </record>
         <record id="CO973047" model="res.city">
-            <field name="name">PAPUNAUA</field>
+            <field name="name">PAPUNAHUA</field>
             <field name="code">97777</field>
             <field name="phone_prefix">8</field>
             <field name="country_id" ref="base.co" />
