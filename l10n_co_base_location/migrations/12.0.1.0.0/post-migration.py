@@ -5,17 +5,20 @@ from openupgradelib import openupgrade
 
 @openupgrade.migrate()
 def migrate(env, version):
-
     openupgrade.logged_query(
-        env.cr, """
+        env.cr,
+        """
         UPDATE res_city rbz
 		SET code = rc.code
         FROM res_better_zip rc
-        WHERE rc.id = rbz.id""")
+        WHERE rc.id = rbz.id""",
+    )
 
     openupgrade.logged_query(
-        env.cr, """
+        env.cr,
+        """
         UPDATE res_city rbz
 		SET phone_prefix = rc.phone_prefix
         FROM res_better_zip rc
-        WHERE rc.id = rbz.id""")
+        WHERE rc.id = rbz.id""",
+    )
