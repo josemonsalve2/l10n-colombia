@@ -1,0 +1,12 @@
+# Copyright 2018 Joan Marín <Github@JoanMarin>
+# Copyright 2018 Guillermo Montoya <Github@guillermm>
+# Copyright 2021 Alejandro Olano <Github@alejo-code>
+# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+
+from odoo import fields, models
+
+
+class ResPartner(models.Model):
+    _inherit = "res.partner"
+
+    country_code = fields.Char(related="country_id.code", store=False)
