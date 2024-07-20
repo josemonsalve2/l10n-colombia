@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
     <record model="account.tax.group.type" id="account_tax_group_type_co_01">
         <field name="code">01</field>
@@ -100,6 +100,8 @@
         <field name="code">ZZ</field>
         <field name="name">Nombre de la figura tributaria</field>
         <field name="type">tax</field>
-        <field name="description">Otros tributos, tasas, contribuciones, y similares</field>
+        <field
+            name="description"
+        >Otros tributos, tasas, contribuciones, y similares</field>
     </record>
 </odoo>
