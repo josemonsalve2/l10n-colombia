@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Copyright 2019 Juan Camilo Zuluaga Serna <Github@camilozuluaga>
 # Copyright 2019 Joan Marín <Github@JoanMarin>
 # Copyright 2021 Alejandro Olano <Github@alejo-code>

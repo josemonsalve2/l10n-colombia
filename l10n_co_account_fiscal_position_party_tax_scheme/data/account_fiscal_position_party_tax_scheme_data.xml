@@ -1,18 +1,30 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
-    <record id="account_fiscal_position_party_tax_scheme_01" model="account.fiscal.position.party.tax.scheme">
+    <record
+        id="account_fiscal_position_party_tax_scheme_01"
+        model="account.fiscal.position.party.tax.scheme"
+    >
         <field name="name">IVA</field>
         <field name="code">01</field>
     </record>
-    <record id="account_fiscal_position_party_tax_scheme_04" model="account.fiscal.position.party.tax.scheme">
+    <record
+        id="account_fiscal_position_party_tax_scheme_04"
+        model="account.fiscal.position.party.tax.scheme"
+    >
         <field name="name">INC</field>
         <field name="code">04</field>
     </record>
-    <record id="account_fiscal_position_party_tax_scheme_za" model="account.fiscal.position.party.tax.scheme">
+    <record
+        id="account_fiscal_position_party_tax_scheme_za"
+        model="account.fiscal.position.party.tax.scheme"
+    >
         <field name="name">IVA e INC</field>
         <field name="code">ZA</field>
     </record>
-    <record id="account_fiscal_position_party_tax_scheme_zz" model="account.fiscal.position.party.tax.scheme">
+    <record
+        id="account_fiscal_position_party_tax_scheme_zz"
+        model="account.fiscal.position.party.tax.scheme"
+    >
         <field name="name">No aplica</field>
         <field name="code">ZZ</field>
     </record>
