@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
     <record id="account_payment_mean_code_001" model="account.payment.mean.code">
         <field name="name">Instrument not defined</field>
@@ -137,7 +137,9 @@
         <field name="code">34</field>
     </record>
     <record id="account_payment_mean_code_035" model="account.payment.mean.code">
-        <field name="name">Cash concentration savings / Credit Disbursement (CCD)</field>
+        <field
+            name="name"
+        >Cash concentration savings / Credit Disbursement (CCD)</field>
         <field name="code">35</field>
     </record>
     <record id="account_payment_mean_code_036" model="account.payment.mean.code">
@@ -221,11 +223,15 @@
         <field name="code">61</field>
     </record>
     <record id="account_payment_mean_code_062" model="account.payment.mean.code">
-        <field name="name">Promissory note signed by the creditor, endorsed by the bank</field>
+        <field
+            name="name"
+        >Promissory note signed by the creditor, endorsed by the bank</field>
         <field name="code">62</field>
     </record>
     <record id="account_payment_mean_code_063" model="account.payment.mean.code">
-        <field name="name">Promissory note signed by the creditor, endorsed by a third party</field>
+        <field
+            name="name"
+        >Promissory note signed by the creditor, endorsed by a third party</field>
         <field name="code">63</field>
     </record>
     <record id="account_payment_mean_code_064" model="account.payment.mean.code">
@@ -233,7 +239,9 @@
         <field name="code">64</field>
     </record>
     <record id="account_payment_mean_code_065" model="account.payment.mean.code">
-        <field name="name">Promissory note signed by a bank endorsed by another bank</field>
+        <field
+            name="name"
+        >Promissory note signed by a bank endorsed by another bank</field>
         <field name="code">65</field>
     </record>
     <record id="account_payment_mean_code_066" model="account.payment.mean.code">
@@ -241,7 +249,9 @@
         <field name="code">66</field>
     </record>
     <record id="account_payment_mean_code_067" model="account.payment.mean.code">
-        <field name="name">Promissory note signed by a third party endorsed by a bank</field>
+        <field
+            name="name"
+        >Promissory note signed by a third party endorsed by a bank</field>
         <field name="code">67</field>
     </record>
     <record id="account_payment_mean_code_070" model="account.payment.mean.code">
@@ -261,19 +271,27 @@
         <field name="code">74</field>
     </record>
     <record id="account_payment_mean_code_075" model="account.payment.mean.code">
-        <field name="name">Retirement of note by the creditor, endorsed by another bank</field>
+        <field
+            name="name"
+        >Retirement of note by the creditor, endorsed by another bank</field>
         <field name="code">75</field>
     </record>
     <record id="account_payment_mean_code_076" model="account.payment.mean.code">
-        <field name="name">Retirement of a note by the creditor, about a bank endorsed by a third party</field>
+        <field
+            name="name"
+        >Retirement of a note by the creditor, about a bank endorsed by a third party</field>
         <field name="code">76</field>
     </record>
     <record id="account_payment_mean_code_077" model="account.payment.mean.code">
-        <field name="name">Retirement of a note by the creditor about a third party</field>
+        <field
+            name="name"
+        >Retirement of a note by the creditor about a third party</field>
         <field name="code">77</field>
     </record>
     <record id="account_payment_mean_code_078" model="account.payment.mean.code">
-        <field name="name">Retirement of a note by the creditor about a third party endorsed by a bank</field>
+        <field
+            name="name"
+        >Retirement of a note by the creditor about a third party endorsed by a bank</field>
         <field name="code">78</field>
     </record>
     <record id="account_payment_mean_code_091" model="account.payment.mean.code">
