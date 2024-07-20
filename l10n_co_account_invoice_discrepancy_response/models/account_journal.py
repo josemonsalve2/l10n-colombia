@@ -1,10 +1,9 @@
-# -*- coding: utf-8 -*-
 # Copyright 2019 Juan Camilo Zuluaga Serna <Github@camilozuluaga>
 # Copyright 2019 Joan Marín <Github@JoanMarin>
 # Copyright 2021 Alejandro Olano <Github@alejo-code>
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
-from odoo import models, api, fields, _
+from odoo import _, api, fields, models
 
 
 class AccountJournal(models.Model):
@@ -12,40 +11,45 @@ class AccountJournal(models.Model):
 
     debit_note_sequence = fields.Boolean(
         string="Dedicated Debit Note Sequence",
-        help=
-        "Check this box if you don't want to share the same sequence for invoices and debit "
+        help="Check this box if you don't want to share the same sequence for invoices and debit "
         "notes made from this journal",
-        default=False)
+        default=False,
+    )
     debit_note_sequence_id = fields.Many2one(
         comodel_name="ir.sequence",
         string="Debit Note Entry Sequence",
-        help=
-        "This field contains the information related to the numbering of the debit note "
+        help="This field contains the information related to the numbering of the debit note "
         "entries of this journal.",
-        copy=False)
+        copy=False,
+    )
 
     @api.multi
     def write(self, vals):
-        if vals.get('refund_sequence'):
-            for journal in self.filtered(lambda j: j.type in (
-                    'sale', 'purchase') and not j.refund_sequence_id):
+        if vals.get("refund_sequence"):
+            for journal in self.filtered(
+                lambda j: j.type in ("sale", "purchase") and not j.refund_sequence_id
+            ):
                 journal_vals = {
-                    'name': _('Credit Note Sequence - ') + journal.name,
-                    'company_id': journal.company_id.id,
-                    'code': journal.code
+                    "name": _("Credit Note Sequence - ") + journal.name,
+                    "company_id": journal.company_id.id,
+                    "code": journal.code,
                 }
-                journal.refund_sequence_id = self.sudo()._create_sequence(
-                    journal_vals, refund=True).id
+                journal.refund_sequence_id = (
+                    self.sudo()._create_sequence(journal_vals, refund=True).id
+                )
 
-        if vals.get('debit_note_sequence'):
-            for journal in self.filtered(lambda j: j.type in (
-                    'sale', 'purchase') and not j.debit_note_sequence_id):
+        if vals.get("debit_note_sequence"):
+            for journal in self.filtered(
+                lambda j: j.type in ("sale", "purchase")
+                and not j.debit_note_sequence_id
+            ):
                 journal_vals = {
-                    'name': _('Debit Note Sequence - ') + journal.name,
-                    'company_id': journal.company_id.id,
-                    'code': journal.code
+                    "name": _("Debit Note Sequence - ") + journal.name,
+                    "company_id": journal.company_id.id,
+                    "code": journal.code,
                 }
-                journal.debit_note_sequence_id = self.sudo()._create_sequence(
-                    journal_vals, refund=True).id
+                journal.debit_note_sequence_id = (
+                    self.sudo()._create_sequence(journal_vals, refund=True).id
+                )
 
         return super(AccountJournal, self).write(vals)

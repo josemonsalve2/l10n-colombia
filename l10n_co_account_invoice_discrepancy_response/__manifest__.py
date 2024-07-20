@@ -1,25 +1,18 @@
-# -*- coding: utf-8 -*-
 # Copyright 2019 Juan Camilo Zuluaga Serna <Github@camilozuluaga>
 # Copyright 2019 Joan Marín <Github@JoanMarin>
 # Copyright 2021 Alejandro Olano <Github@alejo-code>
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
 {
-    "name":
-    "Conceptos de corrección para facturas rectificativas "
+    "name": "Conceptos de corrección para facturas rectificativas "
     "para la localizacion Colombiana",
-    "version":
-    "12.0.1.0.0",
-    "website":
-    "https://github.com/odooloco/l10n-colombia",
-    "author":
-    "Alejandro Olano Github@alejo-code, "
+    "version": "12.0.1.0.0",
+    "website": "https://github.com/OCA/l10n-colombia",
+    "author": "Alejandro Olano Github@alejo-code, "
     "Juan Camilo Zuluaga Serna Github@camilozuluaga, "
     "Joan Marín Github@JoanMarin, ",
-    "category":
-    "Localization",
-    "summary":
-    "Este módulo tiene los conceptos de corrección para facturas "
+    "category": "Localization",
+    "summary": "Este módulo tiene los conceptos de corrección para facturas "
     "rectificativas identificados por la DIAN para la localizacion Colombiana",
     "depends": ["account"],
     "data": [
@@ -31,6 +24,5 @@
         "views/account_invoice_views.xml",
         "views/account_journal_views.xml",
     ],
-    "installable":
-    True,
+    "installable": True,
 }
