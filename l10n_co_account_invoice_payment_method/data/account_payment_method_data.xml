@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
-    <record id="account_payment_mean_1" model="account.payment.mean">
-        <field name="name">Counted</field>
+    <record id="account_payment_method_1" model="account.payment.method.dian">
+        <field name="name">Cash</field>
         <field name="code">1</field>
     </record>
-    <record id="account_payment_mean_2" model="account.payment.mean">
+    <record id="account_payment_method_2" model="account.payment.method.dian">
         <field name="name">Credit</field>
         <field name="code">2</field>
     </record>

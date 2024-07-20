@@ -3,6 +3,6 @@
 # Copyright 2021 Alejandro Olano <Github@alejo-code>
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
-from . import account_payment_mean
-from . import account_payment_mean_code
-from . import account_invoice
+from . import account_payment_method_dian
+from . import account_payment_method_dian_code
+from . import account_move

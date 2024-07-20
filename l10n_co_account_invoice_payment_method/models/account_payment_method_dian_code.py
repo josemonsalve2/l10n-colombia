@@ -6,13 +6,16 @@
 from odoo import _, fields, models
 
 
-class AccountPaymentMean(models.Model):
-    _name = "account.payment.mean"
+class AccountPaymentMethodCode(models.Model):
+    _name = "account.payment.method.dian.code"
 
     name = fields.Char(string="Name", required=True, translate=True)
     code = fields.Char(string="Code", required=True)
 
     _sql_constraints = [
-        ("name_unique", "unique(name)", _("The name must be unique")),
-        ("code_unique", "unique(code)", _("The code must be unique")),
+        (
+            "code_and_name_unique",
+            "unique(code, name)",
+            _("The combination of code and name must be unique"),
+        )
     ]

@@ -8,7 +8,7 @@ Formas y medios de pago para la localizacion Colombiana
 
 Este módulo tiene las formas y medios de pago identificados por la DIAN para la
 localizacion Colombiana, informacion obtenida del anexo tecnico para
-facturacion electronica version 1.7, punto 6.3.4.
+facturacion electronica version 1.9, puntos 13.3.4.2 y 13.3.4.1
 
 - Crea un campo en la factura para definir la forma de pago que tuvo, se creo
     una funcion 'onchange' que establece 'Contado' si la fecha de la factura es
@@ -18,7 +18,7 @@ Known issues / Roadmap
 ======================
 
 Future possible improvement:
-Habilitar campo 'payment_mean_code_id' correspondiente al medio de pago, queda
+Habilitar campo 'payment_method_code_id' correspondiente al medio de pago, queda
 pendiente porque hay que analizar si con este campo en tipo 'Many2one' es
 suficiente para suplir el requerimiento o puede ser necesario establecer un
 campo One2many ya que la factura podría tener 2 o mas pagos y cada uno podría

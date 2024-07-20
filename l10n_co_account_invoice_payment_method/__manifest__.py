@@ -5,7 +5,7 @@
 
 {
     "name": "Formas y medios de pago para la localizacion Colombiana",
-    "version": "12.0.1.0.0",
+    "version": "17.0.1.0.0",
     "website": "https://github.com/OCA/l10n-colombia",
     "author": "Alejandro Olano Github@alejo-code, "
     "Juan Camilo Zuluaga Serna Github@camilozuluaga, "
@@ -17,11 +17,11 @@
     "depends": ["account"],
     "data": [
         "security/ir.model.access.csv",
-        "data/account_payment_mean_data.xml",
-        "data/account_payment_mean_code_data.xml",
-        "views/account_payment_mean_views.xml",
-        "views/account_payment_mean_code_views.xml",
-        "views/account_invoice_views.xml",
+        "data/account_payment_method_data.xml",
+        "data/account_payment_method_code_data.xml",
+        "views/account_payment_method_views.xml",
+        "views/account_payment_method_code_views.xml",
+        "views/account_move_views.xml",
     ],
     "installable": True,
 }
