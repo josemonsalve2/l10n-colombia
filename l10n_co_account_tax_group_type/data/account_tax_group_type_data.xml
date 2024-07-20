@@ -96,9 +96,41 @@
         <field name="type">tax</field>
         <field name="description">Impuesto al Consumo de Datos</field>
     </record>
+    <record model="account.tax.group.type" id="account_tax_group_type_co_32">
+        <field name="code">32</field>
+        <field name="name">ICL</field>
+        <field name="type">tax</field>
+        <field name="description">Impuesto al Consumo de Licores</field>
+    </record>
+    <record model="account.tax.group.type" id="account_tax_group_type_co_33">
+        <field name="code">33</field>
+        <field name="name">INPP</field>
+        <field name="type">tax</field>
+        <field name="description">Impuesto nacional productos plásticos</field>
+    </record>
+    <record model="account.tax.group.type" id="account_tax_group_type_co_34">
+        <field name="code">34</field>
+        <field name="name">IBUA</field>
+        <field name="type">tax</field>
+        <field name="description">Impuesto a las bebidas ultraprocesadas azucaradas</field>
+    </record>
+    <record model="account.tax.group.type" id="account_tax_group_type_co_35">
+        <field name="code">35</field>
+        <field name="name">ICUI</field>
+        <field name="type">tax</field>
+        <field
+            name="description"
+        >Impuesto a los productos comestibles ultraprocesados industrialmente y/o con alto contenido de azúcares añadidos, sodio o grasas saturadas</field>
+    </record>
+    <record model="account.tax.group.type" id="account_tax_group_type_co_36">
+        <field name="code">36</field>
+        <field name="name">ADV</field>
+        <field name="type">tax</field>
+        <field name="description">AD VALOREM</field>
+    </record>
     <record model="account.tax.group.type" id="account_tax_group_type_co_ZZ">
         <field name="code">ZZ</field>
-        <field name="name">Nombre de la figura tributaria</field>
+        <field name="name">*Nombre de la figura tributaria</field>
         <field name="type">tax</field>
         <field
             name="description"

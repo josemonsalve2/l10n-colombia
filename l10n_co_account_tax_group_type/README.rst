@@ -8,11 +8,11 @@ Colombian Tax Group Types
 
 Este módulo tiene los Tributos (tipos de impuesto) identificados por la DIAN
 para la localizacion Colombiana, informacion obtenida del anexo tecnico para
-facturacion electronica version 1.7, punto 6.2.2.
+facturacion electronica version 1.9, punto 13.2.2.
 
 This module has the Tributes (types of tax) identified by the DIAN for the
 Colombian localization, information obtained from the technical annex for
-e-invoicing version 1.7, point 6.2.2.
+e-invoicing version 1.9, numeral 13.2.2.
 
 
 Credits
@@ -23,5 +23,5 @@ Contributors
 
 * Alejandro Olano <https://github.com/alejo-code>
 * Joan Marín <https://github.com/JoanMarin>
-
+* Jose M Monsalve Diaz <https://github.com/josemonsalve2>
 
