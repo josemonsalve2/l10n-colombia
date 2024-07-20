@@ -8,11 +8,11 @@ Tipos de organización jurídica (Personas) para la localizacion Colombiana
 
 Este módulo tiene los tipos de organización jurídica (Personas) identificados
 por la DIAN para la localizacion Colombiana, informacion obtenida del anexo
-tecnico para facturacion electronica version 1.7, punto 6.2.3.
+tecnico para facturacion electronica version 1.9, punto 13.2.3.
 
 This module has the types of juridical organization (People) identified by the
 DIAN for the Colombian localization, information obtained from the technical
-annex for e-invoicing version 1.7, point 6.2.3.
+annex for e-invoicing version 1.7, numeral 13.2.3.
 
 Credits
 =======
@@ -22,4 +22,4 @@ Contributors
 
 * Alejandro Olano <https://github.com/alejo-code>
 * Joan Marín <https://github.com/JoanMarin>
-
+* Jose M Monsalve Diaz <https://github.com/josemonsalve2>

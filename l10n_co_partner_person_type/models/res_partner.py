@@ -11,6 +11,8 @@ class ResPartner(models.Model):
     person_type = fields.Selection(
         selection=[("1", "Juridical Person"), ("2", "Natural Person")],
         string="Person Type",
+        help="""This field is in sync with the 'Company Type' field.
+        This field is used for the Colombian localization to transmit this information to DIAN.""",
     )
 
     @api.onchange("person_type")
@@ -19,3 +21,10 @@ class ResPartner(models.Model):
             self.company_type = "company"
         elif self.person_type == "2":
             self.company_type = "person"
+
+    @api.onchange("company_type")
+    def onchange_company_type(self):
+        if self.company_type == "company":
+            self.person_type = "1"
+        elif self.company_type == "person":
+            self.person_type = "2"

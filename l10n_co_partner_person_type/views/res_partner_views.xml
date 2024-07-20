@@ -12,9 +12,8 @@
                     <field
                         name="person_type"
                         placeholder="- Person Type"
-                        attrs="{
-                        'invisible': [('type', '!=', 'contact'), ('parent_id', '!=', False)],
-                        'required': [('parent_id', '=', False)]}"
+                        invisible="type != 'contact' and parent_id"
+                        required="not parent_id"
                         style="width: 80%%"
                     />
                 </h3>
