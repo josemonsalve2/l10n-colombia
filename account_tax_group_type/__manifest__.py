@@ -5,7 +5,7 @@
 {
     "name": "Tax Group Types",
     "category": "Financial",
-    "version": "12.0.1.0.0",
+    "version": "17.0.1.0.0",
     "author": "EXA Auto Parts Github@exaap, "
     "Joan Marín Github@JoanMarin, "
     "Alejandro Olano Github@alejo-code",
