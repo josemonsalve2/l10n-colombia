@@ -3,5 +3,5 @@
 # Copyright 2021 Alejandro Olano <Github@alejo-code>
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
-from . import account_invoice_debit_note
-from . import account_invoice_refund
+from . import account_debit_note
+from . import account_move_refund

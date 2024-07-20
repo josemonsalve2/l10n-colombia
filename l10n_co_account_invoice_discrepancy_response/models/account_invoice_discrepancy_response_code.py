@@ -12,5 +12,6 @@ class AccountInvoiceDiscrepancyResponseCode(models.Model):
     name = fields.Char(string="Name")
     code = fields.Char(string="Code")
     type = fields.Selection(
-        selection=[("credit", "Credit Note"), ("debit", "Debit Note")], string="Type"
+        selection=[("out_refund", "Credit Note"), ("out_invoice", "Debit Note")],
+        string="Type",
     )

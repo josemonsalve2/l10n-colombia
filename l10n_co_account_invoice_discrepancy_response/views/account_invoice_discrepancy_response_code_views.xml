@@ -51,7 +51,6 @@
         <field name="name">Correction concepts for Refund Invoices</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">account.invoice.discrepancy.response.code</field>
-        <field name="view_type">form</field>
         <field name="view_mode">tree,form</field>
         <field
             name="view_id"

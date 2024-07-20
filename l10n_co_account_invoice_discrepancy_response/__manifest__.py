@@ -6,7 +6,7 @@
 {
     "name": "Conceptos de corrección para facturas rectificativas "
     "para la localizacion Colombiana",
-    "version": "12.0.1.0.0",
+    "version": "17.0.1.0.0",
     "website": "https://github.com/OCA/l10n-colombia",
     "author": "Alejandro Olano Github@alejo-code, "
     "Juan Camilo Zuluaga Serna Github@camilozuluaga, "
@@ -14,15 +14,14 @@
     "category": "Localization",
     "summary": "Este módulo tiene los conceptos de corrección para facturas "
     "rectificativas identificados por la DIAN para la localizacion Colombiana",
-    "depends": ["account"],
+    "depends": ["account", "account_debit_note"],
     "data": [
         "security/ir.model.access.csv",
         "data/account_invoice_discrepancy_response_code_data.xml",
-        "wizards/account_invoice_debit_note.xml",
-        "wizards/account_invoice_refund.xml",
+        "wizards/account_debit_note_view.xml",
+        "wizards/account_move_refund.xml",
         "views/account_invoice_discrepancy_response_code_views.xml",
         "views/account_invoice_views.xml",
-        "views/account_journal_views.xml",
     ],
     "installable": True,
 }
