@@ -5,13 +5,15 @@
 		<field name="model">res.partner</field>
 		<field name="inherit_id" ref="base.view_partner_form" />
 		<field name="arch" type="xml">
-			<label for="street" position="before">
+			<xpath expr="//field[@name='vat']" position="after">
+				<field name="is_company" invisible="1"/>
 				<field
                     name="isic_id"
                     options='{"no_open": True, "no_create": True}'
-                    attrs="{'required': ['|', ('supplier', '=', True), ('customer', '=', True)]}"
+					widget="many2many_tags"
+					required="is_company"
                 />
-			</label>
+			</xpath>
 		</field>
 	</record>
 

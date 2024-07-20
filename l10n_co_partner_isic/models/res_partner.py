@@ -9,8 +9,9 @@ from odoo import fields, models
 class ResPartner(models.Model):
     _inherit = "res.partner"
 
-    isic_id = fields.Many2one(
+    isic_id = fields.Many2many(
         string="Economic Activity (ISIC)",
+        relation="res_partner_isic_rel",
         comodel_name="res.partner.isic",
         domain=[("type", "!=", "view")],
         help="Uniform international industrial code (ISIC)",

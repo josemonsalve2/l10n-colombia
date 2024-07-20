@@ -6,7 +6,7 @@
 {
     "name": "Partner ISIC Codes",
     "summary": "ISIC Codes - Classification of Economic Activities ISIC",
-    "version": "12.0.1.0.0",
+    "version": "17.0.1.0.0",
     "license": "AGPL-3",
     "website": "https://github.com/OCA/l10n-colombia",
     "author": "EXA Auto Parts Github@exaap, "

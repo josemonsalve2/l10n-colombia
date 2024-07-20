@@ -2,6 +2,7 @@
 <odoo>
 
 	<record id="res_partner_isic_search" model="ir.ui.view">
+		<field name="model">res.partner.isic.search</field>
 		<field name="model">res.partner.isic</field>
 		<field name="arch" type="xml">
 			<search string="Economic Activity (ISIC)">
@@ -15,8 +16,8 @@
 	</record>
 
 	<record id="res_partner_isic_form" model="ir.ui.view">
+		<field name="model">res.partner.isic.form</field>
 		<field name="model">res.partner.isic</field>
-		<field name="field_parent">child_id</field>
 		<field name="arch" type="xml">
 			<form string="Economic Activity (ISIC)">
 				<sheet>
@@ -47,13 +48,12 @@
 	</record>
 
 	<record id="res_partner_isic_tree" model="ir.ui.view">
+		<field name="name">res.partner.isic.tree</field>
 		<field name="model">res.partner.isic</field>
-		<field name="field_parent">child_id</field>
 		<field name="arch" type="xml">
 			<tree
-                colors="blue:type == 'view'; black:type == 'other'"
+                decoration-info="type == 'view'"
                 string="Economic Activities (ISIC)"
-                toolbar="1"
             >
 				<field name="code" />
 				<field name="name" />
@@ -66,18 +66,17 @@
 	<record id="action_res_partner_isic_form" model="ir.actions.act_window">
 		<field name="name">Economic Activities (ISIC)</field>
 		<field name="res_model">res.partner.isic</field>
-		<field name="view_type">form</field>
 		<field name="view_mode">tree,form</field>
 		<field name="search_view_id" ref="res_partner_isic_search" />
 	</record>
 
 	<menuitem
         id="base_isic_menu"
-        name="ISIC"
+        name="ISIC Codes"
         action="action_res_partner_isic_form"
         parent="account.account_account_menu"
         groups="account.group_account_invoice"
-        sequence="0"
+        sequence="100"
     />
 
 </odoo>

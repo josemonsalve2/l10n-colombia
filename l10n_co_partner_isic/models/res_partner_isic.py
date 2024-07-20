@@ -59,7 +59,6 @@ class RespartnerIsic(models.Model):
 
         return isic.name_get()
 
-    @api.multi
     def name_get(self):
         res = []
 
