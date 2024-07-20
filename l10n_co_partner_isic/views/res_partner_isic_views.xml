@@ -1,11 +1,15 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
 
 	<record id="res_partner_isic_search" model="ir.ui.view">
 		<field name="model">res.partner.isic</field>
 		<field name="arch" type="xml">
 			<search string="Economic Activity (ISIC)">
-				<field name="code" filter_domain="['|', ('code', 'ilike', self), ('name', 'ilike', self)]" string="Economic Activity (ISIC)"/>
+				<field
+                    name="code"
+                    filter_domain="['|', ('code', 'ilike', self), ('name', 'ilike', self)]"
+                    string="Economic Activity (ISIC)"
+                />
 			</search>
 		</field>
 	</record>
@@ -18,21 +22,21 @@
 				<sheet>
 					<group>
 						<group string="ISIC Data">
-							<field name="code"/>
-							<field name="name"/>
+							<field name="code" />
+							<field name="name" />
 						</group>
 						<group string="Properties">
 							<field name="parent_id" />
-							<field name="type"/>
+							<field name="type" />
 						</group>
 					</group>
-					<field name="note" class="oe_inline" placeholder="Code notes..."/>
+					<field name="note" class="oe_inline" placeholder="Code notes..." />
 					<notebook colspan="4">
 						<page string="ISIC Childs">
 							<field name="child_ids" nolabel="1" widget="one2many_list">
 								<tree editable="bottom">
-									<field name="code"/>
-									<field name="name"/>
+									<field name="code" />
+									<field name="name" />
 								</tree>
 							</field>
 						</page>
@@ -46,11 +50,15 @@
 		<field name="model">res.partner.isic</field>
 		<field name="field_parent">child_id</field>
 		<field name="arch" type="xml">
-			<tree colors="blue:type == 'view'; black:type == 'other'" string="Economic Activities (ISIC)" toolbar="1">
+			<tree
+                colors="blue:type == 'view'; black:type == 'other'"
+                string="Economic Activities (ISIC)"
+                toolbar="1"
+            >
 				<field name="code" />
 				<field name="name" />
-				<field name="parent_id" invisible="1"/>
-				<field name="type" invisible="1"/>
+				<field name="parent_id" invisible="1" />
+				<field name="type" invisible="1" />
 			</tree>
 		</field>
 	</record>
@@ -60,9 +68,16 @@
 		<field name="res_model">res.partner.isic</field>
 		<field name="view_type">form</field>
 		<field name="view_mode">tree,form</field>
-		<field name="search_view_id" ref="res_partner_isic_search"/>
+		<field name="search_view_id" ref="res_partner_isic_search" />
 	</record>
 
-	<menuitem id="base_isic_menu" name="ISIC" action="action_res_partner_isic_form" parent="account.account_account_menu" groups="account.group_account_invoice" sequence="0"/>
+	<menuitem
+        id="base_isic_menu"
+        name="ISIC"
+        action="action_res_partner_isic_form"
+        parent="account.account_account_menu"
+        groups="account.group_account_invoice"
+        sequence="0"
+    />
 
 </odoo>

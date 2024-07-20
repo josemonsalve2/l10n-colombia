@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Copyright 2018 Joan Marín <Github@JoanMarin>
 # Copyright 2018 Guillermo Montoya <Github@guillermm>
 # Copyright 2021 Alejandro Olano <Github@alejo-code>
@@ -8,11 +7,12 @@ from odoo import fields, models
 
 
 class ResPartner(models.Model):
-    _inherit = 'res.partner'
+    _inherit = "res.partner"
 
     isic_id = fields.Many2one(
-        string='Economic Activity (ISIC)',
-        comodel_name='res.partner.isic',
-        domain=[('type', '!=', 'view')],
-        help='Uniform international industrial code (ISIC)',
-        ondelete='cascade')
+        string="Economic Activity (ISIC)",
+        comodel_name="res.partner.isic",
+        domain=[("type", "!=", "view")],
+        help="Uniform international industrial code (ISIC)",
+        ondelete="cascade",
+    )
