@@ -4,12 +4,12 @@
         <field name="model">res.partner</field>
         <field name="inherit_id" ref="base.view_partner_form" />
         <field name="arch" type="xml">
-            <field name="name" position="after">
+            <xpath expr="//field[@name='name']" position="after">
                 <field name="commercial_name" placeholder="Commercial Name" />
-            </field>
-            <field name="mobile" position="after">
+            </xpath>
+            <xpath expr="//field[@name='mobile']" position="after">
                 <field name="fax" />
-            </field>
+            </xpath>
         </field>
     </record>
 

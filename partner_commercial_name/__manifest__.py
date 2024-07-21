@@ -5,7 +5,7 @@
 
 {
     "name": "Partner Commercial Name",
-    "version": "12.0.1.0.0",
+    "version": "17.0.1.0.0",
     "summary": "Adds a commercial name to partner",
     "category": "Partner Management",
     "author": "EXA AUTO PARTS Github@exaap, " "Odoo Community Association (OCA)",

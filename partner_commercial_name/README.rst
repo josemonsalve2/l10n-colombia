@@ -25,4 +25,5 @@ Contributors
 * Alejandro Olano <https://github.com/alejo-code>
 * Diego Ivan <https://github.com/Diegoivanc>
 * Joan Marín <https://github.com/JoanMarin>
+* Jose M Monsalve Diaz <https://github.com/josemonsalve2>
 
